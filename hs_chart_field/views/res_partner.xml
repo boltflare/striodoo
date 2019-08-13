@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data noupdate="1">
+		<!-- Add you code here -->
+		
+		<!-- model.name inherit form view -->
+		<record id="partner_chartfield_form_inherit" model="ir.ui.view">
+			<field name="name">res.partner.chartfield.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<!-- Add your xpath here -->
+				<xpath expr="//page[@name='sales_purchases']" position="after">
+					<page name="page_charfield" string="CHARTFIELD">
+						<h3>
+							<field name="stri_chartfield"/>
+						</h3>
+						<group>
+							<group>
+								<field name="stri_fund" widget="char"/>
+								<field name="stri_budget" widget="char"/>
+								<field name="stri_desig" widget="char"/>
+								<field name="stri_dept" widget="char"/>
+								<field name="stri_account" widget="char"/>
+							</group>
+							<group>
+								<field name="stri_class" widget="char"/>
+								<field name="stri_program" widget="char"/>
+								<field name="stri_project"/>
+								<field name="stri_activity"/>
+								<field name="stri_type"/>
+							</group>
+						</group>
+					</page>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>
