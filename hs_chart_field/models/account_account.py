@@ -6,15 +6,15 @@ class AccountAccountInherit(models.Model):
 	_inherit = 'account.account'
 
 	stri_fund = fields.Char("Fund Code")
-	stri_budget = fields.Char("Budget Ref")
+	stri_budget = fields.Char("Budget Reference")
 	stri_desig = fields.Char("Designated Code")
-	stri_dept = fields.Char("Dept ID")
+	stri_dept = fields.Char("Department ID")
 	stri_account = fields.Char("Account")
 	stri_class = fields.Char("Class Field")
 	stri_program = fields.Char("Program Code")
 
 	stri_project = fields.Char("Project ID")
-	stri_activity = fields.Char("Activity Code")
+	stri_activity = fields.Char(string="Activity Code", default="DEFAULT")
 	stri_type = fields.Selection([("GLE", "GLE"), ("GLR", "GLR")], "Type")
 
 	stri_chartfield = fields.Char(compute="_computed_chartfield", 
@@ -54,54 +54,4 @@ class AccountAccountInherit(models.Model):
 		resp = resp + "," + str(self.stri_type) if self.stri_type \
 			else resp + ","
 
-		self.name = resp
 		self.stri_chartfield = resp
-
-		
-		"""
-		result = ""
-
-		if self.stri_fund:
-			result = result + str(self.stri_fund)
-		if self.stri_budget:
-			result = result + "," + str(self.stri_budget)
-		if self.stri_desig:
-			result = result + "," + str(self.stri_desig)
-		if self.stri_dept:
-			result = result + "," + str(self.stri_dept)
-		if self.stri_account:
-			result = result + "," + str(self.stri_account)
-
-		if self.stri_class:
-			result = result + "," + str(self.stri_class)
-		if self.stri_program:
-			result = result + "," + str(self.stri_program)
-		if self.stri_project:
-			result = result + "," + self.stri_project
-		if self.stri_activity:
-			result = result + "," + self.stri_activity
-		if self.stri_type:
-			result = result + "," + self.stri_type
-		
-		self.stri_chartfield = result
-		"""
-
-	"""
-	@api.multi
-	def write(self, vals):
-		# if vals.get('stri_chartfield'):
-		# 	self.name = self.stri_chartfield
-		# return super(AccountAccountInherit, self).write(vals)
-	"""
-	"""
-	@api.multi
-	def write(self, vals):
-		account = super(AccountAccountInherit, self).write(vals)
-		self.update_account_name(account)
-		return account
-
-
-	def update_account_name(self, account):
-		if account.name != account.stri_chartfield:
-			account.name = account.stri_chartfield
-	"""

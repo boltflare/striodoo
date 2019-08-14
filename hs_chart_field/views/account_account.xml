@@ -12,7 +12,7 @@
 				<!-- Add your xpath here -->
 				<xpath expr="//sheet/group" position="after">
 					<notebook>
-						<page name="page_chartfield" string="CHARTFIELD">
+						<page name="page_chartfield" string="CharField">
 							<h3>
 								<field name="stri_chartfield"/>
 							</h3>
