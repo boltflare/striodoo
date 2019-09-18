@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		<!-- Add you code here -->
+
+
+		<!-- model.name inherit form view -->
+		<!--record id="account_invoice_payment_inherit2" model="ir.ui.view">
+			<field name="name">account.invoice.payment.inherit2</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='%(account.action_account_invoice_payment)d']" position="attributes">
+					<attribute name="attrs">
+						{'invisible': ['|', ('state', '!=', 'open'), ('can_user_payment', '!=', True)]}
+					</attribute>
+				</xpath>
+			</field>
+		</record-->
+
+
+		<!-- configura el boton post para impedir que el mismo sea visible -->
+		<!--['&amp;',('type','not in',['cash','bank']),('department_ids','!=',[categ.id for categ in user.departments_ids])]-->
+		<!--record id="account_payment_inherit1" model="ir.ui.view">
+			<field name="name">account.payment.inherit1</field>
+			<field name="model">account.payment</field>
+			<field name="inherit_id" ref="account.view_account_payment_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='post']" position="attributes">
+					<attribute name="attrs">	
+						{'invisible':[('department_ids','!=',[categ.id for categ in user.departments_ids])]}
+					</attribute>
+				</xpath>
+			</field>
+		</record-->
+
+
+		<!-- Agrega el departamento categoria de producto a la vista de los diarios -->
+		<record id="acccount_journal_inherit1" model="ir.ui.view">
+			<field name="name">account.journal.inherit1</field>
+			<field name="model">account.journal</field>
+			<field name="inherit_id" ref="account.view_account_journal_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//group/field[@name='type']" position="after">
+					<!-- Add your fields here -->
+					<field name="department_ids"
+						   nolabel="1"
+						   options="{'no_create':True, 'no_create_edit':True}"
+						   widget="many2many"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

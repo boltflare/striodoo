@@ -5,13 +5,15 @@ from odoo import models, fields, api, exceptions
 class ResPartnerInherit(models.Model):
 	_inherit = 'res.partner'
 
-	stri_fund = fields.Integer("Fund Code")
-	stri_budget = fields.Integer("Budget Reference")
-	stri_desig = fields.Integer("Designated Code")
-	stri_dept = fields.Integer("Department ID")
-	stri_account = fields.Integer("Account")
-	stri_class = fields.Integer("Class Field")
-	stri_program = fields.Integer("Program Code")
+	is_fund = fields.Boolean(string="Is Fund")
+
+	stri_fund = fields.Char("Fund Code")
+	stri_budget = fields.Char("Budget Reference")
+	stri_desig = fields.Char("Designated Code")
+	stri_dept = fields.Char("Department ID")
+	stri_account = fields.Char("Account")
+	stri_class = fields.Char("Class Field")
+	stri_program = fields.Char("Program Code")
 
 	stri_project = fields.Char("Project ID")
 	stri_activity = fields.Char(string="Activity Code", default="DEFAULT")

@@ -9,10 +9,14 @@
 			<field name="model">account.account</field>
 			<field name="inherit_id" ref="account.view_account_form"/>
 			<field name="arch" type="xml">
-				<!-- Add your xpath here -->
+			
+				<xpath expr="//field[@name='name']" position="attributes">
+					<attribute name="string">Account Type</attribute>
+				</xpath>
+
 				<xpath expr="//sheet/group" position="after">
 					<notebook>
-						<page name="page_chartfield" string="CharField">
+						<page name="page_chartfield" string="ChartField">
 							<h3>
 								<field name="stri_chartfield"/>
 							</h3>

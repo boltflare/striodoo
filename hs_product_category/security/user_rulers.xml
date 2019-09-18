@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		
+		<!-- Regla de acceso para visualizar las productos en base a la categoria -->
+		<record id="product_user_access_category1" model="ir.rule">
+			<field name="name">HS product user access by category</field>
+			<field name="model_id" ref="account.model_product_product"/>
+			<field name="global" eval="False"/>
+			<field name="domain_force">[('categ_id', 'in', [categ.id for categ in user.departments_ids])]</field>
+			<field name="perm_create" eval="0"/>
+			<field name="perm_write" eval="0"/>
+			<field name="perm_unlink" eval="0"/>
+			<field name="perm_read" eval="1"/>
+		</record>
+
+
+		<!-- Regla de acceso para visualizar categorias de productos en base al usuario actual-->
+		<record id="category_user_access_user" model="ir.rule">
+			<field name="name">HSSA category user access by user</field>
+			<field name="model_id" ref="account.model_product_category"/>
+			<field name="global" eval="False"/>
+			<field name="domain_force">[('user_ids', '=', user.id)]</field>
+			<field name="perm_create" eval="0"/>
+			<field name="perm_write" eval="0"/>
+			<field name="perm_unlink" eval="0"/>
+			<field name="perm_read" eval="1"/>
+		</record>
+
+
+		<!-- Regla de acceso para visualizar los pagos en base a la categoria de producto-->
+		<record id="payment_user_access_category" model="ir.rule">
+			<field name="name">HS payment user access by category</field>
+			<field name="model_id" ref="account.model_account_journal"/>
+			<field name="global" eval="False"/>
+			<field name="domain_force">['&amp;', ('type', 'in', ['cash', 'bank']), ('department_ids', '=', [ categ.id for categ in user.departments_ids])]</field>
+			<field name="perm_create" eval="0"/>
+			<field name="perm_write" eval="0"/>
+			<field name="perm_unlink" eval="0"/>
+			<field name="perm_read" eval="1"/>
+		</record>
+	</data>
+</odoo>
