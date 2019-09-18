@@ -41,25 +41,6 @@
 			</field>
 		</record>
 
-		
-		<!-- model.name inherit form view -->
-		<!--record id="user_product_category_inherit1" model="ir.ui.view">
-			<field name="name">user.product.category.inherit1</field>
-			<field name="model">hr.employee</field>
-			<field name="inherit_id" ref="hr.view_employee_form"/>
-			<field name="arch" type="xml">
-				<xpath expr="//page[@name='personal_information']" position="after">
-					<page string="Account and Inventory" name="account_inventory" 
-						  attrs="{'invisible': [('user_id', '=', False)]}">
-						<group>
-							<group>
-							
-							</group>
-						</group>
-					</page>
-				</xpath>
-			</field>
-		</record-->
 
 		<!-- model.name action window -->
 		<record id="action_account_salesperson" model="ir.actions.act_window">
@@ -87,11 +68,6 @@
 			<field name="sequence" eval="2"/>
 		</record>
 
-
-		<!--menuitem id="menu_salesperson_group" 
-				  name="SalesPerson" 
-				  parent="account.menu_analytic_accounting" 
-				  sequence="4" /-->
 
 		<!-- This Menu Item must have a parent and an action -->
 		<menuitem id="menu_act_account_salesperson" 

@@ -26,10 +26,6 @@ class AccountPaymentInherit1(models.Model):
 	_inherit = "account.payment"
 
 
-	user = fields.Many2one('res.users','Current User', 
-		default=lambda self: self.env.user)
-
-
 	journal_count = fields.Integer(string="total payments allowed",
 		compute="_compute_journal_count")
 

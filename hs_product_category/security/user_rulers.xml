@@ -29,7 +29,7 @@
 
 
 		<!-- Regla de acceso para visualizar los pagos en base a la categoria de producto-->
-		<record id="payment_user_access_category" model="ir.rule">
+		<!--record id="payment_user_access_category" model="ir.rule">
 			<field name="name">HS payment user access by category</field>
 			<field name="model_id" ref="account.model_account_journal"/>
 			<field name="global" eval="False"/>
@@ -37,7 +37,7 @@
 			<field name="perm_create" eval="0"/>
 			<field name="perm_write" eval="0"/>
 			<field name="perm_unlink" eval="0"/>
-			<field name="perm_read" eval="1"/>
+			<field name="perm_read" eval="1"/-->
 		</record>
 	</data>
 </odoo>
