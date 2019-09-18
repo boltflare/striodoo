@@ -44,7 +44,7 @@
 				<!-- Add your xpath here -->
 				<xpath expr="//field[@name='journal_id']" position="attributes">
 					<attribute name="domain">
-						['&amp;',('type','not in',['cash','bank']),('department_ids','!=',[categ.id for categ in uid.departments_ids])]
+						['&amp;',('type','in',['cash','bank']),('journal_count','!=',0)]
 					</attribute>
 				</xpath>
 			</field>
