@@ -36,7 +36,7 @@
 
 
 		<!-- model.name inherit form view -->
-		<record id="account_payment_filter_inherit1" model="ir.ui.view">
+		<!--record id="account_payment_filter_inherit1" model="ir.ui.view">
 			<field name="name">account.payment.filter.inherit1</field>
 			<field name="model">account.payment</field>
 			<field name="inherit_id" ref="account.view_account_payment_form"/>
@@ -48,7 +48,7 @@
 					</attribute>
 				</xpath>
 			</field>
-		</record>
+		</record-->
 
 
 		<!-- Agrega el departamento categoria de producto a la vista de los diarios -->
