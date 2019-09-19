@@ -22,6 +22,10 @@ class AccountInvoiceInherit(models.Model):
 	stri_chartfield = fields.Char(compute="_computed_chartfield", 
 		string="Char Field")
 
+    # partner_type = fields.Char(
+    #     'Publisher City',
+    #     related='publisher_id.city')
+
 
 	@api.depends('stri_fund', 'stri_budget', 'stri_desig', 'stri_dept',
 		'stri_account', 'stri_class', 'stri_program', 'stri_project',
