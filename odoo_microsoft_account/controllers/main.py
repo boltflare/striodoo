@@ -96,6 +96,7 @@ class OAuthController(http.Controller):
             _logger.info("El valor de user_id es " + str(user_id))
             conn.close()
         except Exception as e:
+            _logger.exception("OAuth2: %s" % str(e))
             print(e)
         try:
             credentials = pool['res.users'].sudo().microsoft_auth_oauth(
