@@ -17,7 +17,7 @@
     'data': [
       'security/ir.model.access.csv',
       'views/class_code_view.xml',
-	  'views/account_invoice.xml',
+	  'views/account_invoice_view.xml',
     ],
     
     'installable': True,
