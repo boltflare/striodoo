@@ -51,7 +51,7 @@
         <!-- <menuitem id="class_code_menu"
             name="Class Code" /> -->
 
-        <menuitem id="class_code_customer_menu" parent="account_management_menu" name="Class Code" action="class_code_customer"/>
+        <menuitem id="class_code_customer_menu" parent="account_management_menu" name="Class Code" action="class_code_customer_menu"/>
         
     </data>
         
