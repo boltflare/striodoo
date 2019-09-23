@@ -45,13 +45,18 @@
             </form>
         </field>
     </record>
-
+    
+    <record id = "class_code_menu" model = "ir.actions.act_window">
+        <field name = "name">Class Code</field>
+        <field name = "model">class.code</field>
+       <field name="view_mode">tree,form</field>
+    </record>
 
         
         <!-- <menuitem id="class_code_menu"
             name="Class Code" /> -->
 
-        <menuitem id="class_code_customer_menu" parent="account_management_menu" name="Class Code" action="class_code_customer_menu"/>
+        <menuitem id="class_code_customer_menu" parent="account.account_management_menu" name="Class Code" action="class_code_menu"/>
         
     </data>
         
