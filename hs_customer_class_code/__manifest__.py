@@ -6,7 +6,7 @@
     'version': '12.0',
     'summary':'List and create class code',
     'category': 'Accounting',
-    'depends': ['base'],
+    'depends': ['base', 'account'],
     'description': """
         Is a Module to create and add class code for customers.
     """,
