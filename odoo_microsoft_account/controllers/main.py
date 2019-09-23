@@ -90,6 +90,10 @@ class OAuthController(http.Controller):
             displayName = data.get('displayName')
             mail = data.get('userPrincipalName')
             user_id = data.get('id')
+            _logger.info("El valor de data es " + str(data))
+            _logger.info("El valor de displayName es " + str(displayName))
+            _logger.info("El valor de mail es " + str(mail))
+            _logger.info("El valor de user_id es " + str(user_id))
             conn.close()
         except Exception as e:
             print(e)
