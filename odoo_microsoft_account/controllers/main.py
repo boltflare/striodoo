@@ -86,7 +86,9 @@ class OAuthController(http.Controller):
                 'Accept': 'application/json'
             })
             response = conn.getresponse()
-            data = simplejson.loads(response.read())
+            content = response.read().decode('utf-8')
+            _logger.info("El valor de response.read() es " + str(content))
+            data = simplejson.loads(content)
             displayName = data.get('displayName')
             mail = data.get('userPrincipalName')
             user_id = data.get('id')
