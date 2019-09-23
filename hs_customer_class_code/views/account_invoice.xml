@@ -12,7 +12,7 @@
 				<!-- Add your xpath here -->
 				<xpath expr="//field[@name='user_id']" position="after">
 					<!-- Add your fields here -->
-					<field name="class_code"/>
+					<field name="class_code" attrs="{'invisible':[('customer_is_fund','=',False)]}"/>
 				</xpath>
 			</field>
 		</record>

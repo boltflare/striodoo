@@ -8,3 +8,8 @@ class accountInvoiceInherit2(models.Model):
 
 
 	class_code = fields.Many2one("class.code", "Class Code")
+	customer_is_fund = fields.Boolean(string="Cliente es Fondo?", compute="_customer_is_fund")
+
+	@api.depends('partner_id')
+	def _customer_is_fund(self):
+		self.customer_is_fund = self.partner_id.is_fund
