@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields
+from odoo import models, fields, api, exceptions
 
 
 class accountInvoiceInherit2(models.Model):
@@ -8,7 +8,7 @@ class accountInvoiceInherit2(models.Model):
 
 
 	class_code = fields.Many2one("class.code", "Class Code")
-	customer_is_fund = fields.Boolean(string="Cliente es Fondo?", compute="_customer_is_fund")
+	customer_is_fund = fields.Boolean(string="Cliente es Fondo?", compute="_customer_is_fund", default=False)
 
 	@api.depends('partner_id')
 	def _customer_is_fund(self):
