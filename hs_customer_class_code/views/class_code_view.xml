@@ -24,33 +24,34 @@
             </field>
         </record>
 
- <!--FORM VIEW-->
+        <!--FORM VIEW-->
 
-    <record id = "class_code_view" model = "ir.ui.view">
-        <field name = "name">Class Code Form</field>
-        <field name = "model">class.code</field>
-        <field name = "arch" type = "xml">
-            <form string = "Class Code">
-                <sheet>
+        <record id = "class_code_view" model = "ir.ui.view">
+            <field name = "name">Class Code Form</field>
+            <field name = "model">class.code</field>
+            <field name = "arch" type = "xml">
+                <form string = "Class Code">
+                    <sheet>
                     <!-- <field name = "photo" widget = "image" class = "oe_left oe_avatar" /> -->                   
-                    <group>
                         <group>
-                            <field name = "name" />
+                            <group>
+                             <field name = "name" />
+                            </group>
+                            <group>
+                                <field name = "code" />
+                            </group>
                         </group>
-                        <group>
-                            <field name = "code" />
-                        </group>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
+                    </sheet>
+                </form>
+            </field>
+        </record>
     
-    <record id = "class_code_menu" model = "ir.actions.act_window">
-        <field name = "name">Class Code</field>
-        <field name = "model">class.code</field>
-       <field name="view_mode">tree,form</field>
-    </record>
+        <record id = "class_code_menu" model = "ir.actions.act_window">
+            <field name = "name">Class Code</field>
+            <field name = "model">class.code</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree,form</field>
+        </record>
 
         
         <!-- <menuitem id="class_code_menu"
