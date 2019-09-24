@@ -5,8 +5,6 @@ from odoo import models, fields, api, exceptions
 class ResPartnerInherit(models.Model):
 	_inherit = 'res.partner'
 
-	is_fund = fields.Boolean(string="Is Fund")
-
 	stri_fund = fields.Char("Fund Code")
 	stri_budget = fields.Char("Budget Reference")
 	stri_desig = fields.Char("Designated Code")
