@@ -17,8 +17,8 @@
 				</xpath>
 
 
-				<xpath expr="//page[@name='sales_purchases']" position="after" attrs="{'invisible':[('company_type', '!=', 'company')]}">
-					<page name="page_charfield" string="ChartField">
+				<xpath expr="//page[@name='sales_purchases']" position="after">
+					<page name="page_charfield" string="ChartField" attrs="{'invisible':[('company_type', '!=', 'company')]}">
 						<h3>
 							<field name="stri_chartfield"/>
 						</h3>
