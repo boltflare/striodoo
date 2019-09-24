@@ -46,7 +46,7 @@
             </field>
         </record>
     
-        <record id = "class_code_menu" model = "ir.actions.act_window">
+        <record id="class_code_menu" model="ir.actions.act_window">
             <field name="name">Class Code</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">class.code</field>
