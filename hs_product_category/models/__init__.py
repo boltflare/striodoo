@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-from . import product
-from . import user
+from . import product_category
+from . import salesperson_account
 from . import account
