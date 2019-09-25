@@ -18,8 +18,8 @@
             <field name = "model">class.code</field>
             <field name = "arch" type = "xml">
                 <tree string = "Class Code">
-                    <field name = "name" />
                     <field name = "code" />
+                    <field name = "name" />
                 </tree>
             </field>
         </record>
@@ -35,10 +35,11 @@
                     <!-- <field name = "photo" widget = "image" class = "oe_left oe_avatar" /> -->                   
                         <group>
                             <group>
-                             <field name = "name" />
+                             <field name = "code" />
                             </group>
                             <group>
-                                <field name = "code" />
+                                <field name = "name" />
+                                
                             </group>
                         </group>
                     </sheet>
