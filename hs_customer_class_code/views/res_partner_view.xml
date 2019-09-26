@@ -10,7 +10,7 @@
 			<field name="inherit_id" ref="base.view_partner_form"/>
 			<field name="arch" type="xml">}
 
-				<!--Ocultamos el campo parent_id para -->
+
 				<xpath expr="//field[@name='commercial_partner_id']" position="after">
 					<field name="customer_type" 
 						widget="radio" 
@@ -19,12 +19,12 @@
 						context="{'default_company_type': 'company'}"/>
 				</xpath>
 
-				<!--Ocultamos el campo parent_id para -->
+
 				<xpath expr="//field[@name='company_type']" position="attributes">
 					<attribute name="invisible">1</attribute>
 				</xpath>
 
-				<!--Ocultamos el campo parent_id para -->
+
 				<xpath expr="//field[@name='parent_id']" position="attributes">
 					<attribute name="invisible">1</attribute>
 				</xpath>
@@ -34,8 +34,8 @@
 					<!-- Add your fields here -->
 					<!--field name="is_fund" string="Is Fund?" attrs="{'invisible':[('company_type', '!=', 'company')]}"/-->
 
-					<field name="fund_manager" attrs="{'invisible':[('customer_type', '!=', 'company')]}"/>
-					<field name="principal_investigator" attrs="{'invisible':[('customer_type', '!=', 'company')]}"/>
+					<field name="fund_manager" attrs="{'invisible':[('customer_type', '!=', 'regular')]}"/>
+					<field name="principal_investigator" attrs="{'invisible':[('customer_type', '!=', 'regular')]}"/>
 				</xpath>
 
 			</field>
