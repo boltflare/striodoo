@@ -8,10 +8,10 @@
 			<field name="name">res.partner.fund.inherit1</field>
 			<field name="model">res.partner</field>
 			<field name="inherit_id" ref="base.view_partner_form"/>
-			<field name="arch" type="xml">}
+			<field name="arch" type="xml">
 
 
-				<!--xpath expr="//field[@name='commercial_partner_id']" position="after">
+				<xpath expr="//field[@name='commercial_partner_id']" position="after">
 					<field name="customer_type" 
 						widget="radio" 
 						class="oe_edit_only" 
@@ -27,7 +27,7 @@
 
 				<xpath expr="//field[@name='parent_id']" position="attributes">
 					<attribute name="invisible">1</attribute>
-				</xpath-->
+				</xpath>
 
 				
 				<xpath expr="//field[@name='type']" position="after">
