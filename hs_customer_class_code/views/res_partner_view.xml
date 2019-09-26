@@ -16,7 +16,7 @@
 						widget="radio" 
 						class="oe_edit_only" 
 						options="{'horizontal': true}" 
-						context="{'company_type': 'company'}"/>
+						context="{'default_company_type': 'company'}"/>
 				</xpath>
 
 				<!--Ocultamos el campo parent_id para -->
