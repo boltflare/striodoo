@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="code_menu_action" model="ir.actions.act_window">
-            <field name="name">Class Code</field>
+            <field name="name">Class Codes</field>
             <field name="res_model">class.code</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -17,7 +17,7 @@
             <field name = "name"> Class Code Tree</field>
             <field name = "model">class.code</field>
             <field name = "arch" type = "xml">
-                <tree string = "Class Code">
+                <tree string = "Class Codes">
                     <field name = "code" />
                     <field name = "name" />
                 </tree>
@@ -30,7 +30,7 @@
             <field name = "name">Class Code Form</field>
             <field name = "model">class.code</field>
             <field name = "arch" type = "xml">
-                <form string = "Class Code">
+                <form string = "Class Codes">
                     <sheet>
                     <!-- <field name = "photo" widget = "image" class = "oe_left oe_avatar" /> -->                   
                         <group>
@@ -48,7 +48,7 @@
         </record>
     
         <record id="class_code_menu" model="ir.actions.act_window">
-            <field name="name">Class Code</field>
+            <field name="name">Class Codes</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">class.code</field>
             <field name="view_mode">tree,form</field>
@@ -60,7 +60,7 @@
         <!-- <menuitem id="class_code_menu"
             name="Class Code" /> -->
 
-        <menuitem id="class_code_customer_menu" parent="account.account_management_menu" name="Class Code" action="class_code_menu"/>
+        <menuitem id="class_code_customer_menu" parent="account.account_management_menu" name="Class Codes" action="class_code_menu"/>
         
     </data>
         
