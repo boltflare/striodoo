@@ -16,11 +16,11 @@
 	# Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
 	# for the full list
 	'category': 'Tools',
-	'version': '1.0',
+	'version': '1.1',
 	'license': 'LGPL-3',
 
 	# any module necessary for this one to work correctly
-	'depends': ['base', 'account'],
+	'depends': ['base', 'account', 'hs_customer_class_code'],
 
 	# any external library necessary for this one to work correctly
 	'external_dependencies': {
