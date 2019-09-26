@@ -19,6 +19,7 @@
       'views/res_partner_view.xml',
       'views/class_code_view.xml',
 	  'views/account_invoice_view.xml',
+      'views/fund_manager_view.xml',
     ],
     
     'installable': True,

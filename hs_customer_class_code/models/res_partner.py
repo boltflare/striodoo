@@ -11,5 +11,5 @@ class ResPartnerInherit2(models.Model):
 		selection=[('regular', 'Regular'), ('fund', 'Fund')], 
 		default="regular")
 
-	fund_manager = fields.Char("Fund Manager")
+	fund_manager = fields.Many2one("fund.manager", "Fund Manager")
 	principal_investigator = fields.Char("Principal Investigator")
