@@ -5,7 +5,10 @@ from odoo import models, fields, api, exceptions
 class ResPartnerInherit2(models.Model):
 	_inherit = 'res.partner'
 
-	is_fund = fields.Boolean(string="Is Fund")
+	# is_fund = fields.Boolean(string="Is Fund")
+
+	customer_type =  fields.Selection(string='Customer Type',
+		selection=[('regular', 'Regular'), ('fund', 'Fund')])
 
 	fund_manager = fields.Char("Fund Manager")
 	principal_investigator = fields.Char("Principal Investigator")
