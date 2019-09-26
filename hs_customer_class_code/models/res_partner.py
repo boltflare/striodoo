@@ -8,7 +8,8 @@ class ResPartnerInherit2(models.Model):
 	# is_fund = fields.Boolean(string="Is Fund")
 
 	customer_type =  fields.Selection(string='Customer Type',
-		selection=[('regular', 'Regular'), ('fund', 'Fund')])
+		selection=[('regular', 'Regular'), ('fund', 'Fund')], 
+		default="regular")
 
 	fund_manager = fields.Char("Fund Manager")
 	principal_investigator = fields.Char("Principal Investigator")
