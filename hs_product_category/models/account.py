@@ -8,16 +8,28 @@ class AccountInvoiceInherit2(models.Model):
 	_inherit = "account.invoice"
 
 
-	can_user_payment = fields.Boolean(string="Puede registrar Pagos",
-		compute="_compute_can_user_payment")
+	current_user = fields.Many2one(comodel_name='res.users', string="Current User",
+		store=False, default=lambda self: self.env.user)
 
 
-	def _compute_can_user_payment(self):
-		value = self.env["account.payment"]._can_user_payment()
-		if value > 0:
-			self.can_user_payment = True
+	can_user_payment = fields.Boolean(string="Puede registar pagos", store=False,
+		default= lambda self: self._can_user_payment)
+
+	
+	@api.depends('current_user')
+	def _can_user_payment(self):
+		count = 0
+		departments = self.current_user.departments_ids
+		for dept in departments:
+			journals = self.env["account.journal"].search([("department_ids", "=", dept.id), ("type", "in", ["cash", "bank"])])
+			if journals:
+				count = count + 1
+		
+		if count > 0:
+			return True
 		else:
-			self.can_user_payment = False
+			return False
+
 
 
 
@@ -25,16 +37,15 @@ class AccountInvoiceInherit2(models.Model):
 class AccountPaymentInherit1(models.Model):
 	_inherit = "account.payment"
 
+	current_user = fields.Many2one(comodel_name='res.users', string="Current User",
+		store=False, default=lambda self: self.env.user)
 
+	"""
 	journal_count = fields.Integer(string="total payments allowed",
 		compute="_compute_journal_count")
 
 
 	def _compute_journal_count(self):
-		self.journal_count = self._can_user_payment()
-
-
-	def _can_user_payment(self):
 		try:
 			count = 0
 			user = self.env.user
@@ -47,6 +58,8 @@ class AccountPaymentInherit1(models.Model):
 			return count
 		except Exception as __ERROR:
 			return -1
+	"""
+
 
 
 
@@ -54,13 +67,13 @@ class AccountJournalInherit1(models.Model):
 	_inherit = "account.journal"
 
 
+	current_user = fields.Many2one(comodel_name='res.users', string="Current User",
+		store=False, default=lambda self: self.env.user)
+
+
 	department_ids = fields.Many2many("product.category",
 		"journal_payment_product_categ_rel", "product_category_id",
 		"account_journal_id", "Product Category")
-
-
-	
-	active_to_user = fields.Boolean("")
 
 
 	

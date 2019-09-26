@@ -35,9 +35,9 @@
 
 	# always loaded
 	'data': [
-		'views/user_view.xml',
+		'views/salesperson_account_view.xml',
 		'views/account_view.xml',
-		'views/product_view.xml',
+		'views/product_category_view.xml',
 		'security/user_rulers.xml',
 	],
 	'installable': True,

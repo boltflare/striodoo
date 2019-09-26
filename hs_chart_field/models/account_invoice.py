@@ -2,15 +2,17 @@
 
 from odoo import models, fields, api, exceptions
 
-class ResPartnerInherit(models.Model):
-	_inherit = 'res.partner'
+class AccountInvoiceInherit(models.Model):
+	_inherit = 'account.invoice'
+
+	is_fund = fields.Boolean(string="Is Fund")
 
 	stri_fund = fields.Char("Fund Code")
 	stri_budget = fields.Char("Budget Reference")
 	stri_desig = fields.Char("Designated Code")
 	stri_dept = fields.Char("Department ID")
 	stri_account = fields.Char("Account")
-	stri_class = fields.Char(string="Class Field", default="CLASS CODE")
+	stri_class = fields.Char("Class Field")
 	stri_program = fields.Char("Program Code")
 
 	stri_project = fields.Char("Project ID")
@@ -19,6 +21,10 @@ class ResPartnerInherit(models.Model):
 
 	stri_chartfield = fields.Char(compute="_computed_chartfield", 
 		string="Char Field")
+
+    # partner_type = fields.Char(
+    #     'Publisher City',
+    #     related='publisher_id.city')
 
 
 	@api.depends('stri_fund', 'stri_budget', 'stri_desig', 'stri_dept',
