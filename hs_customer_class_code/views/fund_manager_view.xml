@@ -59,7 +59,7 @@
         <!-- <menuitem id="class_code_menu"
             name="Class Code" /> -->
 
-        <menuitem id="fund_manager_menu" parent="account.account_management_menu" name="Fund Manager" action="fund_manager_menu"/>
+        <menuitem id="fund_manager_menu_item" parent="account.account_management_menu" name="Fund Manager" action="fund_manager_menu"/>
         
     </data>
         
