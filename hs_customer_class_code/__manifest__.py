@@ -5,13 +5,13 @@
     'name': 'Customer Class Code',
     'version': '12.0',
     'summary':'List and create class code',
-    'category': 'Accounting',
+    'category': 'Tool',
     'depends': ['base', 'account'],
     'description': """
         Is a Module to create and add class code for customers.
     """,
 
-    'author': 'Hermec Solutions, S.A.',
+    'author': 'Hermec Consulting, S.A.',
     'maintainer':'Ceila Hernandez',
 
     'data': [
