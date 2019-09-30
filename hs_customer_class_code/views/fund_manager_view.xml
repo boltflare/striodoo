@@ -46,19 +46,19 @@
             </field>
         </record>
     
-        <!-- <record id="fund_manager_menu" model="ir.actions.act_window">
+        <record id="fund_manager_menu" model="ir.actions.act_window">
             <field name="name">Fund Manager</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">fund.manager</field>
             <field name="view_mode">tree,form</field>
             <field name="view_type">form</field>
            
-        </record> -->
+        </record> 
        
         <!-- <menuitem id="class_code_menu"
             name="Class Code" /> -->
 
-        <!-- <menuitem id="fund_manager_menu" parent="account.account_management_menu" name="Fund Manager" action="fund_manager_menu"/> -->
+        <menuitem id="fund_manager_menu" parent="account.account_management_menu" name="Fund Manager" action="fund_manager_menu"/>
        
     </data>
         
