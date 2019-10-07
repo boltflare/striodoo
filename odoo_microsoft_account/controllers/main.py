@@ -129,7 +129,6 @@ class OAuthController(http.Controller):
                     'microsoft_refresh_token': refresh_token
                 })
             request.cr.commit()
-            _logger.info(credentials " + str(credentials))
             return login_and_redirect(*credentials,
                                       redirect_url=root_url + 'web?')
         except AttributeError:
