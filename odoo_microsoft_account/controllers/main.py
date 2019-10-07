@@ -79,27 +79,26 @@ class OAuthController(http.Controller):
                 refresh_token=None)
         access_token = authorization_data.get('access_token')
         refresh_token = authorization_data.get('refresh_token')
-        try:
-            conn = httplib.HTTPSConnection(provider.data_endpoint)
-            conn.request("GET", "/v1.0/me", "", {
-                'Authorization': access_token,
-                'Accept': 'application/json'
-            })
-            response = conn.getresponse()
-            content = response.read().decode('utf-8')
-            _logger.info("El valor de response.read() es " + str(content))
-            data = simplejson.loads(content)
-            displayName = data.get('displayName')
-            mail = data.get('userPrincipalName')
-            user_id = data.get('id')
-            _logger.info("El valor de data es " + str(data))
-            _logger.info("El valor de displayName es " + str(displayName))
-            _logger.info("El valor de mail es " + str(mail))
-            _logger.info("El valor de user_id es " + str(user_id))
-            conn.close()
-        except Exception as e:
-            _logger.exception("OAuth2: %s" % str(e))
-            print(e)
+        conn = httplib.HTTPSConnection(provider.data_endpoint)
+        conn.request("GET", "/v1.0/me", "", {
+            'Authorization': access_token,
+            'Accept': 'application/json'
+        })
+        response = conn.getresponse()
+        content = response.read().decode('utf-8')
+        _logger.info("El valor de response.read() es " + str(content))
+        data = simplejson.loads(content)
+        displayName = data.get('displayName')
+        mail = data.get('userPrincipalName')
+        user_id = data.get('id')
+        _logger.info("El valor de data es " + str(data))
+        _logger.info("El valor de displayName es " + str(displayName))
+        _logger.info("El valor de mail es " + str(mail))
+        _logger.info("El valor de user_id es " + str(user_id))
+        conn.close()
+#         except Exception as e:
+#             _logger.exception("OAuth2: %s" % str(e))
+#             print(e)
         try:
             credentials = pool['res.users'].sudo().microsoft_auth_oauth(
                 provider.id, {
