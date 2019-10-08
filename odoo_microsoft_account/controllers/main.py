@@ -93,11 +93,10 @@ class OAuthController(http.Controller):
         refresh_token = authorization_data.get('refresh_token')
         _logger.info("refresh_token " + str(refresh_token))
         try:
-            conn = httplib.HTTPSConnection('sts.si.edu/adfs/oauth2')
+            conn = httplib.HTTPSConnection(provider.data_endpoint)
             _logger.info("conn " + str(conn))
-            conn.request("GET", "/userinfo", "", {
-                'Authorization': access_token,
-                'Accept': 'application/json'
+            conn.request("GET", "/adfs/userinfo", "", {
+                'Authorization': 'Bearer 'access_token
             })
             response = conn.getresponse()
             _logger.info("response" + str(response))
