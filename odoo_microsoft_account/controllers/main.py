@@ -72,6 +72,7 @@ class OAuthController(http.Controller):
         root_url = request.env['ir.config_parameter'].sudo().get_param(
             'web.base.url') + '/'
         _logger.info("root_url " + str(root_url))
+        _logger.info("kw " + str(kw))
         oauth_provider_rec =\
             pool['ir.model.data'].sudo().get_object_reference(
                 'odoo_microsoft_account',
@@ -94,7 +95,7 @@ class OAuthController(http.Controller):
         try:
             conn = httplib.HTTPSConnection(provider.data_endpoint)
             _logger.info("conn " + str(conn))
-            conn.request("GET", "/v1.0/me", "", {
+            conn.request("GET", "", "", {
                 'Authorization': access_token,
                 'Accept': 'application/json'
             })
