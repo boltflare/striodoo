@@ -93,7 +93,7 @@ class OAuthController(http.Controller):
         refresh_token = authorization_data.get('refresh_token')
         _logger.info("refresh_token " + str(refresh_token))
         try:
-            conn = httplib.HTTPSConnection('https://sts.si.edu/adfs/oauth2')
+            conn = httplib.HTTPSConnection('sts.si.edu/adfs/oauth2')
             _logger.info("conn " + str(conn))
             conn.request("GET", "/userinfo", "", {
                 'Authorization': access_token,
