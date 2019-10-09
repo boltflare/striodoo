@@ -96,7 +96,7 @@ class OAuthController(http.Controller):
             conn = httplib.HTTPSConnection(provider.data_endpoint)
             _logger.info("conn " + str(conn))
             conn.request("GET", "/adfs/userinfo?schema=openid", "", {
-                'Authorization': 'Bearer ' +access_token,
+                'Authorization': 'Bearer'+access_token,
             })
             response = conn.getresponse()
             _logger.info("response" + str(response))
