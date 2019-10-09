@@ -99,7 +99,7 @@ class OAuthController(http.Controller):
                 'Authorization': 'Bearer '+access_token,
             })
             response = conn.getresponse()
-            _logger.info("response.status_code" + str(response.status_code))
+            _logger.info("conn.status_code" + str(conn.status_code))
             _logger.info("response" + str(response))
             content = response.read().decode('utf-8')
             _logger.info("content" + str(content))
