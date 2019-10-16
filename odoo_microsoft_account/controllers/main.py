@@ -93,6 +93,7 @@ class OAuthController(http.Controller):
         refresh_token = authorization_data.get('refresh_token')
         _logger.info("refresh_token " + str(refresh_token))
         try:
+            _logger.info("La ruta consultada por HTTPSConnection es: " + provider.data_endpoint)
             conn = httplib.HTTPSConnection(provider.data_endpoint)
             _logger.info("conn " + str(conn))
             conn.request("GET", "/v1.0/me", "", {
