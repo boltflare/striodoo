@@ -95,8 +95,9 @@ class OAuthController(http.Controller):
         try:
             conn = httplib.HTTPSConnection(provider.data_endpoint)
             _logger.info("conn " + str(conn))
-            conn.request("GET", "/adfs/userinfo", "", {
-                'Authorization': 'Bearer '+access_token,
+            conn.request("GET", "/v1.0/me", "", {
+                'Authorization': access_token,
+                'Accept': 'application/json'
             })
             response = conn.getresponse()
             
