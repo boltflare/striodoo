@@ -73,51 +73,65 @@ class OAuthController(http.Controller):
             'web.base.url') + '/'
         _logger.info("root_url " + str(root_url))
         _logger.info("kw " + str(kw))
+        
         oauth_provider_rec =\
             pool['ir.model.data'].sudo().get_object_reference(
                 'odoo_microsoft_account',
                 'provider_microsoft')[1]
         _logger.info("oauth_provider_rec " + str(oauth_provider_rec))
+        
         provider = \
             pool['auth.oauth.provider'].sudo().browse(oauth_provider_rec)
         _logger.info("provider " + str(provider))  
+        
         authorization_data = \
             pool['auth.oauth.provider'].sudo().oauth_token(
                 'authorization_code',
                 provider,
                 kw.get('code'),
                 refresh_token=None)
-        _logger.info("authorization_data " + str(authorization_data))
+        _logger.info("Value of authorization_data is: " + str(authorization_data))
+        
         access_token = authorization_data.get('access_token')
-        _logger.info("access_token " + str(access_token))
+        _logger.info("Value of access_token is: " + str(access_token))
+       
         refresh_token = authorization_data.get('refresh_token')
-        _logger.info("refresh_token " + str(refresh_token))
+        _logger.info("Value of refresh_token is: " + str(refresh_token))
+
+        id_token = authorization_data.get('id_token')
+        _logger.info("Value of id_token is: " + str(id_token))
+
+        
         try:
-            _logger.info("La ruta consultada por HTTPSConnection es: " + provider.data_endpoint)
-            conn = httplib.HTTPSConnection(provider.data_endpoint)
+            host_connection = provider.data_endpoint
+            _logger.info("Value of HTTPSConnection is: " + host_connection)
+            
+            conn = httplib.HTTPSConnection(host_connection)
             _logger.info("conn " + str(conn))
-            conn.request("GET", "/v1.0/me", "", {
+            
+            conn.request("GET", "/adfs/userinfo", "", {
                 'Authorization': access_token,
                 'Accept': 'application/json'
             })
+
             response = conn.getresponse()
+            _logger.info("Value of response is: " + str(response))
             
-            _logger.info("response" + str(response))
             content = response.read().decode('utf-8')
-            _logger.info("content" + str(content))
-            _logger.info("El valor de response.read() es" + str(content))
+            _logger.info("Value of content is: " + str(content))
+            
             data = simplejson.loads(content)
-            _logger.info("data" + str(data))
+            _logger.info("Value of data is: " + str(data))
+            
             displayName = data.get('displayName')
-            _logger.info("displayName" + str(displayName))
+            _logger.info("Value of displayName is: " + str(displayName))
+            
             mail = data.get('userPrincipalName')
-            _logger.info("mail" + str(mail))
+            _logger.info("Value of mail is: " + str(mail))
+            
             user_id = data.get('id')
-            _logger.info("user_id" + str(user_id))
-            _logger.info("El valor de data es " + str(data))
-            _logger.info("El valor de displayName es " + str(displayName))
-            _logger.info("El valor de mail es " + str(mail))
-            _logger.info("El valor de user_id es " + str(user_id))
+            _logger.info("Value of user_id is: " + str(user_id))
+
             conn.close()
         except Exception as e:
             _logger.exception("OAuth2: %s" % str(e))
