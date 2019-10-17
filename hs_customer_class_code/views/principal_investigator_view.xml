@@ -58,8 +58,7 @@
         <!-- <menuitem id="class_code_menu"
             name="Class Code" /> -->
 
-        <menuitem id="principal_investigator_menu" parent="account.account_management_menu" name="principal_investigator_action"/>
+        <menuitem id="principal_investigator_menu" parent="account.account_management_menu" name="Principal Investigator" action="principal_investigator_action"/>
        
     </data>
-        
 </odoo>
