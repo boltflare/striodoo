@@ -23,12 +23,15 @@ class OAuthLogin(Home):
         try:
             providers = request.env['auth.oauth.provider'].sudo().search_read(
                 [('enabled', '=', True)])
+            _logger.info("providers " + str(providers))
         except Exception:
             providers = []
         provider_microsoft = request.env.ref(
             'odoo_microsoft_account.provider_microsoft')
+        _logger.info("provider_microsoft " + str(provider_microsoft))
         base_url = request.env['ir.config_parameter'].sudo().get_param(
             'web.base.url')
+        _logger.info("base_url " + str(base_url))
         for provider in providers:
             if provider.get('id') == provider_microsoft.id:
                 return_url = base_url + '/auth_oauth/microsoft/signin'
@@ -39,9 +42,11 @@ class OAuthLogin(Home):
                     prompt='select_account',
                     scope=provider['scope'],
                 )
+                _logger.info("params " + str(params))
             else:
                 return_url = base_url + '/auth_oauth/signin'
                 state = self.get_state(provider)
+                _logger.info("state " + str(state))
                 params = dict(
                     response_type='token',
                     client_id=provider['client_id'],
@@ -49,6 +54,7 @@ class OAuthLogin(Home):
                     scope=provider['scope'],
                     state=json.dumps(state),
                 )
+                _logger.info("params " + str(params))
             provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'],
                                                werkzeug.url_encode(params))
         return providers
@@ -65,33 +71,54 @@ class OAuthController(http.Controller):
         pool = request.env
         root_url = request.env['ir.config_parameter'].sudo().get_param(
             'web.base.url') + '/'
+        _logger.info("root_url " + str(root_url))
+        _logger.info("kw " + str(kw))
         oauth_provider_rec =\
             pool['ir.model.data'].sudo().get_object_reference(
                 'odoo_microsoft_account',
                 'provider_microsoft')[1]
+        _logger.info("oauth_provider_rec " + str(oauth_provider_rec))
         provider = \
             pool['auth.oauth.provider'].sudo().browse(oauth_provider_rec)
+        _logger.info("provider " + str(provider))  
         authorization_data = \
             pool['auth.oauth.provider'].sudo().oauth_token(
                 'authorization_code',
                 provider,
                 kw.get('code'),
                 refresh_token=None)
+        _logger.info("authorization_data " + str(authorization_data))
         access_token = authorization_data.get('access_token')
+        _logger.info("access_token " + str(access_token))
         refresh_token = authorization_data.get('refresh_token')
+        _logger.info("refresh_token " + str(refresh_token))
         try:
             conn = httplib.HTTPSConnection(provider.data_endpoint)
-            conn.request("GET", "/v1.0/me", "", {
-                'Authorization': access_token,
-                'Accept': 'application/json'
+            _logger.info("conn " + str(conn))
+            conn.request("GET", "/adfs/userinfo", "", {
+                'Authorization': 'Bearer '+access_token,
             })
             response = conn.getresponse()
-            data = simplejson.loads(response.read())
+            
+            _logger.info("response" + str(response))
+            content = response.read().decode('utf-8')
+            _logger.info("content" + str(content))
+            _logger.info("El valor de response.read() es" + str(content))
+            data = simplejson.loads(content)
+            _logger.info("data" + str(data))
             displayName = data.get('displayName')
+            _logger.info("displayName" + str(displayName))
             mail = data.get('userPrincipalName')
+            _logger.info("mail" + str(mail))
             user_id = data.get('id')
+            _logger.info("user_id" + str(user_id))
+            _logger.info("El valor de data es " + str(data))
+            _logger.info("El valor de displayName es " + str(displayName))
+            _logger.info("El valor de mail es " + str(mail))
+            _logger.info("El valor de user_id es " + str(user_id))
             conn.close()
         except Exception as e:
+            _logger.exception("OAuth2: %s" % str(e))
             print(e)
         try:
             credentials = pool['res.users'].sudo().microsoft_auth_oauth(

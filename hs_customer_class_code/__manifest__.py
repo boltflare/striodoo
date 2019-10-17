@@ -19,6 +19,8 @@
       'views/class_code_view.xml',
       'views/account_invoice_view.xml',
       'views/fund_manager_view.xml',
+      'views/principal_investigator_view.xml',
+      'views/regular_companies_view.xml',
       'views/res_partner_view.xml',
      
     ],
