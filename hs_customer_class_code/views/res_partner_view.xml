@@ -32,10 +32,11 @@
 				
 				<xpath expr="//field[@name='type']" position="after">
 					<!-- Add your fields here -->
-					<!--field name="is_fund" string="Is Fund?" attrs="{'invisible':[('company_type', '!=', 'company')]}"/-->
 
 					<field name="fund_manager" attrs="{'invisible':[('customer_type', '!=', 'fund')]}"/>
 					<field name="principal_investigator" attrs="{'invisible':[('customer_type', '!=', 'fund')]}"/>
+
+					<field name="regular_companies_id" attrs="{'invisible':[('customer_type', '!=', 'regular')]}"/>
 				</xpath>
 
 			</field>
