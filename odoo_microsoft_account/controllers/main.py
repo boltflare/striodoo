@@ -120,7 +120,7 @@ class OAuthController(http.Controller):
             response = jwt.decode(id_token, verify=False)
             _logger.info("Value of response is: " + str(response))
     
-            content = response.decode('utf-8')
+            content = response
             _logger.info("Value of content is: " + str(content))
             
             data = simplejson.loads(content)
