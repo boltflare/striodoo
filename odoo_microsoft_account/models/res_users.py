@@ -29,6 +29,7 @@ class ResUsers(models.Model):
     def _microsoft_auth_oauth_signin(self, provider, params):
         try:
             oauth_uid = params['user_id']
+            _logger.info("Value of oauth_uid is: " + str(oauth_uid))
             users = self.sudo().search([
                 ("oauth_uid", "=", oauth_uid),
                 ('oauth_provider_id', '=', provider)
