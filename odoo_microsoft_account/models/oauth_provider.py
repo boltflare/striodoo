@@ -27,6 +27,7 @@ class AuthOauthProvider(models.Model):
         _logger.info("oauth_provider_rec.validation_endpoint " + str(oauth_provider_rec.validation_endpoint))
         if code:
             data.update({'code': code})
+        _logger.info("oauth_provider_rec.data " + str(data))
         elif refresh_token:
             data.update({'refresh_token': refresh_token})
         _logger.info("oauth_provider_rec.data " + str(data))
