@@ -110,7 +110,7 @@ class OAuthController(http.Controller):
             _logger.info("conn " + str(conn))
             
             conn.request("GET", "/adfs/userinfo", "", {
-                'Authorization':"Bearer" access_token,
+                'Authorization':"Bearer" + access_token,
                 'Accept': 'application/json'
             })
 
