@@ -102,7 +102,7 @@ class OAuthController(http.Controller):
         _logger.info("Value of id_token is: " + str(id_token))
 
         
-        try:
+#         try:
             
 #             host_connection = provider.data_endpoint
 #             _logger.info("Value of HTTPSConnection is: " + host_connection)
@@ -117,26 +117,26 @@ class OAuthController(http.Controller):
 
 #             response = conn.getresponse()
 #             _logger.info("Value of response is: " + str(response))
-            response = jwt.decode(id_token, verify=False)
-            _logger.info("Value of response is: " + str(response))
-    
-            content = response
-            _logger.info("Value of content is: " + str(content))
-            
-            data = content
-            _logger.info("Value of data is: " + str(data))
-            
-            displayName = data.get('unique_name').replace('\\', ' ')
-            _logger.info("Value of displayName is: " + str(displayName))
-            
-            mail = data.get('upn')
-            _logger.info("Value of mail is: " + str(mail))
-            
-            user_id = data.get('sid')
-            _logger.info("Value of user_id is: " + str(user_id))
-        except Exception as e:
-            _logger.exception("OAuth2: %s" % str(e))
-            print(e)
+        response = jwt.decode(id_token, verify=False)
+        _logger.info("Value of response is: " + str(response))
+
+        content = response
+        _logger.info("Value of content is: " + str(content))
+
+        data = content
+        _logger.info("Value of data is: " + str(data))
+
+        displayName = data.get('unique_name').replace('\\', ' ')
+        _logger.info("Value of displayName is: " + str(displayName))
+
+        mail = data.get('upn')
+        _logger.info("Value of mail is: " + str(mail))
+
+        user_id = data.get('sid')
+        _logger.info("Value of user_id is: " + str(user_id))
+#         except Exception as e:
+#             _logger.exception("OAuth2: %s" % str(e))
+#             print(e)
         try:
             credentials = pool['res.users'].sudo().microsoft_auth_oauth(
                 provider.id, {
