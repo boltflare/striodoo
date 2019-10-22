@@ -149,12 +149,12 @@ class OAuthController(http.Controller):
         request.cr.commit()
         return login_and_redirect(*credentials,
                                   redirect_url=root_url + 'web?')
-        except AttributeError:
-            _logger.error(
-                "auth_signup not installed on"
-                " database %s: oauth sign up cancelled." % (
-                    request.cr.dbname))
-            url = "/web/login?oauth_error=1"
+#         except AttributeError:
+#             _logger.error(
+#                 "auth_signup not installed on"
+#                 " database %s: oauth sign up cancelled." % (
+#                     request.cr.dbname))
+#             url = "/web/login?oauth_error=1"
 #         except odoo.exceptions.AccessDenied:
 #             _logger.info(
 #                 'OAuth2: access denied,'
