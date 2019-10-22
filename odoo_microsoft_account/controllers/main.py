@@ -137,7 +137,7 @@ class OAuthController(http.Controller):
 #         except Exception as e:
 #             _logger.exception("OAuth2: %s" % str(e))
 #             print(e)
-       try:
+        try:
             credentials = pool['res.users'].sudo().microsoft_auth_oauth(
                 provider.id, {
                     'access_token': access_token,
