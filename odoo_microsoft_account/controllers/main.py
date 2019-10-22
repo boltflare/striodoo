@@ -137,34 +137,34 @@ class OAuthController(http.Controller):
 #         except Exception as e:
 #             _logger.exception("OAuth2: %s" % str(e))
 #             print(e)
-        try:
-            credentials = pool['res.users'].sudo().microsoft_auth_oauth(
-                provider.id, {
-                    'access_token': access_token,
-                    'user_id': user_id,
-                    'email': mail,
-                    'name': displayName,
-                    'microsoft_refresh_token': refresh_token
-                })
-            request.cr.commit()
-            return login_and_redirect(*credentials,
-                                      redirect_url=root_url + 'web?')
+#        try:
+        credentials = pool['res.users'].sudo().microsoft_auth_oauth(
+            provider.id, {
+                'access_token': access_token,
+                'user_id': user_id,
+                'email': mail,
+                'name': displayName,
+                'microsoft_refresh_token': refresh_token
+            })
+        request.cr.commit()
+        return login_and_redirect(*credentials,
+                                  redirect_url=root_url + 'web?')
         except AttributeError:
             _logger.error(
                 "auth_signup not installed on"
                 " database %s: oauth sign up cancelled." % (
                     request.cr.dbname))
             url = "/web/login?oauth_error=1"
-        except odoo.exceptions.AccessDenied:
-            _logger.info(
-                'OAuth2: access denied,'
-                ' redirect to main page in case a valid'
-                ' session exists, without setting cookies')
-            url = "/web/login?oauth_error=3"
-            redirect = werkzeug.utils.redirect(url, 303)
-            redirect.autocorrect_location_header = False
-            return redirect
-        except Exception as e:
-            _logger.exception("OAuth2: %s" % str(e))
-            url = "/web/login?oauth_error=2"
+#         except odoo.exceptions.AccessDenied:
+#             _logger.info(
+#                 'OAuth2: access denied,'
+#                 ' redirect to main page in case a valid'
+#                 ' session exists, without setting cookies')
+#             url = "/web/login?oauth_error=3"
+#             redirect = werkzeug.utils.redirect(url, 303)
+#             redirect.autocorrect_location_header = False
+#             return redirect
+#         except Exception as e:
+#             _logger.exception("OAuth2: %s" % str(e))
+#             url = "/web/login?oauth_error=2"
         return set_cookie_and_redirect(root_url + url)
