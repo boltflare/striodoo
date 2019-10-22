@@ -134,8 +134,6 @@ class OAuthController(http.Controller):
             
             user_id = data.get('sid')
             _logger.info("Value of user_id is: " + str(user_id))
-
-            conn.close()
         except Exception as e:
             _logger.exception("OAuth2: %s" % str(e))
             print(e)
