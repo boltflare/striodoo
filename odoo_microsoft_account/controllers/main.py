@@ -147,8 +147,7 @@ class OAuthController(http.Controller):
                 'microsoft_refresh_token': refresh_token
             })
         request.cr.commit()
-        return login_and_redirect(*credentials,
-                                  redirect_url=root_url + 'web?')
+        return login_and_redirect(*credentials, redirect_url=root_url + 'web?')
 #         except AttributeError:
 #             _logger.error(
 #                 "auth_signup not installed on"
