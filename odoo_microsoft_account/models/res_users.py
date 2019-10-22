@@ -19,7 +19,7 @@ class ResUsers(models.Model):
             'groups_id': [(6,0, [self.env.ref('base.group_user').id])],
             'email': email,
             'oauth_provider_id': provider,
-            'oauth_uid': params['user_id'],
+            'oauth_uid': params['email'],
             'oauth_access_token': params['access_token'],
             'active': True,
             'microsoft_refresh_token': params['microsoft_refresh_token']
@@ -28,7 +28,7 @@ class ResUsers(models.Model):
     @api.model
     def _microsoft_auth_oauth_signin(self, provider, params):
         try:
-            oauth_uid = params['user_id']
+            oauth_uid = params['email']
             _logger.info("Value of oauth_uid is: " + str(oauth_uid))
             users = self.sudo().search([
                 ("oauth_uid", "=", oauth_uid),
@@ -40,7 +40,7 @@ class ResUsers(models.Model):
                 ], limit=1)
                 if users:
                     users.sudo().write({ 
-                        'oauth_uid': params['user_id'],
+                        'oauth_uid': params['email'],
                         'oauth_provider_id': provider,
                     })
             if not users:
@@ -52,7 +52,6 @@ class ResUsers(models.Model):
             return users.login
         except AccessDenied as access_denied_exception:
             raise access_denied_exception
-            """
             if self._context and self._context.get('no_user_creation'):
                 return None
             values = self._microsoft_generate_signup_values(provider, params)
@@ -61,7 +60,6 @@ class ResUsers(models.Model):
                 return login
             except (SignupError, UserError):
                 raise access_denied_exception
-            """
 
     @api.model
     def microsoft_auth_oauth(self, provider, params):
