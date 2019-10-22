@@ -23,6 +23,7 @@ class AuthOauthProvider(models.Model):
             client_id=oauth_provider_rec.client_id,
             response_mode='form_post',
             client_secret=oauth_provider_rec.secret_key,
+            scope=openid
         )
         _logger.info("oauth_provider_rec.validation_endpoint " + str(oauth_provider_rec.validation_endpoint))
         if code:
