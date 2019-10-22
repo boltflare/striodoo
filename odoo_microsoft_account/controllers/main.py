@@ -92,7 +92,7 @@ class OAuthController(http.Controller):
                 refresh_token=None)
         _logger.info("Value of authorization_data is: " + str(authorization_data))
         
-        access_token = authorization_data.get('access_token')
+        access_token = authorization_data.get('id_token')
         _logger.info("Value of access_token is: " + str(access_token))
        
         refresh_token = authorization_data.get('refresh_token')
