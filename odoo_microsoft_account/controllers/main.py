@@ -1,5 +1,5 @@
 # See LICENSE file for full copyright and licensing details.
-
+import jwt
 import logging
 import json
 import odoo
@@ -92,7 +92,7 @@ class OAuthController(http.Controller):
                 refresh_token=None)
         _logger.info("Value of authorization_data is: " + str(authorization_data))
         
-        access_token = authorization_data.get('id_token')
+        access_token = authorization_data.get('access_token')
         _logger.info("Value of access_token is: " + str(access_token))
        
         refresh_token = authorization_data.get('refresh_token')
@@ -103,33 +103,36 @@ class OAuthController(http.Controller):
 
         
         try:
-            host_connection = provider.data_endpoint
-            _logger.info("Value of HTTPSConnection is: " + host_connection)
             
-            conn = httplib.HTTPSConnection(host_connection)
-            _logger.info("conn " + str(conn))
+#             host_connection = provider.data_endpoint
+#             _logger.info("Value of HTTPSConnection is: " + host_connection)
             
-            conn.request("GET", "/adfs/userinfo", "", {
-                'Authorization':"Bearer" + access_token,
-                'Accept': 'application/json'
-            })
+#             conn = httplib.HTTPSConnection(host_connection)
+#             _logger.info("conn " + str(conn))
+            
+#             conn.request("GET", "/adfs/userinfo", "", {
+#                 'Authorization':"Bearer" + access_token,
+#                 'Accept': 'application/json'
+#             })
 
-            response = conn.getresponse()
+#             response = conn.getresponse()
+#             _logger.info("Value of response is: " + str(response))
+            response = jwt.decode(id_token, verify=False)
             _logger.info("Value of response is: " + str(response))
-            
-            content = response.read().decode('utf-8')
+    
+            content = response.decode('utf-8')
             _logger.info("Value of content is: " + str(content))
             
             data = simplejson.loads(content)
             _logger.info("Value of data is: " + str(data))
             
-            displayName = data.get('displayName')
+            displayName = data.get('unique_name').replace('\\', ' ')
             _logger.info("Value of displayName is: " + str(displayName))
             
-            mail = data.get('userPrincipalName')
+            mail = data.get('upn')
             _logger.info("Value of mail is: " + str(mail))
             
-            user_id = data.get('id')
+            user_id = data.get('sid')
             _logger.info("Value of user_id is: " + str(user_id))
 
             conn.close()
