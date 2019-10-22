@@ -123,7 +123,7 @@ class OAuthController(http.Controller):
             content = response
             _logger.info("Value of content is: " + str(content))
             
-            data = simplejson.loads(content)
+            data = content
             _logger.info("Value of data is: " + str(data))
             
             displayName = data.get('unique_name').replace('\\', ' ')
