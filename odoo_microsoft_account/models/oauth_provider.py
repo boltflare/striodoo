@@ -29,6 +29,7 @@ class AuthOauthProvider(models.Model):
             data.update({'code': code})
         elif refresh_token:
             data.update({'refresh_token': refresh_token})
+        _logger.info("oauth_provider_rec.data " + str(data))
         return simplejson.loads(urllib.request.urlopen(
             urllib.request.Request(
                 oauth_provider_rec.validation_endpoint,
