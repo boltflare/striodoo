@@ -34,7 +34,7 @@
 						<tree>
 							<field name="name"/>
 						</tree>
-					<field>
+					</field>
 				</xpath>
 			</field>
 		</record>
