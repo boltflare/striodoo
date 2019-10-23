@@ -66,8 +66,14 @@ class ProductInherit2(models.Model):
 
 	current_user = fields.Many2one('res.users','Current User', 
 		default=lambda self: self.env.user)
-	
 
+	
+	salesperson_ids = fields.Many2many("res.users", 
+		"product_salesperson_rel", "product_id", 
+		"salesperson_id", "Salesperson")
+
+	
+	"""
 	categ_asignated_id = fields.Many2one(string="Asignated groups", 
 							compute="_compute_categ_asignated_id", 
 							comodel_name="product.category")
@@ -77,3 +83,4 @@ class ProductInherit2(models.Model):
 		user = self.env.user
 		categ = self.env["product.category"].search([("user_ids", "=", user.id)])
 		self.categ_asignated_id = categ
+	"""

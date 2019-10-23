@@ -33,3 +33,32 @@ class ResUsersInherit1(models.Model):
 															count=count, 
 															access_rights_uid=access_rights_uid
 													)
+
+
+	@api.multi
+	def write(self, values):
+		if values.get("departments_ids"):
+			# Obtenemos el usuario actual
+			user = self.env.user
+
+
+			# Eliminamos al vendedor de todo los productos que tenga asignado
+			old_departments = self.departments_ids
+			for dept in old_departments:
+				products = self.env["product.product"].search([("categ_id", "=", dept.id)])
+				for product in products:
+					product.salesperson_ids = [(4, user.id, _)]
+	
+
+			# Agregamos el vendedor a todo los productos que tenga asignado
+			new_departments = values.get("departments_ids")
+			for dept in new_departments:
+				products = self.env["product.product"].search([("categ_id", "=", dept.id)])
+				value = [user]
+				for product in products:
+					product.salesperson_ids = [(0, _, value)]
+
+
+
+
+		return super(ResUsersInherit1, self).write(values)
