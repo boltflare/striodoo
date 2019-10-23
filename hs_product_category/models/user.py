@@ -43,7 +43,7 @@ class ResUsersInherit1(models.Model):
 
 
 			# Eliminamos al vendedor de todo los productos que tenga asignado
-			old_departments = self.departments_ids
+			old_departments = self.departments_ids.id
 			for dept in old_departments:
 				products = self.env["product.product"].search([("categ_id", "=", dept)])
 				for product in products:
