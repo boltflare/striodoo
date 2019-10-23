@@ -28,9 +28,13 @@
 				<xpath expr="//group/field[@name='type']" position="after">
 					<!-- Add your fields here -->
 					<field name="department_ids"
-						   nolabel="1"
-						   options="{'no_create':True, 'no_create_edit':True}"
-						   widget="many2many"/>
+					  nolabel="1"
+					  options="{'no_create':True, 'no_create_edit':True}"
+					  widget="many2many">
+						<tree>
+							<field name="name"/>
+						</tree>
+					<field>
 				</xpath>
 			</field>
 		</record>
