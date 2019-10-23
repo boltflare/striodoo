@@ -45,20 +45,20 @@ class ResUsersInherit1(models.Model):
 
 		# Eliminamos al vendedor de todo los productos que tenga asignado
 		if "departments_ids" in self:
-			old_departments = self.departments_ids
+			old_departments = self.departments_ids[0]
 			for dept in old_departments:
 				_logger.info(str(dept))
-				products = self.env["product.product"].search([("categ_id", "=", dept)])
+				products = self.env["product.product"].search([("categ_id", "in", dept)])
 				for product in products:
 					product.salesperson_ids = [(4, user.id, _)]
 
 
 		# Agregamos el vendedor a todo los productos que tenga asignado
 		if "departments_ids" in values:
-			new_departments = values.get("departments_ids")
+			new_departments = values.get("departments_ids")[0]
 			for dept in new_departments:
 				_logger.info(str(dept))
-				products = self.env["product.product"].search([("categ_id", "=", dept)])
+				products = self.env["product.product"].search([("categ_id", "in", dept)])
 				value = [user]
 				for product in products:
 					product.salesperson_ids = [(0, _, value)]
