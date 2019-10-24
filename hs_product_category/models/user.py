@@ -51,23 +51,6 @@ class ResUsersInherit1(models.Model):
 				products = self.env["product.product"].search([("categ_id", "=", dept.id)])
 				if len(products) > 0:
 					products.write({"salesperson_ids": [(3, self.id)]})
-			"""
-			dept_ids = deptartment[2]
-			for dept in dept_ids:
-				products = self.env["product.product"].search([("categ_id", "=", dept)])
-				if len(products) > 0:
-					products.write({"salesperson_ids": [(3, self.id)]})
-			"""
-
-		"""
-		if "departments_ids" in self:
-			old_departments = self.departments_ids
-			for dept in old_departments:
-				_logger.info(str(dept))
-				products = self.env["product.product"].search([("categ_id", "in", dept)])
-				for product in products:
-					product.salesperson_ids = [(4, user.id, _)]
-		"""
 
 
 		# Agregamos el vendedor a todo los productos que tenga asignado
@@ -81,20 +64,6 @@ class ResUsersInherit1(models.Model):
 				products = self.env["product.product"].search([("categ_id", "=", dept)])
 				if len(products) > 0:
 					products.write({"salesperson_ids": [(4, self.id)]})
-				
-
-				"""
-				value = [user]
-				for product in products:
-					_logger.info(str(product.name))
-					product.salesperson_ids = [(0, _, value)]
-				products = self.env["product.product"].search([("categ_id", "in", dept)])
-				value = [user]
-				for product in products:
-					product.salesperson_ids = [(0, _, value)]
-				"""
-
-
 
 
 		return super(ResUsersInherit1, self).write(values)
