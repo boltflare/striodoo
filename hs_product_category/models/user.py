@@ -61,6 +61,7 @@ class ResUsersInherit1(models.Model):
 			deptartment = new_departments[0]
 			dept_ids = deptartment[2]
 			value = list(set(user))[0]
+			_logger.info("Value append to product is: " + str(value))
 			for dept in dept_ids:
 				products = self.env["product.product"].search([("categ_id", "=", dept)])
 				if len(products) > 0:
