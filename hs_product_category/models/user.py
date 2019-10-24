@@ -41,7 +41,7 @@ class ResUsersInherit1(models.Model):
 	@api.multi
 	def write(self, values):
 		# Obtenemos el usuario actual
-		user = self.env.user
+		# user = self.env.user
 
 		# Eliminamos al vendedor de todo los productos que tenga asignado
 		"""
@@ -65,7 +65,7 @@ class ResUsersInherit1(models.Model):
 			for dept in dept_ids:
 				products = self.env["product.product"].search([("categ_id", "=", dept)])
 				if len(products) > 0:
-					products.write({"salesperson_ids", [(4, user.id)]})
+					products.write({"salesperson_ids": [(4, self.id)]})
 				
 
 				"""
