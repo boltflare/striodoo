@@ -44,6 +44,7 @@ class ResUsersInherit1(models.Model):
 		user = self.env.user
 
 		# Eliminamos al vendedor de todo los productos que tenga asignado
+		"""
 		if "departments_ids" in self:
 			old_departments = self.departments_ids
 			for dept in old_departments:
@@ -51,6 +52,7 @@ class ResUsersInherit1(models.Model):
 				products = self.env["product.product"].search([("categ_id", "in", dept)])
 				for product in products:
 					product.salesperson_ids = [(4, user.id, _)]
+		"""
 
 
 		# Agregamos el vendedor a todo los productos que tenga asignado
