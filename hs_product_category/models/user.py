@@ -48,7 +48,7 @@ class ResUsersInherit1(models.Model):
 			deptartments = self.departments_ids
 			_logger.info("value of departament is: " + str(deptartments))
 			for dept in deptartments:
-				products = self.env["product.product"].search([("categ_id", "=", dept)])
+				products = self.env["product.product"].search([("categ_id", "=", dept.id)])
 				if len(products) > 0:
 					products.write({"salesperson_ids": [(3, self.id)]})
 			"""
