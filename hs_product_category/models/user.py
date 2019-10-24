@@ -58,9 +58,14 @@ class ResUsersInherit1(models.Model):
 		# Agregamos el vendedor a todo los productos que tenga asignado
 		if "departments_ids" in values:
 			new_departments = values.get("departments_ids")
-			for field in new_departments:
-				for dept in field:
-					_logger.info(str(dept))
+			deptartment = new_departments[0]
+			dept_ids = deptartment[2]
+			for dept in dept_ids:
+				products = self.env["product.product"].search([("categ_id", "=", dept)])
+				value = [user]
+				for product in products:
+					product.salesperson_ids = [(0, _, value)]
+
 				"""
 				products = self.env["product.product"].search([("categ_id", "in", dept)])
 				value = [user]
