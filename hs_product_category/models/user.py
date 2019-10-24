@@ -62,9 +62,10 @@ class ResUsersInherit1(models.Model):
 			dept_ids = deptartment[2]
 			for dept in dept_ids:
 				products = self.env["product.product"].search([("categ_id", "=", dept)])
-				value = [user]
+				# value = [user]
 				for product in products:
-					product.salesperson_ids = [(0, _, value)]
+					_logger.info(str(product.name))
+					#product.salesperson_ids = [(0, _, value)]
 
 				"""
 				products = self.env["product.product"].search([("categ_id", "in", dept)])
