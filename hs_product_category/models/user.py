@@ -60,18 +60,19 @@ class ResUsersInherit1(models.Model):
 			new_departments = values.get("departments_ids")
 			deptartment = new_departments[0]
 			dept_ids = deptartment[2]
-			value = list(set(user))[0]
-			_logger.info("Value append to product is: " + str(value))
+			#value = list(set(user))[0]
+			_logger.info("User append to product is ("+str(user.id)+") " + str(user.name))
 			for dept in dept_ids:
 				products = self.env["product.product"].search([("categ_id", "=", dept)])
 				if len(products) > 0:
-					products.write({"salesperson_ids", [(0, _, value)]})
-				# value = [user]
-				# for product in products:
-				# 	_logger.info(str(product.name))
-					#product.salesperson_ids = [(0, _, value)]
+					products.write({"salesperson_ids", [(4, user.id, _)]})
+				
 
 				"""
+				value = [user]
+				for product in products:
+					_logger.info(str(product.name))
+					product.salesperson_ids = [(0, _, value)]
 				products = self.env["product.product"].search([("categ_id", "in", dept)])
 				value = [user]
 				for product in products:
