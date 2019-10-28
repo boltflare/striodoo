@@ -80,16 +80,16 @@ class ProductInherit2(models.Model):
 		if "categ_id" in values:
 			category = values["categ_id"]
 			sp = self.env["res.users"].search([("departments_ids", '=', category)])
-			values[salesperson_ids] = sp
+			values["salesperson_ids"] = sp
 		return super(ProductInherit2, self).create(values)
 
 
 	@api.multi
 	def write(self, values):
-		 """Override default Odoo write function and extend."""
+		"""Override default Odoo write function and extend."""
 		# Do your custom logic here
 		if "categ_id" in values:
 			category = values["categ_id"]
 			sp = self.env["res.users"].search([("departments_ids", '=', category)])
-			values[salesperson_ids] = sp
+			values["salesperson_ids"] = sp
 		return super(ProductInherit2, self).write(values)
