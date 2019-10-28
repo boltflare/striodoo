@@ -72,15 +72,24 @@ class ProductInherit2(models.Model):
 		"product_salesperson_rel", "product_id", 
 		"salesperson_id", "Salesperson")
 
-	
-	"""
-	categ_asignated_id = fields.Many2one(string="Asignated groups", 
-							compute="_compute_categ_asignated_id", 
-							comodel_name="product.category")
 
-	
-	def _compute_categ_asignated_id(self):
-		user = self.env.user
-		categ = self.env["product.category"].search([("user_ids", "=", user.id)])
-		self.categ_asignated_id = categ
-	"""
+	@api.model
+	def create(self, values):
+		"""Override default Odoo create function and extend."""
+		# Do your custom logic here
+		if "categ_id" in values:
+			category = values["categ_id"]
+			sp = self.env["res.users"].search([("departments_ids", '=', category)])
+			values[salesperson_ids] = sp
+		return super(ProductInherit2, self).create(values)
+
+
+	@api.multi
+	def write(self, values):
+		 """Override default Odoo write function and extend."""
+		# Do your custom logic here
+		if "categ_id" in values:
+			category = values["categ_id"]
+			sp = self.env["res.users"].search([("departments_ids", '=', category)])
+			values[salesperson_ids] = sp
+		return super(ProductInherit2, self).write(values)
