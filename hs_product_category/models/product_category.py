@@ -2,6 +2,9 @@
 
 from odoo import api, fields, models, _
 
+import logging
+_logger = logging.getLogger(__name__)
+
 class ProductCategoryInherit1(models.Model):
 	_inherit = "product.category"
 
@@ -77,6 +80,7 @@ class ProductInherit2(models.Model):
 	def create(self, values):
 		"""Override default Odoo create function and extend."""
 		# Do your custom logic here
+		_logger.info("Value of create is:  " + str(values))
 		if "categ_id" in values:
 			category = values["categ_id"]
 			sp = self.env["res.users"].search([("departments_ids", '=', category)])
@@ -88,6 +92,8 @@ class ProductInherit2(models.Model):
 	def write(self, values):
 		"""Override default Odoo write function and extend."""
 		# Do your custom logic here
+
+		_logger.info("Value of write is:  " + str(values))
 		if "categ_id" in values:
 			category = values["categ_id"]
 			sp = self.env["res.users"].search([("departments_ids", '=', category)])
