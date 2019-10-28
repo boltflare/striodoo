@@ -83,8 +83,8 @@ class ProductInherit2(models.Model):
 		_logger.info("Value of create is:  " + str(values))
 		if "categ_id" in values:
 			category = values["categ_id"]
-			sp = self.env["res.users"].search([("departments_ids", '=', category)])
-			values["salesperson_ids"] = sp
+			users = self.env["res.users"].search([("departments_ids", '=', category)])
+			values["salesperson_ids"] = [(6, users)]
 		return super(ProductInherit2, self).create(values)
 
 
@@ -96,6 +96,6 @@ class ProductInherit2(models.Model):
 		_logger.info("Value of write is:  " + str(values))
 		if "categ_id" in values:
 			category = values["categ_id"]
-			sp = self.env["res.users"].search([("departments_ids", '=', category)])
-			values["salesperson_ids"] = sp
+			users = self.env["res.users"].search([("departments_ids", '=', category)])
+			values["salesperson_ids"] = [(6, _, users)]
 		return super(ProductInherit2, self).write(values)
