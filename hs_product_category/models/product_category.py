@@ -98,5 +98,6 @@ class ProductInherit2(models.Model):
 			category = values["categ_id"]
 			query = self.env["res.users"].search([("departments_ids", '=', category)])
 			users = list(set(query))
+			_logger.info("Value of user is:  " + str(users))
 			values["salesperson_ids"] = [(6, _, users)]
 		return super(ProductInherit2, self).write(values)
