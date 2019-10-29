@@ -49,6 +49,7 @@ class ResUsersInherit1(models.Model):
 		# Eliminamos al vendedor de todo los productos que tenga asignado
 		if "departments_ids" in self:
 			deptartments = self.departments_ids
+			_logger.info("valuye in self.departments_ids is: " + str(self.departments_ids))
 			for dept in deptartments:
 				products = self.env["product.product"].search([("categ_id", "=", dept.id)])
 				if len(products) > 0:
