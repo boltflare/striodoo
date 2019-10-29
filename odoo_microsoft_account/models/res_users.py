@@ -29,6 +29,7 @@ class ResUsers(models.Model):
     def _microsoft_auth_oauth_signin(self, provider, params):
         try:
             oauth_uid = params['user_id']
+            
             users = self.sudo().search([
                 ("oauth_uid", "=", oauth_uid),
                 ('oauth_provider_id', '=', provider)
@@ -50,8 +51,7 @@ class ResUsers(models.Model):
                 'microsoft_refresh_token': params['microsoft_refresh_token']})
             return users.login
         except AccessDenied as access_denied_exception:
-            raise access_denied_exception
-            """
+#             raise access_denied_exception
             if self._context and self._context.get('no_user_creation'):
                 return None
             values = self._microsoft_generate_signup_values(provider, params)
@@ -60,7 +60,6 @@ class ResUsers(models.Model):
                 return login
             except (SignupError, UserError):
                 raise access_denied_exception
-            """
 
     @api.model
     def microsoft_auth_oauth(self, provider, params):
