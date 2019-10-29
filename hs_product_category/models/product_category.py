@@ -83,8 +83,13 @@ class ProductInherit2(models.Model):
 		_logger.info("Value of create is:  " + str(values))
 		if "categ_id" in values:
 			category = values["categ_id"]
-			users = self.env["res.users"].search([("departments_ids", '=', category)])
-			values["salesperson_ids"] = [(6, users)]
+			query = self.env["res.users"].search([("departments_ids", '=', category)])
+			if len(query) > 0:
+				users = query.ids
+				_logger.info("Value of user is:  " + str(values))
+				values["salesperson_ids"] = [(6, _, users)]
+			else:
+				values["salesperson_ids"] = [(5, _, _)]
 		return super(ProductInherit2, self).create(values)
 
 
