@@ -92,7 +92,6 @@ class ProductInherit2(models.Model):
 	def write(self, values):
 		"""Override default Odoo write function and extend."""
 		# Do your custom logic here
-
 		_logger.info("Value of write is:  " + str(values))
 		if "categ_id" in values:
 			category = values["categ_id"]
@@ -101,4 +100,6 @@ class ProductInherit2(models.Model):
 				users = query.ids
 				_logger.info("Value of user is:  " + str(values))
 				values["salesperson_ids"] = [(6, _, users)]
+			else:
+				values["salesperson_ids"] = [(5, _, _)]
 		return super(ProductInherit2, self).write(values)
