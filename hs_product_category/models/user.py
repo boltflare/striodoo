@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import logging
 from odoo import api, fields, models, _
 
+
+_logger = logging.getLogger(__name__)
 class ResUsersInherit1(models.Model):
 	_inherit = "res.users"
 
@@ -33,3 +36,42 @@ class ResUsersInherit1(models.Model):
 															count=count, 
 															access_rights_uid=access_rights_uid
 													)
+
+
+	@api.multi
+	def write(self, values):
+		# Obtenemos el usuario actual
+		# user = self.env.user
+
+		_logger.info("data in self is: " + str(self))
+		_logger.info("data in values is: " + str(values))
+
+		# Eliminamos al vendedor de todo los productos que tenga asignado
+		try:
+			if "departments_ids" in self:
+				deptartments = self.departments_ids
+				_logger.info("value in self.departments_ids is: " + str(self.departments_ids))
+				for dept in deptartments:
+					products = self.env["product.product"].search([("categ_id", "=", dept.id)])
+					if len(products) > 0:
+						products.write({"salesperson_ids": [(3, self.id)]})
+		except Exception as error:
+			_logger.info("value in self.departments_ids is: " + str(error))
+
+
+		# Agregamos el vendedor a todo los productos que tenga asignado
+		try:
+			if "departments_ids" in values:
+				new_departments = values.get("departments_ids")
+				deptartment = new_departments[0]
+				dept_ids = deptartment[2]
+				_logger.info("User append to product is ("+str(self.id)+") " + str(self.name))
+				for dept in dept_ids:
+					products = self.env["product.product"].search([("categ_id", "=", dept)])
+					if len(products) > 0:
+						products.write({"salesperson_ids": [(4, self.id)]})
+		except Exception as error:
+			_logger.info("value in self.departments_ids is: " + str(error))
+
+		# Returnamos el metodo sobreescrito
+		return super(ResUsersInherit1, self).write(values)

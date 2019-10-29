@@ -2,6 +2,9 @@
 
 from odoo import api, fields, models, _
 
+import logging
+_logger = logging.getLogger(__name__)
+
 class ProductCategoryInherit1(models.Model):
 	_inherit = "product.category"
 
@@ -66,14 +69,40 @@ class ProductInherit2(models.Model):
 
 	current_user = fields.Many2one('res.users','Current User', 
 		default=lambda self: self.env.user)
-	
-
-	categ_asignated_id = fields.Many2one(string="Asignated groups", 
-							compute="_compute_categ_asignated_id", 
-							comodel_name="product.category")
 
 	
-	def _compute_categ_asignated_id(self):
-		user = self.env.user
-		categ = self.env["product.category"].search([("user_ids", "=", user.id)])
-		self.categ_asignated_id = categ
+	salesperson_ids = fields.Many2many("res.users", 
+		"product_salesperson_rel", "product_id", 
+		"salesperson_id", "Salesperson")
+
+
+	@api.model
+	def create(self, values):
+		"""Override default Odoo create function and extend."""
+		# Do your custom logic here
+		_logger.info("Value of create is:  " + str(values))
+		if "categ_id" in values:
+			category = values["categ_id"]
+			query = self.env["res.users"].search([("departments_ids", '=', category)])
+			if len(query) > 0:
+				users = query.ids
+				_logger.info("Value of user is:  " + str(values))
+				values["salesperson_ids"] = [(6, _, users)]
+		return super(ProductInherit2, self).create(values)
+
+
+	@api.multi
+	def write(self, values):
+		"""Override default Odoo write function and extend."""
+		# Do your custom logic here
+		_logger.info("Value of write is:  " + str(values))
+		if "categ_id" in values:
+			category = values["categ_id"]
+			query = self.env["res.users"].search([("departments_ids", '=', category)])
+			if len(query) > 0:
+				users = query.ids
+				_logger.info("Value of user is:  " + str(values))
+				values["salesperson_ids"] = [(6, _, users)]
+			else:
+				values["salesperson_ids"] = [(5, _, _)]
+		return super(ProductInherit2, self).write(values)
