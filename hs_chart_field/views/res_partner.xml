@@ -1,17 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-	<data noupdate="1">
-		<!-- Add you code here -->
-		
-		<!-- model.name inherit form view -->
+	<data>
+
 		<record id="partner_chartfield_form_inherit" model="ir.ui.view">
 			<field name="name">res.partner.chartfield.form</field>
 			<field name="model">res.partner</field>
-			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="inherit_id" ref="hs_customer_class_code.res_partner_fund_inherit1"/>
 			<field name="arch" type="xml">
-				<!-- Add your xpath here -->
+				
 				<xpath expr="//page[@name='sales_purchases']" position="after">
-					<page name="page_charfield" string="CharField">
+					<page name="page_charfield" string="ChartField" attrs="{'invisible':[('customer_type', '!=', 'fund')]}">
 						<h3>
 							<field name="stri_chartfield"/>
 						</h3>
