@@ -62,6 +62,20 @@ class ProductCategoryInherit1(models.Model):
 
 
 
+class ProductTemplateInherit2(models.Model):
+	_inherit = "product.template"
+
+
+	salesperson_id = fields.compute(compute="compute_salesperson_ids", 
+		string="Vendedores")
+
+
+	def _compute_user_count(self):
+		for product in self:
+			product.salesperson_id = self.env["product.product"].\
+				search([('product_tmpl_id', '=', product.id)])
+
+
 
 
 class ProductInherit2(models.Model):
