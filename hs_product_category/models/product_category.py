@@ -86,7 +86,7 @@ class ProductInherit2(models.Model):
 
 	
 	salesperson_ids = fields.Many2many("res.users", 
-		"product_salesperson_rel", "product_id", 
+		"product_salesperson_rel1", "product_id", 
 		"salesperson_id", "Salesperson")
 
 
