@@ -126,5 +126,37 @@
 			<field name="perm_unlink" eval="1"/>
 			<field name="perm_read" eval="1"/>
 		</record>
+
+
+		<!-- Regla de acceso para visualizar los product.template en base al usuario actual-->
+		<record id="product_access_user" model="ir.rule">
+			<field name="name">STRI products template access by current user</field>
+			<field name="model_id" ref="account.model_product_template"/>
+			<field name="global" eval="False"/>
+			<field name="groups" eval="[(4, ref('account.'))]"/>
+			<field name="domain_force">
+				[('salesperson_ids', '=', user.id)]
+			</field>
+			<field name="perm_create" eval="0"/>
+			<field name="perm_write" eval="0"/>
+			<field name="perm_unlink" eval="0"/>
+			<field name="perm_read" eval="1"/>
+		</record>
+
+
+		<!-- Regla de acceso total a producto para los administradores-->
+		<record id="total_access_journal" model="ir.rule">
+			<field name="name">STRI total access to products template</field>
+			<field name="model_id" ref="account.model_product_template"/>
+			<field name="global" eval="False"/>
+			<field name="groups" eval="[(4, ref('account.'))]"/>
+			<field name="domain_force">
+				[(1, '=', 1)]
+			</field>
+			<field name="perm_create" eval="1"/>
+			<field name="perm_write" eval="1"/>
+			<field name="perm_unlink" eval="1"/>
+			<field name="perm_read" eval="1"/>
+		</record>
 	</data>
 </odoo>
