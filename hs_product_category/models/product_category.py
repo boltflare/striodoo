@@ -61,7 +61,7 @@ class ProductCategoryInherit1(models.Model):
 			
 
 
-
+"""
 class ProductTemplateInherit2(models.Model):
 	_inherit = "product.template"
 
@@ -74,12 +74,12 @@ class ProductTemplateInherit2(models.Model):
 		for product in self:
 			product.salesperson_id = self.env["product.product"].\
 				search([('product_tmpl_id', '=', product.id)])
-
+"""
 
 
 
 class ProductInherit2(models.Model):
-	_inherit = "product.product"
+	_inherit = "product.template"
 
 	current_user = fields.Many2one('res.users','Current User', 
 		default=lambda self: self.env.user)
