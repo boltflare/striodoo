@@ -129,7 +129,7 @@
 
 
 		<!-- Regla de acceso para visualizar los product.template en base al usuario actual-->
-		<record id="product_access_user" model="ir.rule">
+		<record id="product_template_access_user" model="ir.rule">
 			<field name="name">STRI products template access by current user</field>
 			<field name="model_id" ref="account.model_product_template"/>
 			<field name="global" eval="False"/>
@@ -145,7 +145,7 @@
 
 
 		<!-- Regla de acceso total a producto para los administradores-->
-		<record id="total_access_journal" model="ir.rule">
+		<record id="total_access_product_template" model="ir.rule">
 			<field name="name">STRI total access to products template</field>
 			<field name="model_id" ref="account.model_product_template"/>
 			<field name="global" eval="False"/>
