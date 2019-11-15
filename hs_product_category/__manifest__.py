@@ -40,7 +40,6 @@
 		'views/product_category_view.xml',
 		'security/user_rulers.xml',
 		'security/res_group.xml',
-		'security/ir.model.access.csv',
 	],
 	'installable': True,
 	'auto_install': True,
