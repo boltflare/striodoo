@@ -151,7 +151,7 @@
 			<field name="name">STRI category user access by current user</field>
 			<field name="model_id" ref="account.model_product_category"/>
 			<field name="global" eval="False"/>
-			<field name="groups" eval="[(4, ref('stock.group_stock_user'))]"/>
+			<field name="groups" eval="[(4, ref('hs_product_category.group_stock_advanced_users'))]"/>
 			<field name="domain_force">
 				[('user_ids', '=', user.id)]
 			</field>
