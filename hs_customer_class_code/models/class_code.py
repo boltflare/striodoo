@@ -4,6 +4,7 @@ from odoo import models, fields, api
 
 class ClassCode (models.Model):
     _name= 'class.code'
+    _description = 'Modulo para administrar Class Code'
 
     # _inherit = 'account.invoice'
    

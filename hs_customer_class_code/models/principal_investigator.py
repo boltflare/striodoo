@@ -4,6 +4,7 @@ from odoo import models, fields
 
 class PrincipalInvestigator (models.Model):
     _name= 'principal.investigator'
+    _description = 'Modulo para administrar Principal Investigator'
 
     # _inherit = 'account.invoice'
    

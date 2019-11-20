@@ -12,4 +12,7 @@ class accountInvoiceInherit2(models.Model):
 
 	@api.depends('partner_id')
 	def _customer_is_fund(self):
-		self.customer_is_fund = True if self.partner_id.customer_type == 'fund' else False
+		# self.customer_is_fund = True if self.partner_id.customer_type == 'fund' else False
+		for invoice in self:
+			customer_type = invoice.partner_id.customer_type
+			invoice.customer_is_fund = True if customer_type == 'fund' else False

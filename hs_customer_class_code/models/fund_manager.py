@@ -4,6 +4,7 @@ from odoo import models, fields
 
 class FundManager (models.Model):
     _name= 'fund.manager'
+    _description = 'Modulo para administrar Fund Manager'
 
     # _inherit = 'account.invoice'
    
