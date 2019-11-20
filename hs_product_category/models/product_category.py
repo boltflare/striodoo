@@ -90,6 +90,10 @@ class ProductInherit2(models.Model):
 		"salesperson_id", "Salesperson")
 
 
+	categ_id = fields.Many2one( 'product.category', 'Product Category', 
+		required=True, help="Select category for the current product")
+
+
 	@api.model
 	def create(self, values):
 		"""Override default Odoo create function and extend."""
