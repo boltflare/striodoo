@@ -90,13 +90,6 @@ class ProductInherit2(models.Model):
 		"salesperson_id", "Salesperson")
 
 
-	def _get_default_category_id(self):
-		_logger.info("El metodo _get_default_category_id fue sobreescrito\
-			correctamente.")
-			 
-		return super(ProductInherit2, self)._get_default_category_id()
-
-
 	@api.model
 	def create(self, values):
 		"""Override default Odoo create function and extend."""
