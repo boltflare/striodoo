@@ -147,7 +147,7 @@
 
 
 		<!-- Regla de acceso para visualizar categorias de productos en base al usuario actual-->
-		<record id="category_product_categ_stok_access" model="ir.rule">
+		<!--record id="category_product_categ_stok_access" model="ir.rule">
 			<field name="name">STRI category user access by current user</field>
 			<field name="model_id" ref="account.model_product_category"/>
 			<field name="global" eval="False"/>
@@ -159,7 +159,7 @@
 			<field name="perm_write" eval="0"/>
 			<field name="perm_unlink" eval="0"/>
 			<field name="perm_read" eval="1"/>
-		</record>
+		</record-->
 
 
 		<!-- Regla de acceso para visualizar categorias de productos en base al usuario actual-->
