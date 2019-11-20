@@ -90,8 +90,11 @@ class ProductInherit2(models.Model):
 		"salesperson_id", "Salesperson")
 
 
-	categ_id = fields.Many2one( 'product.category', 'Product Category', 
-		required=True, help="Select category for the current product")
+	def _get_default_category_id(self):
+		_logger.info("El metodo _get_default_category_id fue sobreescrito\
+			correctamente.")
+			 
+		return super(ProductInherit2, self)._get_default_category_id()
 
 
 	@api.model
