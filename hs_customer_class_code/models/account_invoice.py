@@ -21,6 +21,11 @@ class accountInvoiceInherit2(models.Model):
 			invoice.customer_is_fund = True if customer_type == 'fund' else False
 
 
+	@api.onchange('invoice_line_ids')
+	def _onchange_invoice_line(self):
+		_logger.info("Metodo on Change llamado:  ")
+
+
 
 
 
