@@ -16,7 +16,7 @@ class accountInvoiceInherit2(models.Model):
 		for invoice_line in self.invoice_line_ids:
 			product = invoice_line.product_id
 			_logger.info(product.name)
-			journals = self.inv["account.journal"].search([('type', '=', 'sale')])
+			journals = self.env["account.journal"].search([('type', '=', 'sale')])
 			_logger.info(journals.name)
 			break
 
