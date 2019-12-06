@@ -13,15 +13,18 @@ class accountInvoiceInherit2(models.Model):
 
 	@api.onchange('invoice_line_ids')
 	def _onchange_invoice_line(self):
-		for invoice_line in self.invoice_line_ids:
-			product = invoice_line.product_id
-			_logger.info(product.name)
-			journals = self.env["account.journal"].search([('type', '=', 'sale')])
-			journal = journals.filtered(lambda l: l.department_ids == product.categ_id)
-			_logger.info("El journal encontrado es: " + journal.name)
-			break
-
-		#self.journal_id = journals
+		try:
+			for invoice_line in self.invoice_line_ids:
+				product = invoice_line.product_id
+				_logger.info(product.name)
+				journals = self.env["account.journal"].search([('type', '=', 'sale')])
+				journal = journals.filtered(lambda l: l.department_ids == product.categ_id)
+				self.journal_id = journals
+				_logger.info("El journal encontrado es: " + journal.name)
+				break
+		except Exception as error:
+			raise exceptions.ValidationError("No se encontraron cuentas por cobrar para el \
+				producto ingreado: " + str(error))
 
 
 
