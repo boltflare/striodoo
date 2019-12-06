@@ -19,7 +19,7 @@ class accountInvoiceInherit2(models.Model):
 				_logger.info(product.name)
 				journals = self.env["account.journal"].search([('type', '=', 'sale')])
 				journal = journals.filtered(lambda l: l.department_ids == product.categ_id)
-				self.journal_id = journals
+				self.journal_id = journal
 				_logger.info("El journal encontrado es: " + journal.name)
 				break
 		except Exception as error:
