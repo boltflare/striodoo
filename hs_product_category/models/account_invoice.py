@@ -19,7 +19,7 @@ class accountInvoiceInherit2(models.Model):
 				_logger.info("El producto encontrado es: " + product.name)
 				filters = [
 					('type', '=', 'sale'),
-					('department_ids' == product.categ_id)
+					('department_ids' == product.categ_id.id)
 				]
 				journal = self.sudo().env["account.journal"].search(filters, limit=1)
 				_logger.info("El journal encontrado es: " + journal.name)
