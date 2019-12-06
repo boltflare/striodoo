@@ -17,12 +17,13 @@ class accountInvoiceInherit2(models.Model):
 			for invoice_line in self.invoice_line_ids:
 				product = invoice_line.product_id
 				_logger.info("El producto encontrado es: " + product.name)
-				journals = self.sudo().env["account.journal"].search([('type', '=', 'sale')])
-				for item in journals:
-					_logger.info("los journals encontrados son: " + item.name)	
-				journal = journals.filtered(lambda l: l.department_ids == product.categ_id)
-				self.journal_id = journal
+				filters = [
+					('type', '=', 'sale'),
+					('department_ids' == product.categ_id)
+				]
+				journal = self.sudo().env["account.journal"].search(filters, limit=1)
 				_logger.info("El journal encontrado es: " + journal.name)
+				self.journal_id = journal
 				break
 		except Exception as error:
 			raise exceptions.ValidationError("No se encontraron cuentas por cobrar para el \
