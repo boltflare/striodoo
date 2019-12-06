@@ -17,10 +17,9 @@ class accountInvoiceInherit2(models.Model):
 			product = invoice_line.product_id
 			_logger.info(product.name)
 			journals = self.env["account.journal"].search([('type', '=', 'sale')])
-			for journal in journals:
-				_logger.info("El diario encontrado es: " + journal.name)
+			journal = journals.filtered(lambda l: l.department_ids == product.categ_id)
+			_logger.info("El journal encontrado es: " + journal.name)
 			break
-
 
 		#self.journal_id = journals
 
