@@ -23,7 +23,7 @@ class accountInvoiceInherit2(models.Model):
 
 	@api.onchange('invoice_line_ids')
 	def _onchange_invoice_line(self):
-		_logger.info("Metodo on Change llamado:  ")
+		_logger.info("Metodo on Change llamado:  _onchange_invoice_line")
 
 
 
