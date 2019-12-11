@@ -16,8 +16,8 @@ class accountInvoiceInherit2(models.Model):
 		try:
 			for invoice_line in self.invoice_line_ids:
 				product = invoice_line.product_id
-				_logger.info("El producto encontrado es: " + str(product.name))
-				if str(product.name) == "False":
+				_logger.info("El producto encontrado es: '" + str(product.name) + "'")
+				if str(product.name) != "False":
 					filters = [
 						('type', '=', 'sale'),
 						('department_ids', '=', product.categ_id.id)
@@ -25,7 +25,7 @@ class accountInvoiceInherit2(models.Model):
 					journal = self.sudo().env["account.journal"].search(filters, limit=1)
 					_logger.info("El journal encontrado es: " + journal.name)
 					self.journal_id = journal
-				break
+					break
 		except Exception as error:
 			raise exceptions.ValidationError("No se encontraron cuentas por cobrar para el \
 				producto ingreado: " + str(error))
