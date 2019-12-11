@@ -5,4 +5,3 @@ from . import res_users
 from . import product_category
 from . import salesperson_account
 from . import account
-from . import account_invoice
