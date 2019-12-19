@@ -10,7 +10,7 @@
 						<t t-set="o" t-value="o.with_context(lang=lang)" />
 						<div class="page">
 
-							<h2>Item By Fund Reports</h2>
+							<h2><span>Item By Fund Reports</span></h2>
 
 							<table class="table table-sm">
 								<thead>
@@ -19,6 +19,14 @@
 									<th>Category</th>
 									<th>ChartField</th>
 								</thead>
+								<tbody>
+									<tr>
+										<td><span t-esc="column['name']"/></td>
+										<td><span t-esc="column['code']"/></td>
+										<td><span t-esc="column['categ']"/></td>
+										<td><span t-esc="column['chartfield']"/></td>
+									</tr>
+								</tbody>
 							</table>
 							
 						</div>
