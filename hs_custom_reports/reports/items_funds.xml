@@ -23,8 +23,8 @@
 			model="product.product"
 			string="item By Fund Report"
 			report_type="qweb-pdf"
-			name="hs_custom_report.item_fund_template"
-			file="hs_custom_report.item_fund_template"
+			name="hs_custom_reports.item_fund_template"
+			file="hs_custom_reports.item_fund_template"
 			print_report_name="'Item_by_fund'"
 		/>
 	</data>
