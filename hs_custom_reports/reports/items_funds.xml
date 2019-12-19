@@ -9,6 +9,17 @@
 					<t t-call="web.external_layout">
 						<t t-set="o" t-value="o.with_context(lang=lang)" />
 						<div class="page">
+
+							<h2>Item By Fund Reports</h2>
+
+							<table class="table table-sm">
+								<thead>
+									<th>Name</th>
+									<th>Code</th>
+									<th>Category</th>
+									<th>ChartField</th>
+								</thead>
+							</table>
 							
 						</div>
 					</t>
