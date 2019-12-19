@@ -9,15 +9,22 @@
 					<t t-call="web.external_layout">
 						<t t-set="o" t-value="o.with_context(lang=lang)" />
 						<div class="page">
-
+							<style type="text/css">
+								tr > td,
+								tr > th{
+									font-size: 0.9rem !important
+								}
+							</style>
 							<h2><span>Item By Fund Reports</span></h2>
 
 							<table class="table table-sm">
 								<thead>
-									<th>Name</th>
-									<th>Code</th>
-									<th>Category</th>
-									<th>ChartField</th>
+									<tr>
+										<th>Name</th>
+										<th>Code</th>
+										<th>Category</th>
+										<th>ChartField</th>
+									</tr>
 								</thead>
 								<tbody>
 									<t t-foreach="lines" t-as="column">
