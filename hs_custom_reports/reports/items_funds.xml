@@ -20,7 +20,7 @@
 									<th>ChartField</th>
 								</thead>
 								<tbody>
-									<tr>
+									<t t-foreach="lines" t-as="column">
 										<td><span t-esc="column['name']"/></td>
 										<td><span t-esc="column['code']"/></td>
 										<td><span t-esc="column['categ']"/></td>

@@ -47,6 +47,6 @@ class ReportItemFund(models.AbstractModel):
 			'doc_ids' : docids,
 			'doc_model':report.model,
 			'docs' : self.env[report.model].browse(document),
-			'column' : lines,
+			'lines' : lines,
 			'report_type': data.get('report_type') if data else '',
 		}
