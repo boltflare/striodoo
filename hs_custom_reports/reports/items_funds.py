@@ -35,12 +35,13 @@ class ReportItemFund(models.AbstractModel):
 		document = [docids[0]] if len(docids) > 1 else docids
 		lines = []
 		for doc in docs:
-			charfield = doc.categ_id.property_account_income_id.stri_chartfield
+			account = doc.property_account_income_id
+			chartfield = account.stri_chartfield if account != False else '' 
 			lines.append({
 				'name' : doc.name,
 				'code' : doc.default_code,
 				'categ' : doc.categ_id.display_name,
-				'chartfield' : charfield
+				'chartfield' : chartfield
 			})
 		return {
 			'doc_ids' : docids,
