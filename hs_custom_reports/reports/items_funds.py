@@ -36,7 +36,7 @@ class ReportItemFund(models.AbstractModel):
 		lines = []
 		for doc in docs:
 			account = doc.property_account_income_id
-			chartfield = account.stri_chartfield if account != False else '' 
+			chartfield = account.stri_chartfield if len(account) > 0 else '' 
 			lines.append({
 				'name' : doc.name,
 				'code' : doc.default_code,
