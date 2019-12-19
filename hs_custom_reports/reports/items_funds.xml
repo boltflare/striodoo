@@ -21,11 +21,13 @@
 								</thead>
 								<tbody>
 									<t t-foreach="lines" t-as="column">
-										<td><span t-esc="column['name']"/></td>
-										<td><span t-esc="column['code']"/></td>
-										<td><span t-esc="column['categ']"/></td>
-										<td><span t-esc="column['chartfield']"/></td>
-									</tr>
+										<tr>
+											<td><span t-esc="column['name']"/></td>
+											<td><span t-esc="column['code']"/></td>
+											<td><span t-esc="column['categ']"/></td>
+											<td><span t-esc="column['chartfield']"/></td>
+										</tr>
+									</t>
 								</tbody>
 							</table>
 							
