@@ -15,3 +15,11 @@ class ResPartnerInherit2(models.Model):
 	principal_investigator = fields.Many2one("principal.investigator", "Principal Investigator")
 
 	regular_companies_id = fields.Many2one("regular.companies", "Company")
+
+
+	@api.onchange('customer_type')
+	def _on_change_customer_type(self):
+		if self.customer_type == "regular":
+			self.company_type = "person"
+		else:
+			self.company_type = "company"
