@@ -14,7 +14,7 @@
 	'author': 'HS Consul S.A.',
 
 	'data': [
-		'reports/res_partner.xml',
+		'views/res_partner.xml',
 	],
 		
 	'installable': True,
