@@ -2,6 +2,9 @@
 
 from odoo import api, fields, models, _
 
+import logging
+_logger = logging.getLogger(__name__)
+
 
 
 class AccountInvoiceInherit2(models.Model):
@@ -31,6 +34,26 @@ class AccountInvoiceInherit2(models.Model):
 			return False
 
 
+	@api.onchange('invoice_line_ids')
+	def _onchange_invoice_line(self):
+		try:
+			for invoice_line in self.invoice_line_ids:
+				product = invoice_line.product_id
+				_logger.info("El producto encontrado es: '" + str(product.name) + "'")
+				if str(product.name) != "False":
+					filters = [
+						('type', '=', 'sale'),
+						('department_ids', '=', product.categ_id.id)
+					]
+					journal = self.sudo().env["account.journal"].search(filters, limit=1)
+					_logger.info("El journal encontrado es: " + journal.name)
+					self.journal_id = journal
+					break
+		except Exception as error:
+			raise exceptions.ValidationError("No se encontraron cuentas por cobrar para el \
+				producto ingreado: " + str(error))
+
+
 
 
 
@@ -39,26 +62,6 @@ class AccountPaymentInherit1(models.Model):
 
 	current_user = fields.Many2one(comodel_name='res.users', string="Current User",
 		store=False, default=lambda self: self.env.user)
-
-	"""
-	journal_count = fields.Integer(string="total payments allowed",
-		compute="_compute_journal_count")
-
-
-	def _compute_journal_count(self):
-		try:
-			count = 0
-			user = self.env.user
-			departments = self.env["product.category"].search([("user_ids", "=", user.id)])
-			for department in departments:
-					journals = self.env["account.journal"].search([("department_ids", "=", department.id)])
-					for journal in journals:
-						if journal.type in ("cash", "bank"):
-							count = count + 1
-			return count
-		except Exception as __ERROR:
-			return -1
-	"""
 
 
 
