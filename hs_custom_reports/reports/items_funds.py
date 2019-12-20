@@ -27,6 +27,41 @@ class ReportItemFund(models.AbstractModel):
 		}
 	"""
 	
+	def get_chartfield(self, account):
+		temp = str(account.stri_fund)
+		resp = temp if temp != "False" else ""
+
+		temp = str(account.stri_budget)
+		resp = (resp + "," + temp) if temp != "False" else resp + ","
+		
+		temp = str(account.stri_desig)
+		resp = (resp + "," + temp) if temp != "False" else resp + ","
+
+		temp = str(account.stri_dept)
+		resp = (resp + "," + temp) if temp != "False" else resp + ","
+
+		temp = str(account.stri_account)
+		resp = (resp + "," + temp) if temp != "False" else resp + ","
+
+		temp = str(account.stri_class)
+		resp = (resp + "," + temp) if temp != "False" else resp + ","
+
+		temp = str(account.stri_program)
+		resp = (resp + "," + temp) if temp != "False" else resp + ","
+
+		temp = str(account.stri_project)
+		resp = (resp + "," + temp) if temp != "False" else resp + ","
+
+		temp = str(account.stri_activity)
+		resp = (resp + "," + temp) if temp != "False" else resp + ","
+
+		temp = str(account.stri_type)
+		resp = (resp + "," + temp) if temp != "False" else resp + ","
+
+		return resp
+
+	
+	
 	@api.model
 	def _get_report_values(self, docids, data=None):
 		report_name = "hs_custom_reports.item_fund_template"
@@ -36,7 +71,7 @@ class ReportItemFund(models.AbstractModel):
 		lines = []
 		for doc in docs:
 			account = doc.property_account_income_id
-			chartfield = account.stri_chartfield if len(account) > 0 else '' 
+			chartfield = self.get_chartfield(account) if len(account) > 0 else '' 
 			lines.append({
 				'name' : doc.name,
 				'code' : doc.default_code,
