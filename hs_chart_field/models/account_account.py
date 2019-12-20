@@ -25,33 +25,33 @@ class AccountAccountInherit(models.Model):
 		'stri_account', 'stri_class', 'stri_program', 'stri_project',
 		'stri_activity', 'stri_type')
 	def _computed_chartfield(self):
-		resp = str(self.stri_fund) if self.stri_fund else ""
+		resp = str(self.stri_fund) if str(self.stri_fund) != "False" else ""
 
-		resp = resp + "," + str(self.stri_budget) if self.stri_budget \
+		resp = resp + "," + str(self.stri_budget) if str(self.stri_budget) != "False" \
 			else resp + ","
 		
-		resp = resp + "," + str(self.stri_desig) if self.stri_desig \
+		resp = resp + "," + str(self.stri_desig) if str(self.stri_desig) != "False" \
 			else resp + ","
 
-		resp = resp + "," + str(self.stri_dept) if self.stri_dept \
+		resp = resp + "," + str(self.stri_dept) if str(self.stri_dept) != "False" \
 			else resp + ","
 
-		resp = resp + "," + str(self.stri_account) if self.stri_account \
+		resp = resp + "," + str(self.stri_account) if str(self.stri_account) != "False" \
 			else resp + ","
 
-		resp = resp + "," + str(self.stri_class) if self.stri_class \
+		resp = resp + "," + str(self.stri_class) if str(self.stri_class) != "False" \
 			else resp + ","
 
-		resp = resp + "," + str(self.stri_program) if self.stri_program \
+		resp = resp + "," + str(self.stri_program) if str(self.stri_program) != "False" \
 			else resp + ","
 
-		resp = resp + "," + str(self.stri_project) if self.stri_project \
+		resp = resp + "," + str(self.stri_project) if str(self.stri_project) != "False" \
 			else resp + ","
 
-		resp = resp + "," + str(self.stri_activity) if self.stri_activity \
+		resp = resp + "," + str(self.stri_activity) if str(self.stri_activity) != "False" \
 			else resp + ","
 
-		resp = resp + "," + str(self.stri_type) if self.stri_type \
+		resp = resp + "," + str(self.stri_type) if str(self.stri_type) != "False" \
 			else resp + ","
 
 		self.stri_chartfield = resp
