@@ -2,6 +2,9 @@
 
 from odoo import models, fields, api, exceptions, _
 
+import logging
+_logger = logging.getLogger(__name__)
+
 class ResPartnerInherit2(models.Model):
 	_inherit = 'res.partner'
 
@@ -28,7 +31,6 @@ class ResPartnerInherit2(models.Model):
 	@api.model
 	def create_from_ui(self, partner):
 		partner_id = super(ResPartnerInherit2, self).create_from_ui(partner)
-		self.browse(partner_id).write({
-			'only_pos' : True
-		})
+		_logger.info("El metodo create_from_ui fue llamado.")
+		self.browse(partner_id).write({'only_pos' : True})
 		return partner_id
