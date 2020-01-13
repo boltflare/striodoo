@@ -27,7 +27,7 @@ class ResPartnerInherit2(models.Model):
 
 	@api.model
 	def create_from_ui(self, partner):
-		partner_id = super(ResPartnerInherit, self).create_from_ui(partner)
+		partner_id = super(ResPartnerInherit2, self).create_from_ui(partner)
 		self.browse(partner_id).write({
 			'only_pos' : True
 		})
