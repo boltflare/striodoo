@@ -13,7 +13,7 @@ class ResPartnerInherit2(models.Model):
 
 	fund_manager = fields.Many2one("fund.manager", "Fund Manager")
 	principal_investigator = fields.Many2one("principal.investigator", "Principal Investigator")
-
+	only_pos = fields.Boolean("Visible solo en PoS", required=True, default=False)
 	regular_companies_id = fields.Many2one("regular.companies", "Company")
 
 
@@ -23,3 +23,12 @@ class ResPartnerInherit2(models.Model):
 			self.company_type = "person"
 		else:
 			self.company_type = "company"
+
+
+	@api.model
+	def create_from_ui(self, partner):
+		partner_id = super(ResPartnerInherit, self).create_from_ui(partner)
+		self.browse(partner_id).write({
+			'only_pos' : True
+		})
+		return partner_id
