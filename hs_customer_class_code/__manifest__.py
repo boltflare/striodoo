@@ -6,7 +6,7 @@
     'version': '12.0',
     'summary':'List and create class code',
     'category': 'Tool',
-    'depends': ['base', 'account'],
+    'depends': ['base', 'account', 'point_of_sale'],
     'description': """
         Is a Module to create and add class code for customers.
     """,
