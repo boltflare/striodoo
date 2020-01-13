@@ -17,6 +17,18 @@ class AccountInvoiceInherit2(models.Model):
 
 	can_user_payment = fields.Boolean(string="Puede registar pagos", store=False,
 		default= lambda self: self._can_user_payment)
+	
+	"""
+	permit_credit_note = fields.Boolean(string="Permitir Nota de Creditos", 
+		computed="_compute_permit_credit_note")
+
+	@api.depends('type', 'date_invoice')
+	def _compute_permit_credit_note(self):
+		for invoice in self:
+			if invoice.type == "out_invoice":
+				pass
+	"""
+
 
 	
 	@api.depends('current_user')
