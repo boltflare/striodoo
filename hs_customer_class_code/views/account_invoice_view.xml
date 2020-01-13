@@ -17,9 +17,9 @@
 					<!-- <field name="name" attrs="{'invisible': [('condition1', '=', False)], 'required': [('condition2', '=', True)]}"/> -->
 				</xpath>
 
-				<xpath expr="//field[@name='partner_id']" position="attributes">
+				<!--xpath expr="//field[@name='partner_id']" position="attributes">
 					<attribute name="Domain">['&amp;', ('customer', '=', True), ('only_pos', '=', False)]</attribute>
-				</xpath>
+				</xpath-->
 			</field>
 		</record>
 	</data>
