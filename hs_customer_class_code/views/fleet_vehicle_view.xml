@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		<!-- Add you code here -->
+		<!-- model.name inherit form view -->
+		<record id="fleet_vehicle_inherit1" model="ir.ui.view">
+			<field name="name">fleet.vehicle.inherit1.form</field>
+			<field name="model">fleet.vehicle</field>
+			<field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+			<field name="arch" type="xml">
+				<!-- Add your xpath here -->
+				<xpath expr="//field[@name='driver_id']" position="attributes">
+					<attribute name="domain">[('only_pos', '!=', True)]</attribute>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>
