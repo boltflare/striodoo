@@ -18,7 +18,7 @@
 				</xpath>
 
 				<xpath expr="//field[@name='partner_id']" position="attributes">
-					<attribute name="domain">['&amp;', ('customer', '=', True), ('only_pos', '=', False)]</attribute>
+					<attribute name="domain">['&amp;', ('customer', '=', True), ('only_pos', '!=', True)]</attribute>
 				</xpath>
 			</field>
 		</record>
