@@ -50,6 +50,9 @@ class AccountInvoiceInherit2(models.Model):
 	def _onchange_invoice_line(self):
 		try:
 			for invoice_line in self.invoice_line_ids:
+				invoice = invoice_line.invoice_id
+				if not invoice.type in("out_refund", "in_refund"):
+					break
 				product = invoice_line.product_id
 				_logger.info("El producto encontrado es: '" + str(product.name) + "'")
 				if str(product.name) != "False":
