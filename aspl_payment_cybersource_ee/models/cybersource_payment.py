@@ -77,6 +77,12 @@ class PaymentAcquirer(models.Model):
                                 'billing_phone': values.get('billing_partner_phone'),
                                 'billing_state': values.get('billing_partner_state') and values['billing_partner_state'].code or '',
                                 })
+        try:
+            _logger.info("El valor de la informacion enviada es: ")
+            _logger.info(cybersouce_values)
+        except Exception as identifier:
+            _logger.info("Error la mostrar el mensaje")
+
         return cybersouce_values
     
 class TxCybersource(models.Model):
