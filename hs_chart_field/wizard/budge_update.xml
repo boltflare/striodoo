@@ -25,6 +25,7 @@
 			res_model="chartfield.budget.wizard"
 			view_type="form" 
 			view_mode="form"
+			key2="client_action_multi"
 			target="new"
 			/>
 		
