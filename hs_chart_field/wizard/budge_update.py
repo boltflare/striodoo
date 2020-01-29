@@ -7,7 +7,7 @@ class ChartfieldBudgetWizard(models.TransientModel):
 	_name="chartfield.budget.wizard"
 	_description="Chartfield Budget Wizard"
 
-	budget_year = fields.Char(string="Budget Year")
+	budget_year = fields.Char(string="Budget Year", size=4)
 
 
 	@api.multi
