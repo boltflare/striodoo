@@ -9,16 +9,16 @@ _logger = logging.getLogger(__name__)
 class StockPicking(models.Model):
 	_inherit = "stock.picking"
 
-	enable_validate = fields.Boolean(string="Enable validate action", 
-		compute="compute_enable_validate")
+	enable_button_validate = fields.Boolean(string="Enable validate action", 
+		compute="compute_enable_button_validate")
 
 
-	def compute_enable_validate(self):
+	def compute_enable_button_validate(self):
 		for stock in self:
 			if stock.sale_id:
 				sale = stock.sale_id
 				has_invoice = False if not sale.invoice_ids else True
 				if sale.required_invoice == True and has_invoice == True:
-					stock.enable_validate = True
+					stock.enable_button_validate = True
 				else:
-					stock.enable_validate = False
+					stock.enable_button_validate = False

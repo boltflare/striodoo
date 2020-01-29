@@ -9,13 +9,11 @@
 			<field name="model">stock.picking</field>
 			<field name="inherit_id" ref="stock.view_picking_form"/>
 			<field name="arch" type="xml">
-				<!--xpath expr="//field[@name='id']" position="after">
-					<field name="enable_validate" invisible="1"/>
-				</xpath-->
-
-				<xpath expr="//button[@name='do_print_picking']" position="before">
-					<field name="enable_validate"/>
-					<button name="button_validate" attrs="{'invisible': [('enable_validate', '=', False)]}" string="Validate" type="object" groups="stock.group_stock_user" class="o_btn_validate"/>
+				<!--button name="button_validate" attrs="{'invisible': ['|', ('state', 'in', ('waiting','confirmed')), ('show_validate', '=', False)]}" string="Validate" type="object" class="oe_highlight" groups="stock.group_stock_user"/>
+				<button name="button_validate" attrs="{'invisible': ['|', ('state', 'not in', ('waiting', 'confirmed')), ('show_validate', '=', False)]}" string="Validate" type="object" groups="stock.group_stock_user" class="o_btn_validate"/-->
+				<xpath expr="//field[@name='button_validate'][1]" position="attributes">
+					<field name="enable_button_validate"/>
+					<attribute name="attrs">{'invisible': ['|', '|', ('enable_button_validate', '=', False), ('state', 'in', ('waiting','confirmed')), ('show_validate', '=', False)]}</attribute>
 				</xpath>
 			</field>
 		</record>
