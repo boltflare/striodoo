@@ -18,9 +18,9 @@ class StockPicking(models.Model):
 			if stock.sale_id:
 				sale = stock.sale_id
 				has_invoice = False if not sale.invoice_ids else True
-				if sale.required_invoice == True and has_invoice == True:
-					stock.enable_button_validate = True
-				else:
+				if sale.required_invoice == True and has_invoice == False:
 					stock.enable_button_validate = False
+				else:
+					stock.enable_button_validate = True
 			else:
 				stock.enable_button_validate = True
