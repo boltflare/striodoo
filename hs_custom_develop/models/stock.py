@@ -22,3 +22,5 @@ class StockPicking(models.Model):
 					stock.enable_button_validate = True
 				else:
 					stock.enable_button_validate = False
+			else:
+				stock.enable_button_validate = True
