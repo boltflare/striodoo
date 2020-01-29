@@ -15,7 +15,7 @@
 					<field name="required_invoice" invisible="1"/>
 				</xpath>
 
-				<xpath expr="//field[@name='do_print_picking']" position="before">
+				<xpath expr="//button[@name='do_print_picking']" position="before">
 					<!-- Add your fields here -->
 					<button name="button_validate" attrs="{'invisible': [('enable_validate', '=', False)]}" string="Validate" type="object" groups="stock.group_stock_user" class="o_btn_validate"/>
 				</xpath>

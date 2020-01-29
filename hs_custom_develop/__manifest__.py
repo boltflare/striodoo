@@ -15,7 +15,6 @@
 	'author': 'HS Consul S.A.',
 
 	'data': [
-		'views/purchase_view.xml',
 		'views/sale_view.xml',
 		'views/stock_view.xml',
 	],
