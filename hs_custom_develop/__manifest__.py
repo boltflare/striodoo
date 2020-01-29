@@ -6,7 +6,7 @@
 	'version': '1.0',
 	'summary':'Configuraciones generales',
 	'category': 'Tool',
-	'depends': ['base', 'account'],
+	'depends': ['base', 'sale', 'purchase', 'stock', 'account'],
 	'description': """
 		En este modulo se almacenan toda las configuraciones y desarrollos
 		generales de HS Consulting para STRI
