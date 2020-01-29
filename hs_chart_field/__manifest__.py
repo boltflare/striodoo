@@ -31,6 +31,7 @@
 	'data': [
 		'views/res_partner.xml',
 		'views/account_account.xml',
+		'wizard/budge_update.xml',
 	],
 	'installable': True,
 	'auto_install': True,
