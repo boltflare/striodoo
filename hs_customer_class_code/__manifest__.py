@@ -23,8 +23,6 @@
       'views/regular_companies_view.xml',
       'views/res_partner_view.xml',
       'views/sale_view.xml',
-	  'views/crm_view.xml',
-	  'views/fleet_vehicle_view.xml',
 	  'views/payment_view.xml',
 	  'views/stock_picking_view.xml',
     ],
