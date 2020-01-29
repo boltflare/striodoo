@@ -12,7 +12,7 @@
 				<!-- Add your xpath here -->
 				<xpath expr="//field[@name='id']" position="after">
 					<!-- Add your fields here -->
-					<field name="required_invoice" invisible="1"/>
+					<field name="enable_validate" invisible="1"/>
 				</xpath>
 
 				<xpath expr="//button[@name='do_print_picking']" position="before">
