@@ -4,8 +4,8 @@
 		<!-- Add you code here -->
 		
 		<!-- model.name inherit form view -->
-		<record id="stri_sale_view" model="ir.ui.view">
-			<field name="name">stri_sale_view</field>
+		<record id="stri_custom_sale_view" model="ir.ui.view">
+			<field name="name">stri.custom.sale.view</field>
 			<field name="model">sale.order</field>
 			<field name="inherit_id" ref="sale.view_order_form"/>
 			<field name="arch" type="xml">

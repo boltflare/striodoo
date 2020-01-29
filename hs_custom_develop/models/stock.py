@@ -7,7 +7,7 @@ _logger = logging.getLogger(__name__)
 
 
 class StockPicking(models.Model):
-	inherit = "stock.picking"
+	_inherit = "stock.picking"
 
 	enable_validate = fields.Boolean(string="Enable validate action", 
 		compute="compute_enable_validate")
