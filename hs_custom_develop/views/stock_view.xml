@@ -9,14 +9,12 @@
 			<field name="model">stock.picking</field>
 			<field name="inherit_id" ref="stock.view_picking_form"/>
 			<field name="arch" type="xml">
-				<!-- Add your xpath here -->
-				<xpath expr="//field[@name='id']" position="after">
-					<!-- Add your fields here -->
+				<!--xpath expr="//field[@name='id']" position="after">
 					<field name="enable_validate" invisible="1"/>
-				</xpath>
+				</xpath-->
 
 				<xpath expr="//button[@name='do_print_picking']" position="before">
-					<!-- Add your fields here -->
+					<field name="enable_validate"/>
 					<button name="button_validate" attrs="{'invisible': [('enable_validate', '=', False)]}" string="Validate" type="object" groups="stock.group_stock_user" class="o_btn_validate"/>
 				</xpath>
 			</field>
