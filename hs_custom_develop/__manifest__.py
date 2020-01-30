@@ -17,8 +17,11 @@
 	'data': [
 		'views/sale_view.xml',
 		'views/stock_view.xml',
+		'views/point_of_sale.xml',
 	],
-	'qweb': ['static/src/xml/pos_hide_tax.xml'],
+	'qweb': [
+		# 'static/src/xml/pos_hide_tax.xml'
+	],
 		
 	'installable': True,
 	'auto_install': False,
