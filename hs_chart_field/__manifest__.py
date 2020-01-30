@@ -31,7 +31,7 @@
 	'data': [
 		'views/res_partner.xml',
 		'views/account_account.xml',
-		'wizard/account_budge_update.xml',
+		'wizard/account_account_budge.xml',
 		'wizard/res_partner_budget.xml',
 	],
 	'installable': True,
