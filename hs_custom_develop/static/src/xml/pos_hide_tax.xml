@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-	<template id="assests" inherit_id="point_of_sale.assets">
+	<template id="hs_custom_assets01" inherit_id="point_of_sale.assets">
 		<xpath expr="." position="inside">
 			<link rel="stylesheet" href="/hs_custom_develop/static/src/css/pos_hide_tax.css"/>
 		</xpath>
