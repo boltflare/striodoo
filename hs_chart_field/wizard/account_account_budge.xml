@@ -3,9 +3,9 @@
 	<data>
 		
 		<!-- model.name form view -->
-		<record id="budget_update_wizard" model="ir.ui.view">
-			<field name="name">budget.update.wizard</field>
-			<field name="model">chartfield.budget.wizard</field>
+		<record id="partner_budget_wizard" model="ir.ui.view">
+			<field name="name">partner.budget.wizard</field>
+			<field name="model">partner.budget.wizard</field>
 			<field name="arch" type="xml">
 				<form string="">
 					<group>
