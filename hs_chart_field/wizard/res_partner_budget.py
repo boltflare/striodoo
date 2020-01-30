@@ -2,7 +2,7 @@
 
 from odoo import api, fields, models
 
-class ResPartnerBudgetWizard(models.TransientModel):
+class PartnerBudgetWizard(models.TransientModel):
 	_name="partner.budget.wizard"
 	_description="Partner Budget Wizard"
 

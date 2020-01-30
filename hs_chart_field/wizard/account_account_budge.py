@@ -3,7 +3,7 @@
 from odoo import api, fields, models
 
 
-class ChartfieldBudgetWizard(models.TransientModel):
+class AccountBudgetWizard(models.TransientModel):
 	_name="account.budget.wizard"
 	_description="Account Budget Wizard"
 
