@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models, exceptions ,_
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -65,7 +65,7 @@ class AccountInvoiceInherit2(models.Model):
 					self.journal_id = journal
 					break
 		except Exception as error:
-			raise exceptions.ValidationError("No se encontraron cuentas por cobrar para el \
+			raise exceptions.Warning("No se encontraron cuentas por cobrar para el \
 				producto ingreado: " + str(error))
 
 

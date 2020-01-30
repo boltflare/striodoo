@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
+from odoo import api, fields, models, exceptions
 
 class PartnerBudgetWizard(models.TransientModel):
 	_name="partner.budget.wizard"
@@ -16,5 +16,6 @@ class PartnerBudgetWizard(models.TransientModel):
 			account = self.env["res.partner"].browse(doc_ids)
 			account.write({'stri_budget' : self.budget_year})
 		except Exception as __ERROR:
-			raise exceptions.ValidationError("No se encontraron cuentas por cobrar para el \
-				producto ingreado: " + str(__ERROR))
+			_logger.error("Error on budget reference field: " + str(__ERROR))
+			#raise exceptions.Warning("No se encontraron cuentas por cobrar para el \
+			#	producto ingreado: " + str(__ERROR))
