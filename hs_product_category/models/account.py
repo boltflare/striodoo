@@ -66,7 +66,9 @@ class AccountInvoiceInherit2(models.Model):
 					break
 		except Exception as error:
 			raise exceptions.Warning("No se encontraron cuentas por cobrar para el \
-				producto ingreado: " + str(error))
+				producto ingresado.")
+
+				#no account receivable were found for the selected product
 
 
 
