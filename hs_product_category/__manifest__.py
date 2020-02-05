@@ -26,7 +26,7 @@
 	'license': 'LGPL-3',
 
 	# any module necessary for this one to work correctly
-	'depends': ['base', 'account'],
+	'depends': ['base', 'account', 'point_of_sale'],
 
 	# any external library necessary for this one to work correctly
 	'external_dependencies': {

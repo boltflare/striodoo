@@ -31,6 +31,8 @@
 	'data': [
 		'views/res_partner.xml',
 		'views/account_account.xml',
+		'wizard/account_account_budge.xml',
+		'wizard/res_partner_budget.xml',
 	],
 	'installable': True,
 	'auto_install': True,

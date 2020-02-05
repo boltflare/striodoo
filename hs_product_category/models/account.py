@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models, exceptions ,_
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -50,6 +50,9 @@ class AccountInvoiceInherit2(models.Model):
 	def _onchange_invoice_line(self):
 		try:
 			for invoice_line in self.invoice_line_ids:
+				invoice = invoice_line.invoice_id
+				if invoice.type in("out_refund", "in_refund"):
+					break
 				product = invoice_line.product_id
 				_logger.info("El producto encontrado es: '" + str(product.name) + "'")
 				if str(product.name) != "False":
@@ -62,8 +65,10 @@ class AccountInvoiceInherit2(models.Model):
 					self.journal_id = journal
 					break
 		except Exception as error:
-			raise exceptions.ValidationError("No se encontraron cuentas por cobrar para el \
-				producto ingreado: " + str(error))
+			raise exceptions.Warning("No se encontraron cuentas por cobrar para el \
+				producto ingresado.")
+
+				#no account receivable were found for the selected product
 
 
 
