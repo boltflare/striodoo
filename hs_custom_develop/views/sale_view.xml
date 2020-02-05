@@ -12,7 +12,7 @@
 				<!-- Add your xpath here -->
 				<xpath expr="//field[@name='expected_date']" position="after">
 					<!-- Add your fields here -->
-					<field name="required_invoice" required="True"/>
+					<field name="required_invoice" required="True" invisible="1"/>
 				</xpath>
 			</field>
 		</record>
