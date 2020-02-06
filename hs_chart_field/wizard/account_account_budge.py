@@ -6,7 +6,6 @@ from odoo import api, fields, models, exceptions
 import logging
 _logger = logging.getLogger(__name__)
 
-
 class AccountBudgetWizard(models.TransientModel):
 	_name="account.budget.wizard"
 	_description="Account Budget Wizard"
