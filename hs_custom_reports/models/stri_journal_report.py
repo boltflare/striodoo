@@ -11,8 +11,13 @@ class InheritStriJournalReport(models.AbstractModel):
 	_description = 'Journal Report'
 
 
-	filter_date = {'date_from': '', 'date_to': '', 'filter': 'this_month'}
-	filter_comparison = {'date_from': '', 'date_to': '', 'filter': 'no_comparison', 'number_period': 1}
+	filter_date = {'date_from': '', 'date_to': '', 'filter': 'this_year'}
+	filter_cash_basis = False
+	filter_all_entries = False
+	filter_unfold_all = False
+	filter_account_type = False
+	filter_unreconciled = False
+	filter_partner = True
 
 	def _get_columns_name(self, options):
 		columns = [
