@@ -15,7 +15,9 @@
 				</t>
 			</xpath>
 			<xpath expr="//div[hasclass('o_account_reports_domain_dropdown')]/*[last()]" position="before">
-				<t t-if="line['caret_options'] != 'account.tax'" groups="account.group_account_user"><a role="menuitem" tabindex="-1" t-att-data-id="line['id']" action="open_document" class="dropdown-item">View Journal Entry</a></t>
+				<t t-if="line['caret_options'] != 'account.tax'" groups="account.group_account_user">
+					<a role="menuitem" tabindex="-1" t-att-data-id="line['id']" action="open_document" class="dropdown-item">View Journal Entry</a>
+				</t>
 			</xpath>
 		</template>
 

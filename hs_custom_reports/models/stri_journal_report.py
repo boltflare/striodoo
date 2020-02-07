@@ -8,7 +8,7 @@ from odoo.tools.misc import formatLang
 class InheritStriJournalReport(models.AbstractModel):
 	_inherit = 'account.report'
 	_name = 'account.stri.journal.report'
-	_description = 'STRi Journal Report'
+	_description = 'Journal Report'
 
 
 	filter_date = {'date_from': '', 'date_to': '', 'filter': 'this_month'}
