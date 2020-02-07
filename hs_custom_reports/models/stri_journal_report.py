@@ -33,7 +33,7 @@ class InheritStriJournalReport(models.AbstractModel):
 
 
 	def _get_templates(self):
-		templates = super(ReportPartnerLedger, self)._get_templates()
+		templates = super(InheritStriJournalReport, self)._get_templates()
 		templates['line_template'] = 'account_reports.line_template_journal_report'
 		return templates
 
@@ -60,10 +60,10 @@ class InheritStriJournalReport(models.AbstractModel):
 		if line_id:
 			line_id = int(line_id.split('_')[1]) or None
 		"""
-
+		lines = []
 		total_columns = ['', '', '', '', '', '', '', '', '', '', '']
 		lines.append({
-			'id': 'grouped_partners_total',
+			'id': 'grouped_journal_total',
 			'name': _('Total'),
 			'level': 0,
 			'class': 'o_account_reports_domain_total',
