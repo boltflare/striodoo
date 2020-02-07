@@ -15,6 +15,7 @@
 
 	'data': [
 		'reports/items_funds.xml',
+		'views/journal_report.xml'
 	],
 		
 	'installable': True,

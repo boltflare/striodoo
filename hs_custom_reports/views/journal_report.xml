@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		
+		<record id="action_account_report_stri_journal" model="ir.actions.client">
+			<field name="name">Journal Report</field>
+			<field name="tag">journal_report</field>
+			<field name="context" eval="{'model': 'account.stri.journal.report'}" />
+		</record>
+		
+
+		<menuitem id="menu_action_account_report_stri_journal" name="Journal Report" action="action_account_report_stri_journal" parent="account_reports_partners_reports_menu" groups="account.group_account_user"/>
+	</data>
+</odoo>
