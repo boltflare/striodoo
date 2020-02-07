@@ -6,7 +6,7 @@
 	'version': '1.0',
 	'summary':'Reportes variados',
 	'category': 'Tool',
-	'depends': ['base', 'account'],
+	'depends': ['base', 'account', 'account_reports'],
 	'description': """
 		Is a Module to create and add class code for customers.
 	""",

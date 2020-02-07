@@ -9,6 +9,6 @@
 		</record>
 		
 
-		<menuitem id="menu_action_account_report_stri_journal" name="Journal Report" action="action_account_report_stri_journal" parent="account_reports_partners_reports_menu" groups="account.group_account_user"/>
+		<menuitem id="menu_action_account_report_stri_journal" name="Journal Report" action="action_account_report_stri_journal" parent="account_reports.account_reports_partners_reports_menu" groups="account.group_account_user"/>
 	</data>
 </odoo>
