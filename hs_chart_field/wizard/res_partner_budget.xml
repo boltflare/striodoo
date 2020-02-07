@@ -22,7 +22,7 @@
 		<act_window id="partner_budget_wizard_action"
 			name="Update Budget Chartfield"
 			src_model="res.partner"
-			res_model="account.budget.wizard"
+			res_model="partner.budget.wizard"
 			view_type="form" 
 			view_mode="form"
 			key2="client_action_multi"
