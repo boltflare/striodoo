@@ -36,6 +36,7 @@
 									<tr>
 										<!--th groups="stock.group_stock_multi_locations"><strong>Location</strong></th-->
 										<th><strong>Product</strong></th>
+										<th><strong>Code</strong></th>
 										<!--th groups="stock.group_production_lot"><strong>Production Lot</strong></th>
 										<th groups="stock.group_tracking_lot"><strong>Package</strong></th-->
 										<th class="text-right"><strong>Quantity</strong></th>
@@ -60,6 +61,7 @@
 									<t t-foreach="lines" t-as="column">
 										<tr>
 											<td><span t-esc="column['name']"/></td>
+											<td><span t-esc="column['code']"/></td>
 											<td><span t-esc="column['quantity']"/></td>
 										</tr>
 									</t>

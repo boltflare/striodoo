@@ -33,6 +33,7 @@ class ReportItemFund(models.AbstractModel):
 			for item in products:
 				lines.append({
 					'name' : item.name,
+					'code' : item.default_code,
 					'quantity' : ''
 				})
 		
