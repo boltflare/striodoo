@@ -25,7 +25,7 @@ class ReportItemFund(models.AbstractModel):
 			stock = self.env["stock.quant"].search([('location_id', '=', location)])
 			if doc.filter == "none":
 				#products = self.env["product.template"].search([])
-				products = stock.product_id
+				products = stock.filtered(lambda s: s.product_id)
 			elif doc.filter == "category":
 				# categ_id = doc.category_id.id
 				#products = self.env["product.template"].search([('categ_id', '=', categ_id)])
