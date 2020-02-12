@@ -31,7 +31,7 @@
 
 							<br/>
 
-							<table class="table table-sm">
+							<table class="table table-sm table-bordered">
 								<thead>
 									<tr>
 										<!--th groups="stock.group_stock_multi_locations"><strong>Location</strong></th-->
