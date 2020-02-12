@@ -12,7 +12,7 @@ class ReportItemFund(models.AbstractModel):
 	_description = "product stock report"
 
 
-	@api.one
+	@api.multi
 	def _get_report_values(self, docids, data=None):
 		report_name = "hs_custom_reports.stock_product_template"
 		report = self.env["ir.actions.report"]._get_report_from_name(report_name)
