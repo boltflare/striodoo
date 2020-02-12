@@ -23,7 +23,7 @@ class ReportItemFund(models.AbstractModel):
 			if doc.filter == "none":
 				products = self.env["product.product"].search([])
 			elif doc.filter == "category":
-				categ_id = docs.category_id
+				categ_id = docs.category_id.id
 				products = self.env["product.product"].search([('categ_id', '=', categ_id)])
 			elif doc.filter == "product":
 				products = [docs.product_id]
