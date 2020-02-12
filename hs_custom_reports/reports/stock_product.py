@@ -12,6 +12,7 @@ class ReportItemFund(models.AbstractModel):
 	_description = "product stock report"
 
 
+
 	@api.multi
 	def _get_report_values(self, docids, data=None):
 		report_name = "hs_custom_reports.stock_product_template"
@@ -20,13 +21,19 @@ class ReportItemFund(models.AbstractModel):
 		lines = []
 		
 		for doc in docs:
+			location = doc.location_id.id
+			lines = self.env["stock.quant"].search([('location_id', '=', location)])
 			if doc.filter == "none":
-				products = self.env["product.template"].search([])
+				#products = self.env["product.template"].search([])
+				products = lines.product_id
 			elif doc.filter == "category":
-				categ_id = docs.category_id.id
-				products = self.env["product.template"].search([('categ_id', '=', categ_id)])
+				# categ_id = doc.category_id.id
+				#products = self.env["product.template"].search([('categ_id', '=', categ_id)])
+				categ_id = doc.category_id
+				products = lines.product_id.filtered(lambda r: r.categ_id == categ_id)
+				#products = lines.filtered(lambda r: r.)
 			elif doc.filter == "product":
-				products = [docs.product_id]
+				products = [doc.product_id]
 			else:
 				raise exceptions.Warning("Este reporte no esta disponible para este tipo de inventario")
 
