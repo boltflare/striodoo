@@ -77,7 +77,7 @@
 		<report
 			id="stock_product_report_action"
 			model="stock.inventory"
-			string="item By Fund Report"
+			string="General Products"
 			report_type="qweb-pdf"
 			name="hs_custom_reports.stock_product_template"
 			file="hs_custom_reports.stock_product_template"
