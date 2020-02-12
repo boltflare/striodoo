@@ -19,19 +19,28 @@ class ReportItemFund(models.AbstractModel):
 		report = self.env["ir.actions.report"]._get_report_from_name(report_name)
 		docs = self.env[report.model].browse(docids)
 		lines = []
+
+		"""
+		for doc in docs:
+			if doc.filter == "none":
+				products = self.env["product.template"].search([])
+			elif doc.filter == "category":
+				categ_id = doc.category_id.id
+				products = self.env["product.template"].search([('categ_id', '=', categ_id)])
+			elif doc.filter == "product":
+				products = [doc.product_id]
+			else:
+				raise exceptions.Warning("Este reporte no esta disponible para este tipo de inventario")
+		"""
 		
 		for doc in docs:
 			location = doc.location_id.id
-			stock = self.env["stock.quant"].search([('location_id', '=', location)])
+			stocks = self.env["stock.quant"].search([('location_id', '=', location)])
 			if doc.filter == "none":
-				#products = self.env["product.template"].search([])
-				products = stock.filtered(lambda s: s.product_id)
+				products = [stock.product_id for stock in stocks]
 			elif doc.filter == "category":
-				# categ_id = doc.category_id.id
-				#products = self.env["product.template"].search([('categ_id', '=', categ_id)])
-				categ_id = doc.category_id
-				products = stock.product_id.filtered(lambda r: r.categ_id == categ_id)
-				#products = stock.filtered(lambda r: r.)
+				categ_id = doc.category_id.id
+				products = [stock.product_id for stock in stocks if stock.product_id.categ_id == categ_id]
 			elif doc.filter == "product":
 				products = [doc.product_id]
 			else:
