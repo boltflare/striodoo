@@ -22,16 +22,16 @@ class ReportItemFund(models.AbstractModel):
 		
 		for doc in docs:
 			location = doc.location_id.id
-			lines = self.env["stock.quant"].search([('location_id', '=', location)])
+			stock = self.env["stock.quant"].search([('location_id', '=', location)])
 			if doc.filter == "none":
 				#products = self.env["product.template"].search([])
-				products = lines.product_id
+				products = stock.product_id
 			elif doc.filter == "category":
 				# categ_id = doc.category_id.id
 				#products = self.env["product.template"].search([('categ_id', '=', categ_id)])
 				categ_id = doc.category_id
-				products = lines.product_id.filtered(lambda r: r.categ_id == categ_id)
-				#products = lines.filtered(lambda r: r.)
+				products = stock.product_id.filtered(lambda r: r.categ_id == categ_id)
+				#products = stock.filtered(lambda r: r.)
 			elif doc.filter == "product":
 				products = [doc.product_id]
 			else:
