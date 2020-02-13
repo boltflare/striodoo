@@ -23,8 +23,10 @@
       'views/regular_companies_view.xml',
       'views/res_partner_view.xml',
       'views/sale_view.xml',
-	  'views/payment_view.xml',
-	  'views/stock_picking_view.xml',
+      'views/payment_view.xml',
+      'views/stock_picking_view.xml',
+      'wizard/account_account_budge.xml',
+      'wizard/res_partner_budget.xml',
     ],
     
     'installable': True,
