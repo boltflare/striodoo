@@ -9,7 +9,7 @@
 			<field name="arch" type="xml">
 				<form string="">
 					<group>
-						<field name="budget_year" string="Type New Year"/>
+						<field name="budget_year" string="Budget Reference"/>
 					</group>
 					<footer>
 						<button name="action_update_budget" string="Update" type="object" class="oe_highlight"/>
@@ -20,7 +20,7 @@
 		</record>
 		
 		<act_window id="partner_budget_wizard_action"
-			name="Update Budget Chartfield"
+			name="Update Budget Reference"
 			src_model="res.partner"
 			res_model="partner.budget.wizard"
 			view_type="form" 
