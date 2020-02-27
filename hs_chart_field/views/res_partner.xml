@@ -5,7 +5,7 @@
 		<record id="partner_chartfield_form_inherit" model="ir.ui.view">
 			<field name="name">res.partner.chartfield.form</field>
 			<field name="model">res.partner</field>
-			<field name="inherit_id" ref="hs_customer_class_code.res_partner_fund_inherit1"/>
+			<field name="inherit_id" ref="hs_customer_class_code.view_partner_form"/>
 			<field name="arch" type="xml">
 				
 				<xpath expr="//page[@name='sales_purchases']" position="after">
