@@ -15,6 +15,7 @@
 					<field name="customer_is_fund" invisible="1"/>
 					<field name="class_code" attrs="{'invisible':[('customer_is_fund','=',False)], 'required': [('customer_is_fund', '=', True)]}"/>
 					<!-- <field name="name" attrs="{'invisible': [('condition1', '=', False)], 'required': [('condition2', '=', True)]}"/> -->
+					<field name="fund_project_id" attrs="{'invisible':[('customer_is_fund','=',False)]"/>
 				</xpath>
 
 				<xpath expr="//field[@name='partner_id']" position="attributes">

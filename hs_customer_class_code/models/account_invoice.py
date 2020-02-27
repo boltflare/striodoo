@@ -16,6 +16,7 @@ class accountInvoiceInherit2(models.Model):
 	class_code = fields.Many2one("class.code", "Class Code")
 	customer_is_fund = fields.Boolean(string="Is Customer Fund?", compute="_customer_is_fund", default=False)
 	#btn_credit_note = fields.Boolean(compute="_compute_btn_credit_note", string="Activar button credit note")
+	fund_project_id = fields.Char(string="Project ID", compute="_compute_fund_project_id")
 
 	@api.depends('partner_id')
 	def _customer_is_fund(self):
@@ -23,6 +24,15 @@ class accountInvoiceInherit2(models.Model):
 		for invoice in self:
 			customer_type = invoice.partner_id.customer_type
 			invoice.customer_is_fund = True if customer_type == 'fund' else False
+
+
+	@api.depends('customer_is_fund')
+	def _compute_fund_project_id(self):
+		try:
+			for invoice in self:
+				invoice.fund_project_id = invoice.partner_id.stri_project
+		except Exception as __ERROR:
+			pass
 
 	"""
 	@api.depends('type')
