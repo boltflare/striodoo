@@ -16,7 +16,6 @@
 	'data': [
 		'reports/items_funds.xml',
 		'reports/stock_product.xml',
-		'views/journal_report.xml'
 	],
 		
 	'installable': True,
