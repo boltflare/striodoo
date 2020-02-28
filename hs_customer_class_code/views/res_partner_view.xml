@@ -7,7 +7,7 @@
 		<record id="res_partner_fund_inherit1" model="ir.ui.view">
 			<field name="name">res.partner.fund.inherit1</field>
 			<field name="model">res.partner</field>
-			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="inherit_id" ref="hs_chart_field.partner_chartfield_form_inherit"/>
 			<field name="arch" type="xml">
 
 
