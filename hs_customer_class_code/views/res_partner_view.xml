@@ -40,7 +40,7 @@
 				</xpath>
 
 
-				<xpath expr="//field[@page='page_charfield']" position="attributes">
+				<xpath expr="//page[@name='page_charfield']" position="attributes">
 					<attribute name="attrs">{'invisible':[('customer_type', '!=', 'fund')]}</attribute>
 				</xpath>
 
