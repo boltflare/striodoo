@@ -37,8 +37,9 @@ class PeopleSoftReport(models.AbstractModel):
 			lines.append({
 				'id': invoice.id,
 				'name': invoice.number,
+				'unfoldable': False,
 				'level': 0,
-				'columns': ["", "", "", ""]
+				'columns': [{'name' : v} for v in ["", "", "", ""]],
 			})
 		return lines
 
