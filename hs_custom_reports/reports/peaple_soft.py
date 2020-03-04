@@ -4,7 +4,7 @@
 from odoo import models, fields, api, _
 
 
-class PeopleSoftReport(models.Model):
+class PeopleSoftReport(models.AbstractModel):
 	_name = "account.peaplesoft.report"
 	_description = "People Soft Report"
 	_inherit = "account.report"
