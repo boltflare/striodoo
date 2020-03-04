@@ -32,7 +32,7 @@ class PeopleSoftReport(models.AbstractModel):
 	@api.model
 	def _get_lines(self, options, line_id=None):
 		lines = []
-		invoices = self.env["account.invoice"].search([()])
+		invoices = self.env["account.invoice"].search([('number', '!=', False)])
 		for invoice in invoices:
 			lines.append({
 				'id': invoice.id,
