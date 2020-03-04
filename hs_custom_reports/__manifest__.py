@@ -6,7 +6,7 @@
 	'version': '1.0',
 	'summary':'Reportes variados',
 	'category': 'Tool',
-	'depends': ['base', 'account', 'hs_chart_field'],
+	'depends': ['base', 'account_reports', 'hs_chart_field'],
 	'description': """
 		Is a Module to create and add class code for customers.
 	""",
@@ -16,6 +16,7 @@
 	'data': [
 		'reports/items_funds.xml',
 		'reports/people_soft.xml',
+		'data/people_soft_data.xml',
 	],
 		
 	'installable': True,
