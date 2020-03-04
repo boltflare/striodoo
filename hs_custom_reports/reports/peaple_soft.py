@@ -28,6 +28,21 @@ class PeopleSoftReport(models.Model):
 				{'name': _("Amount"), 'class': 'number'}]
 
 
+
 	@api.model
 	def _get_lines(self, options, line_id=None):
-		return []
+		lines = []
+		invoices = self.env["account.invoice"].search([()])
+		for invoice in invoices:
+			lines.append({
+				'id': invoice.id,
+				'name': invoice.number,
+				'level': 0,
+				'columns': ["", "", "", ""]
+			})
+		return lines
+
+
+	@api.model
+	def _get_report_name(self):
+		return _('People Soft')
