@@ -17,7 +17,7 @@ class PeopleSoftReport(models.AbstractModel):
 
 	def _get_templates(self):
 		templates = super(PeopleSoftReport, self)._get_templates()
-		templates['line_template'] = 'account_reports.line_template_peoplesoft_report'
+		templates['line_template'] = 'hs_custom_reports.line_template_peoplesoft_report'
 		return templates
 
 
