@@ -23,9 +23,20 @@ class PeopleSoftReport(models.AbstractModel):
 
 	def _get_columns_name(self, options):
 		return [{'name': ''},
-				{'name': _("Line")},
+				{'name': _("Ledger")},
+				{'name': _("Account")},
+				{'name': _("Entry Event")},
+				{'name': _("Fund")},
+				{'name': _("Dsgc")},
+				{'name': _("Budget Ref")},
+				{'name': _("Dept ID")},
+				{'name': _("Amount"), 'class': 'number'},
 				{'name': _("Reference")},
-				{'name': _("Amount"), 'class': 'number'}]
+				{'name': _("Program")},
+				{'name': _("Class")},
+				{'name': _("Project")},
+				{'name': _("Proj Unit")},
+				{'name': _("Analysis")}]
 
 
 
@@ -39,7 +50,7 @@ class PeopleSoftReport(models.AbstractModel):
 				'name': invoice.number,
 				'unfoldable': False,
 				'level': 3,
-				'columns': [{'name' : v} for v in ["", "", ""]],
+				'columns': [{'name' : v} for v in ["", "", "", "", "", "", "", "", "", "", "", "", "", ""]],
 			})
 		return lines
 
