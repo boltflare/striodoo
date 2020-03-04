@@ -2,3 +2,4 @@
 
 
 from . import items_funds
+from . import peaple_soft

@@ -15,6 +15,7 @@
 
 	'data': [
 		'reports/items_funds.xml',
+		'reports/people_soft.xml',
 	],
 		
 	'installable': True,
