@@ -46,12 +46,14 @@ class PeopleSoftReport(models.AbstractModel):
 				{'name': _("Analysis")}]
 
 
-	def _get_with_statement(self):
+	def _get_with_statement(self, options):
+		dt_from = options['date'].get('date_from')
+		dt_to = options['date'].get('date_to')
 		sql = """
-		WITH people_soft_data AS (SELECT (SELECT CASE WHEN line.credit > 0.00 
+		WITH people_soft_data AS 
+		(SELECT (SELECT CASE WHEN line.credit > 0.00 
 		THEN CONCAT(a.stri_fund, ',', a.stri_budget, ',', a.stri_desig, ',', a.stri_dept, ',', a.stri_account, ',', a.stri_class, ',', a.stri_program, ',', a.stri_project, ',', a.stri_activity, ',', a.stri_type) 
 		ELSE 
-
 			(SELECT CASE WHEN p.customer_type = 'fund' 
 			THEN CONCAT(p.stri_fund, ',', p.stri_budget, ',', p.stri_desig, ',', p.stri_dept, ',', p.stri_account, ',', p.stri_class, ',', p.stri_program, ',', p.stri_project, ',', p.stri_activity, ',', p.stri_type)
 			ELSE 
@@ -61,13 +63,14 @@ class PeopleSoftReport(models.AbstractModel):
 			END)
 		END) AS chartfield,
 		inv.number AS reference,
+		move.date AS date,
 		(SELECT SUM(CASE WHEN line.credit > 0.00 THEN line.credit * -1 else line.debit END)) as amount
 		FROM account_account AS a, res_partner AS p, account_move AS move, account_move_line AS line, account_invoice AS inv
-		WHERE line.account_id = a.id AND line.partner_id = p.id AND line.move_id = move.id AND move.id = inv.move_id /*AND inv.number in ('CSTRI/2020/0021', 'CSTRI/2020/0013')*/
-		GROUP BY chartfield, inv.number
+		WHERE line.account_id = a.id AND line.partner_id = p.id AND line.move_id = move.id AND move.id = inv.move_id
+		GROUP BY chartfield, inv.number, move.date
 		ORDER BY inv.number DESC)
 		SELECT 'ACTUALS' Ledger, 
-		split_part(chartfield, ',', 5) AS account /*Por corregir*/,
+		split_part(chartfield, ',', 5) AS account,
 		CONCAT('REIMB_', (SELECT CASE WHEN split_part(chartfield, ',', 5) = '6998' THEN '6998' ELSE '6999' END)) as entry_event,
 		split_part(chartfield, ',', 1) AS fund,
 		split_part(chartfield, ',', 3) AS dsgc,
@@ -85,14 +88,15 @@ class PeopleSoftReport(models.AbstractModel):
 		(SELECT CASE WHEN split_part(chartfield, ',', 8) = '' THEN '' ELSE 'SI000' END) AS proj_unit,
 		split_part(chartfield, ',', 9) AS activity,
 		split_part(chartfield, ',', 10) AS Analysis
-		FROM people_soft_data;
-		"""
+		FROM people_soft_data
+		WHERE date BETWEEN '{}' AND '{}';
+		""".format(dt_from, dt_to)
 
 		return sql
 
 
-	def _do_query(self):
-		with_sql = self._get_with_statement()
+	def _do_query(self, options):
+		with_sql = self._get_with_statement(options)
 		self.env.cr.execute(with_sql)
 		results = self.env.cr.fetchall()
 		return results
@@ -104,10 +108,7 @@ class PeopleSoftReport(models.AbstractModel):
 		_logger.info("El valor de line_id es: '" + str(line_id))
 		lines = []
 		#invoices = self.env["account.move.line"].search()
-
-		#dt_from = options['date'].get('date_from')
-		#dt_to = options['date'].get('date_to')
-		invoices = self._do_query()
+		invoices = self._do_query(options)
 		count = 0
 		for invoice in invoices:
 			lines.append({
