@@ -39,19 +39,73 @@ class PeopleSoftReport(models.AbstractModel):
 				{'name': _("Analysis")}]
 
 
+	def _get_with_statement(self):
+		sql = """
+		WITH people_soft_data AS (SELECT (SELECT CASE WHEN line.credit > 0.00 
+		THEN CONCAT(a.stri_fund, ',', a.stri_budget, ',', a.stri_desig, ',', a.stri_dept, ',', a.stri_account, ',', a.stri_class, ',', a.stri_program, ',', a.stri_project, ',', a.stri_activity, ',', a.stri_type) 
+		ELSE 
+
+			(SELECT CASE WHEN p.customer_type = 'fund' 
+			THEN CONCAT(p.stri_fund, ',', p.stri_budget, ',', p.stri_desig, ',', p.stri_dept, ',', p.stri_account, ',', p.stri_class, ',', p.stri_program, ',', p.stri_project, ',', p.stri_activity, ',', p.stri_type)
+			ELSE 
+				(SELECT CONCAT(a2.stri_fund, ',', a2.stri_budget, ',', a2.stri_desig, ',', a2.stri_dept, ',', a2.stri_account, ',', a2.stri_class, ',', a2.stri_program, ',', a2.stri_project, ',', a2.stri_activity, ',', a2.stri_type) as strifund
+				FROM account_account as a2, account_journal as j
+				WHERE a2.id = j.default_debit_account_id AND j.id = inv.journal_id LIMIT 1)
+			END)
+		END) AS chartfield,
+		inv.number AS reference,
+		(SELECT SUM(CASE WHEN line.credit > 0.00 THEN line.credit * -1 else line.debit END)) as amount
+		FROM account_account AS a, res_partner AS p, account_move AS move, account_move_line AS line, account_invoice AS inv
+		WHERE line.account_id = a.id AND line.partner_id = p.id AND line.move_id = move.id AND move.id = inv.move_id /*AND inv.number in ('CSTRI/2020/0021', 'CSTRI/2020/0013')*/
+		GROUP BY chartfield, inv.number
+		ORDER BY inv.number DESC)
+		SELECT 'ACTUALS' Ledger, 
+		split_part(chartfield, ',', 5) AS account /*Por corregir*/,
+		CONCAT('REIMB_', (SELECT CASE WHEN split_part(chartfield, ',', 5) = '6998' THEN '6998' ELSE '6999' END)) as entry_event,
+		split_part(chartfield, ',', 1) AS fund,
+		split_part(chartfield, ',', 3) AS dsgc,
+		split_part(chartfield, ',', 3) AS dsgc,
+		split_part(chartfield, ',', 4) AS dept_id,
+		amount,
+		'USD' Currency,
+		reference,
+		split_part(chartfield, ',', 7) AS program,
+		(SELECT CASE WHEN split_part(chartfield, ',', 6) != 'CLASSCODE' 
+		THEN split_part(chartfield, ',', 6) 
+		ELSE (SELECT cc.code FROM class_code AS cc, account_invoice AS ai WHERE ai.class_code = cc.id AND ai.number = reference limit 1)
+		END) AS class,
+		split_part(chartfield, ',', 8) AS project,
+		(SELECT CASE WHEN split_part(chartfield, ',', 8) = '' THEN '' ELSE 'SI000' END) AS proj_unit,
+		split_part(chartfield, ',', 9) AS activity,
+		split_part(chartfield, ',', 10) AS Analysis
+		FROM people_soft_data;
+		"""
+
+		return sql
+
+
+	def _do_query(self):
+		with_sql = self._get_with_statement()
+		self.env.cr.execute(with_sql)
+		results = self.env.cr.fetchall()
+		return results
+
 
 	@api.model
 	def _get_lines(self, options, line_id=None):
 		lines = []
-		invoices = self.env["account.invoice"].search([('number', '!=', False)])
+		#invoices = self.env["account.move.line"].search()
+		invoices = self._do_query()
+		count = 0
 		for invoice in invoices:
 			lines.append({
-				'id': invoice.id,
-				'name': invoice.number,
+				'id': count,
+				'name': count,
 				'unfoldable': False,
 				'level': 3,
-				'columns': [{'name' : v} for v in ["", "", "", "", "", "", "", "", "", "", "", "", "", ""]],
+				'columns': [{'name' : v} for v in invoice],
 			})
+			count+=1
 		return lines
 
 
