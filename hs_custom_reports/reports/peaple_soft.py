@@ -46,9 +46,26 @@ class PeopleSoftReport(models.AbstractModel):
 				{'name': _("Analysis")}]
 
 
+	def _do_filter_by_journal(self, options):
+		journals = options['journals']
+		if journals == None:
+			return '' 
+
+		for journal in journals:
+			if journal['id'] == 'divider':
+				continue
+
+			if journal['selected'] == True:
+				return 'AND inv.journal_id = {}'.format(journal['id'])
+
+		return ''
+
+
+
 	def _get_with_statement(self, options):
 		dt_from = options['date'].get('date_from')
 		dt_to = options['date'].get('date_to')
+		by_journal = self._do_filter_by_journal(options)
 		sql = """
 		WITH people_soft_data AS 
 		(SELECT (SELECT CASE WHEN line.credit > 0.00 
@@ -66,7 +83,7 @@ class PeopleSoftReport(models.AbstractModel):
 		move.date AS date,
 		(SELECT SUM(CASE WHEN line.credit > 0.00 THEN line.credit * -1 else line.debit END)) as amount
 		FROM account_account AS a, res_partner AS p, account_move AS move, account_move_line AS line, account_invoice AS inv
-		WHERE line.account_id = a.id AND line.partner_id = p.id AND line.move_id = move.id AND move.id = inv.move_id
+		WHERE line.account_id = a.id AND line.partner_id = p.id AND line.move_id = move.id AND move.id = inv.move_id {}
 		GROUP BY chartfield, inv.number, move.date
 		ORDER BY inv.number DESC)
 		SELECT 'ACTUALS' Ledger, 
@@ -90,7 +107,7 @@ class PeopleSoftReport(models.AbstractModel):
 		split_part(chartfield, ',', 10) AS Analysis
 		FROM people_soft_data
 		WHERE date BETWEEN '{}' AND '{}';
-		""".format(dt_from, dt_to)
+		""".format(by_journal, dt_from, dt_to)
 
 		return sql
 
