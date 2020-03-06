@@ -119,6 +119,16 @@ class PeopleSoftReport(models.AbstractModel):
 				'columns': [{'name' : v} for v in invoice],
 			})
 			count+=1
+
+		if len(invoices) == 0:
+			lines.append({
+				'id': '',
+				'name': '',
+				'unfoldable': False,
+				'level': 3,
+				'columns': [{'name' : v} for v in ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',]],
+			})
+		
 		return lines
 
 
