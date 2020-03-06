@@ -3,6 +3,9 @@
 
 from odoo import models, fields, api, _
 
+import logging
+_logger = logging.getLogger(__name__)
+
 
 class PeopleSoftReport(models.AbstractModel):
 	_name = "account.peaplesoft.report"
@@ -95,6 +98,8 @@ class PeopleSoftReport(models.AbstractModel):
 
 	@api.model
 	def _get_lines(self, options, line_id=None):
+		_logger.info("El valor de options es: '" + str(options))
+		_logger.info("El valor de line_id es: '" + str(line_id))
 		lines = []
 		#invoices = self.env["account.move.line"].search()
 		invoices = self._do_query()
