@@ -15,6 +15,8 @@ class PeopleSoftReport(models.AbstractModel):
 
 	filter_date = {'date_from': '', 'date_to': '', 'filter': 'today'}
 	filter_all_entries = False
+	filter_journals = True
+	filter_analytic = False
 	filter_unfold_all = False
 
 
@@ -102,6 +104,9 @@ class PeopleSoftReport(models.AbstractModel):
 		_logger.info("El valor de line_id es: '" + str(line_id))
 		lines = []
 		#invoices = self.env["account.move.line"].search()
+
+		#dt_from = options['date'].get('date_from')
+		#dt_to = options['date'].get('date_to')
 		invoices = self._do_query()
 		count = 0
 		for invoice in invoices:
