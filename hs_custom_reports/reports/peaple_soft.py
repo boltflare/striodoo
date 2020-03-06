@@ -51,14 +51,21 @@ class PeopleSoftReport(models.AbstractModel):
 		if journals == None:
 			return '' 
 
+		indices = ''
 		for journal in journals:
 			if journal['id'] == 'divider':
 				continue
 
 			if journal['selected'] == True:
-				return 'AND inv.journal_id = {}'.format(journal['id'])
 
-		return ''
+				temp = journal['id'] if indices == '' else ', ' + journal['id']
+				indices = indices + temp
+
+		return ' AND inv.journal_id in ({}) '.format(indices)
+
+
+	def _do_filter_by_state(self, options):
+		pass
 
 
 
