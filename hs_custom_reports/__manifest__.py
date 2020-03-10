@@ -15,7 +15,8 @@
 
 	'data': [
 		'reports/items_funds.xml',
-		'reports/people_soft.xml',
+		'reports/people_soft_report.xml',
+		'reports/people_soft_wizard.xml',
 		'data/people_soft_data.xml',
 	],
 		

@@ -47,6 +47,14 @@ class PeopleSoftReport(models.AbstractModel):
 
 
 	def _do_filter_by_journal(self, options):
+		"""[summary]
+		
+		Arguments:
+			options {[type]} -- [description]
+		
+		Returns:
+			[type] -- [description]
+		"""
 		journals = options['journals']
 		if journals == None:
 			return '' 
@@ -67,7 +75,23 @@ class PeopleSoftReport(models.AbstractModel):
 		return ' AND inv.journal_id in ({}) '.format(indices)
 
 
+
 	def _do_filter_by_state(self, options):
+		"""[summary]
+		
+		Arguments:
+			options {[type]} -- [description]
+		"""
+		pass
+
+
+
+	def _do_filter_by_invoice(self, line_id):
+		"""[summary]
+		
+		Arguments:
+			line_id {[type]} -- [description]
+		"""
 		pass
 
 
