@@ -93,7 +93,7 @@ class PeopleSoftReport(models.AbstractModel):
 		move.date AS date,
 		(SELECT SUM(CASE WHEN line.credit > 0.00 THEN line.credit * -1 else line.debit END)) as amount
 		FROM account_account AS a, res_partner AS p, account_move AS move, account_move_line AS line, account_invoice AS inv
-		WHERE line.account_id = a.id AND line.partner_id = p.id AND line.move_id = move.id AND move.id = inv.move_id {}
+		WHERE line.account_id = a.id AND line.partner_id = p.id AND line.move_id = move.id AND move.id = inv.move_id AND inv.type in ('out_invoice', 'out_refund') {}
 		GROUP BY chartfield, inv.number, move.date
 		ORDER BY inv.number DESC)
 		SELECT 'ACTUALS' Ledger, 
