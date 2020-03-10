@@ -86,20 +86,33 @@ class PeopleSoftReport(models.AbstractModel):
 
 
 
-	def _do_filter_by_invoice(self, line_id):
+	def _do_filter_by_documents(self, docs=None):
 		"""[summary]
 		
 		Arguments:
 			line_id {[type]} -- [description]
 		"""
-		pass
+		if docs == None:
+			return ''
+
+		content = ''
+		for item in docs:
+			temp1 = ',' + item
+			temp = item if content == '' else temp1
+			content = content + temp
+				
+		if content == '':
+			return ''
+			
+		return " AND inv.id in ({}) ".format(content)
 
 
 
-	def _get_with_statement(self, options):
+	def _get_with_statement(self, options, documents=None):
 		dt_from = options['date'].get('date_from')
 		dt_to = options['date'].get('date_to')
 		by_journal = self._do_filter_by_journal(options)
+		by_documents = self._do_filter_by_documents(documents)
 		sql = """
 		WITH people_soft_data AS 
 		(SELECT (SELECT CASE WHEN line.credit > 0.00 
@@ -117,7 +130,7 @@ class PeopleSoftReport(models.AbstractModel):
 		move.date AS date,
 		(SELECT SUM(CASE WHEN line.credit > 0.00 THEN line.credit * -1 else line.debit END)) as amount
 		FROM account_account AS a, res_partner AS p, account_move AS move, account_move_line AS line, account_invoice AS inv
-		WHERE line.account_id = a.id AND line.partner_id = p.id AND line.move_id = move.id AND move.id = inv.move_id AND inv.type in ('out_invoice', 'out_refund') {}
+		WHERE line.account_id = a.id AND line.partner_id = p.id AND line.move_id = move.id AND move.id = inv.move_id AND inv.type in ('out_invoice', 'out_refund') {} {}
 		GROUP BY chartfield, inv.number, move.date
 		ORDER BY inv.number DESC)
 		SELECT 'ACTUALS' Ledger, 
@@ -141,13 +154,13 @@ class PeopleSoftReport(models.AbstractModel):
 		split_part(chartfield, ',', 10) AS Analysis
 		FROM people_soft_data
 		WHERE date BETWEEN '{}' AND '{}';
-		""".format(by_journal, dt_from, dt_to)
+		""".format(by_journal, by_documents, dt_from, dt_to)
 
 		return sql
 
 
-	def _do_query(self, options):
-		with_sql = self._get_with_statement(options)
+	def _do_query(self, options, documents=None):
+		with_sql = self._get_with_statement(options, documents)
 		self.env.cr.execute(with_sql)
 		results = self.env.cr.fetchall()
 		return results
@@ -158,8 +171,8 @@ class PeopleSoftReport(models.AbstractModel):
 		_logger.info("El valor de options es: '" + str(options))
 		_logger.info("El valor de line_id es: '" + str(line_id))
 		lines = []
-		#invoices = self.env["account.move.line"].search()
-		invoices = self._do_query(options)
+		docs = self.env.context['docs'] if 'docs' in self.env.context else None
+		invoices = self._do_query(options, docs)
 		count = 0
 		for invoice in invoices:
 			lines.append({
