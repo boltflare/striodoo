@@ -97,8 +97,8 @@ class PeopleSoftReport(models.AbstractModel):
 
 		content = ''
 		for item in docs:
-			temp1 = ',' + item
-			temp = item if content == '' else temp1
+			temp1 = ',' + str(item)
+			temp = str(item) if content == '' else temp1
 			content = content + temp
 				
 		if content == '':
