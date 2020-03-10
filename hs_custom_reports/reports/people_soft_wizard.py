@@ -17,13 +17,16 @@ class PeopleSoftWizard(models.TransientModel):
 
 
 	def open_people_soft(self):
-		
-		_logger.info("Funcion open_people_soft llamada.")
+		doc_ids = self.env.context['active_ids']
+		context = {
+			'model':'account.peaplesoft.report',
+			'docs': doc_ids
+		}
 		return {
 			'type': 'ir.actions.client',
 			'name': _('People Soft'),
 			'tag': 'account_report',
 			'options': {'partner_ids': [self.id]},
 			'ignore_session': 'both',
-			'context': "{'model':'account.peaplesoft.report'}"
+			'context': str(context)
 		}
