@@ -3,7 +3,7 @@
 
 from odoo import models, fields, api, _
 
-class PeopleSoftWizard(models.Model):
+class PeopleSoftWizard(models.TransientModel):
 	_name = 'account.people.soft.wizard'
 	_description = 'Final People Soft Wizzard'
 
