@@ -18,11 +18,11 @@ class PeopleSoftWizard(models.TransientModel):
 
 	def open_people_soft(self):
 		
-		_logger.info("Funcion open_people_soft llamada: ")
+		_logger.info("Funcion open_people_soft llamada.")
 		return {
 			'type': 'ir.actions.client',
 			'name': _('People Soft'),
-			'tag': 'people_soft',
+			'tag': 'account_report',
 			'options': {'partner_ids': [self.id]},
 			'ignore_session': 'both',
 			'context': "{'model':'account.peaplesoft.report'}"
