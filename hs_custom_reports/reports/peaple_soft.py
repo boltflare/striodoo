@@ -54,13 +54,15 @@ class PeopleSoftReport(models.AbstractModel):
 		indices = ''
 		for journal in journals:
 			if journal['id'] == 'divider':
+				# El primer registro del elemento  no es un diario
 				continue
 
 			if journal['selected'] == True:
-
-				temp = journal['id'] if indices == '' else ', ' + journal['id']
+				temp1 = ',' + journal['id']
+				temp = journal['id'] if indices == '' else temp1
 				indices = indices + temp
-
+		if indices == '':
+			return ''
 		return ' AND inv.journal_id in ({}) '.format(indices)
 
 
