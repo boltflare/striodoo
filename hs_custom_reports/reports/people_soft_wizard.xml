@@ -9,7 +9,7 @@
 			<field name="arch" type="xml">
 				<form string="Final People Soft Wizard">
 					<group>
-						<group><field name="message" /></group>
+						<field name="message" readonly="1"/>
 					</group>
 					<footer>
 						<button name="open_people_soft" string="Generar reporte" type="object" class="oe_highlight"/>

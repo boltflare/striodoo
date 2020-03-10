@@ -3,6 +3,9 @@
 
 from odoo import models, fields, api, _
 
+import logging
+_logger = logging.getLogger(__name__)
+
 class PeopleSoftWizard(models.TransientModel):
 	_name = 'account.people.soft.wizard'
 	_description = 'Final People Soft Wizzard'
@@ -14,6 +17,8 @@ class PeopleSoftWizard(models.TransientModel):
 
 
 	def open_people_soft(self):
+		
+		_logger.info("Funcion open_people_soft llamada: ")
 		return {
 			'type': 'ir.actions.client',
 			'name': _('People Soft'),
