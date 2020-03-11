@@ -114,25 +114,26 @@ class PeopleSoftReport(models.AbstractModel):
 		by_journal = self._do_filter_by_journal(options)
 		by_documents = self._do_filter_by_documents(documents)
 		sql = """
-		WITH people_soft_data AS 
-		(SELECT (SELECT CASE WHEN line.credit > 0.00 
-		THEN CONCAT(a.stri_fund, ',', a.stri_budget, ',', a.stri_desig, ',', a.stri_dept, ',', a.stri_account, ',', a.stri_class, ',', a.stri_program, ',', a.stri_project, ',', a.stri_activity, ',', a.stri_type) 
-		ELSE 
-			(SELECT CASE WHEN p.customer_type = 'fund' 
-			THEN CONCAT(p.stri_fund, ',', p.stri_budget, ',', p.stri_desig, ',', p.stri_dept, ',', p.stri_account, ',', p.stri_class, ',', p.stri_program, ',', p.stri_project, ',', p.stri_activity, ',', p.stri_type)
-			ELSE 
-				(SELECT CONCAT(a2.stri_fund, ',', a2.stri_budget, ',', a2.stri_desig, ',', a2.stri_dept, ',', a2.stri_account, ',', a2.stri_class, ',', a2.stri_program, ',', a2.stri_project, ',', a2.stri_activity, ',', a2.stri_type) as strifund
-				FROM account_account as a2, account_journal as j
-				WHERE a2.id = j.default_debit_account_id AND j.id = inv.journal_id LIMIT 1)
-			END)
-		END) AS chartfield,
-		inv.number AS reference,
-		move.date AS date,
-		(SELECT SUM(CASE WHEN line.credit > 0.00 THEN line.credit * -1 else line.debit END)) as amount
-		FROM account_account AS a, res_partner AS p, account_move AS move, account_move_line AS line, account_invoice AS inv
-		WHERE line.account_id = a.id AND line.partner_id = p.id AND line.move_id = move.id AND move.id = inv.move_id AND inv.type in ('out_invoice', 'out_refund') {} {}
-		GROUP BY chartfield, inv.number, move.date
-		ORDER BY inv.number DESC)
+		WITH people_soft_data AS (
+			SELECT(SELECT CASE WHEN account.user_type_id = (SELECT id FROM account_account_type WHERE name = 'Income' LIMIT 1) 
+				THEN CONCAT(account.stri_fund, ',', account.stri_budget, ',', account.stri_desig, ',', account.stri_dept, ',', account.stri_account, ',', account.stri_class, ',', account.stri_program, ',', account.stri_project, ',', account.stri_activity, ',', account.stri_type)
+				ELSE (SELECT CASE WHEN partner.customer_type = 'fund' 
+					THEN CONCAT(partner.stri_fund, ',', partner.stri_budget, ',', partner.stri_desig, ',', partner.stri_dept, ',', partner.stri_account, ',', partner.stri_class, ',', partner.stri_program, ',', partner.stri_project, ',', partner.stri_activity, ',', partner.stri_type)
+					ELSE (SELECT CONCAT(a2.stri_fund, ',', a2.stri_budget, ',', a2.stri_desig, ',', a2.stri_dept, ',', a2.stri_account, ',', a2.stri_class, ',', a2.stri_program, ',', a2.stri_project, ',', a2.stri_activity, ',', a2.stri_type) as strifund
+						FROM account_account as a2, account_journal as j
+						WHERE a2.id = j.default_debit_account_id AND j.id = inv.journal_id LIMIT 1)	
+					END)
+				END) AS chartfield,
+			line.partner_id,
+			line.invoice_id as invoice,
+			inv.number as reference, 
+			(SELECT CASE WHEN inv.type = 'out_invoice' THEN 'invoice' ELSE 'refund' END) AS document,
+			(SELECT CASE WHEN account.user_type_id = (SELECT id FROM account_account_type WHERE name = 'Income' LIMIT 1) THEN 0 ELSE 1 END) AS sub_order,
+			(SELECT (CASE WHEN credit > 0.00 THEN (credit * -1) WHEN debit > 0.00 THEN debit ELSE 0.00 END )) AS amount
+			FROM account_move_line AS line, account_invoice AS inv, res_partner AS partner, account_account AS account, account_journal as j
+			WHERE (line.date BETWEEN '{}' AND '{}') AND line.invoice_id IS NOT NULL AND line.partner_id = partner.id AND line.invoice_id = inv.id
+			AND inv.journal_id = j.id AND line.account_id = account.id AND inv.type in ('out_invoice', 'out_refund') {} {}
+			ORDER BY line.invoice_id DESC, line.id DESC)
 		SELECT 'ACTUALS' Ledger, 
 		split_part(chartfield, ',', 5) AS account,
 		CONCAT('REIMB_', (SELECT CASE WHEN split_part(chartfield, ',', 5) = '6998' THEN '6998' ELSE '6999' END)) as entry_event,
@@ -140,21 +141,24 @@ class PeopleSoftReport(models.AbstractModel):
 		split_part(chartfield, ',', 3) AS dsgc,
 		split_part(chartfield, ',', 3) AS budget_ref,
 		split_part(chartfield, ',', 4) AS dept_id,
-		amount,
+		SUM(amount),
 		'USD' Currency,
 		reference,
 		split_part(chartfield, ',', 7) AS program,
+
 		(SELECT CASE WHEN split_part(chartfield, ',', 6) != 'CLASSCODE' 
-		THEN split_part(chartfield, ',', 6) 
-		ELSE (SELECT cc.code FROM class_code AS cc, account_invoice AS ai WHERE ai.class_code = cc.id AND ai.number = reference limit 1)
-		END) AS class,
+			THEN split_part(chartfield, ',', 6) 
+			ELSE (SELECT cc.code FROM class_code AS cc, account_invoice AS ai WHERE ai.id = invoice AND ai.class_code = cc.id)
+			END) AS class,
+
 		split_part(chartfield, ',', 8) AS project,
 		(SELECT CASE WHEN split_part(chartfield, ',', 8) = '' THEN '' ELSE 'SI000' END) AS proj_unit,
 		split_part(chartfield, ',', 9) AS activity,
 		split_part(chartfield, ',', 10) AS Analysis
 		FROM people_soft_data
-		WHERE date BETWEEN '{}' AND '{}';
-		""".format(by_journal, by_documents, dt_from, dt_to)
+		GROUP BY Ledger, account, entry_event, fund, dsgc, budget_ref, dept_id, Currency, reference, program, class, project, proj_unit,activity, Analysis, invoice, sub_order
+		ORDER BY invoice DESC, sub_order DESC;
+		""".format(dt_from, dt_to, by_journal, by_documents)
 
 		return sql
 
