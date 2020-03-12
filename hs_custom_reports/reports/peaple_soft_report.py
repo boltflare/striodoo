@@ -19,12 +19,14 @@ class PeopleSoftReport(models.AbstractModel):
 	filter_analytic = False
 	filter_unfold_all = False
 
-	def _get_category(self):
-		"""[summary]
-		
-		Returns:
-			[type] -- [description]
-		"""
+	def _get_filters_state(self):
+		return [
+			{'id':0, 'name': 'Yes', 'value': 0},
+			{'id':1, 'name': 'No', 'value': 1},
+			{'id':2, 'name': 'Both', 'value': 2}
+		]
+
+	def _get_filters_categories(self):
 		return [
 			{'id':0, 'name': 'Customer Account BCI', 'value': 'customer_bci'},
 			{'id':1, 'name': 'Customer Account STRI', 'value': 'customer_stri'},
@@ -82,7 +84,7 @@ class PeopleSoftReport(models.AbstractModel):
 		return super(PeopleSoftReport, self)._get_super_columns(options)
 
 
-	def publish_report(self, options, response):
+	def publish_report(self, options):
 		super_columns = self._get_super_columns(options)
 		for column in super_columns.get('columns', []):
 			_logger.info(str(column))
