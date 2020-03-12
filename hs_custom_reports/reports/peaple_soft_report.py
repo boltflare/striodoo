@@ -248,5 +248,5 @@ class PeopleSoftReport(models.AbstractModel):
 
 	def _get_reports_buttons(self):
 		buttons = super(PeopleSoftReport, self)._get_reports_buttons()
-		# buttons.append({'name': _('publish'), 'action': 'publish_report'})
+		buttons.append({'name': _('publish'), 'action': 'publish_report'})
 		return buttons
