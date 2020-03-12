@@ -151,7 +151,8 @@ class PeopleSoftReport(models.AbstractModel):
 	def _get_with_statement(self, options, documents=None):
 		dt_from = options['date'].get('date_from')
 		dt_to = options['date'].get('date_to')
-		by_journal = self._do_filter_by_journal(options)
+		#by_journal = self._do_filter_by_journal(options)
+		by_journal = ''
 		by_documents = self._do_filter_by_documents(documents)
 		sql = """
 		WITH people_soft_data AS (
