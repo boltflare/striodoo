@@ -71,20 +71,22 @@ class PeopleSoftReport(models.AbstractModel):
 				{'name': _("Analysis")}]
 
 	"""
-	def _get_super_columns(self, options):
-		return super(PeopleSoftReport, self)._get_super_columns(options)
-
-
-
-	def registered_report(self, options, response):
-		super_columns = self._get_super_columns(options)
-		for column in super_columns.get('columns', []):
-			_logger.info(str(column))
 
 
 	def _do_filter_by_category(self, options):
 		pass
 	"""
+	
+
+	def _get_super_columns(self, options):
+		return super(PeopleSoftReport, self)._get_super_columns(options)
+
+
+	def publish_report(self, options, response):
+		super_columns = self._get_super_columns(options)
+		for column in super_columns.get('columns', []):
+			_logger.info(str(column))
+
 
 	def _do_filter_by_journal(self, options):
 		"""[summary]
