@@ -15,18 +15,43 @@ class PeopleSoftReport(models.AbstractModel):
 
 	filter_date = {'date_from': '', 'date_to': '', 'filter': 'today'}
 	filter_all_entries = False
-	filter_journals = True
+	filter_journals = False
 	filter_analytic = False
 	filter_unfold_all = False
 
+	def _get_category(self):
+		"""[summary]
+		
+		Returns:
+			[type] -- [description]
+		"""
+		return [
+			{'id':0, 'name': 'Customer Account BCI', 'value': 'customer_bci'},
+			{'id':1, 'name': 'Customer Account STRI', 'value': 'customer_stri'},
+			{'id':2, 'name': 'STRIFUND', 'value': 'strifund'}
+		]
+
 
 	def _get_templates(self):
+		"""[summary]
+		
+		Returns:
+			[type] -- [description]
+		"""
 		templates = super(PeopleSoftReport, self)._get_templates()
 		templates['line_template'] = 'hs_custom_reports.line_template_peoplesoft_report'
 		return templates
 
 
 	def _get_columns_name(self, options):
+		"""[summary]
+		
+		Arguments:
+			options {[type]} -- [description]
+		
+		Returns:
+			[type] -- [description]
+		"""
 		return [{'name': ''},
 				{'name': _("Ledger")},
 				{'name': _("Account")},
@@ -45,6 +70,21 @@ class PeopleSoftReport(models.AbstractModel):
 				{'name': _("Activity")},
 				{'name': _("Analysis")}]
 
+	"""
+	def _get_super_columns(self, options):
+		return super(PeopleSoftReport, self)._get_super_columns(options)
+
+
+
+	def registered_report(self, options, response):
+		super_columns = self._get_super_columns(options)
+		for column in super_columns.get('columns', []):
+			_logger.info(str(column))
+
+
+	def _do_filter_by_category(self, options):
+		pass
+	"""
 
 	def _do_filter_by_journal(self, options):
 		"""[summary]
@@ -139,9 +179,9 @@ class PeopleSoftReport(models.AbstractModel):
 		CONCAT('REIMB_', (SELECT CASE WHEN split_part(chartfield, ',', 5) = '6998' THEN '6998' ELSE '6999' END)) as entry_event,
 		split_part(chartfield, ',', 1) AS fund,
 		split_part(chartfield, ',', 3) AS dsgc,
-		split_part(chartfield, ',', 3) AS budget_ref,
+		split_part(chartfield, ',', 2) AS budget_ref,
 		split_part(chartfield, ',', 4) AS dept_id,
-		SUM(amount),
+		ROUND(SUM(amount), 2) as amount,
 		'USD' Currency,
 		reference,
 		split_part(chartfield, ',', 7) AS program,
@@ -203,3 +243,9 @@ class PeopleSoftReport(models.AbstractModel):
 	@api.model
 	def _get_report_name(self):
 		return _('People Soft')
+
+
+	def _get_reports_buttons(self):
+		buttons = super(PeopleSoftReport, self)._get_reports_buttons()
+		buttons.append({'name': _('publish'), 'action': 'publish_report'})
+		return buttons
