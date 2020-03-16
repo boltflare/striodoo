@@ -1,21 +1,32 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
 	<data>
-		
-		<template id="account_reports.filter_info_template">
-			<xpath expr="//div[@class='print_only']//div[0]" position="after">
-				<div class="col-12">
-					<t t-if="options.get('category') != None">
-						Category:
-						<t t-set="category_value" t-value="'All'"/>
-						<t t-foreach="options['category']" t-as="j">
-							<t t-if="j.get('selected') == True">
-								<t t-set="category_value" t-value="''"/>
-								<t t-esc="j.get('value')"/>
-							</t>
-						</t>
-						<t t-esc="category_value"/>
+
+		<template id="search_template_people_soft_category">
+			<a type="button" class="dropdown-toggle" data-toggle="dropdown">
+				<span class="fa fa-user"/>
+				Category:
+				<t t-set="category_value" t-value="'Both'"/>
+				<t t-foreach="options['category']" t-as="a">
+					<t t-if="a.get('selected') == True">
+						<t t-set="account_value" t-value="''"/>
+						<t t-esc="a.get('name')"/>
 					</t>
+				</t>
+				<t t-esc="category_value"/>
+			</a>
+			<div class="dropdown-menu o_filters_menu" role="menu">
+				<t t-foreach="options['category']" t-as="a">
+					<a role="menuitem" class="dropdown-item js_account_report_choice_filter" t-att-title="a.get('name')" t-att-data-id="a.get('id')" data-filter="account_type"><t t-esc="a.get('name')"/></a>
+				</t>
+			</div>
+		</template>
+		
+
+		<template id="account_reports.search_template">
+			<xpath expr="//div[0]" position="after">
+				<div class="btn-group o_dropdown o_account_reports_filter_category" t-if="options.get('category') != None">
+					<t t-call="hs_custom_reports.search_template_people_soft_category"/>
 				</div>
 			</xpath>
 		</template>
