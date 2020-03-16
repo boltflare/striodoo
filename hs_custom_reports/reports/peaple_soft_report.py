@@ -21,13 +21,13 @@ class PeopleSoftReport(models.AbstractModel):
 	filter_unfold_all = False
 	
 	filter_published_entries = False
-	filter_category = False
+	filter_category = True
 
 
 	def _build_options(self, previous_options=None):
 		options = super(PeopleSoftReport)._build_options(previous_options)
-		if options.get('journals'):
-			options['journals'] = self._get_filters_categories()
+		if options.get('category'):
+			options['category'] = self._get_filters_categories()
 		return options
 
 
