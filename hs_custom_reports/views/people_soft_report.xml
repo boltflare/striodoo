@@ -17,7 +17,9 @@
 			</a>
 			<div class="dropdown-menu o_filters_menu" role="menu">
 				<t t-foreach="options['category']" t-as="a">
-					<a role="menuitem" class="dropdown-item js_account_report_choice_filter" t-att-title="a.get('name')" t-att-data-id="a.get('id')" data-filter="account_type"><t t-esc="a.get('name')"/></a>
+					<a role="menuitem" class="dropdown-item js_account_report_choice_filter" t-att-title="a.get('name')" t-att-data-id="a.get('id')" data-filter="account_type">
+						<t t-esc="a.get('name')"/>
+					</a>
 				</t>
 			</div>
 		</template>
