@@ -21,6 +21,15 @@ class PeopleSoftReport(models.AbstractModel):
 	filter_unfold_all = False
 	
 	filter_published_entries = False
+	filter_category = False
+
+
+	def _build_options(self, previous_options=None):
+		options = super(PeopleSoftReport)._build_options(previous_options)
+		if options.get('journals'):
+			options['journals'] = self._get_filters_categories()
+		return options
+
 
 	def _get_filters_state(self):
 		return [
@@ -29,11 +38,12 @@ class PeopleSoftReport(models.AbstractModel):
 			{'id':2, 'name': 'Both', 'value': 2}
 		]
 
+
 	def _get_filters_categories(self):
 		return [
-			{'id':0, 'name': 'Customer Account BCI', 'value': 'customer_bci'},
-			{'id':1, 'name': 'Customer Account STRI', 'value': 'customer_stri'},
-			{'id':2, 'name': 'STRIFUND', 'value': 'strifund'}
+			{'id':0, 'name': 'Customer Account BCI', 'value': 'customer_bci', 'selected': False},
+			{'id':1, 'name': 'Customer Account STRI', 'value': 'customer_stri', 'selected': False},
+			{'id':2, 'name': 'STRIFUND', 'value': 'strifund', 'selected': False}
 		]
 
 
