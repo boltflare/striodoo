@@ -4,6 +4,7 @@
 from odoo import models, fields, api, _
 
 import logging
+import json
 _logger = logging.getLogger(__name__)
 
 
@@ -83,11 +84,23 @@ class PeopleSoftReport(models.AbstractModel):
 	def _get_super_columns(self, options):
 		return super(PeopleSoftReport, self)._get_super_columns(options)
 
-
+	"""
 	def publish_report(self, options):
+		return { 
+			'type': 'ir_actions_people_soft_publish_report',
+			'data': {
+				'model': self.env.context.get('model'),
+				'options': json.dumps(options),
+				'financial_id': self.env.context.get('id'),
+			}
+		}
+	"""
+		
+	"""
 		super_columns = self._get_super_columns(options)
 		for column in super_columns.get('columns', []):
 			_logger.info(str(column))
+	"""
 
 
 	def _do_filter_by_journal(self, options):
