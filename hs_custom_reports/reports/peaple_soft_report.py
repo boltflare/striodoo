@@ -19,6 +19,8 @@ class PeopleSoftReport(models.AbstractModel):
 	filter_journals = None
 	filter_analytic = False
 	filter_unfold_all = False
+	
+	filter_published_entries = False
 
 	def _get_filters_state(self):
 		return [
