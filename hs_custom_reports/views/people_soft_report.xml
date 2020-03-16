@@ -25,12 +25,12 @@
 		</template>
 		
 
-		<template id="account_reports.search_template">
+		<!--template id="account_reports.search_template">
 			<xpath expr="//div[@class='btn-group'][1]" position="after">
 				<div class="btn-group o_dropdown o_account_reports_filter_category" t-if="options.get('category') != None">
 					<t t-call="hs_custom_reports.search_template_people_soft_category"/>
 				</div>
 			</xpath>
-		</template>
+		</template-->
 	</data>
 </odoo>
