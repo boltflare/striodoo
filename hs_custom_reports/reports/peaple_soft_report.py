@@ -16,7 +16,7 @@ class PeopleSoftReport(models.AbstractModel):
 
 	filter_date = {'date_from': '', 'date_to': '', 'filter': 'today'}
 	filter_all_entries = False
-	filter_journals = True
+	filter_journals = None
 	filter_analytic = False
 	filter_unfold_all = False
 
