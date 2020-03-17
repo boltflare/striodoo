@@ -22,8 +22,8 @@
 		</template>
 
 
-		<template id="search_template_extra_options_inherit" inherit_id="account_reports.search_template_extra_options">
-			<xpath expr="//a[@class='dropdown-toggle']/t[2]" position="after">
+		<template id="search_template_extra_options" inherit_id="account_reports.search_template_extra_options">
+			<xpath expr="//a[@class='dropdown-toggle'][0]/t[2]" position="after">
 				<t t-if="options.get('published_entries') != None" groups="account.group_account_user"> 
 					<t t-if="options.get('cash_basis') != None">,</t>
 					<t t-if="options['published_entries']">With Published</t>
