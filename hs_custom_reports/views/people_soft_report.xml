@@ -27,11 +27,11 @@
 				<t t-if="options.get('published_entries') != None" groups="account.group_account_user">
 					<t t-if="options.get('all_entries') != None">,</t>
 					<t t-if="options['published_entries']">With Published</t>
-					<t t-if="not options['published_entries']">Only Unpublished</t>
+					<t t-if="not options['published_entries']">News Entries</t>
 				</t>
 			</xpath>
 			<xpath expr="//div[hasclass('dropdown-menu')]" position="inside">
-				<a role="menuitem" class="dropdown-item js_account_report_bool_filter" t-if="options.get('published_entries') != None" title="include published entries" data-filter="published">Include Published Entries</a>
+				<a role="menuitem" class="dropdown-item js_account_report_bool_filter" t-if="options.get('published_entries') != None" title="include published entries" data-filter="published_entries">Include Published Entries</a>
 			</xpath>
 		</template>
 		
