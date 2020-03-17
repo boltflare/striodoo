@@ -26,7 +26,7 @@ class PeopleSoftReport(models.AbstractModel):
 
 	def _build_options(self, previous_options=None):
 		options = super(PeopleSoftReport, self)._build_options(previous_options)
-		if options.get('category'):
+		if not 'category' in options:
 			options['category'] = self._get_filters_categories()
 		return options
 
@@ -36,6 +36,7 @@ class PeopleSoftReport(models.AbstractModel):
 		_logger.info("El valor de los filtros son: " + str(previous_options))
 		options = super(PeopleSoftReport, self)._get_options(previous_options)
 		return options
+
 
 	def get_report_informations(self, options):
 		_logger.info("get_report_informations: " + str(options))
