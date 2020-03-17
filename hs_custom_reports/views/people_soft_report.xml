@@ -20,6 +20,20 @@
 				</t>
 			</div>
 		</template>
+
+
+		<template id="account_reports.search_template_extra_options">
+			<xpath expr="//a[@class='dropdown-toggle']/t[2]" position="after">
+				<t t-if="options.get('published_entries') != None" groups="account.group_account_user"> 
+					<t t-if="options.get('cash_basis') != None">,</t>
+					<t t-if="options['published_entries']">With Published</t>
+					<t t-if="not options['published_entries']">Only Unpublished</t>
+				</t>
+			</xpath>
+			<xpath expr="//div/a[@class='dropdown-item'][3]" position="after">
+				<a role="menuitem" class="dropdown-item js_account_report_bool_filter" t-if="options.get('published_entries') != None" title="include published entries" data-filter="published">Include Published Entries</a>
+			</xpath>
+		</template>
 		
 
 		<!--template id="account_reports.search_template">
