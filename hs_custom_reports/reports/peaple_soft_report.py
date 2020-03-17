@@ -30,7 +30,7 @@ class PeopleSoftReport(models.AbstractModel):
 			options['category'] = self._get_filters_categories()
 		return options
 
-	 
+
 	@api.model
 	def _get_options(self, previous_options=None):
 		_logger.info("El valor de los filtros son: " + str(previous_options))
@@ -38,10 +38,12 @@ class PeopleSoftReport(models.AbstractModel):
 		return options
 
 
+	"""
 	def get_report_informations(self, options):
 		_logger.info("get_report_informations: " + str(options))
 		info = super(PeopleSoftReport, self).get_report_informations(options)
 		return info
+	"""
 
 
 	def _get_filters_state(self):
