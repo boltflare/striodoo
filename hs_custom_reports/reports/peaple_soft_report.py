@@ -30,6 +30,13 @@ class PeopleSoftReport(models.AbstractModel):
 			options['category'] = self._get_filters_categories()
 		return options
 
+	 
+	@api.model
+	def _get_options(self, previous_options=None):
+		_logger.info("El valor de los filtros son: " + str(previous_options))
+		options = super(PeopleSoftReport, self)._get_options(previous_options)
+		return options
+
 
 	def _get_filters_state(self):
 		return [
@@ -85,9 +92,8 @@ class PeopleSoftReport(models.AbstractModel):
 				{'name': _("Activity")},
 				{'name': _("Analysis")}]
 
+
 	"""
-
-
 	def _do_filter_by_category(self, options):
 		pass
 	"""
@@ -144,7 +150,6 @@ class PeopleSoftReport(models.AbstractModel):
 		return ' AND inv.journal_id in ({}) '.format(indices)
 
 
-
 	def _do_filter_by_state(self, options):
 		"""[summary]
 		
@@ -152,7 +157,6 @@ class PeopleSoftReport(models.AbstractModel):
 			options {[type]} -- [description]
 		"""
 		pass
-
 
 
 	def _do_filter_by_documents(self, docs=None):
@@ -174,7 +178,6 @@ class PeopleSoftReport(models.AbstractModel):
 			return ''
 			
 		return " AND inv.id in ({}) ".format(content)
-
 
 
 	def _get_with_statement(self, options, documents=None):
@@ -243,7 +246,7 @@ class PeopleSoftReport(models.AbstractModel):
 	@api.model
 	def _get_lines(self, options, line_id=None):
 		_logger.info("El valor de options es: '" + str(options))
-		_logger.info("El valor de line_id es: '" + str(line_id))
+		#_logger.info("El valor de line_id es: '" + str(line_id))
 		lines = []
 		docs = self.env.context['docs'] if 'docs' in self.env.context else None
 		invoices = self._do_query(options, docs)
