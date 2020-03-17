@@ -31,19 +31,19 @@
 		</xpath-->
 
 
-		<!--template id="published_entries_filter_options" inherit_id="account_reports.search_template_extra_options">
+		<template id="published_entries_filter_options" inherit_id="account_reports.search_template_extra_options">
 			<xpath expr="//div[hasclass('dropdown-menu')]" position="inside">
 				<a role="menuitem" class="dropdown-item js_account_report_bool_filter" t-if="options.get('published_entries') != None" title="include published entries" data-filter="published">Include Published Entries</a>
 			</xpath>
-		</template-->
+		</template>
 		
 
-		<template id="search_template_inherit" inherit_id="account_reports.search_template">
+		<!--template id="search_template_inherit" inherit_id="account_reports.search_template">
 			<xpath expr="//div[@class='btn-group'][1]" position="after">
 				<div class="btn-group o_dropdown o_account_reports_filter_category" t-if="options.get('category') != None">
 					<t t-call="hs_custom_reports.search_template_people_soft_category"/>
 				</div>
 			</xpath>
-		</template>
+		</template-->
 	</data>
 </odoo>
