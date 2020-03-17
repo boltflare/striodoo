@@ -30,9 +30,13 @@
 					<t t-if="not options['published_entries']">Only Unpublished</t>
 				</t>
 			</xpath-->
-			<xpath expr="//div[@role='menu']" position="inside">
+			<!--xpath expr="//div[@role='menu']" position="inside">
 				<a role="menuitem" class="dropdown-item js_account_report_bool_filter" t-if="options.get('published_entries') != None" title="include published entries" data-filter="published">Include Published Entries</a>
-			</xpath>
+			</xpath-->
+			<t t-jquery=".o_filters_menu" t-operation="append">
+				<a role="menuitem" class="dropdown-item js_account_report_bool_filter" t-if="options.get('published_entries') != None" title="include published entries" data-filter="published">Include Published Entries</a>
+			</t>
+
 		</template>
 		
 
