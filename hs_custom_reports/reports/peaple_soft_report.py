@@ -18,10 +18,10 @@ class PeopleSoftReport(models.AbstractModel):
 	filter_all_entries = False
 	filter_journals = None
 	filter_analytic = False
-	filter_unfold_all = False
+	filter_unfold_all = None
 	
 	filter_published_entries = False
-	filter_category = True
+	filter_category = False
 
 
 	def _build_options(self, previous_options=None):
