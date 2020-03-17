@@ -13,9 +13,9 @@
 				<t t-else="">All</t>
 			</a>
 			<div class="dropdown-menu o_filters_menu" role="menu">
-				<t t-foreach="options['category']" t-as="c">
-					<a role="menuitem" class="dropdown-item js_account_report_choice_filter" t-att-title="c.get('name')" t-att-data-id="c.get('id')" data-filter="category">
-						<t t-esc="c.get('name')"/>
+				<t t-foreach="options['category']" t-as="a">
+					<a role="menuitem" class="dropdown-item js_account_report_choice_filter" t-att-title="a.get('name')" t-att-data-id="a.get('id')" data-filter="category">
+						<t t-esc="a.get('name')"/>
 					</a>
 				</t>
 			</div>
