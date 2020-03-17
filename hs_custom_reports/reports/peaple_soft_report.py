@@ -26,16 +26,17 @@ class PeopleSoftReport(models.AbstractModel):
 
 	def _build_options(self, previous_options=None):
 		options = super(PeopleSoftReport, self)._build_options(previous_options)
-		
 		if options.get('category'):
 			options['category'] = self._get_filters_categories()
-			"""
+		
+		return options
+
+		"""
 			if options.get('category') != False:
 				options['category'] = previous_options['category']
 			else:
 				options['category'] = self._get_filters_categories()
-			"""
-		return options
+		"""
 
 
 	"""
@@ -64,6 +65,7 @@ class PeopleSoftReport(models.AbstractModel):
 	"""
 
 
+	"""
 	@api.model
 	def _get_options(self, previous_options=None):
 		_logger.info("El valor de los filtros son: " + str(previous_options))
@@ -71,7 +73,6 @@ class PeopleSoftReport(models.AbstractModel):
 		return options
 
 
-	"""
 	def get_report_informations(self, options):
 		_logger.info("get_report_informations: " + str(options))
 		info = super(PeopleSoftReport, self).get_report_informations(options)
@@ -89,9 +90,9 @@ class PeopleSoftReport(models.AbstractModel):
 
 	def _get_filters_categories(self):
 		return [
-			{'id':1, 'name': 'Customer Account BCI', 'value': 'customer_bci', 'selected': False},
+			{'id':1, 'name': 'Customer Account BCI',  'value': 'customer_bci',  'selected': False},
 			{'id':2, 'name': 'Customer Account STRI', 'value': 'customer_stri', 'selected': False},
-			{'id':3, 'name': 'STRIFUND', 'value': 'strifund', 'selected': False}
+			{'id':3, 'name': 'STRIFUND', 			  'value': 'strifund', 		'selected': False}
 		]
 
 
