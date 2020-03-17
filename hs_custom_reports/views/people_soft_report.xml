@@ -32,7 +32,7 @@
 
 
 		<template id="published_entries_filter_options" inherit_id="account_reports.search_template_extra_options">
-			<xpath expr="//div[hasclass('o_filters_menu')]" position="inside">
+			<xpath expr="//div[hasclass('dropdown-menu')]" position="inside">
 				<a role="menuitem" class="dropdown-item js_account_report_bool_filter" t-if="options.get('published_entries') != None" title="include published entries" data-filter="published">Include Published Entries</a>
 			</xpath>
 		</template>
