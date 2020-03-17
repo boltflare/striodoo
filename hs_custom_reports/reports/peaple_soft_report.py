@@ -37,6 +37,11 @@ class PeopleSoftReport(models.AbstractModel):
 		options = super(PeopleSoftReport, self)._get_options(previous_options)
 		return options
 
+	def get_report_informations(self, options):
+		_logger.info("get_report_informations: " + str(options))
+		info = super(PeopleSoftReport, self).get_report_informations(options)
+		return info
+
 
 	def _get_filters_state(self):
 		return [
