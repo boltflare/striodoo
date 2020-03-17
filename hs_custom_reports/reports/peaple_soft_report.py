@@ -48,9 +48,9 @@ class PeopleSoftReport(models.AbstractModel):
 
 	def _get_filters_categories(self):
 		return [
-			{'id':0, 'name': 'Customer Account BCI', 'value': 'customer_bci', 'selected': False},
-			{'id':1, 'name': 'Customer Account STRI', 'value': 'customer_stri', 'selected': False},
-			{'id':2, 'name': 'STRIFUND', 'value': 'strifund', 'selected': False}
+			{'id':1, 'name': 'Customer Account BCI', 'value': 'customer_bci', 'selected': False},
+			{'id':2, 'name': 'Customer Account STRI', 'value': 'customer_stri', 'selected': False},
+			{'id':3, 'name': 'STRIFUND', 'value': 'strifund', 'selected': False}
 		]
 
 
