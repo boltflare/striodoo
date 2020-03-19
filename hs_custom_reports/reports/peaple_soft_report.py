@@ -172,6 +172,7 @@ class PeopleSoftReport(models.AbstractModel):
 	def _do_filter_by_category(self, options):
 		categories = options.get('category')
 
+		"""
 		respFalse = 1
 		respTrue = 1
 		for categ in categories:
@@ -182,6 +183,7 @@ class PeopleSoftReport(models.AbstractModel):
 
 		if respFalse == len(categories) or respTrue == len(categories):
 			return ''
+		"""
 
 
 		resp = ''
