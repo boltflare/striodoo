@@ -185,7 +185,7 @@ class PeopleSoftReport(models.AbstractModel):
 			return ''
 		"""
 
-
+		# Validamos primero si existe algun filtro seleccionado
 		resp = ''
 		account = ''
 		for categ in categories:
@@ -199,6 +199,21 @@ class PeopleSoftReport(models.AbstractModel):
 
 		if account != '':
 			resp = resp + " AND inv.journal_id IN ({}) ".format(account)
+
+		
+		#Si no se encontraron filtros seleccionados, procedemos a filtrar por
+		# todo los filtros
+		if resp == '':
+			for categ in categories:
+				if categ.get('value') == 'strifund':
+					resp = resp + " AND partner.customer_type = 'fund' "
+				elif account == '':
+					account = categ.get('value')
+				elif account != '':
+					account = "{}, {}".format(account, categ.get('value'))
+	
+			if account != '':
+				resp = resp + " AND inv.journal_id IN ({}) ".format(account)
 
 		return resp
 
