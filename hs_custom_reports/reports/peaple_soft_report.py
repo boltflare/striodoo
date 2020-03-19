@@ -234,7 +234,7 @@ class PeopleSoftReport(models.AbstractModel):
 		dt_from = options['date'].get('date_from')
 		dt_to = options['date'].get('date_to')
 		#by_journal = self._do_filter_by_journal(options)
-		by_journal = ''
+		by_categ = self._do_filter_by_category(options)
 		by_state = self._do_filter_by_state(options)
 		by_documents = self._do_filter_by_documents(documents)
 		sql = """
@@ -282,7 +282,7 @@ class PeopleSoftReport(models.AbstractModel):
 		FROM people_soft_data
 		GROUP BY Ledger, account, entry_event, fund, dsgc, budget_ref, dept_id, Currency, reference, program, class, project, proj_unit,activity, Analysis, invoice, sub_order
 		ORDER BY invoice DESC, sub_order DESC;
-		""".format(dt_from, dt_to, by_journal, by_state, by_documents)
+		""".format(dt_from, dt_to, by_categ, by_state, by_documents)
 
 		return sql
 
