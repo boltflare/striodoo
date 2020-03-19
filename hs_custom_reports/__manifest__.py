@@ -3,7 +3,7 @@
 
 {
 	'name': 'Reportes para STRI',
-	'version': '1.0',
+	'version': '1.1',
 	'summary':'Reportes variados',
 	'category': 'Tool',
 	'depends': ['base', 'account_reports', 'hs_chart_field'],
