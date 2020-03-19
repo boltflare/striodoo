@@ -61,11 +61,11 @@ class PeopleSoftReport(models.AbstractModel):
 		filters = []
 		journals = self.env["account.journal"].search([('people_soft', '=', True)])
 		for journal in journals:
-			account = journal.default_debit_account_id
+			#account = journal.default_debit_account_id
 			filters.append({
-				'id' : account.id,
+				'id' : journal.id,
 				'name' : journals.name,
-				'value' : account.id,
+				'value' : str(journal.id),
 				'selected' : False
 			})
 		
@@ -171,23 +171,33 @@ class PeopleSoftReport(models.AbstractModel):
 
 	def _do_filter_by_category(self, options):
 		categories = options.get('category')
-		item1 = categories[0].get('selected')
-		item2 = categories[1].get('selected')
-		item3 = categories[2].get('selected')
-		if item1 == False and item2 == False and item3 == False:
-			return ''
-		elif item1 and item2 and item3:
+
+		respFalse = 1
+		respTrue = 1
+		for categ in categories:
+			if categ.get('selected'):
+				respTrue += 1
+			else:
+				respFalse += 1
+
+		if respFalse == len(categories) or respTrue == len(categories):
 			return ''
 
+
 		resp = ''
+		account = ''
 		for categ in categories:
 			is_selected = categ.get('selected')
-			if is_selected and categ.get('value') == 'customer_bci':
-				resp = resp + ''
-			elif is_selected and categ.get('value') == 'customer_stri':
-				resp = resp + ''
-			else:
-				resp = resp + " AND partner.customer_type = 'fund'"
+			if is_selected and categ.get('value') == 'strifund':
+				resp = resp + " AND partner.customer_type = 'fund' "
+			elif is_selected and account == '':
+				account = categ.get('value')
+			elif is_selected and account != '':
+				account = "{}, {}".format(account, categ.get('value'))
+
+		if account != '':
+			resp = resp + " AND inv.journal_id IN ({}) ".format(account)
+
 		return resp
 
 
