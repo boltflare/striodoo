@@ -204,11 +204,11 @@ class PeopleSoftReport(models.AbstractModel):
 	def _do_filter_by_state(self, options):
 		"""Si published_entries dentro de options es False entonces 
 		debe traer solo las facturas que tiene el estado people_soft_registered
-		en True, en caso contrario que obtenga todas.
+		en False o NULL, en caso contrario que obtenga todas.
 		"""
 		state = options.get('published_entries')
 		if not state:
-			return " AND inv.people_soft_registered = 't' "
+			return " AND inv.people_soft_registered in (NULL, 'f')"
 		else:
 			return ''
 
@@ -243,8 +243,8 @@ class PeopleSoftReport(models.AbstractModel):
 		by_documents = self._do_filter_by_documents(documents)
 
 
-		_logger.info("El valor del filtro categ es: '" + by_categ)
-		_logger.info("El valor del filtro state es: '" + by_state)
+		_logger.info("El valor del filtro categ es: " + by_categ)
+		_logger.info("El valor del filtro state es: " + by_state)
 
 		sql = """
 		WITH people_soft_data AS (
