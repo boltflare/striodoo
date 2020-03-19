@@ -32,54 +32,6 @@ class PeopleSoftReport(models.AbstractModel):
 			options['category'] = self._get_filters_categories()
 		return options
 
-		"""
-			if options.get('category') != False:
-				options['category'] = previous_options['category']
-			else:
-				options['category'] = self._get_filters_categories()
-		"""
-
-
-	"""
-		for key, value in options.items():
-			if key in previous_options and value is not None and previous_options[key] is not None:
-				# special case handler for date and comparison as from one report to another, they can have either a date range or single date
-				if key == 'date' or key == 'comparison':
-					if key == 'comparison':
-						options[key]['number_period'] = previous_options[key]['number_period']
-					options[key]['filter'] = 'custom'
-					if previous_options[key].get('filter', 'custom') != 'custom':
-						# just copy filter and let the system compute the correct date from it
-						options[key]['filter'] = previous_options[key]['filter']
-					elif value.get('date_from') is not None and not previous_options[key].get('date_from'):
-						date = fields.Date.from_string(previous_options[key]['date'])
-						company_fiscalyear_dates = self.env.user.company_id.compute_fiscalyear_dates(date)
-						options[key]['date_from'] = company_fiscalyear_dates['date_from'].strftime(DEFAULT_SERVER_DATE_FORMAT)
-						options[key]['date_to'] = previous_options[key]['date']
-					elif value.get('date') is not None and not previous_options[key].get('date'):
-						options[key]['date'] = previous_options[key]['date_to']
-					else:
-						options[key] = previous_options[key]
-				else:
-					options[key] = previous_options[key]
-		return options
-	"""
-
-
-	"""
-	@api.model
-	def _get_options(self, previous_options=None):
-		_logger.info("El valor de los filtros son: " + str(previous_options))
-		options = super(PeopleSoftReport, self)._get_options(previous_options)
-		return options
-
-
-	def get_report_informations(self, options):
-		_logger.info("get_report_informations: " + str(options))
-		info = super(PeopleSoftReport, self).get_report_informations(options)
-		return info
-	"""
-
 
 	def _get_filters_state(self):
 		return [
@@ -107,14 +59,7 @@ class PeopleSoftReport(models.AbstractModel):
 			'value': 'strifund', 
 			'selected': False
 		})
-				
-		"""
-		return [
-			{'id':1, 'name': 'Customer Account BCI',  'value': 'customer_bci',  'selected': False},
-			{'id':2, 'name': 'Customer Account STRI', 'value': 'customer_stri', 'selected': False},
-			{'id':1000, 'name': 'STRIFUND', 			  'value': 'strifund', 		'selected': False}
-		]
-		"""
+		
 		return filters
 
 
