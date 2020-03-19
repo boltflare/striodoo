@@ -64,7 +64,7 @@ class PeopleSoftReport(models.AbstractModel):
 			#account = journal.default_debit_account_id
 			filters.append({
 				'id' : journal.id,
-				'name' : journals.name,
+				'name' : journal.name,
 				'value' : journal.id,
 				'selected' : False
 			})
