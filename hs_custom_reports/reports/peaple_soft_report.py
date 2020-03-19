@@ -26,14 +26,26 @@ class PeopleSoftReport(models.AbstractModel):
 
 	def _build_options(self, previous_options=None):
 		options = super(PeopleSoftReport, self)._build_options(previous_options)
-		
-		"""if options.get('category'):
-			options['category'] = previous_options['category']
+		filters = self._get_filters_categories()
+		if options.get('category'):
+			options['category'] = self.check_filter_categories(previous_options, options)
 		else:
-			options['category'] = self._get_filters_categories()
-		"""
-		options['category'] = self._get_filters_categories()
+			options['category'] = filters
 		return options
+
+	
+	def check_filter_categories(self, previous_options, options):
+		try:
+			if len(previous_options) != len(options):
+				return options
+
+			for pos in range(len(options)):
+				if previous_options[pos].get('id') != options[pos].get('id'):
+					return options
+			
+			return previous_options
+		except Exception:
+			return options
 
 
 	def _get_filters_state(self):
