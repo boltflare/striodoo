@@ -28,7 +28,7 @@ class PeopleSoftReport(models.AbstractModel):
 		options = super(PeopleSoftReport, self)._build_options(previous_options)
 		filters = self._get_filters_categories()
 		if options.get('category'):
-			options['category'] = self.check_filter_categories(previous_options, options)
+			options['category'] = self.check_filter_categories(previous_options, filters)
 		else:
 			options['category'] = filters
 		return options
