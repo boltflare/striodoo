@@ -189,6 +189,8 @@ class PeopleSoftReport(models.AbstractModel):
 				else:
 					resp = resp + ', ' + str(categ.get('value'))
 
+
+		_logger.info("El valor del filtro state es: " + resp)
 		return " doc_type IN ({}) ".format(resp)
 
 
@@ -232,10 +234,6 @@ class PeopleSoftReport(models.AbstractModel):
 		by_categ = self._do_filter_by_category(options)
 		by_state = self._do_filter_by_state(options)
 		by_documents = self._do_filter_by_documents(documents)
-
-
-		_logger.info("El valor del filtro categ es: " + by_categ)
-		_logger.info("El valor del filtro state es: " + by_state)
 
 		sql = """
 		WITH people_soft_data AS (
