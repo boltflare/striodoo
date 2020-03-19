@@ -237,6 +237,11 @@ class PeopleSoftReport(models.AbstractModel):
 		by_categ = self._do_filter_by_category(options)
 		by_state = self._do_filter_by_state(options)
 		by_documents = self._do_filter_by_documents(documents)
+
+
+		_logger.info("El valor del filtro categ es: '" + by_categ)
+		_logger.info("El valor del filtro state es: '" + by_state)
+
 		sql = """
 		WITH people_soft_data AS (
 			SELECT(SELECT CASE WHEN account.user_type_id = (SELECT id FROM account_account_type WHERE name = 'Income' LIMIT 1) 
