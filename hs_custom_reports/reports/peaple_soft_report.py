@@ -208,7 +208,7 @@ class PeopleSoftReport(models.AbstractModel):
 		"""
 		state = options.get('published_entries')
 		if not state:
-			return " AND inv.people_soft_registered in (NULL, 'f')"
+			return " AND (inv.people_soft_registered IS NULL OR inv.people_soft_registered = 'f')"
 		else:
 			return ''
 
