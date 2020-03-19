@@ -90,11 +90,32 @@ class PeopleSoftReport(models.AbstractModel):
 
 
 	def _get_filters_categories(self):
+		filters = []
+		journals = self.env["account.journal"].search([('people_soft', '=', True)])
+		for journal in journals:
+			account = journal.default_debit_account_id
+			filters.append({
+				'id' : account.id,
+				'name' : journals.name,
+				'value' : account.id,
+				'selected' : False
+			})
+		
+		filters.append({
+			'id':1000, 
+			'name': 'STRIFund', 
+			'value': 'strifund', 
+			'selected': False
+		})
+				
+		"""
 		return [
 			{'id':1, 'name': 'Customer Account BCI',  'value': 'customer_bci',  'selected': False},
 			{'id':2, 'name': 'Customer Account STRI', 'value': 'customer_stri', 'selected': False},
-			{'id':3, 'name': 'STRIFUND', 			  'value': 'strifund', 		'selected': False}
+			{'id':1000, 'name': 'STRIFUND', 			  'value': 'strifund', 		'selected': False}
 		]
+		"""
+		return filters
 
 
 	def _get_templates(self):
@@ -135,12 +156,6 @@ class PeopleSoftReport(models.AbstractModel):
 				{'name': _("Activity")},
 				{'name': _("Analysis")}]
 
-
-	"""
-	def _do_filter_by_category(self, options):
-		pass
-	"""
-	
 
 	def _get_super_columns(self, options):
 		return super(PeopleSoftReport, self)._get_super_columns(options)
@@ -193,13 +208,34 @@ class PeopleSoftReport(models.AbstractModel):
 		return ' AND inv.journal_id in ({}) '.format(indices)
 
 
+	def _do_filter_by_category(self, options):
+		categories = options.get('category')
+		item1 = categories[0].get('selected')
+		item2 = categories[1].get('selected')
+		item3 = categories[2].get('selected')
+		if item1 == False and item2 == False and item3 == False:
+			return ''
+		elif item1 and item2 and item3:
+			return ''
+
+		resp = ''
+		for categ in categories:
+			is_selected = categ.get('selected')
+			if is_selected and categ.get('value') == 'customer_bci':
+				resp = resp + ''
+			elif is_selected and categ.get('value') == 'customer_stri':
+				resp = resp + ''
+			else:
+				resp = resp + " AND partner.customer_type = 'fund'"
+		return resp
+
+
 	def _do_filter_by_state(self, options):
-		"""[summary]
-		
-		Arguments:
-			options {[type]} -- [description]
-		"""
-		pass
+		state = options.get('published_entries')
+		if not state:
+			return " AND inv.people_soft_registered IN ( NULL, 'f') "
+		else:
+			return ''
 
 
 	def _do_filter_by_documents(self, docs=None):
@@ -220,7 +256,7 @@ class PeopleSoftReport(models.AbstractModel):
 		if content == '':
 			return ''
 			
-		return " AND inv.id in ({}) ".format(content)
+		return " AND inv.id IN ({}) ".format(content)
 
 
 	def _get_with_statement(self, options, documents=None):
@@ -228,6 +264,7 @@ class PeopleSoftReport(models.AbstractModel):
 		dt_to = options['date'].get('date_to')
 		#by_journal = self._do_filter_by_journal(options)
 		by_journal = ''
+		by_state = self._do_filter_by_state(options)
 		by_documents = self._do_filter_by_documents(documents)
 		sql = """
 		WITH people_soft_data AS (
@@ -248,7 +285,7 @@ class PeopleSoftReport(models.AbstractModel):
 			(SELECT (CASE WHEN credit > 0.00 THEN (credit * -1) WHEN debit > 0.00 THEN debit ELSE 0.00 END )) AS amount
 			FROM account_move_line AS line, account_invoice AS inv, res_partner AS partner, account_account AS account, account_journal as j
 			WHERE (line.date BETWEEN '{}' AND '{}') AND line.invoice_id IS NOT NULL AND line.partner_id = partner.id AND line.invoice_id = inv.id
-			AND inv.journal_id = j.id AND line.account_id = account.id AND inv.type in ('out_invoice', 'out_refund') {} {}
+			AND inv.journal_id = j.id AND line.account_id = account.id AND inv.type in ('out_invoice', 'out_refund') {} {} {}
 			ORDER BY line.invoice_id DESC, line.id DESC)
 		SELECT 'ACTUALS' Ledger, 
 		split_part(chartfield, ',', 5) AS account,
@@ -274,7 +311,7 @@ class PeopleSoftReport(models.AbstractModel):
 		FROM people_soft_data
 		GROUP BY Ledger, account, entry_event, fund, dsgc, budget_ref, dept_id, Currency, reference, program, class, project, proj_unit,activity, Analysis, invoice, sub_order
 		ORDER BY invoice DESC, sub_order DESC;
-		""".format(dt_from, dt_to, by_journal, by_documents)
+		""".format(dt_from, dt_to, by_journal, by_state, by_documents)
 
 		return sql
 
