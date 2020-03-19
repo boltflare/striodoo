@@ -279,8 +279,7 @@ class PeopleSoftReport(models.AbstractModel):
 		split_part(chartfield, ',', 8) AS project,
 		(SELECT CASE WHEN split_part(chartfield, ',', 8) = '' THEN '' ELSE 'SI000' END) AS proj_unit,
 		split_part(chartfield, ',', 9) AS activity,
-		split_part(chartfield, ',', 10) AS Analysis,
-		doc_type
+		split_part(chartfield, ',', 10) AS Analysis
 		FROM people_soft_data
 		WHERE {}
 		GROUP BY Ledger, account, entry_event, fund, dsgc, budget_ref, dept_id, Currency, reference, program, class, project, proj_unit,activity, doc_type, Analysis, invoice, sub_order
