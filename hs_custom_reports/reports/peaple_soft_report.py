@@ -190,7 +190,8 @@ class PeopleSoftReport(models.AbstractModel):
 					resp = resp + ', ' + str(categ.get('value'))
 
 
-		_logger.info("El valor del filtro state es: " + resp)
+		if 'strifund' in resp:
+			resp = resp.replace('strifund', '-1')
 		return " doc_type IN ({}) ".format(resp)
 
 
