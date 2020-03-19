@@ -26,10 +26,13 @@ class PeopleSoftReport(models.AbstractModel):
 
 	def _build_options(self, previous_options=None):
 		options = super(PeopleSoftReport, self)._build_options(previous_options)
-		if options.get('category'):
+		
+		"""if options.get('category'):
 			options['category'] = previous_options['category']
 		else:
 			options['category'] = self._get_filters_categories()
+		"""
+		options['category'] = self._get_filters_categories()
 		return options
 
 
@@ -59,7 +62,7 @@ class PeopleSoftReport(models.AbstractModel):
 			'value': 'strifund', 
 			'selected': False
 		})
-		
+
 		return filters
 
 
