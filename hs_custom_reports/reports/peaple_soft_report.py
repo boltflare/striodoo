@@ -256,7 +256,7 @@ class PeopleSoftReport(models.AbstractModel):
 			(SELECT (CASE WHEN credit > 0.00 THEN (credit * -1) WHEN debit > 0.00 THEN debit ELSE 0.00 END )) AS amount
 			FROM account_move_line AS line, account_invoice AS inv, res_partner AS partner, account_account AS account, account_journal as j
 			WHERE (line.date BETWEEN '{}' AND '{}') AND line.invoice_id IS NOT NULL AND line.partner_id = partner.id AND line.invoice_id = inv.id
-			AND inv.journal_id = j.id AND line.account_id = account.id AND inv.type in ('out_invoice', 'out_refund') {} {}
+			AND inv.journal_id = j.id AND line.account_id = account.id AND inv.type in ('out_invoice', 'out_refund') AND inv.state = 'open' {} {}
 			ORDER BY line.invoice_id DESC, line.id DESC)
 		SELECT 'ACTUALS' Ledger, 
 		split_part(chartfield, ',', 5) AS account,
