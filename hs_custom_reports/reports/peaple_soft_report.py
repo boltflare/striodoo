@@ -65,14 +65,14 @@ class PeopleSoftReport(models.AbstractModel):
 			filters.append({
 				'id' : journal.id,
 				'name' : journals.name,
-				'value' : str(journal.id),
+				'value' : journal.id,
 				'selected' : False
 			})
 		
 		filters.append({
 			'id':1000, 
 			'name': 'STRIFund', 
-			'value': 'strifund', 
+			'value': -1, 
 			'selected': False
 		})
 
@@ -172,50 +172,24 @@ class PeopleSoftReport(models.AbstractModel):
 	def _do_filter_by_category(self, options):
 		categories = options.get('category')
 
-		"""
-		respFalse = 1
-		respTrue = 1
-		for categ in categories:
-			if categ.get('selected'):
-				respTrue += 1
-			else:
-				respFalse += 1
-
-		if respFalse == len(categories) or respTrue == len(categories):
-			return ''
-		"""
-
-		# Validamos primero si existe algun filtro seleccionado
 		resp = ''
-		account = ''
 		for categ in categories:
 			is_selected = categ.get('selected')
-			if is_selected and categ.get('value') == 'strifund':
-				resp = resp + " AND partner.customer_type = 'fund' "
-			elif is_selected and account == '':
-				account = categ.get('value')
-			elif is_selected and account != '':
-				account = "{}, {}".format(account, categ.get('value'))
+			if is_selected and categ.get('value') == -1:
+				resp = '-1' if resp == '' else resp + ', -1'
+			elif is_selected and resp == '':
+				resp = str(categ.get('value'))
+			elif is_selected and resp != '':
+				resp = resp + ', ' + str(categ.get('value'))
 
-		if account != '':
-			resp = resp + " AND inv.journal_id IN ({}) ".format(account)
-
-		
-		#Si no se encontraron filtros seleccionados, procedemos a filtrar por
-		# todo los filtros
 		if resp == '':
 			for categ in categories:
-				if categ.get('value') == 'strifund':
-					resp = resp + " AND partner.customer_type = 'fund' "
-				elif account == '':
-					account = categ.get('value')
-				elif account != '':
-					account = "{}, {}".format(account, categ.get('value'))
-	
-			if account != '':
-				resp = resp + " AND inv.journal_id IN ({}) ".format(account)
+				if resp == '':
+					resp = str(categ.get('value'))
+				else:
+					resp = resp + ', ' + str(categ.get('value'))
 
-		return resp
+		return " doc_type IN ({}) ".format(resp)
 
 
 	def _do_filter_by_state(self, options):
@@ -276,13 +250,14 @@ class PeopleSoftReport(models.AbstractModel):
 				END) AS chartfield,
 			line.partner_id,
 			line.invoice_id as invoice,
-			inv.number as reference, 
+			inv.number as reference,
+			(SELECT CASE WHEN partner.customer_type = 'fund' THEN -1 ELSE inv.journal_id END) as doc_type,
 			(SELECT CASE WHEN inv.type = 'out_invoice' THEN 'invoice' ELSE 'refund' END) AS document,
 			(SELECT CASE WHEN account.user_type_id = (SELECT id FROM account_account_type WHERE name = 'Income' LIMIT 1) THEN 0 ELSE 1 END) AS sub_order,
 			(SELECT (CASE WHEN credit > 0.00 THEN (credit * -1) WHEN debit > 0.00 THEN debit ELSE 0.00 END )) AS amount
 			FROM account_move_line AS line, account_invoice AS inv, res_partner AS partner, account_account AS account, account_journal as j
 			WHERE (line.date BETWEEN '{}' AND '{}') AND line.invoice_id IS NOT NULL AND line.partner_id = partner.id AND line.invoice_id = inv.id
-			AND inv.journal_id = j.id AND line.account_id = account.id AND inv.type in ('out_invoice', 'out_refund') {} {} {}
+			AND inv.journal_id = j.id AND line.account_id = account.id AND inv.type in ('out_invoice', 'out_refund') {} {}
 			ORDER BY line.invoice_id DESC, line.id DESC)
 		SELECT 'ACTUALS' Ledger, 
 		split_part(chartfield, ',', 5) AS account,
@@ -304,11 +279,13 @@ class PeopleSoftReport(models.AbstractModel):
 		split_part(chartfield, ',', 8) AS project,
 		(SELECT CASE WHEN split_part(chartfield, ',', 8) = '' THEN '' ELSE 'SI000' END) AS proj_unit,
 		split_part(chartfield, ',', 9) AS activity,
-		split_part(chartfield, ',', 10) AS Analysis
+		split_part(chartfield, ',', 10) AS Analysis,
+		doc_type
 		FROM people_soft_data
-		GROUP BY Ledger, account, entry_event, fund, dsgc, budget_ref, dept_id, Currency, reference, program, class, project, proj_unit,activity, Analysis, invoice, sub_order
+		WHERE {}
+		GROUP BY Ledger, account, entry_event, fund, dsgc, budget_ref, dept_id, Currency, reference, program, class, project, proj_unit,activity, doc_type, Analysis, invoice, sub_order
 		ORDER BY invoice DESC, sub_order DESC;
-		""".format(dt_from, dt_to, by_categ, by_state, by_documents)
+		""".format(dt_from, dt_to, by_state, by_documents, by_categ)
 
 		return sql
 
