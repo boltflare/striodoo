@@ -129,7 +129,7 @@ class PeopleSoftReport(models.AbstractModel):
 	def publish_report(self, options):
 		#if 'invoices' in self._context:
 		print("El valor de publis_report es: " + str(self._context))
-		return self.print_pdf(options)
+		return self.print_xml(options)
 	
 	
 	"""
