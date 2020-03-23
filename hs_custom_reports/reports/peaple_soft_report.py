@@ -128,8 +128,9 @@ class PeopleSoftReport(models.AbstractModel):
 	
 	def publish_report(self, options):
 		#if 'invoices' in self._context:
+		print("El valor de publis_report es: " + str(options))
 		print("El valor de publis_report es: " + str(self._context))
-		return self.print_xml(options)
+		return self.print_pdf(options)
 	
 	
 	"""
@@ -310,7 +311,7 @@ class PeopleSoftReport(models.AbstractModel):
 		for item in invoices:
 			items.append(item[10])
 		items = list(dict.fromkeys(items))
-		self = self.with_context({}, invoices=items)
+		options["invoices"] = items
 
 		for invoice in invoices:
 			lines.append({
