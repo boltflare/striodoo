@@ -127,7 +127,7 @@ class PeopleSoftReport(models.AbstractModel):
 
 	
 	def publish_report(self, options):
-		_logger.info(str(options))
+		_logger.info("El valor de publish_report es: " + str(options))
 		super_columns = self._get_super_columns(options)
 		for column in super_columns.get('columns', []):
 			_logger.info(str(column))
