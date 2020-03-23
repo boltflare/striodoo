@@ -121,8 +121,14 @@ class PeopleSoftReport(models.AbstractModel):
 	def _get_super_columns(self, options):
 		return super(PeopleSoftReport, self)._get_super_columns(options)
 
-	"""
+	
 	def publish_report(self, options):
+		super_columns = self._get_super_columns(options)
+		for column in super_columns.get('columns', []):
+			_logger.info(str(column))
+	
+	
+	"""
 		return { 
 			'type': 'ir_actions_people_soft_publish_report',
 			'data': {
@@ -131,12 +137,6 @@ class PeopleSoftReport(models.AbstractModel):
 				'financial_id': self.env.context.get('id'),
 			}
 		}
-	"""
-		
-	"""
-		super_columns = self._get_super_columns(options)
-		for column in super_columns.get('columns', []):
-			_logger.info(str(column))
 	"""
 
 
