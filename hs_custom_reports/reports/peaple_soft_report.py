@@ -49,6 +49,10 @@ class PeopleSoftReport(models.AbstractModel):
 			return options
 
 
+	def print_pdf(self, options):
+		return super(PeopleSoftReport).print_pdf(options)
+
+
 	def _get_filters_state(self):
 		return [
 			{'id':0, 'name': 'Yes', 'value': 0},
@@ -126,6 +130,8 @@ class PeopleSoftReport(models.AbstractModel):
 		super_columns = self._get_super_columns(options)
 		for column in super_columns.get('columns', []):
 			_logger.info(str(column))
+
+		return self.print_pdf(options)
 	
 	
 	"""
