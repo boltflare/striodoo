@@ -304,8 +304,6 @@ class PeopleSoftReport(models.AbstractModel):
 
 	@api.model
 	def _get_lines(self, options, line_id=None):
-		_logger.info("El valor de options es: '" + str(options))
-		#_logger.info("El valor de line_id es: '" + str(line_id))
 		lines = []
 		docs = self.env.context['docs'] if 'docs' in self.env.context else None
 		invoices = self._do_query(options, docs)
