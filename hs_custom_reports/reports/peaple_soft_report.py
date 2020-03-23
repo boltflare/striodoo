@@ -50,7 +50,7 @@ class PeopleSoftReport(models.AbstractModel):
 
 
 	def print_pdf(self, options):
-		return super(PeopleSoftReport).print_pdf(options)
+		return super(PeopleSoftReport, self).print_pdf(options)
 
 
 	def _get_filters_state(self):
