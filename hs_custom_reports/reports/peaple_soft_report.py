@@ -127,11 +127,8 @@ class PeopleSoftReport(models.AbstractModel):
 
 	
 	def publish_report(self, options):
-		_logger.info("El valor de publish_report es: " + str(options))
-		super_columns = self._get_super_columns(options)
-		for column in super_columns.get('columns', []):
-			_logger.info(str(column))
-
+		#if 'invoices' in self._context:
+		print(str(self._context))
 		return self.print_pdf(options)
 	
 	
@@ -308,6 +305,13 @@ class PeopleSoftReport(models.AbstractModel):
 		docs = self.env.context['docs'] if 'docs' in self.env.context else None
 		invoices = self._do_query(options, docs)
 		count = 0
+
+		items = []
+		for item in invoices:
+			items.append(item[10])
+		items = list(dict.fromkeys(items))
+		self = self.with_context({}, invoices=items)
+
 		for invoice in invoices:
 			lines.append({
 				'id': count,
