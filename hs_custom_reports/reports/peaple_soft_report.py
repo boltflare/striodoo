@@ -128,9 +128,19 @@ class PeopleSoftReport(models.AbstractModel):
 	
 	def publish_report(self, options):
 		#if 'invoices' in self._context:
-		print("El valor de publis_report es: " + str(options))
-		print("El valor de publis_report es: " + str(self._context))
-		return self.print_pdf(options)
+		invoices = self._do_query(options)
+
+		documents = []
+		for item in invoices:
+			number = item[10] 	#10 es la columna del numero de factura
+			documents.append(number)
+			if not number in documents:
+				resp = self.env["account.invoice"].search([('number', '=', number)])
+				if resp:
+					resp.write({'people_soft_registered':True})
+				documents.append(number)
+				
+		return self.print_xlsx(options)
 	
 	
 	"""
@@ -307,11 +317,6 @@ class PeopleSoftReport(models.AbstractModel):
 		invoices = self._do_query(options, docs)
 		count = 0
 
-		items = []
-		for item in invoices:
-			items.append(item[10])
-		items = list(dict.fromkeys(items))
-		options["invoices"] = items
 
 		for invoice in invoices:
 			lines.append({
