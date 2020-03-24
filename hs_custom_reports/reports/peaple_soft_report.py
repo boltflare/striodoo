@@ -302,7 +302,7 @@ class PeopleSoftReport(models.AbstractModel):
 		invoices = self._do_query(options, docs)
 		count = 0
 
-
+		invoices = list(invoices)
 		for invoice in invoices:
 			logging.info(str(invoice))
 			lines.append({
