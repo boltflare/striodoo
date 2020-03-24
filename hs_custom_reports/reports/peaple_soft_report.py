@@ -135,11 +135,12 @@ class PeopleSoftReport(models.AbstractModel):
 			number = item[10] 	#10 es la columna del numero de factura
 			documents.append(number)
 			if not number in documents:
-				resp = self.env["account.invoice"].search([('number', '=', number)])
+				resp = self.env["account.invoice"].search([('number', '=', number)], limit=1)
 				if resp:
-					resp.write({'people_soft_registered':True})
+					resp.people_soft_registered = True
+					#resp.write({'':})
 				documents.append(number)
-				
+
 		return self.print_xlsx(options)
 	
 	
