@@ -49,6 +49,10 @@ class PeopleSoftReport(models.AbstractModel):
 			return options
 
 
+	def print_pdf(self, options):
+		return super(PeopleSoftReport, self).print_pdf(options)
+
+
 	def _get_filters_state(self):
 		return [
 			{'id':0, 'name': 'Yes', 'value': 0},
@@ -121,8 +125,22 @@ class PeopleSoftReport(models.AbstractModel):
 	def _get_super_columns(self, options):
 		return super(PeopleSoftReport, self)._get_super_columns(options)
 
-	"""
+	
 	def publish_report(self, options):
+		invoices = self._do_query(options)
+
+		documents = []
+		for item in invoices:
+			number = item[9] 	#9 es la columna del numero de factura
+			if not number in documents:
+				resp = self.env["account.invoice"].search([('number', '=', number)], limit=1)
+				if resp:
+					resp.people_soft_registered = True
+				documents.append(number)
+		return self.print_xlsx(options)
+	
+	
+	"""
 		return { 
 			'type': 'ir_actions_people_soft_publish_report',
 			'data': {
@@ -131,12 +149,6 @@ class PeopleSoftReport(models.AbstractModel):
 				'financial_id': self.env.context.get('id'),
 			}
 		}
-	"""
-		
-	"""
-		super_columns = self._get_super_columns(options)
-		for column in super_columns.get('columns', []):
-			_logger.info(str(column))
 	"""
 
 
@@ -297,12 +309,12 @@ class PeopleSoftReport(models.AbstractModel):
 
 	@api.model
 	def _get_lines(self, options, line_id=None):
-		_logger.info("El valor de options es: '" + str(options))
-		#_logger.info("El valor de line_id es: '" + str(line_id))
 		lines = []
 		docs = self.env.context['docs'] if 'docs' in self.env.context else None
 		invoices = self._do_query(options, docs)
 		count = 0
+
+
 		for invoice in invoices:
 			lines.append({
 				'id': count,
