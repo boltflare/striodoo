@@ -111,7 +111,7 @@ class PeopleSoftReport(models.AbstractModel):
 				{'name': _("Dsgc")},
 				{'name': _("Budget Ref")},
 				{'name': _("Dept ID")},
-				{'name': _("Amount"), 'class': 'number'},
+				{'name': _("Amount")},
 				{'name': _("Currency")},
 				{'name': _("Reference")},
 				{'name': _("Program")},
