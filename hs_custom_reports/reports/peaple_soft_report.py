@@ -111,7 +111,7 @@ class PeopleSoftReport(models.AbstractModel):
 				{'name': _("Dsgc")},
 				{'name': _("Budget Ref")},
 				{'name': _("Dept ID")},
-				{'name': _("Amount")},
+				{'name': _("Amount"), 'class': 'number'},
 				{'name': _("Currency")},
 				{'name': _("Reference")},
 				{'name': _("Program")},
@@ -139,18 +139,6 @@ class PeopleSoftReport(models.AbstractModel):
 				documents.append(number)
 		return self.print_xlsx(options)
 	
-	
-	"""
-		return { 
-			'type': 'ir_actions_people_soft_publish_report',
-			'data': {
-				'model': self.env.context.get('model'),
-				'options': json.dumps(options),
-				'financial_id': self.env.context.get('id'),
-			}
-		}
-	"""
-
 
 	def _do_filter_by_journal(self, options):
 		"""[summary]
@@ -316,6 +304,7 @@ class PeopleSoftReport(models.AbstractModel):
 
 
 		for invoice in invoices:
+			logging.info(str(info))
 			lines.append({
 				'id': count,
 				'name': count,
@@ -333,7 +322,6 @@ class PeopleSoftReport(models.AbstractModel):
 				'level': 3,
 				'columns': [{'name' : v} for v in ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',]],
 			})
-		
 		return lines
 
 
