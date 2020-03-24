@@ -304,6 +304,7 @@ class PeopleSoftReport(models.AbstractModel):
 
 		invoices = list(invoices)
 		for invoice in invoices:
+			invoice[7] = self.format_value(invoice[7])
 			logging.info(str(invoice))
 			lines.append({
 				'id': count,
