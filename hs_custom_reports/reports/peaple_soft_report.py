@@ -127,20 +127,16 @@ class PeopleSoftReport(models.AbstractModel):
 
 	
 	def publish_report(self, options):
-		#if 'invoices' in self._context:
 		invoices = self._do_query(options)
 
 		documents = []
 		for item in invoices:
 			number = item[9] 	#9 es la columna del numero de factura
-			logging.info("El valor de number es: " + str(item))
 			if not number in documents:
 				resp = self.env["account.invoice"].search([('number', '=', number)], limit=1)
 				if resp:
 					resp.people_soft_registered = True
-					#resp.write({'':})
 				documents.append(number)
-		logging.info("El valor de documents es: " + str(documents))
 		return self.print_xlsx(options)
 	
 	
