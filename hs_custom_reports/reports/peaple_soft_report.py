@@ -133,6 +133,7 @@ class PeopleSoftReport(models.AbstractModel):
 		documents = []
 		for item in invoices:
 			number = item[10] 	#10 es la columna del numero de factura
+			logging.info("El valor de number es: " + str(number))
 			if not number in documents:
 				resp = self.env["account.invoice"].search([('number', '=', number)], limit=1)
 				if resp:
