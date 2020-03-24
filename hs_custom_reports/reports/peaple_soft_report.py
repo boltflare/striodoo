@@ -139,7 +139,7 @@ class PeopleSoftReport(models.AbstractModel):
 					resp.people_soft_registered = True
 					#resp.write({'':})
 				documents.append(number)
-
+		logging.info("El valor de documents es: " + str(documents))
 		return self.print_xlsx(options)
 	
 	
