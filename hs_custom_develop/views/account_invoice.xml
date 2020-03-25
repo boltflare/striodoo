@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		<!-- model.name inherit form view -->
+		<record id="account_invoice_project_id_view" model="ir.ui.view">
+			<field name="name">account.invoice.project.id.view</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="hs_custom_class_code.account_invoice_classcode_inherit1"/>
+			<field name="arch" type="xml">
+				
+				<xpath expr="//field[@name='class_code']" position="after">
+					<field name="charfield_project" attrs="{'invisible':[('customer_is_fund','=',False)]" readonly="1"/>
+				</xpath>
+				
+			</field>
+		</record>
+		
+	</data>
+</odoo>
