@@ -260,7 +260,7 @@ class PeopleSoftReport(models.AbstractModel):
 			ORDER BY line.invoice_id DESC, line.id DESC)
 		SELECT 'ACTUALS' Ledger, 
 		split_part(chartfield, ',', 5) AS account,
-		CONCAT('REIMB_', (SELECT CASE WHEN split_part(chartfield, ',', 5) = '6998' THEN '6998' ELSE '6999' END)) as entry_event,
+		(SELECT CASE WHEN doc_type = -1 THEN '' ELSE (CONCAT('REIMB_', (SELECT CASE WHEN split_part(chartfield, ',', 5) = '6998' THEN '6998' ELSE '6999' END)))) as entry_event,
 		split_part(chartfield, ',', 1) AS fund,
 		split_part(chartfield, ',', 3) AS dsgc,
 		split_part(chartfield, ',', 2) AS budget_ref,
