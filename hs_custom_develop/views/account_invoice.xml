@@ -9,7 +9,7 @@
 			<field name="arch" type="xml">
 				
 				<xpath expr="//field[@name='class_code']" position="after">
-					<field name="charfield_project" attrs="{'invisible':[('customer_is_fund','=',False)]" readonly="1"/>
+					<field name="charfield_project" readonly="1"/>
 				</xpath>
 				
 			</field>
