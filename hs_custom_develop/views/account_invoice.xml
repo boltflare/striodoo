@@ -8,7 +8,7 @@
 			<field name="inherit_id" ref="hs_customer_class_code.account_invoice_classcode_inherit1"/>
 			<field name="arch" type="xml">
 				
-				<xpath expr="//field[@name='class_code']" position="before">
+				<xpath expr="//field[@name='class_code']" position="after">
 					<field name="charfield_project" readonly="1" attrs="{'invisible':[('customer_is_fund','=',False)]}"/>
 				</xpath>
 				
