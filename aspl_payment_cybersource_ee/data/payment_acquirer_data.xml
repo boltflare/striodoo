@@ -13,6 +13,9 @@
 You will be redirected to the Cybersouce website after clicking on the payment button.</p>]]></field>
             <field name='cybersource_merchant_id'>dummy</field>
             <field name="cybersource_key">dummy</field>
+            <field name="secret_key">dummy</field>
+            <field name="profile_id">dummy</field>
+            <field name="access_key">dummy</field>
         </record>
     </data>
 </odoo>

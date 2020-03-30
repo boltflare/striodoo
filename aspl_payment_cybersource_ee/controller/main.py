@@ -12,18 +12,14 @@ from odoo import http, _
 from odoo.http import request
 from suds.wsse import Security, UsernameToken
 from suds.client import Client
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-import werkzeug
-from uuid import uuid4
 from requests import get
-from odoo.addons.web.controllers import main as web
 from odoo.addons.website_sale.controllers.main import WebsiteSale
-import requests
-from datetime import datetime, timedelta
+from odoo.addons.payment.controllers.portal import PaymentProcessing
 import json
 from suds.sudsobject import asdict
 import logging
 _logger = logging.getLogger(__name__)
+
 
 reason_code = {100: 'Successful transaction',
                101: 'The request is missing one or more required fields',
@@ -60,6 +56,8 @@ reason_code = {100: 'Successful transaction',
                520: 'The authorization request was approved by the issuing bank but declined by CyberSource based on your Smart Authorization settings',
                400: 'Soft Decline - Fraud score exceeds threshold.'
 }
+
+
 
 class WebsiteSale(WebsiteSale):
     @http.route()
@@ -128,6 +126,7 @@ class CyberSourceController(http.Controller):
             
     @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
     def payment_confirmation(self, **post):
+
         payment_acquirer = request.env['payment.acquirer'].sudo().search([('provider', '=', 'cybersource')])
         payment_token = request.env['payment.token'].sudo().search([('acquirer_id', '=', payment_acquirer.id)])
         if payment_acquirer.save_token == 'none':
@@ -138,9 +137,50 @@ class CyberSourceController(http.Controller):
             order = request.env['sale.order'].sudo().browse(sale_order_id)
             if not order or order.state != 'draft':
                 request.website.sale_reset()
+            # if payment_acquirer.payment_flow == 'form' and payment_acquirer.provider == 'cybersource':
+            #     order.action_confirm()
             return request.render("website_sale.confirmation", {'order': order})
         else:
             return request.redirect('/shop')
+
+    @http.route('/shop/payment/validate', type='http', auth="public", website=True)
+    def payment_validate(self, transaction_id=None, sale_order_id=None, **post):
+        """ Method that should be called by the server when receiving an update
+        for a transaction. State at this point :
+
+         - UDPATE ME
+        """
+        if sale_order_id is None:
+            order = request.website.sale_get_order()
+        else:
+            order = request.env['sale.order'].sudo().browse(sale_order_id)
+            assert order.id == request.session.get('sale_last_order_id')
+
+        data = {}
+        order.action_confirm()
+        data.update({'amount': order.amount_total, 'id': str(order.name).split('-')[0], 'reason': 'Success'})
+        transaction_id = request.env['payment.transaction'].sudo().form_feedback(data, 'cybersource')
+        if transaction_id:
+            tx = request.env['payment.transaction'].sudo().browse(transaction_id)
+            assert tx in order.transaction_ids()
+        elif order:
+            tx = order.get_portal_last_transaction()
+        else:
+            tx = None
+
+        if not order or (order.amount_total and not tx):
+            return request.redirect('/shop')
+
+        if order and not order.amount_total and not tx:
+            return request.redirect(order.get_portal_url())
+
+        # clean context and session, then redirect to the confirmation page
+        request.website.sale_reset()
+        if tx and tx.state == 'draft':
+            return request.redirect('/shop')
+
+        PaymentProcessing.remove_payment_transaction(tx)
+        return request.redirect('/shop/confirmation')
         
     def request_payment_status(self,post):
         order_id = request.session.get('sale_order_id')

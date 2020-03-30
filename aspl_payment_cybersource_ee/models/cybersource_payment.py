@@ -9,20 +9,16 @@
 #
 #################################################################################
 
-from odoo import api, fields, models, _
 from odoo.http import request
 from odoo.tools.float_utils import float_compare
-import logging, base64, requests, json
-from werkzeug import urls
-# from odoo.addons.aspl_payment_cybersource_ee.controller.main import CybersourceController
+from odoo import api,fields,models, _
+import logging
 from datetime import datetime
-import hmac
 import time
+import hmac
 import hashlib
 import base64
 import uuid
-import json
-from suds.sudsobject import asdict
 _logger = logging.getLogger(__name__)
 
 
@@ -32,74 +28,105 @@ class PaymentAcquirer(models.Model):
     provider = fields.Selection(selection_add=[('cybersource', 'CyberSouce')])
     cybersource_merchant_id = fields.Char(required_if_provider='cybersource', string="Merchant id")
     cybersource_key = fields.Char(required_if_provider='cybersource', string="Key")
-    
+    secret_key = fields.Char(string='SecretKey')
+    profile_id = fields.Char(string='Profile ID')
+    access_key = fields.Char(string='Access Key')
+
+    def get_signature(self,data):
+        secret = bytes(self.secret_key, 'utf-8')
+        mystr = ', '.join("{!s}={!r}".format(key, val) for (key, val) in data.items()).replace(' ','')
+        new_str = mystr.replace("'", '').encode('utf-8')
+        hash = hmac.new(secret, new_str, hashlib.sha256)
+        result = base64.b64encode(hash.digest())
+        return  result
+
     def _get_feature_support(self):
         res = super(PaymentAcquirer, self)._get_feature_support()
         res['tokenize'].append('cybersource')
         return res
-    
+
+    def _get_cybersource_urls(self, environment):
+        """ Authorize URLs """
+        if environment == 'prod':
+            return {'cybersource_form_url': 'https://testsecureacceptance.cybersource.com/pay'}
+        else:
+            return {'cybersource_form_url': 'https://testsecureacceptance.cybersource.com/pay'}
+
     cybersouce_values = {}
     @api.multi
     def cybersource_form_generate_values(self, values):
         self.ensure_one()
-        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-        cybersouce_values = dict(values)
-        cybersouce_values.update({
-                                'c_login': self.cybersource_merchant_id,
-                                'c_trans_key': self.cybersource_key,
-                                'c_amount': str(values['amount']),
-                                'c_show_form': 'PAYMENT_FORM',
-                                'c_type': 'AUTH_CAPTURE' if not self.capture_manually else 'AUTH_ONLY',
-                                'c_method': 'CC',
-                                'c_fp_sequence': '%s%s' % (self.id, int(time.time())),
-                                'c_version': '3.1',
-                                'c_relay_response': 'TRUE',
-                                'c_fp_timestamp': str(int(time.time())),
-                                'c_relay_url': 'shop/confirmation',
-                                # 'c_cancel_url': urls.url_join(base_url, CybersourceController._cancel_url),
-                                'c_currency_code': values['currency'] and values['currency'].name or '',
-                                'address': values.get('partner_address'),
-                                'city': values.get('partner_city'),
-                                'country': values.get('partner_country') and values.get('partner_country').name or '',
-                                'email': values.get('partner_email'),
-                                'zip_code': values.get('partner_zip'),
-                                'first_name': values.get('partner_first_name'),
-                                'last_name': values.get('partner_last_name'),
-                                'phone': values.get('partner_phone'),
-                                'state': values.get('partner_state') and values['partner_state'].code or '',
-                                'billing_address': values.get('billing_partner_address'),
-                                'billing_city': values.get('billing_partner_city'),
-                                'billing_country': values.get('billing_partner_country') and values.get('billing_partner_country').name or '',
-                                'billing_email': values.get('billing_partner_email'),
-                                'billing_zip_code': values.get('billing_partner_zip'),
-                                'billing_first_name': values.get('billing_partner_first_name'),
-                                'billing_last_name': values.get('billing_partner_last_name'),
-                                'billing_phone': values.get('billing_partner_phone'),
-                                'billing_state': values.get('billing_partner_state') and values['billing_partner_state'].code or '',
-                                })
-        try:
-            _logger.info("El valor de la informacion enviada es: ")
-            _logger.info(cybersouce_values)
-        except Exception as identifier:
-            _logger.info("Error la mostrar el mensaje")
-
+        cybersouce_values = {}
+        if self.payment_flow == 'form':
+            cybersouce_values.update({
+                'access_key': self.access_key,
+                'profile_id': self.profile_id,
+                'transaction_uuid': str(uuid.uuid1()),
+                'signed_field_names': "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency",
+                'unsigned_field_names': '',
+                'signed_date_time': datetime.strftime(datetime.utcnow(), '%Y-%m-%dT%H:%M:%SZ'),
+                'locale': 'en',
+                'transaction_type': 'sale',
+                'reference_number': values.get('reference'),
+                'amount': values.get('amount'),
+                'currency': values.get('currency').name
+            })
+            signature = self.get_signature(cybersouce_values)
+            cybersouce_values.update({'signature': signature})
+        if self.payment_flow == 's2s':
+            cybersouce_values = dict(values)
+            cybersouce_values.update({
+                'c_login': self.cybersource_merchant_id,
+                'c_trans_key': self.cybersource_key,
+                'c_amount': str(values['amount']),
+                'c_show_form': 'PAYMENT_FORM',
+                'c_type': 'AUTH_CAPTURE' if not self.capture_manually else 'AUTH_ONLY',
+                'c_method': 'CC',
+                'c_fp_sequence': '%s%s' % (self.id, int(time.time())),
+                'c_version': '3.1',
+                'c_relay_response': 'TRUE',
+                'c_fp_timestamp': str(int(time.time())),
+                'c_relay_url': 'shop/confirmation',
+                'c_currency_code': values['currency'] and values['currency'].name or '',
+                'address': values.get('partner_address'),
+                'city': values.get('partner_city'),
+                'country': values.get('partner_country') and values.get('partner_country').name or '',
+                'email': values.get('partner_email'),
+                'zip_code': values.get('partner_zip'),
+                'first_name': values.get('partner_first_name'),
+                'last_name': values.get('partner_last_name'),
+                'phone': values.get('partner_phone'),
+                'state': values.get('partner_state') and values['partner_state'].code or '',
+                'billing_address': values.get('billing_partner_address'),
+                'billing_city': values.get('billing_partner_city'),
+                'billing_country': values.get('billing_partner_country') and values.get(
+                    'billing_partner_country').name or '',
+                'billing_email': values.get('billing_partner_email'),
+                'billing_zip_code': values.get('billing_partner_zip'),
+                'billing_first_name': values.get('billing_partner_first_name'),
+                'billing_last_name': values.get('billing_partner_last_name'),
+                'billing_phone': values.get('billing_partner_phone'),
+                'billing_state': values.get('billing_partner_state') and values['billing_partner_state'].code or '',
+            })
         return cybersouce_values
-    
+
+    @api.multi
+    def cybersource_get_form_action_url(self):
+        self.ensure_one()
+        return self._get_cybersource_urls(self.environment)['cybersource_form_url']
+
 class TxCybersource(models.Model):
     _inherit = 'payment.transaction'
     
     @api.model
     def create(self, vals):
-        return super(TxCybersource, self).create(vals)
+        tx = super(TxCybersource, self).create(vals)
+        return tx
 
     @api.model
     def _cybersource_form_get_tx_from_data(self, data):
         reference = data.get('id')
-        transaction = self.search([('reference', '=', reference)])
-        if not transaction:
-            _logger.warning(_('Cybersource: received data for reference %s; no order found') % (reference))
-        elif len(transaction) > 1:
-            _logger.warning(_('Cybersource: received data for reference %s; multiple orders found') % (reference))
+        transaction = self.search([], limit=1)
         return transaction
     
     @api.multi
@@ -112,6 +139,17 @@ class TxCybersource(models.Model):
             invalid_parameters.append(
                 ('Amount', data.get('amount'), '%.2f' % self.amount))
         return invalid_parameters
+
+    @api.multi
+    def _cybersource_form_validate(self, data):
+        for tran in self:
+            transaction_status = {}
+            transaction_status.update({
+                'state': 'done',
+                'date': fields.Datetime.now(),
+            })
+            tran.write(transaction_status)
+            tran._log_payment_transaction_sent()
 
     @api.multi
     def s2s_do_transaction(self, **kwargs):
