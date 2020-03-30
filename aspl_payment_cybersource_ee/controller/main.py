@@ -137,8 +137,8 @@ class CyberSourceController(http.Controller):
             order = request.env['sale.order'].sudo().browse(sale_order_id)
             if not order or order.state != 'draft':
                 request.website.sale_reset()
-            # if payment_acquirer.payment_flow == 'form' and payment_acquirer.provider == 'cybersource':
-            #     order.action_confirm()
+            if payment_acquirer.payment_flow == 'form' and payment_acquirer.provider == 'cybersource':
+                order.action_confirm()
             return request.render("website_sale.confirmation", {'order': order})
         else:
             return request.redirect('/shop')
@@ -157,7 +157,6 @@ class CyberSourceController(http.Controller):
             assert order.id == request.session.get('sale_last_order_id')
 
         data = {}
-        order.action_confirm()
         data.update({'amount': order.amount_total, 'id': str(order.name).split('-')[0], 'reason': 'Success'})
         transaction_id = request.env['payment.transaction'].sudo().form_feedback(data, 'cybersource')
         if transaction_id:

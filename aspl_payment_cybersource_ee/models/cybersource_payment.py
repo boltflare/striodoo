@@ -19,6 +19,7 @@ import hmac
 import hashlib
 import base64
 import uuid
+from dateutil import relativedelta
 _logger = logging.getLogger(__name__)
 
 
@@ -117,6 +118,24 @@ class PaymentAcquirer(models.Model):
 
 class TxCybersource(models.Model):
     _inherit = 'payment.transaction'
+
+    @api.multi
+    def _cron_post_process_after_done(self):
+        if not self:
+            ten_minutes_ago = datetime.now() - relativedelta.relativedelta(minutes=10)
+            # we don't want to forever try to process a transaction that doesn't go through
+            retry_limit_date = datetime.now() - relativedelta.relativedelta(days=2)
+            # we retrieve all the payment tx that need to be post processed
+            self = self.search([('state', '=', 'done'),
+                                ('is_processed', '=', False),
+                                ])
+        for tx in self:
+            try:
+                tx._post_process_after_done()
+                self.env.cr.commit()
+            except Exception as e:
+                _logger.exception("Transaction post processing failed")
+                self.env.cr.rollback()
     
     @api.model
     def create(self, vals):
@@ -143,13 +162,7 @@ class TxCybersource(models.Model):
     @api.multi
     def _cybersource_form_validate(self, data):
         for tran in self:
-            transaction_status = {}
-            transaction_status.update({
-                'state': 'done',
-                'date': fields.Datetime.now(),
-            })
-            tran.write(transaction_status)
-            tran._log_payment_transaction_sent()
+            tran._set_transaction_done()
 
     @api.multi
     def s2s_do_transaction(self, **kwargs):
