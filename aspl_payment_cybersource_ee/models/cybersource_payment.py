@@ -58,7 +58,7 @@ class PaymentAcquirer(models.Model):
     def cybersource_form_generate_values(self, values):
         self.ensure_one()
         cybersouce_values = {}
-		logging.warning("_____ EL valor de cybersource_form_generate_values es: " + str(values))
+        logging.warning("_____ EL valor de cybersource_form_generate_values es: " + str(values))
         if self.payment_flow == 'form':
             cybersouce_values.update({
                 'access_key': self.access_key,
