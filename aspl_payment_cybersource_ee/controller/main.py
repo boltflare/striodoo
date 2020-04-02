@@ -124,7 +124,7 @@ class CyberSourceController(http.Controller):
                 'verified': True,
                 }
             
-    @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
+    @http.route(['/shop/confirmation'], type='http', auth="public", csrf=False,  website=True)
     def payment_confirmation(self, **post):
 
         payment_acquirer = request.env['payment.acquirer'].sudo().search([('provider', '=', 'cybersource')])
