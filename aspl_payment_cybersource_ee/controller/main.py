@@ -143,7 +143,7 @@ class CyberSourceController(http.Controller):
         else:
             return request.redirect('/shop')
 
-    @http.route('/shop/payment/validate', type='http', auth="public", website=True)
+    @http.route('/shop/payment/validate', type='http', auth="public", csrf=False,  website=True)
     def payment_validate(self, transaction_id=None, sale_order_id=None, **post):
         """ Method that should be called by the server when receiving an update
         for a transaction. State at this point :
