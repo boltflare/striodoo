@@ -156,7 +156,7 @@ class CyberSourceController(http.Controller):
         if post:
             content = ""
             for key, value in post.items():
-                content = "'{}' : {}, ".format(key, value)
+                content = content + "'{}' : {}, ".format(key, value)
             logging.warning("____El valor de post es: " + content)
 
 
