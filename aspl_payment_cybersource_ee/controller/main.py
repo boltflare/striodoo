@@ -150,6 +150,17 @@ class CyberSourceController(http.Controller):
 
          - UDPATE ME
         """
+        
+        logging.warning("____El valor de transaction_id es '{}' y el de sale_order_id es '{}'".format(str(transaction_id), str(sale_order_id)))
+
+        if post:
+            content = ""
+            for key, value in post.items():
+                content = "'{}' : {}, ".format(key, value)
+            logging.warning("____El valor de post es: " + content)
+
+
+
         if sale_order_id is None:
             order = request.website.sale_get_order()
         else:
