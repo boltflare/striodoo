@@ -20,7 +20,7 @@
 		</record>
 
 
-		<!-- accion para llamar al wizar de impresion-->
+		<!-- accion para llamar al wizard de impresion-->
 		<act_window id="account_people_soft_wizard_action"
 			name="People Soft Report"
 			src_model="account.invoice"
