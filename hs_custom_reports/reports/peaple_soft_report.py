@@ -125,20 +125,6 @@ class PeopleSoftReport(models.AbstractModel):
 	def _get_super_columns(self, options):
 		return super(PeopleSoftReport, self)._get_super_columns(options)
 
-	
-	def publish_report(self, options):
-		invoices = self._do_query(options)
-
-		documents = []
-		for item in invoices:
-			number = item[9] 	#9 es la columna del numero de factura
-			if not number in documents:
-				resp = self.env["account.invoice"].search([('number', '=', number)], limit=1)
-				if resp:
-					resp.people_soft_registered = True
-				documents.append(number)
-		return self.print_xlsx(options)
-	
 
 	def _do_filter_by_journal(self, options):
 		"""[summary]
@@ -325,6 +311,26 @@ class PeopleSoftReport(models.AbstractModel):
 			})
 		return lines
 
+
+	def publish_report(self, options):
+		invoices = self._do_query(options)
+
+		documents = []
+		for item in invoices:
+			number = item[9] 	#9 es la columna del numero de factura
+			if not number in documents:
+				resp = self.env["account.invoice"].search([('number', '=', number)], limit=1)
+				if resp:
+					resp.people_soft_registered = True
+				documents.append(number)
+		
+		#Sobreescribimos las opciones para generar el excel de forma correcta
+		new_options = options
+		new_options["published_entries"] = True
+		#new_options["documents"] = documents
+		self = self.with_context(docs = documents)
+		return self.print_xlsx(new_options)
+	
 
 	@api.model
 	def _get_report_name(self):
