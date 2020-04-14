@@ -39,26 +39,13 @@
                     <sheet>
                     <!-- <field name = "photo" widget = "image" class = "oe_left oe_avatar" /> -->                   
                         <group>
-                            <group>
-                            	<field name = "number" />
-                            </group>
-							<group>
-								<field name = "date" />
-							</group>
-								<field name = "partner_id" />
-							</group>
-							<group>
-								<field name = "product_id" />
-							</group>
-                            <group>
-                                <field name = "quantity" />
-                            </group>
-							<group>
-								<field name = "total" />
-                            </group>
-							<group>
-                            	<field name = "note" />
-                            </group>
+                            <field name = "number" />
+                        	<field name = "date" />
+							<field name = "partner_id" />
+							<field name = "product_id" />
+							<field name = "quantity" />
+                           	<field name = "total" />
+							<field name = "note" />
                         </group>
                     </sheet>
                 </form>
