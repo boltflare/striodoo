@@ -71,7 +71,7 @@
         <!-- <menuitem id="class_code_menu"
             name="Class Code" /> -->
 
-        <menuitem id="invoice_meal_custom_menu" parent="account.menu_finance_receivables" name="Invoices View" action="invoice_meal_menu"/>
+        <menuitem id="invoice_meal_custom_menu" parent="account_reports_management_menu" name="Invoices View" action="invoice_meal_menu"/>
         
     </data>
         
