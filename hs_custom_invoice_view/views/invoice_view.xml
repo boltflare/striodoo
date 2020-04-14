@@ -40,17 +40,24 @@
                     <!-- <field name = "photo" widget = "image" class = "oe_left oe_avatar" /> -->                   
                         <group>
                             <group>
-                             <field name = "number" />
-							 <field name = "product_id" />
-                            </group>
-                            <group>
-                                <field name = "quantity" />
-								<field name = "partner_id" />
+                            	<field name = "number" />
                             </group>
 							<group>
-                             <field name = "date" />
-							 <field name = "total" />
-							 <field name = "note" />
+								<field name = "date" />
+							</group>
+								<field name = "partner_id" />
+							</group>
+							<group>
+								<field name = "product_id" />
+							</group>
+                            <group>
+                                <field name = "quantity" />
+                            </group>
+							<group>
+								<field name = "total" />
+                            </group>
+							<group>
+                            	<field name = "note" />
                             </group>
                         </group>
                     </sheet>
@@ -68,9 +75,8 @@
             <!-- <field name="view_mode">tree</field> -->
         </record>
        
-        <!-- <menuitem id="class_code_menu"
-            name="Class Code" /> -->
-
+        
+		<!-- Esta seccion es para que las vista creadas aparezcan en el menu de reportes en el modulo de facturas-->
         <menuitem id="invoice_meal_custom_menu" parent="account.menu_finance_reports" name="Invoices View" action="invoice_meal_menu"/>
         
     </data>
