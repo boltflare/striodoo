@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, exceptions
+from odoo import models, fields, api
 
 class InvoiceView(models.Model):
 	_name= 'invoice.view'
