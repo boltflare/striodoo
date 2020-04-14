@@ -15,6 +15,7 @@
     'maintainer':'Ceila Hernandez',
 
 	'data': [
+		'security/ir.model.access.csv',
 		'views/invoice_view.xml',
 
 	],
