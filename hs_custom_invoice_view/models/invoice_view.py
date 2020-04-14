@@ -25,7 +25,7 @@ class InvoiceView(models.Model):
 	date = fields.Date(string='Invoice Date')
 	product_id = fields.Integer("Item Code")
 	partner_id = fields.Char(string='Customer', required = True)
-	total = fields.Monetary(string='Total')
+	total = fields.Float(string='Total')
 	note = fields.Text(string='Description', required=True)
 
 
