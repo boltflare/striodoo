@@ -58,7 +58,6 @@ class PaymentAcquirer(models.Model):
     def cybersource_form_generate_values(self, values):
         self.ensure_one()
         cybersouce_values = {}
-        logging.warning("_____ EL valor de cybersource_form_generate_values es: " + str(values))
         if self.payment_flow == 'form':
             cybersouce_values.update({
                 'access_key': self.access_key,
@@ -145,25 +144,23 @@ class TxCybersource(models.Model):
 
     @api.model
     def _cybersource_form_get_tx_from_data(self, data):
-        reference = data.get('id')
-        transaction = self.search([], limit=1)
+        transaction = self.browse(data.pop() if data else False)
         return transaction
     
     @api.multi
     def _cybersource_form_get_invalid_parameters(self, data):
         invalid_parameters = []
-        if self.acquirer_reference and data.get('merchantReferenceCode') != self.acquirer_reference:
+        if data and self.acquirer_reference and data.get('merchantReferenceCode') != self.acquirer_reference:
             invalid_parameters.append(
-                ('Transaction Id', data.get('id'), self.acquirer_reference))
-        if float_compare(float(data.get('amount', '0.0')), self.amount, 2) != 0:
-            invalid_parameters.append(
-                ('Amount', data.get('amount'), '%.2f' % self.amount))
+                ('Transaction Id', data.pop(), self.acquirer_reference))
+
         return invalid_parameters
 
     @api.multi
     def _cybersource_form_validate(self, data):
         for tran in self:
             tran._set_transaction_done()
+        return True
 
     @api.multi
     def s2s_do_transaction(self, **kwargs):

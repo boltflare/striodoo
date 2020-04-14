@@ -13,8 +13,9 @@ from odoo.http import request
 from suds.wsse import Security, UsernameToken
 from suds.client import Client
 from requests import get
+import werkzeug
 from odoo.addons.website_sale.controllers.main import WebsiteSale
-from odoo.addons.payment.controllers.portal import PaymentProcessing
+from werkzeug import urls, utils
 import json
 from suds.sudsobject import asdict
 import logging
@@ -124,9 +125,8 @@ class CyberSourceController(http.Controller):
                 'verified': True,
                 }
             
-    @http.route(['/shop/confirmation'], type='http', auth="public", csrf=False,  website=True)
+    @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
     def payment_confirmation(self, **post):
-
         payment_acquirer = request.env['payment.acquirer'].sudo().search([('provider', '=', 'cybersource')])
         payment_token = request.env['payment.token'].sudo().search([('acquirer_id', '=', payment_acquirer.id)])
         if payment_acquirer.save_token == 'none':
@@ -137,61 +137,19 @@ class CyberSourceController(http.Controller):
             order = request.env['sale.order'].sudo().browse(sale_order_id)
             if not order or order.state != 'draft':
                 request.website.sale_reset()
-            if payment_acquirer.payment_flow == 'form' and payment_acquirer.provider == 'cybersource':
-                order.action_confirm()
             return request.render("website_sale.confirmation", {'order': order})
         else:
             return request.redirect('/shop')
 
-    @http.route('/shop/payment/validate', type='http', auth="public", csrf=False,  website=True)
-    def payment_validate(self, transaction_id=None, sale_order_id=None, **post):
-        """ Method that should be called by the server when receiving an update
-        for a transaction. State at this point :
+    @http.route([
+        '/payment/cybersource/return/',
+        '/payment/cybersource/cancel/',
+    ], type='http', auth='public', csrf=False)
+    def cybersource_form_feedback(self, **post):
+        data = request.session.get("__payment_tx_ids__", [])
+        request.env['payment.transaction'].sudo().form_feedback(data, 'cybersource')
+        return werkzeug.utils.redirect('/payment/process')
 
-         - UDPATE ME
-        """
-        
-        logging.warning("____El valor de transaction_id es '{}' y el de sale_order_id es '{}'".format(str(transaction_id), str(sale_order_id)))
-
-        if post:
-            content = ""
-            for key, value in post.items():
-                content = content + "'{}' : {}, ".format(key, value)
-            logging.warning("____El valor de post es: " + content)
-
-
-
-        if sale_order_id is None:
-            order = request.website.sale_get_order()
-        else:
-            order = request.env['sale.order'].sudo().browse(sale_order_id)
-            assert order.id == request.session.get('sale_last_order_id')
-
-        data = {}
-        data.update({'amount': order.amount_total, 'id': str(order.name).split('-')[0], 'reason': 'Success'})
-        transaction_id = request.env['payment.transaction'].sudo().form_feedback(data, 'cybersource')
-        if transaction_id:
-            tx = request.env['payment.transaction'].sudo().browse(transaction_id)
-            assert tx in order.transaction_ids()
-        elif order:
-            tx = order.get_portal_last_transaction()
-        else:
-            tx = None
-
-        if not order or (order.amount_total and not tx):
-            return request.redirect('/shop')
-
-        if order and not order.amount_total and not tx:
-            return request.redirect(order.get_portal_url())
-
-        # clean context and session, then redirect to the confirmation page
-        request.website.sale_reset()
-        if tx and tx.state == 'draft':
-            return request.redirect('/shop')
-
-        PaymentProcessing.remove_payment_transaction(tx)
-        return request.redirect('/shop/confirmation')
-        
     def request_payment_status(self,post):
         order_id = request.session.get('sale_order_id')
         order = request.env['sale.order'].sudo().search([('id', '=', order_id)])
