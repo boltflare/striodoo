@@ -38,7 +38,7 @@
                 <form string = "Invoices View">
                     <sheet>
                     <!-- <field name = "photo" widget = "image" class = "oe_left oe_avatar" /> -->                   
-                        <group>
+                        <!-- <group> -->
                             <field name = "number" />
                         	<field name = "date" />
 							<field name = "partner_id" />
@@ -46,7 +46,7 @@
 							<field name = "quantity" />
                            	<field name = "total" />
 							<field name = "note" />
-                        </group>
+                        <!-- </group> -->
                     </sheet>
                 </form>
             </field>
