@@ -24,9 +24,9 @@ class AccountInvoice(models.Model):
     @api.onchange('pricelist_id')
     def _onchange_update_prices_from_pricelist(self):
         result = super(AccountInvoice, self)._onchange_pricelist_id()
-        if inv in self.filtered(lambda r: r.state == 'draft'):
-            inv in self.filtered(lambda r: r.state == 'draft'):
-            self.filtered(lambda r: r.state == 'draft').compute_taxes()
+        if self.filtered(lambda r: r.state == 'draft'):
+                self.invoice_line_ids.filtered('product_id').update_from_pricelist()
+                self.filtered(lambda r: r.state == 'draft').compute_taxes()
             # self.pricelist_id = self.partner_id.property_product_pricelist
         return result
 
