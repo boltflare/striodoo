@@ -29,7 +29,13 @@ class AccountInvoice(models.Model):
     #             self.filtered(lambda r: r.state == 'draft').compute_taxes()
     #         # self.pricelist_id = self.partner_id.property_product_pricelist
     #     return result
-
+    
+    @api.multi
+    def update_prices_from_pricelist(self):
+        """update current prices from pricelist"""
+        for inv in self.filtered(lambda r: r.state == 'draft'):
+            inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
+        self.filtered(lambda r: r.state == 'draft').compute_taxes()
     # @api.multi
     # def button_update_prices_from_pricelist(self):
     #     for inv in self.filtered(lambda r: r.state == 'draft'):
