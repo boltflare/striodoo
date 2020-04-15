@@ -21,11 +21,20 @@ class AccountInvoice(models.Model):
             self.pricelist_id = self.partner_id.property_product_pricelist
         return result
 
-    @api.onchange('partner_id', 'pricelist_id')
-    def button_update_prices_from_pricelist(self):
-        for inv in self.filtered(lambda r: r.state == 'draft'):
-            inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
-        self.filtered(lambda r: r.state == 'draft').compute_taxes()
+    @api.onchange('pricelist_id')
+    def _onchange_update_prices_from_pricelist(self):
+        result = super(AccountInvoice, self)._onchange_pricelist_id()
+        if inv in self.filtered(lambda r: r.state == 'draft'):
+            inv in self.filtered(lambda r: r.state == 'draft'):
+            self.filtered(lambda r: r.state == 'draft').compute_taxes()
+            # self.pricelist_id = self.partner_id.property_product_pricelist
+        return result
+
+    # @api.multi
+    # def button_update_prices_from_pricelist(self):
+    #     for inv in self.filtered(lambda r: r.state == 'draft'):
+    #         inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
+    #     self.filtered(lambda r: r.state == 'draft').compute_taxes()
 
     @api.model
     def _prepare_refund(self, invoice, date_invoice=None, date=None,
