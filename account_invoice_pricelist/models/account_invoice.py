@@ -29,7 +29,31 @@ class AccountInvoice(models.Model):
     #             self.filtered(lambda r: r.state == 'draft').compute_taxes()
     #         # self.pricelist_id = self.partner_id.property_product_pricelist
     #     return result
-    
+    @api.multi
+    @api.onchange('partner_id')
+    def onchange_partner_id(self):
+        """
+        Update the following fields when the partner is changed:
+        - Pricelist
+        - Payment terms
+        - Invoice address
+        - Delivery address
+        """
+        if not self.partner_id:
+            self.update({
+                'partner_invoice_id': False,
+                'partner_shipping_id': False,
+                'payment_term_id': False,
+                'fiscal_position_id': False,
+            })
+            return
+        # addr = self.partner_id.address_get(['invoice'])
+        values = {
+            'pricelist_id': self.partner_id.property_product_pricelist and self.partner_id.property_product_pricelist.id or False,
+            'user_id': self.partner_id.user_id.id or self.partner_id.commercial_partner_id.user_id.id or self.env.uid
+        }
+        self.update(values)
+
     
     # @api.multi
     # def button_update_prices_from_pricelist(self):
@@ -79,11 +103,11 @@ class AccountInvoiceLine(models.Model):
         for line in self.filtered(lambda r: r.invoice_id.state == 'draft'):
             line._onchange_product_id_account_invoice_pricelist()
 
-    @api.multi
-    def update_prices_from_pricelist(self):
-        for inv in self.filtered(lambda r: r.state == 'draft'):
-                inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
-        self.filtered(lambda r: r.state == 'draft').compute_taxes()
+    # @api.multi
+    # def update_prices_from_pricelist(self):
+    #     for inv in self.filtered(lambda r: r.state == 'draft'):
+    #             inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
+    #     self.filtered(lambda r: r.state == 'draft').compute_taxes()
 
     # @api.onchange('pricelist_id')
     # def _onchange_price_account_invoice_pricelist(self):
