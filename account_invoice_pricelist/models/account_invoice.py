@@ -21,45 +21,11 @@ class AccountInvoice(models.Model):
             self.pricelist_id = self.partner_id.property_product_pricelist
         return result
 
-    # @api.onchange('pricelist_id')
-    # def _onchange_update_prices_from_pricelist(self):
-    #     result = super(AccountInvoice, self)._invoice_line_ids()
-    #     if self.filtered(lambda r: r.state == 'draft'):
-    #             self.invoice_line_ids.filtered('product_id').update_from_pricelist()
-    #             self.filtered(lambda r: r.state == 'draft').compute_taxes()
-    #         # self.pricelist_id = self.partner_id.property_product_pricelist
-    #     return result
     @api.multi
-    @api.onchange('partner_id')
-    def onchange_partner_id(self):
-        """
-        Update the following fields when the partner is changed:
-        - Pricelist
-        - Payment terms
-        - Invoice address
-        - Delivery address
-        """
-        if not self.partner_id:
-            self.update({
-                'partner_id': False,
-                'payment_term_id': False,
-                
-            })
-            return
-
-        values = {
-            'pricelist_id': self.partner_id.property_product_pricelist and self.partner_id.property_product_pricelist.id or False,
-            'user_id': self.partner_id.user_id.id or self.partner_id.commercial_partner_id.user_id.id or self.env.uid
-        }
-        # addr = self.partner_id.address_get(['invoice'])
-        self.update(values)
-
-    
-    # @api.multi
-    # def button_update_prices_from_pricelist(self):
-    #     for inv in self.filtered(lambda r: r.state == 'draft'):
-    #         inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
-    #     self.filtered(lambda r: r.state == 'draft').compute_taxes()
+    def button_update_prices_from_pricelist(self):
+        for inv in self.filtered(lambda r: r.state == 'draft'):
+            inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
+        self.filtered(lambda r: r.state == 'draft').compute_taxes()
 
     @api.model
     def _prepare_refund(self, invoice, date_invoice=None, date=None,
@@ -102,34 +68,3 @@ class AccountInvoiceLine(models.Model):
         """overwrite current prices from pricelist"""
         for line in self.filtered(lambda r: r.invoice_id.state == 'draft'):
             line._onchange_product_id_account_invoice_pricelist()
-
-    # @api.multi
-    # def update_prices_from_pricelist(self):
-    #     for inv in self.filtered(lambda r: r.state == 'draft'):
-    #             inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
-    #     self.filtered(lambda r: r.state == 'draft').compute_taxes()
-
-    # @api.onchange('pricelist_id')
-    # def _onchange_price_account_invoice_pricelist(self):
-    #     result = super(AccountInvoiceLine, self)._onchange_invoice_pricelist()
-    #     if self.pricelist_id and self.type in ('out_invoice', 'out_refund')\
-    #             and self.partner_id.property_product_pricelist:
-    #         self.pricelist_id = self.partner_id.property_product_pricelist
-    #     return result
-   
-   
-    # @api.multi
-
-    # @api.onchange('pricelist_id')
-    # def product_price_change(self):
-
-    #     res = super(AccountInvoiceLine, self).product_price_change()
-
-    #     for line in self:
-
-    #         line.invoice_line_ids.filtered('product_id').update_from_pricelist()
-
-
-    #         # line.price_unit = self.env['account.tax']._fix_tax_included_price(product.price, product.taxes_id, self.tax_id)
-
-    #     return res
