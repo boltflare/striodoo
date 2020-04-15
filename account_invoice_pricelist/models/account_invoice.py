@@ -83,7 +83,7 @@ class AccountInvoiceLine(models.Model):
     def update_prices_from_pricelist(self):
         for inv in self.filtered(lambda r: r.state == 'draft'):
                 inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
-        self.filtered(lambda r: r.state == 'draft').compute_taxes()*-
+        self.filtered(lambda r: r.state == 'draft').compute_taxes()
 
     # @api.onchange('pricelist_id')
     # def _onchange_price_account_invoice_pricelist(self):
