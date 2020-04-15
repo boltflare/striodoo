@@ -39,19 +39,13 @@ class AccountInvoice(models.Model):
         - Invoice address
         - Delivery address
         """
-        if not self.partner_id:
-            self.update({
-                'partner_id': False,
-                'partner_shipping_id': False,
-                'payment_term_id': False,
-                'fiscal_position_id': False,
-            })
-            return
-        # addr = self.partner_id.address_get(['invoice'])
-        values = {
+        if self.partner_id:
+            values = {
             'pricelist_id': self.partner_id.property_product_pricelist and self.partner_id.property_product_pricelist.id or False,
             'user_id': self.partner_id.user_id.id or self.partner_id.commercial_partner_id.user_id.id or self.env.uid
-        }
+            }
+            return
+        # addr = self.partner_id.address_get(['invoice'])
         self.update(values)
 
     
