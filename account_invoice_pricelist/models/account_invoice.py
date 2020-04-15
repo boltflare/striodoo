@@ -107,6 +107,6 @@ class AccountInvoiceLine(models.Model):
             line.invoice_line_ids.filtered('product_id').update_from_pricelist()
 
 
-            line.price_unit = self.env['account.tax']._fix_tax_included_price(product.price, product.taxes_id, self.tax_id)
+            # line.price_unit = self.env['account.tax']._fix_tax_included_price(product.price, product.taxes_id, self.tax_id)
 
         return res
