@@ -17,6 +17,7 @@
 	'data': [
 		'security/ir.model.access.csv',
 		'views/invoice_view.xml',
+		'views/product_template_view.xml',
 
 	],
 	# 'qweb': [
