@@ -13,7 +13,8 @@
 
 				<xpath expr="//field[@name='list_price']" position="before">
 					<field name="item_type" 
-						widget="selection" />
+						widget="selection" 
+						context="{'default_item_type': ' '}"/>
 				</xpath>
 
 
