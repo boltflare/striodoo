@@ -19,8 +19,8 @@
 			</field>
 		</record>
 
-        <record id="product_template_item1_inherit2" model="ir.ui.view">
-			<field name="name">product.template.item1.inherit2</field>
+        <record id="product_product_item1_inherit2" model="ir.ui.view">
+			<field name="name">product.product.item1.inherit2</field>
 			<field name="model">product.product</field>
 			<field name="inherit_id" ref="product.product_normal_form_view"/>
 			<field name="arch" type="xml">
