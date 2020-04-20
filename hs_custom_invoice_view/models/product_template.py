@@ -3,7 +3,8 @@
 from odoo import models, fields, api, exceptions
 
 class ProductTemplateInherit2(models.Model):
-	_inherit = 'product.template', 'product.product'
+	_inherit = ['product.template', 'product.product']
+    # _inherit = ['todo.task', 'mail.thread']
 
 	# is_fund = fields.Boolean(string="Is Fund")
 
