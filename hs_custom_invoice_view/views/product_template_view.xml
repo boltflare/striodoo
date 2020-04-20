@@ -7,7 +7,7 @@
 		<record id="product_template_item_inherit2" model="ir.ui.view">
 			<field name="name">product.template.item.inherit2</field>
 			<field name="model">product.template</field>
-			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="inherit_id" ref="product.product_template_only_form_view"/>
 			<field name="arch" type="xml">
 
 
