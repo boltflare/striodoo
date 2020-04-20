@@ -27,7 +27,7 @@ class ProductTemplateInherit2(models.Model):
     #          'A consumable product is a product for which stock is not managed.\n'
     #          'A service is a non-material product you provide.')
 
-class ProductProductInherit2(models.Model):
+class ProductInherit1(models.Model):
 	_inherit = 'product.product'
     # _inherit = ['todo.task', 'mail.thread']
 
