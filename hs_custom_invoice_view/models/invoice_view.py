@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 class InvoiceView(models.Model):
 	_name= 'invoice.view'
-	_inherit = 'account.invoice'
+	#_inherit = 'account.invoice'
 	# _description = 'Account Invoice View'
 
 	# partner_id = fields.Many2one('res.partner', string='Partner', change_default=True,
@@ -27,7 +27,8 @@ class InvoiceView(models.Model):
 	quantity = fields.Float(string='Quantity', required = True)
 	date = fields.Date(string='Invoice Date')
 	product_id = fields.Char("Item Code") #debo cambiarlo que sea tipo char
-	partner_id = fields.Char("account.invoice", "Customer", required = True)
+	item_type= fields.Many2one("fund.manager", "Fund Manager")
+	partner_id = fields.Char(string='Customer', required = True)
 	total = fields.Float(string='Total')
 	note = fields.Text(string='Description', required=True)
 
