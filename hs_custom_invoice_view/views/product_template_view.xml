@@ -25,7 +25,7 @@
 			<field name="inherit_id" ref="product.product_normal_form_view"/>
 			<field name="arch" type="xml">
 
-				<xpath expr="//field[@name='list_price']" position="before">
+				<xpath expr="//field[@name='lst_price']" position="before">
 					<field name="item_type" 
 						widget="selection" 
 						context="{'default_item_type': ' '}"/>
