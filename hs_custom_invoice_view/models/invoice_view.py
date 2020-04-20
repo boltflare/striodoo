@@ -27,7 +27,7 @@ class InvoiceView(models.Model):
 	quantity = fields.Float(string='Quantity', required = True)
 	date = fields.Date(string='Invoice Date')
 	product_id = fields.Char("Item Code") #debo cambiarlo que sea tipo char
-	item_type= fields.Many2one("fund.manager", "Fund Manager")
+	item= fields.Many2one("product.template", "Item Type")
 	partner_id = fields.Char(string='Customer', required = True)
 	total = fields.Float(string='Total')
 	note = fields.Text(string='Description', required=True)
