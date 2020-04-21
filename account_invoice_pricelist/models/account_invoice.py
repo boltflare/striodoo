@@ -113,15 +113,18 @@ class AccountInvoiceLine(models.Model):
     
     @api.onchange('product_id')
     def _onchange_price(self):
-        # set auto-changing field
-        self.price = self.product_id
+        result = super(AccountInvoiceLine, self)._onchange_product_id()
+        if self.product_id and self.partner_id:
+            self.pricelist_id = self.product_id
+        return result# set auto-changing field
+        # self.price = self.product_id
         # Can optionally return a warning and domains
-        return {
-            'warning': {
-            'title': "Something bad happened",
-            'message': "It was very bad indeed",
-            }
-        }
+        # return {
+        #     'warning': {
+        #     'title': "Something bad happened",
+        #     'message': "It was very bad indeed",
+        #     }
+        # }
 
     # @api.one
     # 	@api.depends('product_id')
