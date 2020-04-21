@@ -21,10 +21,14 @@
 from odoo import fields, models, api, _
 from odoo import SUPERUSER_ID
 from datetime import datetime, date, time, timedelta
+from dateutil import tz
 from pytz import timezone
 import time
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from openerp.exceptions import UserError, ValidationError
+
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class PosConfig(models.Model):
@@ -129,6 +133,89 @@ class pos_session(models.Model):
     def get_company_data(self):
         return self.user_id.company_id
     
+
+    @api.multi
+    def get_opening_time(self):
+        if self:
+            for order in self:
+                # return order.start_at.time()
+                return self.convert_DateZone(order.start_at,'%H:%M')
+
+    @api.multi
+    def get_opening_date(self):
+        if self:
+            for order in self:
+                # return order.start_at.date()
+                return self.convert_DateZone(order.start_at,'%Y/%m/%d')
+
+    @api.multi
+    def get_stop_date(self):
+        stop_at_except="----/--/--"
+        if self:
+            for order in self:
+                # return order.stop_at.date()
+                try:
+                    return self.convert_DateZone(order.stop_at,'%Y/%m/%d')
+                except Exception:
+                    return stop_at_except
+
+    @api.multi
+    def get_stop_time(self):
+        stop_at_except="--:--"
+        if self:
+            for order in self:
+                # return order.stop_at.time()
+                try:
+                    return self.convert_DateZone(order.stop_at,'%H:%M')
+                except Exception:
+                    return stop_at_except
+    
+    
+    @api.multi
+    def get_current_date(self):
+        from_zone = tz.gettz('UTC')
+        to_zone = tz.gettz('America/Bogota')
+        utc_time = datetime.now()
+        utc_time = utc_time.replace(tzinfo=from_zone)
+        local_time = utc_time.astimezone(to_zone)
+        return local_time.strftime('%Y/%m/%d')
+    
+    @api.multi
+    def get_current_time(self):
+        from_zone = tz.gettz('UTC')
+        to_zone = tz.gettz('America/Bogota')
+        utc_time = datetime.now()
+        utc_time = utc_time.replace(tzinfo=from_zone)
+        local_time = utc_time.astimezone(to_zone)
+        return local_time.strftime('%H:%M')
+        
+
+
+    def convert_DateZone(self, fechaHora, formato):
+        from_zone = tz.gettz('UTC')
+        to_zone = tz.gettz('America/Bogota')
+        utc_time = fechaHora
+        utc_time = utc_time.replace(tzinfo=from_zone)
+        local_time = utc_time.astimezone(to_zone)
+        return local_time.strftime(formato)
+
+
+    @api.multi
+    def get_profit_loss(self):
+        try:
+            if self:
+                session = self.name
+                lines = self.env["account.bank.statement.line"].search([('statement_id', '=', session)])
+                for line in lines:
+                    if line.ref != session:
+                        return line.amount
+
+            return 0.00
+        except Exception as __ERROR:
+            logging.warning("_______ el error en get_profit_loss es: " + str(__ERROR))
+            return 0.00
+        
+
     @api.multi
     def get_total_sales(self):
         total_price = 0.0
