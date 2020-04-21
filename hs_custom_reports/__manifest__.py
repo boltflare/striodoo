@@ -3,10 +3,10 @@
 
 {
 	'name': 'Reportes para STRI',
-	'version': '1.3',
+	'version': '1.4',
 	'summary':'Reportes variados',
 	'category': 'Tool',
-	'depends': ['base', 'account_reports', 'hs_chart_field'],
+	'depends': ['base', 'account_reports', 'hs_chart_field', 'stock'],
 	'description': """
 		Is a Module to create and add class code for customers.
 	""",
@@ -17,6 +17,7 @@
 		'reports/items_funds.xml',
 		'reports/people_soft_report.xml',
 		'reports/people_soft_wizard.xml',
+		'reports/stock_product.xml',
 		'data/people_soft_data.xml',
 		'views/account_journal.xml',
 		'views/people_soft_report.xml',

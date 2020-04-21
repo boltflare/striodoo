@@ -4,3 +4,4 @@
 from . import items_funds
 from . import peaple_soft_report
 from . import people_soft_wizard
+from . import stock_product
