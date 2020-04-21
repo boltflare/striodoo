@@ -19,18 +19,23 @@ class InvoiceView(models.Model):
 	#  amount_total = fields.Monetary(string='Total',
     #     store=True, readonly=True, compute='_compute_amount')
 	# name = fields.Text(string='Description', required=True)
-	
-
 
 	# class_code = fields.Many2one("class.code", "Class Code")
-	number = fields.Char(string='Invoice #', required = True)
-	quantity = fields.Float(string='Quantity', required = True)
+	number = fields.Char(string='Invoice #')
+	quantity = fields.Float(string='Quantity')
 	date = fields.Date(string='Invoice Date')
 	product_id = fields.Char("Item Code") #debo cambiarlo que sea tipo char
 	# item = fields.Char (related='item_type.item')
 	item= fields.Many2one("product.template", "Item Type")
-	partner_id = fields.Char(string='Customer', required = True)
+	partner_id = fields.Char(string='Customer')
 	total = fields.Float(string='Total')
-	note = fields.Text(string='Description', required=True)
+	note = fields.Char(string='Description')
+
+	@api.depends('number')
+	def _invoice_number(self):
+		# self.customer_is_fund = True if self.partner_id.customer_type == 'fund' else False
+		for invoice in self:
+			customer_type = invoice.partner_id.customer_type
+			invoice.customer_is_fund = True if customer_type == 'fund' else False
 
 	

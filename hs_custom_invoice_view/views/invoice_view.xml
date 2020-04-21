@@ -32,40 +32,40 @@
 
         <!--FORM VIEW-->
 
-        <record id = "invoice_meal_view" model = "ir.ui.view">
-            <field name = "name">Invoice View Form</field>
-            <field name = "model">invoice.view</field>
-            <field name = "arch" type = "xml">
-                <form string = "Invoices View">
-                    <sheet>
+        <!-- <record id = "invoice_meal_view" model = "ir.ui.view"> -->
+            <!-- <field name = "name">Invoice View Form</field> -->
+            <!-- <field name = "model">invoice.view</field> -->
+            <!-- <field name = "arch" type = "xml"> -->
+                <!-- <form string = "Invoices View"> -->
+                    <!-- <sheet> -->
                     <!-- <field name = "photo" widget = "image" class = "oe_left oe_avatar" /> -->                   
-                        <group>
-                            <group>
-                            	<field name = "number" />
-                            </group>
-							<group>
-								<field name = "date" />
-							</group>
-							<group>
-								<field name = "partner_id" />
-							</group>
-							<group>
-								<field name = "product_id" />
-							</group>
-                            <group>
-                                <field name = "quantity" />
-                            </group>
-							<group>
-								<field name = "total" />
-                            </group>
-							<group>
-                            	<field name = "note" />
-                            </group>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+                        <!-- <group> -->
+                            <!-- <group> -->
+                            	<!-- <field name = "number" /> -->
+                            <!-- </group> -->
+							<!-- <group> -->
+								<!-- <field name = "date" /> -->
+							<!-- </group> -->
+							<!-- <group> -->
+								<!-- <field name = "partner_id" /> -->
+							<!-- </group> -->
+							<!-- <group> -->
+								<!-- <field name = "product_id" /> -->
+							<!-- </group> -->
+                            <!-- <group> -->
+                                <!-- <field name = "quantity" /> -->
+                            <!-- </group> -->
+							<!-- <group> -->
+								<!-- <field name = "total" /> -->
+                            <!-- </group> -->
+							<!-- <group> -->
+                            	<!-- <field name = "note" /> -->
+                            <!-- </group> -->
+                        <!-- </group> -->
+                    <!-- </sheet> -->
+                <!-- </form> -->
+            <!-- </field> -->
+        <!-- </record> -->
     
         <record id="invoice_meal_menu" model="ir.actions.act_window">
             <field name="name">Invoice View</field>
