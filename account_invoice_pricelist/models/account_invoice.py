@@ -85,7 +85,7 @@ class AccountInvoice(models.Model):
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
-    @api.onchange('product_id', 'quantity', 'uom_id')
+    @api.onchange('product_id', 'uom_id')
     def _onchange_product_id_account_invoice_pricelist(self):
         if not self.invoice_id.pricelist_id or not self.invoice_id.partner_id:
             return
@@ -104,19 +104,17 @@ class AccountInvoiceLine(models.Model):
             product.price, product.taxes_id, self.invoice_line_tax_ids,
             self.company_id)
 
-    @api.multi
-    def update_from_pricelist(self):
-        """overwrite current prices from pricelist"""
-        for line in self.filtered(lambda r: r.invoice_id.state == 'draft'):
-            line._onchange_product_id_account_invoice_pricelist()
+    # @api.multi
+    # def update_from_pricelist(self):
+    #     """overwrite current prices from pricelist"""
+    #     for line in self.filtered(lambda r: r.invoice_id.state == 'draft'):
+    #         line._onchange_product_id_account_invoice_pricelist()
 
     
     @api.onchange('product_id')
     def _onchange_price(self):
-        result = super(AccountInvoiceLine, self)._onchange_product_id()
-        if self.product_id and self.partner_id:
-            self.pricelist_id = self.product_id
-        return result# set auto-changing field
+        for line in self.filtered(lambda r: r.invoice_id.state == 'draft'):
+            line._onchange_product_id_account_invoice_pricelist()set auto-changing field
         # self.price = self.product_id
         # Can optionally return a warning and domains
         # return {
