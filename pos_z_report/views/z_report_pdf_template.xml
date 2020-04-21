@@ -55,7 +55,7 @@
                     </div>
                     
                     <table style="width:100%;margin-top:15px;">
-                    	<tr>
+                        <tr>
                             <td class="text-left">
                                 Report Date
                             </td>
@@ -135,7 +135,7 @@
                     </table>
                  
                   
-				<table style="width:100%;margin-top:15px;">
+                <table style="width:100%;margin-top:15px;">
                         <tr>
                             <td class="text-left">
                            
@@ -188,8 +188,8 @@
                                 <br/>
                             </td>
                             <td class="text-right">
-								<br/>
-								<span t-field="o.currency_id.symbol"/> <span t-esc="o.get_profit_loss()"/>
+                                <br/>
+                                <span t-field="o.currency_id.symbol"/> <span t-esc="o.get_profit_loss()"/>
                                 <!--$0.00-->
                                 <!-- <span t-field="o.currency_id.symbol"/><span t-esc="'%.2f'% o.get_total_first()"/> -->
                                 <br/>
@@ -257,20 +257,20 @@
                         
                     </div>
                     
-                    	
+                        
             </t>
         </template>
 
         <template id="front_sales_report_pdf_template">
-		    <t t-call="web.html_container">
+            <t t-call="web.html_container">
                 <div class="header">
                 </div>
-		        <t t-foreach="docs" t-as="o">
-		            <t t-call="pos_z_report.front_sales_report_pdf_document" />
-		        </t>
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="pos_z_report.front_sales_report_pdf_document" />
+                </t>
                 <div class="footer">
                 </div>
-		    </t>
-		</template>
+            </t>
+        </template>
 
 </odoo>
