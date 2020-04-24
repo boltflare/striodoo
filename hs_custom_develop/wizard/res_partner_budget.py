@@ -10,7 +10,7 @@ class PartnerBudgetWizard(models.TransientModel):
 	_name="partner.budget.wizard"
 	_description="Partner Budget Wizard"
 
-	budget_year = fields.Char(string="Budget Year", size=4)
+	budget_year = fields.Char(string="Budget Reference", size=4)
 
 
 	@api.multi
