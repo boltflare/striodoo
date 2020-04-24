@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 class InvoiceView(models.Model):
 	_name= 'invoice.view'
-	_inherit = 'account.invoice'
+	#_inherit = 'account.invoice'
 	# _description = 'Account Invoice View'
 
 	# partner_id = fields.Many2one('res.partner', string='Partner', change_default=True,
