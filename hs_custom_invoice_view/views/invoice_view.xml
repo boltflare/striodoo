@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="invoice_meal_menu_action" model="ir.actions.act_window">
-            <field name="name">Invoice View</field>
-            <field name="res_model">invoice.view</field>
-            <field name="view_type">tree,form</field>
-            <field name="view_mode">tree</field>
-            <field name="domain">[]</field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">View Invoice List</p>
-            </field>
-        </record>
+        
 
         <!--tree view-->
         <record id = "invoice_meal_tree_view" model = "ir.ui.view">
@@ -66,13 +57,23 @@
                 <!-- </form> -->
             <!-- </field> -->
         <!-- </record> -->
-    
+        <record id="invoice_meal_menu_action" model="ir.actions.act_window">
+            <field name="name">Invoice View</field>
+            <field name="res_model">invoice.view</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">View Invoice List</p>
+            </field>
+        </record>
+        
         <record id="invoice_meal_menu" model="ir.actions.act_window">
             <field name="name">Invoice View</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">invoice.view</field>
             <field name="view_mode">tree</field>
-            <field name="view_type">tree,form</field>
+            <field name="view_type">tree</field>
             <!-- <field name="view_type">tree,form</field> -->
             <!-- <field name="view_mode">tree</field> -->
         </record>
