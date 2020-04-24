@@ -21,7 +21,7 @@ class InvoiceView(models.Model):
 	# name = fields.Text(string='Description', required=True)
 
 	# class_code = fields.Many2one("class.code", "Class Code")
-	hs_number = fields.Char(string='Invoice #')
+	hs_number = fields.Char(string='Invoice #', related='invoice_id.number', store=True, readonly=False)
 	hs_quantity = fields.Float(string='Quantity')
 	hs_date = fields.Date(string='Invoice Date')
 	hs_product_id = fields.Char("Item Code") #debo cambiarlo que sea tipo char
