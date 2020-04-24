@@ -6,7 +6,7 @@
 	'version': '1.0',
 	'summary':'Vista de Integracion para Meal Card',
 	'category': 'Tool',
-	'depends': ['base', 'account'],
+	'depends': ['base', 'account', 'account_invoice_pricelist'],
 	'description': """
 		En este modulo se creara una vista de prueba para integracion de Meal Card de HS Consulting para STRI
 	""",
