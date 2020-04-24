@@ -21,7 +21,7 @@ class InvoiceView(models.Model):
 	# name = fields.Text(string='Description', required=True)
 
 	# class_code = fields.Many2one("class.code", "Class Code")
-	hs_number = fields.Char(related='invoice_id.number', store=True, readonly=False)
+	hs_number = fields.Char(compute='compute_hs_number', store=True)
 	hs_quantity = fields.Float(string='Quantity')
 	hs_date = fields.Date(string='Invoice Date', related='invoice_id.date_invoice', store=True, readonly=False)
 	hs_product_id = fields.Char("Item Code") #debo cambiarlo que sea tipo char
@@ -31,7 +31,11 @@ class InvoiceView(models.Model):
 	hs_total = fields.Float(string='Total')
 	hs_note = fields.Char(string='Description')
 
-	
+	@api.depends('invoice_id')
+	def compute_hs_number(self):
+		for line in self:
+			line.hs_number= invoice_id.number
+
 	
 
 	
