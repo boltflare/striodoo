@@ -9,14 +9,14 @@
             <field name = "model">invoice.view</field>
             <field name = "arch" type = "xml">
                 <tree string = "Invoice View" create="false" edit="false" delete="false">
-                    <field name = "number" />
-					<field name = "date" />
-					<field name = "partner_id" />
-					<field name = "product_id" />
-                    <field name = "item" />
-                    <field name = "quantity" />
-					<field name = "total" />
-					<field name = "note" />
+                    <field name = "hs_number" />
+					<field name = "hs_date" />
+					<field name = "hs_partner_id" />
+					<field name = "hs_product_id" />
+                    <field name = "hs_item" />
+                    <field name = "hs_quantity" />
+					<field name = "hs_total" />
+					<field name = "hs_note" />
                 </tree>
             </field>
         </record>
@@ -31,25 +31,25 @@
                     <sheet> 
                         <group>
                             <group>
-                            	<field name = "number" />
+                            	<field name = "hs_number" />
                             </group>
 							<group>
-								<field name = "date" />
+								<field name = "hs_date" />
 							</group>
 							<group>
-								<field name = "partner_id" />
+								<field name = "hs_partner_id" />
 							</group>
 							<group>
-								<field name = "product_id" />
+								<field name = "hs_product_id" />
 							</group>
                             <group>
-                                <field name = "quantity" />
+                                <field name = "hs_quantity" />
                             </group>
 							<group>
-								<field name = "total" />
+								<field name = "hs_total" />
                             </group>
 							<group>
-                            	<field name = "note" />
+                            	<field name = "hs_note" />
                             </group>
                         </group>
                     </sheet>

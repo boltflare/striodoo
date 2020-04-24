@@ -21,15 +21,15 @@ class InvoiceView(models.Model):
 	# name = fields.Text(string='Description', required=True)
 
 	# class_code = fields.Many2one("class.code", "Class Code")
-	number = fields.Char(string='Invoice #')
-	quantity = fields.Float(string='Quantity')
-	date = fields.Date(string='Invoice Date')
-	product_id = fields.Char("Item Code") #debo cambiarlo que sea tipo char
+	hs_number = fields.Char(string='Invoice #')
+	hs_quantity = fields.Float(string='Quantity')
+	hs_date = fields.Date(string='Invoice Date')
+	hs_product_id = fields.Char("Item Code") #debo cambiarlo que sea tipo char
 	# item = fields.Char (related='item_type.item')
-	item= fields.Many2one("product.template", "Item Type")
-	partner_id = fields.Char(string='Customer')
-	total = fields.Float(string='Total')
-	note = fields.Char(string='Description')
+	hs_item= fields.Many2one("product.template", "Item Type")
+	hs_partner_id = fields.Char(string='Customer')
+	hs_total = fields.Float(string='Total')
+	hs_note = fields.Char(string='Description')
 
 	
 	
