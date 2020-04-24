@@ -24,12 +24,11 @@
         <!--FORM VIEW-->
 
         <record id = "invoice_meal_view" model = "ir.ui.view">
-             <field name = "name">Invoice View Form</field> 
-             <field name = "model">invoice.view</field> 
+            <field name = "name">Invoice View Form</field> 
+            <field name = "model">invoice.view</field> 
             <field name = "arch" type = "xml"> 
-                 <form string = "Invoices View"> 
-                     <sheet> 
-                     <field name = "photo" widget = "image" class = "oe_left oe_avatar" />                    
+                <form string = "Invoices View"> 
+                    <sheet> 
                         <group>
                             <group>
                             	<field name = "number" />
@@ -57,7 +56,7 @@
                 </form>
             </field>
         </record>
-        
+
         <record id="invoice_meal_menu_action" model="ir.actions.act_window">
             <field name="name">Invoice View</field>
             <field name="res_model">invoice.view</field>
