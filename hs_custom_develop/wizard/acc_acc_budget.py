@@ -10,7 +10,7 @@ class AccountBudgetWizard(models.TransientModel):
 	_name="account.budget.wizard"
 	_description="Account Budget Wizard"
 
-	budget_year = fields.Char(string="Budget Year", size=4)
+	budget_year = fields.Char(string="Budget Reference", size=4)
 
 
 	@api.multi
