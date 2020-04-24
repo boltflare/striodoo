@@ -10,6 +10,7 @@ class InvoiceInherit2(models.Model):
 
 	note =  fields.Char(string='Description')
 
+    
 
     # type = fields.Selection([
     #     ('consu', 'Consumable'),
