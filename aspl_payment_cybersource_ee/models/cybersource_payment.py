@@ -22,6 +22,8 @@ import uuid
 from dateutil import relativedelta
 _logger = logging.getLogger(__name__)
 
+from odoo import exceptions
+
 
 class PaymentAcquirer(models.Model):
     _inherit = 'payment.acquirer'
@@ -29,9 +31,9 @@ class PaymentAcquirer(models.Model):
     provider = fields.Selection(selection_add=[('cybersource', 'CyberSouce')])
     cybersource_merchant_id = fields.Char(required_if_provider='cybersource', string="Merchant id")
     cybersource_key = fields.Char(required_if_provider='cybersource', string="Key")
-    secret_key = fields.Char(string='SecretKey')
-    profile_id = fields.Char(string='Profile ID')
-    access_key = fields.Char(string='Access Key')
+    secret_key = fields.Char(required_if_provider='cybersource', string='SecretKey')
+    profile_id = fields.Char(required_if_provider='cybersource', string='Profile ID')
+    access_key = fields.Char(required_if_provider='cybersource', string='Access Key')
 
     def get_signature(self,data):
         secret = bytes(self.secret_key, 'utf-8')
@@ -116,6 +118,8 @@ class PaymentAcquirer(models.Model):
         self.ensure_one()
         return self._get_cybersource_urls(self.environment)['cybersource_form_url']
 
+
+
 class TxCybersource(models.Model):
     _inherit = 'payment.transaction'
 
@@ -142,6 +146,70 @@ class TxCybersource(models.Model):
         tx = super(TxCybersource, self).create(vals)
         return tx
 
+
+    @api.model
+    def _cybersource_form_get_tx_from_data(self, data):
+        reference = data.get('req_reference_number')
+
+        if not reference:
+            error_msg = _('Cybersource: received data with missing reference (%s)') % (reference)
+            _logger.info(error_msg)
+            raise exceptions.ValidationError(error_msg)
+        
+
+        tx = self.search([('reference', '=', reference)])
+        if not tx or len(tx) > 1:
+            error_msg = _('Cybersource: received data for reference %s') % (reference)
+            if not tx:
+                error_msg += _('; no order found')
+            else:
+                error_msg += _('; multiple order found')
+            _logger.info(error_msg)
+            raise exceptions.ValidationError(error_msg)
+
+        return tx
+
+
+    @api.multi
+    def _cybersource_form_get_invalid_parameters(self, data):
+        invalid_parameters = []
+        if self.acquirer_reference and data.get('merchantReferenceCode') != self.acquirer_reference:
+            invalid_parameters.append(
+                ('Transaction Id', data.get('id'), self.acquirer_reference))
+        if float_compare(float(data.get('req_amount', '0.0')), self.amount, 2) != 0:
+            invalid_parameters.append(
+                ('Amount', data.get('req_amount'), '%.2f' % self.amount))
+        return invalid_parameters
+
+
+    @api.multi
+    def _cybersource_form_validate(self, data):
+        status_code = data.get('decision')
+        if status_code == 'ACCEPT':
+            #if 'auth_trans_ref_no' in data:
+            self.write({'acquirer_reference': str(data.get('transaction_id'))})
+            #self.write({'acquirer_reference': str(data.get('auth_trans_ref_no'))})
+            self.sudo()._set_transaction_done()
+            return True
+        elif status_code == 'REVIEW':
+            self.write({'acquirer_reference': str(data.get('transaction_id'))})
+            self.sudo()._set_transaction_pending()
+            return True
+        elif status_code == 'DECLINE' or status_code == 'CANCEL':
+            self.write({'acquirer_reference' : str(data.get('transaction_id'))})
+            self.sudo()._set_transaction_cancel()
+            return True
+        else:
+            # Si la factura fue cancelada
+            self.write({
+                'acquirer_reference' : str(data.get('transaction_id')),
+                'state_message': str(data.get('message'))
+            })
+            self.sudo()._set_transaction_error('Invalid response from Cybersource. Please contact your administrator.')
+            return False
+
+
+    """
     @api.model
     def _cybersource_form_get_tx_from_data(self, data):
         transaction = self.browse(data.pop() if data else False)
@@ -156,11 +224,14 @@ class TxCybersource(models.Model):
 
         return invalid_parameters
 
+
     @api.multi
     def _cybersource_form_validate(self, data):
         for tran in self:
             tran._set_transaction_done()
         return True
+
+    """
 
     @api.multi
     def s2s_do_transaction(self, **kwargs):

@@ -23,7 +23,6 @@
     
         'views/payment_view.xml',
         'views/payment_cybersource_template.xml',
-        'views/res_partner_view.xml',
         'data/payment_acquirer_data.xml',
     ],
     'images': ['static/description/cyber_source_logo.jpg'],
