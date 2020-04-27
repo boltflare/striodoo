@@ -31,6 +31,7 @@ class InvoiceView(models.Model):
 	hs_total = fields.Float(string='Total')
 	hs_note = fields.Char(string='Description')
 
+	@api.multi
 	@api.depends('invoice_id')
 	def _compute_hs_number(self):
 		for line in self:
