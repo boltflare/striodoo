@@ -22,14 +22,14 @@ class InvoiceView(models.Model):
 
 	# class_code = fields.Many2one("class.code", "Class Code")
 	hs_number = fields.Char(compute='_compute_hs_number',string='Invoice #', store=True)
-	hs_quantity = fields.Float(string='Quantity')
+	# hs_quantity = fields.Float(string='Quantity', related='invoice_id.quantity', store=True)
 	hs_date = fields.Date(string='Invoice Date', related='invoice_id.date_invoice', store=True, readonly=False)
-	hs_product_id = fields.Char("Item Code") #debo cambiarlo que sea tipo char
+	hs_product_id = fields.Char(string='Item Code', related='product_id.default_code', store=True) #debo cambiarlo que sea tipo char
 	# item = fields.Char (related='item_type.item')
-	hs_item= fields.Many2one("product.template", "Item Type")
+	hs_item= fields.Selection(string= "Item Type", related='product_id.item_type')
 	hs_partner_id = fields.Char(compute='_compute_hs_partner_id', string='Customer', store=True)
-	hs_total = fields.Float(string='Total')
-	hs_note = fields.Char(string='Description')
+	# hs_total = fields.Float(string='Total')
+	hs_note = fields.Char(string='Description', related='invoice_id.note')
 
 	
 	@api.depends('invoice_id')
@@ -45,4 +45,5 @@ class InvoiceView(models.Model):
 	def _compute_hs_partner_id(self):
 		self.hs_partner_id = self.invoice_id.partner_id.name
 
-	
+
+

@@ -14,8 +14,8 @@
 					<field name = "hs_partner_id" />
 					<field name = "hs_product_id" />
                     <field name = "hs_item" />
-                    <field name = "hs_quantity" />
-					<field name = "hs_total" />
+                    <field name = "quantity" />
+					<field name = "price_subtotal" />
 					<field name = "hs_note" />
                 </tree>
             </field>
@@ -43,10 +43,10 @@
 								<field name = "hs_product_id" />
 							</group>
                             <group>
-                                <field name = "hs_quantity" />
+                                <field name = "quantity" />
                             </group>
 							<group>
-								<field name = "hs_total" />
+								<field name = "price_subtotal" />
                             </group>
 							<group>
                             	<field name = "hs_note" />
