@@ -32,5 +32,8 @@ class InvoiceView(models.Model):
 	def _compute_hs_partner_id(self):
 		self.hs_partner_id = self.invoice_id.partner_id.name
 
+	@api.multi
+	def update_meal_card_view(self):
+		self.hs_partner_id = self.invoice_id.partner_id.name
 
 
