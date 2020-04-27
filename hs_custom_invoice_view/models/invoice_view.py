@@ -20,6 +20,7 @@ class InvoiceView(models.Model):
 
 	#Campos para filtrar
 	hs_type = fields.Selection(string='Tipo', related='invoice_id.type')
+	hs_state = fields.Selection(string='Estado', related='invoice_id.state')
 
 	
 	@api.depends('invoice_id.move_id')
