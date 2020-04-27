@@ -63,8 +63,8 @@
             <field name="res_model">account.invoice.line</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('state', 'in', ('open','paid'))]</field>
-            <field name="context">{'type':'out_invoice'}</field>
+            <!-- <field name="domain">[('state', 'in', ('open','paid'))]</field> -->
+            <!-- <field name="context">{'type':'out_invoice'}</field> -->
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">View Invoice List</p>
             </field>
@@ -76,8 +76,8 @@
             <field name="res_model">account.invoice.line</field>
             <field name="view_mode">tree,form</field>
             <field name="view_type">form</field>
-            <field name="domain">[('state', 'in', ('open','paid'))]</field>
-            <field name="context">{'type':'out_invoice'}</field>
+            <!-- <field name="domain">[('state', 'in', ('open','paid'))]</field>
+            <field name="context">{'type':'out_invoice'}</field> -->
             <!-- <field name="view_type">tree,form</field> -->
             <!-- <field name="view_mode">tree</field> -->
         </record>
@@ -88,8 +88,8 @@
             <field name="act_window_id" ref="hs_custom_invoice_view.invoice_meal_menu" />
             <field name="view_id" ref="hs_custom_invoice_view.invoice_meal_tree_view"/>
             <field name="view_mode">tree</field>
-            <field name="domain">[('state', 'in', ('open','paid'))]</field>
-            <field name="context">{'type':'out_invoice'}</field>
+            <!-- <field name="domain">[('state', 'in', ('open','paid'))]</field>
+            <field name="context">{'type':'out_invoice'}</field> -->
             <field name="sequence" eval="2"/>
         </record>
  
