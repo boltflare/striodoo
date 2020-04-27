@@ -18,6 +18,9 @@ class InvoiceView(models.Model):
 	# hs_total = fields.Float(string='Total')
 	hs_note = fields.Char(string='Description', related='invoice_id.note')
 
+	#Campos para filtrar
+	hs_type = fields.Selection(string='Tipo', related='invoice_id.type')
+
 	
 	@api.depends('invoice_id.move_id')
 	def _compute_hs_number(self):
@@ -42,7 +45,7 @@ class InvoiceView(models.Model):
 			self.hs_item = self.product_id.item_type	
 		self.hs_partner_id = self.invoice_id.partner_id.name
 		self.hs_note = self.invoice_id.note
-		
+		self.hs_type = self.invoice_id.type
 		
 		
 
