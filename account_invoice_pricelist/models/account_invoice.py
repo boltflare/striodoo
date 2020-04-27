@@ -21,11 +21,18 @@ class AccountInvoice(models.Model):
             self.pricelist_id = self.partner_id.property_product_pricelist
         return result
 
-    @api.multi
-    def button_update_prices_from_pricelist(self):
-        for inv in self.filtered(lambda r: r.state == 'draft'):
-            inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
-        self.filtered(lambda r: r.state == 'draft').compute_taxes()
+    @api.onchange('pricelist_id')
+    def _onchange_update_prices_product(self):
+        record = self.env['account.invoice.line'].search([('invoice_id', '=', self.id)])
+		if record:
+            record.update_from_pricelist()
+
+
+    # @api.multi
+    # def button_update_prices_from_pricelist(self):
+    #     for inv in self.filtered(lambda r: r.state == 'draft'):
+    #         inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
+    #     self.filtered(lambda r: r.state == 'draft').compute_taxes()
 
     @api.model
     def _prepare_refund(self, invoice, date_invoice=None, date=None,
@@ -63,6 +70,7 @@ class AccountInvoiceLine(models.Model):
             product.price, product.taxes_id, self.invoice_line_tax_ids,
             self.company_id)
 
+    #Este método es el que sobrescribe la lista de precios 
     @api.multi
     def update_from_pricelist(self):
         """overwrite current prices from pricelist"""
