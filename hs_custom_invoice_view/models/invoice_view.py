@@ -7,19 +7,6 @@ class InvoiceView(models.Model):
 	_inherit = 'account.invoice.line'
 	# _description = 'Account Invoice View'
 
-	# partner_id = fields.Many2one('res.partner', string='Partner', change_default=True,
-    #     readonly=True, states={'draft': [('readonly', False)]},
-    #     track_visibility='always', help="You can find a contact by its Name, TIN, Email or Internal Reference.")
-	# number = fields.Char(related='move_id.name', store=True, readonly=True, copy=False)
-	# quantity = fields.Float(string='Quantity', digits=dp.get_precision('Product Unit of Measure'),
-    #     required=True, default=1)
-	# date_invoice = fields.Date(string='Invoice Date',
-    #     readonly=True, states={'draft': [('readonly', False)]}, index=True,
-    #     help="Keep empty to use the current date", copy=False)
-	#  amount_total = fields.Monetary(string='Total',
-    #     store=True, readonly=True, compute='_compute_amount')
-	# name = fields.Text(string='Description', required=True)
-
 	# class_code = fields.Many2one("class.code", "Class Code")
 	hs_number = fields.Char(compute='_compute_hs_number',string='Invoice #', store=True)
 	# hs_quantity = fields.Float(string='Quantity', related='invoice_id.quantity', store=True)
@@ -32,7 +19,7 @@ class InvoiceView(models.Model):
 	hs_note = fields.Char(string='Description', related='invoice_id.note')
 
 	
-	@api.depends('invoice_id')
+	@api.depends('invoice_id.move_id')
 	def _compute_hs_number(self):
 		self.hs_number = self.invoice_id.move_id.name
 		# if 'hs_number' in self:

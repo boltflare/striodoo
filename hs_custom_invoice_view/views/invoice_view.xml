@@ -8,7 +8,8 @@
             <field name = "name">Invoice View Tree</field>
             <field name = "model">account.invoice.line</field>
             <field name = "arch" type = "xml">
-                <tree string = "Invoice View" create="false" edit="false" delete="false">
+                <!-- <tree string = "Invoice View" create="false" edit="false" delete="false"> -->
+                <tree string = "Invoice View">
                     <field name = "hs_number" />
 					<field name = "hs_date" />
 					<field name = "hs_partner_id" />
@@ -88,7 +89,7 @@
         </record>
  
         <!-- Este es la accion heredada que permite mostrar los datos en vista formulario 
-        de salesperson en account -->
+        de facturas en invoice view -->
         <record id="invoice_meal_menu_form" model="ir.actions.act_window.view">
             <field name="act_window_id" ref="hs_custom_invoice_view.invoice_meal_menu"/>
             <field name="view_id" ref="hs_custom_invoice_view.invoice_meal_view"/>
