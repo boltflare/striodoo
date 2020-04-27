@@ -8,8 +8,8 @@
             <field name = "name">Invoice View Tree</field>
             <field name = "model">account.invoice.line</field>
             <field name = "arch" type = "xml">
-                <!-- <tree string = "Invoice View" create="false" edit="false" delete="false"> -->
-                <tree string = "Invoice View">
+                <tree string = "Invoice View" create="false" edit="false" delete="false">
+                <!-- <tree string = "Invoice View"> -->
                     <field name = "hs_number" />
 					<field name = "hs_date" />
 					<field name = "hs_partner_id" />
