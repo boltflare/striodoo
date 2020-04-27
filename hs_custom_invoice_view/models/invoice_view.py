@@ -34,6 +34,16 @@ class InvoiceView(models.Model):
 
 	@api.multi
 	def update_meal_card_view(self):
+		if self.invoice_id.move_id:
+			self.hs_number = self.invoice_id.move_id.name
+		self.hs_date = self.invoice_id.date_invoice
+		if self.product_id:
+			self.hs_product_id = self.product_id.default_code
+			self.hs_item = self.product_id.item_type	
 		self.hs_partner_id = self.invoice_id.partner_id.name
+		self.hs_note = self.invoice_id.note
+		
+		
+		
 
 
