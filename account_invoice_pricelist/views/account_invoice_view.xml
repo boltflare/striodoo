@@ -18,19 +18,13 @@
             </field>
             <!-- Campo invisible para uso de activacion de botones -->
             <field name="bool_field" invisible="1"/>
-        </field>
-    </record>
-
-    <!--Aqui se esta modificando el boton validar para hacerlo invisible mientras este TRUE el boton Update Price-->
-    <record id="view_account_invoice_customer_form" model="ir.ui.view">
-        <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="account.invoice_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//button[@name='action_invoice_open']" position="attributes">       
+            <!--Aqui se esta modificando el boton validar para hacerlo invisible mientras este TRUE el boton Update Price-->
+            <button name="action_invoice_open" type="object" states="draft" string="Validate" attrs="{'invisible': ['|', ('state','not in',('draft',)), ('bool_field', '!=', True)]}" class="oe_highlight o_invoice_validate" groups="account.group_account_invoice"/>
+            <!-- <xpath expr="//button[@name='action_invoice_open']" position="attributes">       
 	            <attribute name="attrs">
 					{'invisible': [('bool_field', '!=', True)]}
 				</attribute>      
-            </xpath>
+            </xpath> -->
         </field>
     </record>
 
