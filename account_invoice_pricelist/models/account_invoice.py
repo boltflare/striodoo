@@ -12,6 +12,8 @@ class AccountInvoice(models.Model):
         readonly=True,
         states={'draft': [('readonly', False)]},
     )
+    # Este campo permite validar si se ha hecho click en Update prices
+    bool_field = fields.Boolean('Click update', default=False)
 
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id_account_invoice_pricelist(self):
@@ -26,6 +28,7 @@ class AccountInvoice(models.Model):
         for inv in self.filtered(lambda r: r.state == 'draft'):
             inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
         self.filtered(lambda r: r.state == 'draft').compute_taxes()
+        self.bool_field = True #Esto permite que cuando haga click en el boton se habilite Validate
 
     @api.model
     def _prepare_refund(self, invoice, date_invoice=None, date=None,
@@ -40,6 +43,11 @@ class AccountInvoice(models.Model):
             })
         return values
 
+    # Este metodo debe hacer la validacion si se hace click en Update Price 
+    # El campo cambie a True y habilite el boton validate
+    # @api.multi
+    # def some_method(self):
+    #     self.bool_field = True
 
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
