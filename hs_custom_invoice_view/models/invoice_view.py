@@ -47,7 +47,7 @@ class InvoiceView(models.Model):
 		self.hs_partner_id = self.invoice_id.partner_id.name
 		self.hs_note = self.invoice_id.note
 		self.hs_type = self.invoice_id.type
-		self.hs_state = self.invoice_id.state
+		
 		
 		
 
