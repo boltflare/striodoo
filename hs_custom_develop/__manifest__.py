@@ -23,7 +23,7 @@
 		'wizard/res_partner_budget.xml',
 	],
 	'qweb': [
-		# 'static/src/xml/pos_hide_tax.xml'
+		'static/src/xml/pos_hide_tax.xml'
 	],
 		
 	'installable': True,
