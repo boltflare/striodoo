@@ -28,9 +28,16 @@ class AccountInvoice(models.Model):
         for inv in self.filtered(lambda r: r.state == 'draft'):
             inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
         self.filtered(lambda r: r.state == 'draft').compute_taxes()
-        if self.bool_field:
-            self.bool_field = True #Esto permite que cuando haga click en el boton se habilite Validate
+        # if self.bool_field:
+        self.bool_field = True #Esto permite que cuando haga click en el boton se habilite Validate
 
+    @api.onchange('button_update_prices_from_pricelist')
+    def _bool_field_checked(self):
+       if self.button_update_prices_from_pricelist:
+           self.bool_field = True
+       else:           
+         self.bool_field = False
+    
     @api.model
     def _prepare_refund(self, invoice, date_invoice=None, date=None,
                         description=None, journal_id=None):
