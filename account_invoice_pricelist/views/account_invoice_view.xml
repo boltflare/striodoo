@@ -17,7 +17,7 @@
                 <field name="pricelist_id"/>
             </field>
             <!-- Campo invisible para uso de activacion de botones -->
-            <field name="bool_field" invisible="1"/>
+            <!-- <field name="bool_field" invisible="1"/> -->
         </field>
     </record>
 
