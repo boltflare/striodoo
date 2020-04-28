@@ -21,7 +21,6 @@ class AccountInvoice(models.Model):
             self.pricelist_id = self.partner_id.property_product_pricelist
         return result
 
-    
     @api.multi
     def button_update_prices_from_pricelist(self):
         for inv in self.filtered(lambda r: r.state == 'draft'):
@@ -45,7 +44,7 @@ class AccountInvoice(models.Model):
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
-    @api.onchange('product_id')
+    @api.onchange('product_id', 'quantity', 'uom_id')
     def _onchange_product_id_account_invoice_pricelist(self):
         if not self.invoice_id.pricelist_id or not self.invoice_id.partner_id:
             return
@@ -64,7 +63,6 @@ class AccountInvoiceLine(models.Model):
             product.price, product.taxes_id, self.invoice_line_tax_ids,
             self.company_id)
 
-    #Este método es el que sobrescribe la lista de precios 
     @api.multi
     def update_from_pricelist(self):
         """overwrite current prices from pricelist"""
