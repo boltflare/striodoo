@@ -17,14 +17,16 @@
                 <field name="pricelist_id"/>
             </field>
             <!-- Campo invisible para uso de activacion de botones -->
-            <field name="bool_field" invisible="1"/>
+            <xpath expr="////button[@name='action_invoice_open']" position="before">
+					<field name="bool_field" invisible="1"/>
+				</xpath>
             <!--Aqui se esta modificando el boton validar para hacerlo invisible mientras este TRUE el boton Update Price-->
-            <button name="action_invoice_open" type="object" states="draft" string="Validate" attrs="{'invisible': ['|', ('state','not in',('draft',)), ('bool_field', '!=', True)]}" class="oe_highlight o_invoice_validate" groups="account.group_account_invoice"/>
-            <!-- <xpath expr="//button[@name='action_invoice_open']" position="attributes">       
+            <!-- <button name="action_invoice_open" type="object" states="draft" string="Validate" attrs="{'invisible': ['|', ('state','not in',('draft',)), ('bool_field', '!=', True)]}" class="oe_highlight o_invoice_validate" groups="account.group_account_invoice"/> -->
+            <xpath expr="//button[@name='action_invoice_cancel']" position="attributes">       
 	            <attribute name="attrs">
-					{'invisible': [('bool_field', '!=', True)]}
+					{'invisible': ['|', ('state','not in',('draft',)), ('bool_field', '!=', True)]}
 				</attribute>      
-            </xpath> -->
+            </xpath>
         </field>
     </record>
 
