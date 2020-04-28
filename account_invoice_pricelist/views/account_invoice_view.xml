@@ -5,7 +5,7 @@
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
-            <button name="action_invoice_open" position="before">
+            <button name="preview_invoice" position="before">
                 <button type="object"
                         name="button_update_prices_from_pricelist"
                         string="Update prices"
@@ -17,16 +17,16 @@
                 <field name="pricelist_id"/>
             </field>
             <!-- Campo invisible para uso de activacion de botones -->
-            <xpath expr="//button[@name='action_invoice_open']" position="before">
+            <xpath expr="//button[@name='preview_invoice']" position="before">
 					<field name="bool_field" invisible="1"/>
 				</xpath>
             <!--Aqui se esta modificando el boton validar para hacerlo invisible mientras este TRUE el boton Update Price-->
-            <button name="action_invoice_open" type="object" states="draft" string="Validate" attrs="{'invisible':['|',('bool_field', '=', False), ('state', 'not in', ('draft'))]}" class="oe_highlight o_invoice_validate" groups="account.group_account_invoice"/>
-            <!-- <xpath expr="//button[@name='action_invoice_open']" position="attributes">       
+            <!-- <button name="action_invoice_open" type="object" states="draft" string="Validate" attrs="{'invisible':['|',('bool_field', '=', False), ('state', 'not in', ('draft'))]}" class="oe_highlight o_invoice_validate" groups="account.group_account_invoice"/> -->
+            <xpath expr="//button[@name='action_invoice_open']" position="attributes">       
 	            <attribute name="attrs">
                 {'invisible':['|',('bool_field', '=', False), ('state', 'not in', ('draft'))]}
 				</attribute>      
-            </xpath> -->
+            </xpath>
             
         </field>
     </record>
