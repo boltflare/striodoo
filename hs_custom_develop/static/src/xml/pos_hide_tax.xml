@@ -3,7 +3,9 @@
 <templates id="pos_custom_template" inherit_id="point_of_sale.template"  xml:space="preserve">
 
 	<t t-extend="ClientDetails">
-		<t t-jquery="div.client-detail[4]" t-operation="replace"> </t>
+		<t t-jquery="div.client-detail" t-operation="replace"> 
+			<span class='label'>Hola Mundo</span>
+		</t>
 	</t>
 
 </templates>
