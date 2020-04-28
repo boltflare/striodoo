@@ -1,10 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 
-
-<template id="pos_custom_template" name="pos stri template" inherit_id="point_of_sale.template">
+<templates id="pos_custom_template" inherit_id="point_of_sale.template"  xml:space="preserve">
 
 	<t t-extend="ClientDetails">
 		<t t-jquery="div.client-detail[4]" t-operation="replace"> </t>
 	</t>
 
-</template>
+</templates>
