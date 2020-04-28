@@ -13,11 +13,11 @@
                         help="Update price in lines from the pricelist"
                 />
             </button>
-            <!-- Campo invisible para uso de activacion de botones -->
-            <field name="bool_field" invisible="1"/>
             <field name="user_id" position="after">
                 <field name="pricelist_id"/>
             </field>
+            <!-- Campo invisible para uso de activacion de botones -->
+            <field name="bool_field" invisible="1"/>
         </field>
     </record>
 
