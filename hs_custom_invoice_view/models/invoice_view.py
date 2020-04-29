@@ -33,6 +33,7 @@ class InvoiceView(models.Model):
 			# 	line.hs_number= line.invoice_id.move_id.name
 
 	@api.depends('invoice_id')
+	@api.one 
 	def _compute_hs_partner_id(self):
 		self.hs_partner_id = self.invoice_id.partner_id.name
 
