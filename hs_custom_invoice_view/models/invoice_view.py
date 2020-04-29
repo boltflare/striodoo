@@ -25,7 +25,8 @@ class InvoiceView(models.Model):
 	
 	@api.depends('invoice_id.move_id')
 	def _compute_hs_number(self):
-		self.hs_number = self.invoice_id.move_id.name
+		for invoice in self:
+			invoice.hs_number = invoice.invoice_id.move_id.name
 		# if 'hs_number' in self:
 		# 	self.hs_number = self.invoice_id.move_id.name
 		# else :
