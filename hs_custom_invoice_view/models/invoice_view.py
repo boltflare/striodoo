@@ -14,8 +14,7 @@ class InvoiceView(models.Model):
 	hs_product_id = fields.Char(string='Item Code', related='product_id.default_code', store=True) #debo cambiarlo que sea tipo char
 	# item = fields.Char (related='item_type.item')
 	hs_item= fields.Selection(string= "Item Type", related='product_id.item_type')
-	# hs_partner_id = fields.Char(compute='_compute_hs_partner_id', string='Customer', store=True)
-	hs_partner_id = fields.Char(string='Customer', related='invoice_id.partner_id.name')
+	hs_partner_id = fields.Char(compute='_compute_hs_partner_id', string='Customer', store=True)
 	# hs_total = fields.Float(string='Total')
 	hs_note = fields.Char(string='Description', related='invoice_id.note')
 
@@ -25,6 +24,7 @@ class InvoiceView(models.Model):
 
 	
 	@api.depends('invoice_id.move_id')
+	@api.one
 	def _compute_hs_number(self):
 		self.hs_number = self.invoice_id.move_id.name
 		# if 'hs_number' in self:
@@ -33,9 +33,10 @@ class InvoiceView(models.Model):
 			# for line in self:
 			# 	line.hs_number= line.invoice_id.move_id.name
 
-	# @api.depends('invoice_id') 
-	# def _compute_hs_partner_id(self):
-	# 	self.hs_partner_id = self.invoice_id.partner_id.name
+	@api.depends('invoice_id') 
+	@api.one
+	def _compute_hs_partner_id(self):
+		self.hs_partner_id = self.invoice_id.partner_id.name
 
 	@api.multi
 	def update_meal_card_view(self):
