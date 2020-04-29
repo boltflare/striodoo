@@ -34,11 +34,11 @@ class InvoiceView(models.Model):
 
 	@api.depends('invoice_id') 
 	def _compute_hs_partner_id(self):
-		if 'invoice_id' in self:
-			self.hs_partner_id = self.invoice_id.partner_id.name
-		else:
-			for invoice in self:
-				invoice.hs_partner_id = invoice.invoice_id.partner_id.name
+		# if 'invoice_id' in self:
+		# 	self.hs_partner_id = self.invoice_id.partner_id.name
+		# else:
+		for invoice in self:
+			invoice.hs_partner_id = invoice.invoice_id.partner_id.name
 
 
 	@api.multi
