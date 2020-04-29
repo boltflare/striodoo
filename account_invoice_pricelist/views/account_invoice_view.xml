@@ -23,10 +23,16 @@
             <!--Aqui se esta modificando el boton validar para hacerlo invisible mientras este TRUE el boton Update Price-->
             <!-- <button name="action_invoice_open" type="object" states="draft" string="Validate" attrs="{'invisible':['|',('bool_field', '=', False), ('state', 'not in', ('draft'))]}" class="oe_highlight o_invoice_validate" groups="account.group_account_invoice"/> -->
             <xpath expr="//button[@name='action_invoice_open']" position="replace">       
-	            <attribute name="attrs">
+                <button type="object"
+                        name="action_invoice_open"
+                        string="Validate"
+                        attrs="{'invisible':['|',('bool_field', '=', False), ('state', 'not in', ('draft'))]}"
+                        class="oe_highlight o_invoice_validate"
+                />
+                <!-- <attribute name="attrs"> -->
                     <!-- {'invisible':[('bool_field', '=', False)]} -->
-                    {'invisible':['|',('bool_field', '=', False), ('state', 'not in', ('draft'))]}
-				</attribute>      
+                    <!-- {'invisible':['|',('bool_field', '=', False), ('state', 'not in', ('draft'))]} -->
+				<!-- </attribute>       -->
             </xpath>
             
         </field>
