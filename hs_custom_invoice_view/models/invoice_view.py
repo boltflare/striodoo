@@ -17,6 +17,7 @@ class InvoiceView(models.Model):
 	hs_partner_id = fields.Char(compute='_compute_hs_partner_id', string='Customer', store=True)
 	# hs_total = fields.Float(string='Total')
 	hs_note = fields.Char(string='Description', related='invoice_id.note')
+	# hs_status = fields.Selection(string= "Status", related='invoice_id.state')
 
 	#Campos para filtrar
 	hs_type = fields.Selection(string='Tipo', related='invoice_id.type')

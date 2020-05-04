@@ -18,6 +18,7 @@
                     <field name = "quantity" />
 					<field name = "price_subtotal" string="Total" />
 					<field name = "hs_note" />
+                    <field name = "hs_state" />
                 </tree>
             </field>
         </record>
