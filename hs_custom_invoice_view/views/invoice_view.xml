@@ -2,7 +2,6 @@
 <odoo>
     <data>
         
-
         <!--tree view-->
         <record id = "invoice_meal_tree_view" model = "ir.ui.view">
             <field name = "name">Invoice View Tree</field>
@@ -58,7 +57,29 @@
                 </form>
             </field>
         </record>
-
+        <!--CREANDO VISTA DE BUSQUEDA PARA APLICAR FILTROS-->
+        
+        <record id="invoice_mealcard_search_view" model="ir.ui.view">
+            <field name="name">Invoice Search View</field>
+            <field name="model">account.invoice.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Invoice">
+                    <field name="hs_item"/>
+                    <field name="hs_state"/>
+                    <filter string="Meal Card" name="meal" domain="[('hs_item','=','meal')]"
+                            help="Invoices with items as Meal Card"/>
+                    <filter string="Visitor Program" name="visitor" domain="[('hs_item','=','visitor')]"
+                            help="Invoices with items as Visitor Program"/>
+                    <filter string="Draft" name="draft" domain="[('hs_state','!=','draft')]"
+                            help="Invoices where state is different draft"/>
+                    <!-- <group expand="1" string="Group By">
+                        <filter string="Nationality" name="nationality" context="{'group_by':'nationality'}"/>
+                        <filter string="Blood Group" name="blood_group" context="{'group_by':'student_blood_group'}"/>
+                    </group> -->
+                </search>
+            </field>
+        </record>
+        
         <!-- <record id="view_invoice_meal_search" model="ir.ui.view">
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.view_account_invoice_filter"/>
@@ -99,8 +120,7 @@
             <field name = "context"> {'search_default_type': 1, 'default_type': 'out_invoice'}</field>
         </record>
        
-       <!-- Este es la acción heredada que permite mostrar los datos en vista arbol de 
-        salesperson en account -->
+       <!-- Este es la acción heredada que permite mostrar los datos en vista arbol -->
         <record id="invoice_meal_menu_tree" model="ir.actions.act_window.view">
             <field name="act_window_id" ref="hs_custom_invoice_view.invoice_meal_menu" />
             <field name="view_id" ref="hs_custom_invoice_view.invoice_meal_tree_view"/>
