@@ -17,11 +17,11 @@ class InvoiceView(models.Model):
 	hs_partner_id = fields.Char(compute='_compute_hs_partner_id', string='Customer', store=True)
 	# hs_total = fields.Float(string='Total')
 	hs_note = fields.Char(string='Description', related='invoice_id.note')
-	# hs_status = fields.Selection(string= "Status", related='invoice_id.state')
+	
 
 	#Campos para filtrar
 	hs_type = fields.Selection(string='Tipo', related='invoice_id.type')
-	hs_state = fields.Selection(string='Status', related='invoice_id.state')
+	hs_state = fields.Selection(string='Status', related='invoice_id.state', default='_get_default_state')
 
 	
 	@api.depends('invoice_id.move_id')
@@ -42,6 +42,10 @@ class InvoiceView(models.Model):
 		for invoice in self:
 			invoice.hs_partner_id = invoice.invoice_id.partner_id.name
 
+	@api.depends('invoice_id.state')
+	def _get_default_state(self):
+		for invoice in self:
+			invoice.hs_state = invoice.invoice_id.state in ['open', 'paid']
 
 	@api.multi
 	def update_meal_card_view(self):
