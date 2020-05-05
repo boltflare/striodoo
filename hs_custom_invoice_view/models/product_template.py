@@ -6,13 +6,10 @@ class ProductTemplateInherit2(models.Model):
 	_inherit = 'product.template'
     # _inherit = ['todo.task', 'mail.thread']
 
-	# is_fund = fields.Boolean(string="Is Fund")
 
 	item_type =  fields.Selection(string='Item Type',
 		selection=[('meal', 'Meal Card'), ('visitor', 'Visitor Program')], 
-	    help='Opción para poder clasificar los productos correspondientes al sistema de Meal Card'
-             'Meal Card productos pertenecientes a Administración.\n'
-             'Visitor Program productos relacionados a esta categoría.')
+	    help='Opción para poder clasificar los productos correspondientes al sistema de Meal Card')
 
 
     # type = fields.Selection([
@@ -30,7 +27,5 @@ class ProductInherit1(models.Model):
 
 	item_type =  fields.Selection(string='Item Type',
 		selection=[('meal', 'Meal Card'), ('visitor', 'Visitor Program')], 
-	    help='Opción para poder clasificar los productos correspondientes al sistema de Meal Card'
-             'Meal Card productos pertenecientes a Administración.\n'
-             'Visitor Program productos relacionados a esta categoría.')
+	    help='Opción para poder clasificar los productos correspondientes al sistema de Meal Card')
     
