@@ -236,9 +236,13 @@ class CyberSourceController(http.Controller):
 
             if exist:
                 for item in contents:
+                    logging.info("El valor de req_reference_number es %s y de req_amount es %s " % 
+                        (item.get('req_reference_number'), item.get('req_amount')))
                     request.env['payment.transaction'].sudo().form_feedback(item, 'cybersource')
             else:
                 request.env['payment.transaction'].sudo().form_feedback(post, 'cybersource')
+            
+            #request.env['payment.transaction'].sudo().form_feedback(post, 'cybersource')
             # return werkzeug.utils.redirect('/payment/process')
             return ''
         except Exception as __ERROR:
