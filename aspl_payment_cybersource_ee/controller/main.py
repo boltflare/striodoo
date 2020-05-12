@@ -211,15 +211,39 @@ class CyberSourceController(http.Controller):
     @http.route('/payment/cybersource/feedback/', type='http', auth="public", csrf=False,  website=True)
     def cybersource_form_feedback(self, **post):
 
-        if post:
-            content = ""
-            for key, value in post.items():
-                content = content + "'{}' : {}, ".format(key, value)
-            logging.warning("____Cybersource: El valor de post es: " + content)
+        try:
+            if post:
+                content = ""
+                for key, value in post.items():
+                    content = content + "'{}' : {}, ".format(key, value)
+                logging.info("____Cybersource: El valor de post es: " + content)
+        
+            reference = post.get('req_reference_number')
+            payment = self.env["payment.transaction"].sudo().search([('reference', '=', reference)], limit=1)
+            data_ids = request.session.get("__payment_tx_ids__", [])
+            exist = False
+            if payment.id in data_ids:
+                exist = True
 
-        request.env['payment.transaction'].sudo().form_feedback(post, 'cybersource')
-        # return werkzeug.utils.redirect('/payment/process')
-        return ''
+            contents = []
+            if len(data_ids) > 0:
+                transactions = self.env["payment.transaction"].sudo().browse(data_ids)
+                for transaction in transactions:
+                    data = post
+                    data['req_reference_number'] = transaction.reference
+                    data['req_amount'] = transaction.amount
+                    contents.append(data)
+
+            if exist:
+                for item in contents:
+                    request.env['payment.transaction'].sudo().form_feedback(item, 'cybersource')
+            else:
+                request.env['payment.transaction'].sudo().form_feedback(post, 'cybersource')
+            # return werkzeug.utils.redirect('/payment/process')
+            return ''
+        except Exception as __ERROR:
+            logging.error(__ERROR)
+            return False
 
 
     @http.route([
