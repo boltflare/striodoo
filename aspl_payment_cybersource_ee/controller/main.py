@@ -219,7 +219,7 @@ class CyberSourceController(http.Controller):
                 logging.info("____Cybersource: El valor de post es: " + content)
         
             reference = post.get('req_reference_number')
-            payment = self.env["payment.transaction"].sudo().search([('reference', '=', reference)], limit=1)
+            payment = request.env["payment.transaction"].sudo().search([('reference', '=', reference)], limit=1)
             data_ids = request.session.get("__payment_tx_ids__", [])
             exist = False
             if payment.id in data_ids:
@@ -227,7 +227,7 @@ class CyberSourceController(http.Controller):
 
             contents = []
             if len(data_ids) > 0:
-                transactions = self.env["payment.transaction"].sudo().browse(data_ids)
+                transactions = request.env["payment.transaction"].sudo().browse(data_ids)
                 for transaction in transactions:
                     data = post
                     data['req_reference_number'] = transaction.reference
