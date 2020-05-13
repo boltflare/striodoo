@@ -82,7 +82,7 @@
    
 
         <record id="invoice_meal_menu_action" model="ir.actions.act_window">
-            <field name="name">Invoice View</field>
+            <field name="name">Meal Card Invoices View</field>
             <field name="res_model">account.invoice.line</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -99,7 +99,7 @@
         </record>
 
         <record id="invoice_meal_menu" model="ir.actions.act_window">
-            <field name="name">Invoice View</field>
+            <field name="name">Meal Card Invoices View</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">account.invoice.line</field>
             <field name="view_mode">tree,form</field>
