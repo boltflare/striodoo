@@ -40,11 +40,12 @@
     </record>
 
     <record id="action_account_invoice_line_report" model="ir.actions.act_window">
-        <field name="name">Sales Invoice Lines</field>
+        <field name="name">Sales Invoice Report</field>
         <field name="res_model">account.invoice.report</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,pivot,graph</field>
         <field name="search_view_id" ref="view_account_invoice_report_search"/>
+        <field name="domain">[('type', '=', 'out_invoice')]</field>
         <field name="help">From this report, you can have an overview of the amount invoiced to your customers. The search tool can also be used to personalise your Invoices reports and so, match this analysis to your needs.</field>
     </record>
 
