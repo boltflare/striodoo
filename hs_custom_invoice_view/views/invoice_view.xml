@@ -7,7 +7,7 @@
             <field name = "name">Invoice View Tree</field>
             <field name = "model">account.invoice.line</field>
             <field name = "arch" type = "xml">
-                <tree string = "Invoice View" create="false" edit="false" delete="false">
+                <tree string = "Meal Card Invoices View" create="false" edit="false" delete="false">
                 <!-- <tree string = "Invoice View"> -->
                     <field name = "hs_number" />
 					<field name = "hs_date" />
@@ -28,7 +28,7 @@
             <field name = "name">Invoice View Form</field> 
             <field name = "model">account.invoice.line</field> 
             <field name = "arch" type = "xml"> 
-                <form string = "Invoices View"> 
+                <form string = "Meal Card Invoices View"> 
                     <sheet> 
                         <group>
                             <group>
@@ -94,7 +94,7 @@
             <field name="domain">['&amp;',('hs_item', 'in', ['meal', 'visitor']),('hs_state', 'in', ['open','paid'])]</field>
             <field name = "context"> {'search_default_type': 1, 'default_type': 'out_invoice'}</field>
             <field name="help" type="html">
-                <p class="oe_view_nocontent_create">View Invoice List</p>
+                <p class="oe_view_nocontent_create">Meal Card Invoice List</p>
             </field>
         </record>
 
@@ -137,7 +137,7 @@
         </record>
         
 		<!-- Esta seccion es para que las vista creadas aparezcan en el menu de reportes en el modulo de facturas-->
-        <menuitem id="invoice_meal_custom_menu" parent="account.menu_finance_reports" name="Invoices View" action="invoice_meal_menu"/>
+        <menuitem id="invoice_meal_custom_menu" parent="account.account_reports_management_menu" name="Meal Card Invoices Report" action="invoice_meal_menu"/>
         
     </data>
         
