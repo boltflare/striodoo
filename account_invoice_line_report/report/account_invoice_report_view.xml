@@ -9,11 +9,13 @@
         <field name="arch" type="xml">
             <tree string="Invoice Line">
                 <field name="partner_id"/>
+                <field name="user_id"/>
                 <field name="categ_id"/>
                 <field name="product_id"/>
                 <!-- <field name="quantity"/> -->
-                <field name="price_unit"/>
-                <field name="price_total"/>
+                <!-- <field name="price_unit"/> -->
+                <field name="price_total" string="Sold Price"/>
+                <field name="number"/>
                 <field name="date"/>
                 <field name="currency_id" invisible="1"/>
             </tree>
