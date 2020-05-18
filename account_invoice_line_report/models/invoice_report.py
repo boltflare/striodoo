@@ -13,28 +13,24 @@ class InvoiceReport(models.Model):
 	stri_chartfield = fields.Char('account.account', string='Char Field', readonly=True)
 	# chartfield = fields.Char(string='ChartField', related='id.stri_chartfield', store=True)
 
-	_depends = {
-		'account.account': [
-			'property_account_income_id', 'stri_chartfield', 
-		],
-	}
-	def _select(self):
-		select_str = """
-			SELECT sub.property_account_income_id, sub.stri_chartfield
-		"""
-		return select_str
+	# _depends = {
+	# 	'account.account': [
+	# 		'property_account_income_id', 'stri_chartfield', 
+	# 	],
+	# }
+	# def _select(self):
+	# 	select_str = """
+	# 		SELECT sub.property_account_income_id, sub.stri_chartfield
+	# 	"""
+	# 	return select_str
 
-	def _sub_select(self):
-		select_str = """
-				SELECT aa.property_account_income_id,
-					aa.stri_chartfield
-		"""
-		return select_str
+	# def _sub_select(self):
+	# 	select_str = """
+	# 			SELECT aa.property_account_income_id,
+	# 				aa.stri_chartfield
+	# 	"""
+	# 	return select_str
 
 	
-	# @api.depends('invoice_id.state')
-	# def _get_default_state(self):
-	# 	for invoice in self:
-	# 		invoice.hs_state = invoice.invoice_id.state in ['open', 'paid']
 
 	
