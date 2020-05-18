@@ -12,9 +12,9 @@
                 <field name="user_id"/>
                 <field name="categ_id" string="Category"/>
                 <field name="product_id" string="Item"/>
-                <field name="product_qty"/>
+                <field name="product_qty" string="Qty Sold"/>
                 <!-- <field name="price_unit"/> -->
-                <field name="price_total" string="Sold Price"/>
+                <field name="price_total" string="Total Sales"/>
                 <field name="number"/>
                 <field name="date"/>
                 <field name="currency_id" invisible="1"/>
