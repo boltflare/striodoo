@@ -7,12 +7,12 @@
         <field name="name">account.invoice.report.tree.info</field>
         <field name="model">account.invoice.report</field>
         <field name="arch" type="xml">
-            <tree string="Invoice Line">
+            <tree string="Invoice Line" create="false" edit="false" delete="false">
                 <field name="partner_id" string="Customer"/>
                 <field name="user_id"/>
                 <field name="categ_id" string="Category"/>
                 <field name="product_id" string="Item"/>
-                <!-- <field name="quantity"/> -->
+                <field name="product_qty"/>
                 <!-- <field name="price_unit"/> -->
                 <field name="price_total" string="Sold Price"/>
                 <field name="number"/>
