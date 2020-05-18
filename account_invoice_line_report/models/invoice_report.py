@@ -10,7 +10,8 @@ class InvoiceReport(models.Model):
 	# class_code = fields.Many2one("class.code", "Class Code")
 	property_account_income_id = fields.Many2one('account.account', string='Income Account', readonly=True)
 	# hs_quantity = fields.Float(string='Quantity', related='invoice_id.quantity', store=True)
-	stri_chartfield = fields.Char('account.account', string='Char Field', readonly=True)
+	# stri_chartfield = fields.Char('account.account', string='Char Field', readonly=True)
+	chartfield = fields.Char(string='ChartField', related='id.stri_chartfield', store=True)
 
 	_depends = {
 		'account.account': [
