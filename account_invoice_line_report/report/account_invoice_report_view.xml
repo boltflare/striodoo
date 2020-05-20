@@ -8,13 +8,14 @@
         <field name="model">account.invoice.report</field>
         <field name="arch" type="xml">
             <tree string="Invoice Line">
-                <field name="partner_id"/>
+                <field name="account_line_id" string="Department"/>
+                <field name="partner_id" string="Customer"/>
                 <field name="user_id"/>
-                <field name="categ_id"/>
-                <field name="product_id"/>
-                <!-- <field name="quantity"/> -->
-                <!-- <field name="price_unit"/> -->
-                <field name="price_total" string="Sold Price"/>
+                <field name="categ_id" string="Category"/>
+                <field name="product_id" string="Item"/>
+                <field name="product_qty" string="Qty Sold"/>
+                <field name="price_average" string="Sold Prices"/>
+                <field name="price_total" string="Total Sales"/>
                 <field name="number"/>
                 <field name="date"/>
                 <field name="currency_id" invisible="1"/>
