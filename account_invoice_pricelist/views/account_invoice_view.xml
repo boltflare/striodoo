@@ -19,7 +19,7 @@
             <!-- Campo invisible para uso de activacion de botones -->
             <xpath expr="//button[@name='preview_invoice']" position="before">
 					<field name="bool_field" invisible="1"/>
-				</xpath>
+			</xpath>
             <!--Aqui se esta modificando el boton validar para hacerlo invisible mientras este TRUE el boton Update Price-->
             <!-- <button name="action_invoice_open" type="object" states="draft" string="Validate" attrs="{'invisible':['|',('bool_field', '=', False), ('state', 'not in', ('draft'))]}" class="oe_highlight o_invoice_validate" groups="account.group_account_invoice"/> -->
             <xpath expr="//button[@name='action_invoice_open']" position="replace">       
