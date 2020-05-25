@@ -14,4 +14,4 @@ class InvoiceReport(models.Model):
         api = library.RestAPI()
         api.authenticate()
         # logging.info(str(api.execute('/api')))
-        logging.info(str(api.execute('/api/user')))
+        logging.info('prueba REST API' + str(api.execute('/api/user')))
