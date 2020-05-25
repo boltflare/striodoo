@@ -10,8 +10,8 @@ class InvoiceReport(models.Model):
 	_inherit = 'account.invoice.report'
 	# _description = 'Account Invoice View'
 	# init API
-	api = library.RestAPI()
-	api.authenticate()
+	# api = library.RestAPI()
+	# api.authenticate()
 
 	# test API
 	# logging.info(str(api.execute('/api')))
