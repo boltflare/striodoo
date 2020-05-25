@@ -6,13 +6,16 @@ import logging
 _logger = logging.getLogger(__name__)
 
 class InvoiceReport(models.Model):
-    # _name= 'invoice.view'
-    _inherit = 'account.invoice.report'
+	# _name= 'invoice.view'
+	_inherit = 'account.invoice.report'
 
-    test= fields.Char(compute='action_muki_connect')
+	test= fields.Char(compute='action_muki_connect')
 
-    def action_muki_connect(self):
-        api = library.RestAPI()
-        api.authenticate()
-        # logging.info(str(api.execute('/api')))
-        logging.info('prueba REST API' + str(api.execute('/api/read/account.invoice.report?ids=%5B375%5D&fields=%27number%27%2C%27id%27%2C%27account_line_id%27')))
+	def action_muki_connect(self):
+		api = library.RestAPI()
+		api.authenticate()
+		# logging.info(str(api.execute('/api')))
+		account_line_info =api.execute('/api/read/account.invoice.report?ids=%5B375%5D&fields=%27number%27%2C%27id%27%2C%27account_line_id%27')
+		for info in account_line_info:
+			all_account_line_id = info.get('account_line_id')
+		logging.info('ACCOUNT LINE ID:' + str(all_account_line_id[0]))
