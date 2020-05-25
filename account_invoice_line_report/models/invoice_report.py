@@ -1,12 +1,19 @@
 # -*- coding: utf-8 -*-
-
+from . import library
+import json
 from odoo import models, fields, api
 
 class InvoiceReport(models.Model):
 	# _name= 'invoice.view'
 	_inherit = 'account.invoice.report'
 	# _description = 'Account Invoice View'
+	# init API
+    api = library.RestAPI()
+    api.authenticate()
 
+	# test API
+    logging.info(str(api.execute('/api')))
+    logging.info(str(api.execute('/api/user')))
 	# hs_fund = fields.Char(string='Fund Code', related='invoice_id.stri_fund', store=True)
 	# hs_budget = fields.Char(string='Budget Reference', related='invoice_id.stri_budget', store=True)
 	# hs_desig = fields.Char(string='Designated Code', related='invoice_id.stri_desig', store=True)

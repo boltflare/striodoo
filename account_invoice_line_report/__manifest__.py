@@ -20,4 +20,5 @@
         
     ],
     'installable': True,
+    'external_dependencies': {'python' : ['requests_oauthlib']}
 }
