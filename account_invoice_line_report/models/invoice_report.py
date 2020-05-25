@@ -7,10 +7,6 @@ class InvoiceReport(models.Model):
 	_inherit = 'account.invoice.report'
 	# _description = 'Account Invoice View'
 
-	# class_code = fields.Many2one("class.code", "Class Code")
-	#property_account_income_id = fields.Many2one('account.account', string='Income Account', compute='_compute_hs_income', readonly=True, store=True)
-	# hs_quantity = fields.Float(string='Quantity', related='invoice_id.quantity', store=True)
-	
 	# hs_fund = fields.Char(string='Fund Code', related='invoice_id.stri_fund', store=True)
 	# hs_budget = fields.Char(string='Budget Reference', related='invoice_id.stri_budget', store=True)
 	# hs_desig = fields.Char(string='Designated Code', related='invoice_id.stri_desig', store=True)
@@ -24,8 +20,12 @@ class InvoiceReport(models.Model):
 	# hs_type = fields.Selection(string='Type', related='invoice_id.stri_type', store=True)
 	
 	# chartfield = fields.Char(string='Chartfield', compute='_compute_hs_chartfield')
-	chartfield = fields.Char(string='ChartField', related='invoice_id.stri_chartfield', store=True)
-	
+	# chartfield = fields.Char(string='ChartField', related='invoice_id.stri_chartfield', store=True)
+	# self._cr.execute('select * from res_partner')
+
+	# for res in self.env.cr.fetchall():
+
+    # print(res)
 	# @api.depends('hs_fund', 'hs_budget', 'hs_desig', 'hs_dept', 'hs_account', 'hs_class', 'hs_program', 'hs_project', 'hs_activity', 'hs_type')
 	# def _compute_hs_chartfield(self):
 	# 	resp = str(self.hs_fund) if self.hs_fund else ""
