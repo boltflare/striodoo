@@ -24,8 +24,13 @@ class InvoiceReport(models.Model):
 	# hs_type = fields.Selection(string='Type', related='invoice_id.stri_type', store=True)
 	
 	# chartfield = fields.Char(string='Chartfield', compute='_compute_hs_chartfield')
-	# # chartfield = fields.Char(string='ChartField', related='id.stri_chartfield', store=True)
-
+	chartfield = fields.Char(string='ChartField', related='id.stri_chartfield', store=True)
+	
+	@api.multi
+	def update_chartfield(self):
+		lines = self.env['account.account'].search([('invoice_id', '=', self.id)])
+		if lines:
+			lines.write({'stri_chartfield':self.stri_chartfield})
 	# @api.depends('hs_fund', 'hs_budget', 'hs_desig', 'hs_dept', 'hs_account', 'hs_class', 'hs_program', 'hs_project', 'hs_activity', 'hs_type')
 	# def _compute_hs_chartfield(self):
 	# 	resp = str(self.hs_fund) if self.hs_fund else ""
