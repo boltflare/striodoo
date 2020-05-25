@@ -18,10 +18,10 @@ class InvoiceReport(models.Model):
 	# logging.info(str(api.execute('/api/user')))
 
 	def action_muki_connect(self):
-		api = library.RestAPI()
-		api.authenticate()
-		logging.info(str(api.execute('/api')))
-		logging.info(str(api.execute('/api/user')))
+		# api = library.RestAPI()
+		# api.authenticate()
+		# logging.info(str(api.execute('/api')))
+		# logging.info(str(api.execute('/api/user')))
 
 	# hs_fund = fields.Char(string='Fund Code', related='invoice_id.stri_fund', store=True)
 	# hs_budget = fields.Char(string='Budget Reference', related='invoice_id.stri_budget', store=True)
