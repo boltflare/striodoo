@@ -22,11 +22,11 @@
 	# Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
 	# for the full list
 	'category': 'other',
-	'version': '1.1',
+	'version': '1.2',
 	'license': 'LGPL-3',
 
 	# any module necessary for this one to work correctly
-	'depends': ['base', 'account'],
+	'depends': ['base', 'account', 'point_of_sale'],
 
 	# any external library necessary for this one to work correctly
 	'external_dependencies': {
@@ -35,10 +35,12 @@
 
 	# always loaded
 	'data': [
+		'security/res_group.xml',
+		'security/user_rulers.xml',
+		'security/ir.model.access.csv',
 		'views/salesperson_account_view.xml',
 		'views/account_view.xml',
 		'views/product_category_view.xml',
-		'security/user_rulers.xml',
 	],
 	'installable': True,
 	'auto_install': True,

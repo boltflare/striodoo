@@ -16,7 +16,7 @@
 						widget="radio" 
 						class="oe_edit_only" 
 						options="{'horizontal': true}" 
-						context="{'default_company_type': 'company'}"/>
+						context="{'default_company_type': 'person'}" attrs="{'invisible':[('supplier', '=', True)]}"/>
 				</xpath>
 
 

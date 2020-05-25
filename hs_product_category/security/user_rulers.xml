@@ -17,22 +17,6 @@
 			<field name="perm_read" eval="1"/>
 		</record-->
 
-
-		<!-- Regla de acceso para visualizar categorias de productos en base al usuario actual-->
-		<!--record id="category_user_access_user" model="ir.rule">
-			<field name="name">STRI category user access by current user</field>
-			<field name="model_id" ref="account.model_product_category"/>
-			<field name="global" eval="False"/>
-			<field name="groups" eval="[(4, ref('account.group_account_invoice'))]"/>
-			<field name="domain_force">
-				[('user_ids', '=', user.id)]
-			</field>
-			<field name="perm_create" eval="0"/>
-			<field name="perm_write" eval="0"/>
-			<field name="perm_unlink" eval="0"/>
-			<field name="perm_read" eval="1"/>
-		</record-->
-
 		<!-- Regla de acceso para visualizar los productos en base al usuario actual-->
 		<record id="product_access_user" model="ir.rule">
 			<field name="name">STRI products access by current user</field>
@@ -137,8 +121,8 @@
 			<field name="domain_force">
 				[('salesperson_ids', '=', user.id)]
 			</field>
-			<field name="perm_create" eval="0"/>
-			<field name="perm_write" eval="0"/>
+			<field name="perm_create" eval="1"/>
+			<field name="perm_write" eval="1"/>
 			<field name="perm_unlink" eval="0"/>
 			<field name="perm_read" eval="1"/>
 		</record>
@@ -148,6 +132,40 @@
 		<record id="total_access_product_template" model="ir.rule">
 			<field name="name">STRI total access to products template</field>
 			<field name="model_id" ref="account.model_product_template"/>
+			<field name="global" eval="False"/>
+			<field name="groups" eval="[(4, ref('stock.group_stock_manager'))]"/>
+			<field name="domain_force">
+				[(1, '=', 1)]
+			</field>
+			<field name="perm_create" eval="1"/>
+			<field name="perm_write" eval="1"/>
+			<field name="perm_unlink" eval="1"/>
+			<field name="perm_read" eval="1"/>
+		</record>
+
+		
+
+
+		<!-- Regla de acceso para visualizar categorias de productos en base al usuario actual-->
+		<!--record id="category_product_categ_stok_access" model="ir.rule">
+			<field name="name">STRI category user access by current user</field>
+			<field name="model_id" ref="account.model_product_category"/>
+			<field name="global" eval="False"/>
+			<field name="groups" eval="[(4, ref('hs_product_category.group_stock_advanced_users'))]"/>
+			<field name="domain_force">
+				[('user_ids', '=', user.id)]
+			</field>
+			<field name="perm_create" eval="0"/>
+			<field name="perm_write" eval="0"/>
+			<field name="perm_unlink" eval="0"/>
+			<field name="perm_read" eval="1"/>
+		</record-->
+
+
+		<!-- Regla de acceso para visualizar categorias de productos en base al usuario actual-->
+		<record id="category_product_categ_admin" model="ir.rule">
+			<field name="name">STRI total access to product category</field>
+			<field name="model_id" ref="account.model_product_category"/>
 			<field name="global" eval="False"/>
 			<field name="groups" eval="[(4, ref('stock.group_stock_manager'))]"/>
 			<field name="domain_force">

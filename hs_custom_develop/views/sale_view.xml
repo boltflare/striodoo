@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		<!-- Add you code here -->
+		
+		<!-- model.name inherit form view -->
+		<record id="stri_custom_sale_view" model="ir.ui.view">
+			<field name="name">stri.custom.sale.view</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+				<!-- Add your xpath here -->
+				<xpath expr="//field[@name='expected_date']" position="after">
+					<!-- Add your fields here -->
+					<field name="required_invoice" required="True"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>
