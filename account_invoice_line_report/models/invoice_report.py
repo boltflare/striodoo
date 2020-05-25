@@ -20,7 +20,7 @@ class InvoiceReport(models.Model):
 			all_account_line_id = info.get('account_line_id')
 		logging.info('ACCOUNT LINE ID:' + str(all_account_line_id[0]))
 		
-		chartfield_info =api.execute('/api/read/account.invoice.report?ids=%5B'+ str(all_account_line_id[0]) +'%5D&fields=%27id%27%2C%27stri_chartfield%27')
+		chartfield_info =api.execute('/api/read/account.account?ids=%5B'+ str(all_account_line_id[0]) +'%5D&fields=%27id%27%2C%27stri_chartfield%27')
 		for stri in chartfield_info:
 			all_chartfield = stri.get('stri_chartfield')
 		logging.info('CHARTFIELD:' + str(all_chartfield))
