@@ -2,18 +2,20 @@
 from . import library
 import json
 from odoo import models, fields, api
+import logging
+_logger = logging.getLogger(__name__)
 
 class InvoiceReport(models.Model):
 	# _name= 'invoice.view'
 	_inherit = 'account.invoice.report'
 	# _description = 'Account Invoice View'
 	# init API
-    api = library.RestAPI()
-    api.authenticate()
+	api = library.RestAPI()
+	api.authenticate()
 
 	# test API
-    logging.info(str(api.execute('/api')))
-    logging.info(str(api.execute('/api/user')))
+	logging.info(str(api.execute('/api')))
+	logging.info(str(api.execute('/api/user')))
 	# hs_fund = fields.Char(string='Fund Code', related='invoice_id.stri_fund', store=True)
 	# hs_budget = fields.Char(string='Budget Reference', related='invoice_id.stri_budget', store=True)
 	# hs_desig = fields.Char(string='Designated Code', related='invoice_id.stri_desig', store=True)
@@ -32,7 +34,7 @@ class InvoiceReport(models.Model):
 
 	# for res in self.env.cr.fetchall():
 
-    # print(res)
+	# print(res)
 	# @api.depends('hs_fund', 'hs_budget', 'hs_desig', 'hs_dept', 'hs_account', 'hs_class', 'hs_program', 'hs_project', 'hs_activity', 'hs_type')
 	# def _compute_hs_chartfield(self):
 	# 	resp = str(self.hs_fund) if self.hs_fund else ""
