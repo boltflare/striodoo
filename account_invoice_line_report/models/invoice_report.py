@@ -14,8 +14,8 @@ class InvoiceReport(models.Model):
 	api.authenticate()
 
 	# test API
-	logging.info(str(api.execute('/api')))
-	logging.info(str(api.execute('/api/user')))
+	# logging.info(str(api.execute('/api')))
+	# logging.info(str(api.execute('/api/user')))
 	# hs_fund = fields.Char(string='Fund Code', related='invoice_id.stri_fund', store=True)
 	# hs_budget = fields.Char(string='Budget Reference', related='invoice_id.stri_budget', store=True)
 	# hs_desig = fields.Char(string='Designated Code', related='invoice_id.stri_desig', store=True)
