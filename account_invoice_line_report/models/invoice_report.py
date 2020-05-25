@@ -10,9 +10,9 @@ class InvoiceReport(models.Model):
     _inherit = 'account.invoice.report'
 
     test= fields.Char(compute='action_muki_connect')
-    
+
     def action_muki_connect(self):
         api = library.RestAPI()
         api.authenticate()
         # logging.info(str(api.execute('/api')))
-        logging.info('prueba REST API' + str(api.execute('/api/user')))
+        logging.info('prueba REST API' + str(api.execute('api/read/account.invoice.report?ids='+ str(self.ids))))
