@@ -21,6 +21,9 @@
                 <!-- <field name="date"/> -->
                 <field name="currency_id" invisible="1"/>
             </tree>
+            <header>
+                <button name="action_muki_connect" string="Muki Connect" type="object" />
+            </header>
         </field>
     </record>
 
