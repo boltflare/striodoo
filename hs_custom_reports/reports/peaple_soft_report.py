@@ -62,10 +62,15 @@ class PeopleSoftReport(models.AbstractModel):
 
 
 	def _get_filters_categories(self):
+		"""Obtenemos los journals que se mostraran en el filtro
+		"View Journal Entry" del reporte
+
+		Returns:
+			[type] -- [description]
+		"""
 		filters = []
 		journals = self.env["account.journal"].search([('people_soft', '=', True)])
 		for journal in journals:
-			#account = journal.default_debit_account_id
 			filters.append({
 				'id' : journal.id,
 				'name' : journal.name,
@@ -127,7 +132,8 @@ class PeopleSoftReport(models.AbstractModel):
 
 
 	def _do_filter_by_journal(self, options):
-		"""[summary]
+		"""No esta en uso. Se deja unicamente por motivos de guia en 
+		programacion.
 		
 		Arguments:
 			options {[type]} -- [description]
@@ -156,9 +162,14 @@ class PeopleSoftReport(models.AbstractModel):
 
 
 	def _do_filter_by_category(self, options):
+		"""Obtenemos los journals seleccionados del filtro "View Journal Entry"
+		"""
 		categories = options.get('category')
 
 		resp = ''
+
+		# Procedemos a recorrer los valores del filtro para ver si alguno
+		# fue seleccionado, de serlo se agrega.
 		for categ in categories:
 			is_selected = categ.get('selected')
 			if is_selected and categ.get('value') == -1:
@@ -168,6 +179,9 @@ class PeopleSoftReport(models.AbstractModel):
 			elif is_selected and resp != '':
 				resp = resp + ', ' + str(categ.get('value'))
 
+		# Si en filtro no se selecciono algun valor entonces obtenemos
+		# todos los valores del filtro ya que ninguno seleccionado es 
+		# igual a todos seleccionados.
 		if resp == '':
 			for categ in categories:
 				if resp == '':
@@ -175,29 +189,33 @@ class PeopleSoftReport(models.AbstractModel):
 				else:
 					resp = resp + ', ' + str(categ.get('value'))
 
-
+		# Si por algun motivo se encuentra strifund como un valor en
+		# resp, entonces lo cambiamos por su valor interno = -1
 		if 'strifund' in resp:
 			resp = resp.replace('strifund', '-1')
 		return " doc_type IN ({}) ".format(resp)
 
 
 	def _do_filter_by_state(self, options):
-		"""Si published_entries dentro de options es False entonces 
-		debe traer solo las facturas que tiene el estado people_soft_registered
+		"""Si el filtro published_entries dentro de options es False entonces 
+		debe traer solo las facturas que tiene el estado registered
 		en False o NULL, en caso contrario que obtenga todas.
 		"""
 		state = options.get('published_entries')
 		if not state:
-			return "AND (inv.people_soft_registered IS NULL OR inv.people_soft_registered = 'f')"
+			return "AND (registered IS NULL OR registered = 'f')"
 		else:
 			return ''
 
 
 	def _do_filter_by_documents(self, docs=None):
-		"""[summary]
+		"""Este metodo es usado cuando el formulario es llamado desde
+		el wizard de facturas. No esta funcional porque el cliente no
+		le hayo sentido alguno. Se deja unicamente por motivos de guia 
+		en programacion.
 		
 		Arguments:
-			line_id {[type]} -- [description]
+			docs {dict} -- array de las facturas a mostrar.
 		"""
 		if docs == None:
 			return ''
@@ -220,30 +238,61 @@ class PeopleSoftReport(models.AbstractModel):
 		#by_journal = self._do_filter_by_journal(options)
 		by_categ = self._do_filter_by_category(options)
 		by_state = self._do_filter_by_state(options)
-		by_documents = self._do_filter_by_documents(documents)
+		#by_documents = self._do_filter_by_documents(documents)
 
 		sql = """
 		WITH people_soft_data AS (
-			SELECT(SELECT CASE WHEN account.user_type_id = (SELECT id FROM account_account_type WHERE name = 'Income' LIMIT 1) 
+			SELECT
+				line.id as id,
+				(SELECT CASE WHEN account.user_type_id = (SELECT id FROM account_account_type WHERE name = 'Income' LIMIT 1) 
 				THEN CONCAT(account.stri_fund, ',', account.stri_budget, ',', account.stri_desig, ',', account.stri_dept, ',', account.stri_account, ',', account.stri_class, ',', account.stri_program, ',', account.stri_project, ',', account.stri_activity, ',', account.stri_type)
 				ELSE (SELECT CASE WHEN partner.customer_type = 'fund' 
 					THEN CONCAT(partner.stri_fund, ',', partner.stri_budget, ',', partner.stri_desig, ',', partner.stri_dept, ',', partner.stri_account, ',', partner.stri_class, ',', partner.stri_program, ',', partner.stri_project, ',', partner.stri_activity, ',', partner.stri_type)
-					ELSE (SELECT CONCAT(a2.stri_fund, ',', a2.stri_budget, ',', a2.stri_desig, ',', a2.stri_dept, ',', a2.stri_account, ',', a2.stri_class, ',', a2.stri_program, ',', a2.stri_project, ',', a2.stri_activity, ',', a2.stri_type) as strifund
-						FROM account_account as a2, account_journal as j
-						WHERE a2.id = j.default_debit_account_id AND j.id = inv.journal_id LIMIT 1)	
+					ELSE (SELECT CONCAT(aa2.stri_fund, ',', aa2.stri_budget, ',', aa2.stri_desig, ',', aa2.stri_dept, ',', aa2.stri_account, ',', aa2.stri_class, ',', aa2.stri_program, ',', aa2.stri_project, ',', aa2.stri_activity, ',', aa2.stri_type) as strifund
+						FROM account_account as aa2, account_journal as aj2
+						WHERE aa2.id = aj2.default_debit_account_id AND aj2.id = inv.journal_id LIMIT 1)	
 					END)
 				END) AS chartfield,
-			line.partner_id,
-			line.invoice_id as invoice,
-			inv.number as reference,
-			(SELECT CASE WHEN partner.customer_type = 'fund' THEN -1 ELSE inv.journal_id END) as doc_type,
-			(SELECT CASE WHEN inv.type = 'out_invoice' THEN 'invoice' ELSE 'refund' END) AS document,
-			(SELECT CASE WHEN account.user_type_id = (SELECT id FROM account_account_type WHERE name = 'Income' LIMIT 1) THEN 0 ELSE 1 END) AS sub_order,
-			(SELECT (CASE WHEN credit > 0.00 THEN (credit * -1) WHEN debit > 0.00 THEN debit ELSE 0.00 END )) AS amount
-			FROM account_move_line AS line, account_invoice AS inv, res_partner AS partner, account_account AS account, account_journal as j
-			WHERE (line.date BETWEEN '{}' AND '{}') AND line.invoice_id IS NOT NULL AND line.partner_id = partner.id AND line.invoice_id = inv.id
-			AND inv.journal_id = j.id AND line.account_id = account.id AND inv.type in ('out_invoice', 'out_refund') AND inv.state = 'open' {} {}
-			ORDER BY line.invoice_id DESC, line.id DESC)
+				line.partner_id,
+				line.invoice_id as invoice,
+				inv.number as reference,
+				inv.people_soft_registered as registered,
+				(SELECT CASE WHEN partner.customer_type = 'fund' THEN -1 ELSE inv.journal_id END) as doc_type,
+				(SELECT CASE WHEN inv.type = 'out_invoice' THEN 'invoice' ELSE 'refund' END) AS document,
+				(SELECT CASE WHEN account.user_type_id = (SELECT id FROM account_account_type WHERE name = 'Income' LIMIT 1) THEN 0 ELSE 1 END) AS sub_order,
+				(SELECT (CASE WHEN credit > 0.00 THEN (credit * -1) WHEN debit > 0.00 THEN debit ELSE 0.00 END )) AS amount
+			FROM account_move_line AS line, account_invoice AS inv, res_partner AS partner, account_account AS account, account_journal as journal
+			WHERE (line.date BETWEEN '{}' AND '{}') AND line.invoice_id = inv.id AND line.partner_id = partner.id 
+			AND inv.journal_id = journal.id AND line.account_id = account.id AND inv.type in ('out_invoice', 'out_refund') AND inv.state = 'open'
+			
+			UNION
+
+			/*
+			Consultamos ahora payment para obtener los rate off.
+			Si quisieramos a futuro agregar todo los pagos, esta seccion es el que debe modificarse 
+			*/
+			SELECT
+				line.id as id,
+				CONCAT(account.stri_fund, ',', account.stri_budget, ',', account.stri_desig, ',', account.stri_dept, ',', account.stri_account, ',', account.stri_class, ',', account.stri_program, ',', account.stri_project, ',', account.stri_activity, ',', account.stri_type) AS chartfield,
+				line.partner_id,
+				0 as invoice,
+				pay.name as reference,
+				pay.people_soft_registered as registered,
+				/*Hacemos una consulta a la factura asociada al pago para obtener el journal 
+				y asi identificar si viene de BCI o STRI para luego guardarlo en la columna doc_type*/
+				(SELECT CASE WHEN partner.customer_type = 'fund' 
+				THEN -1 ELSE (
+					SELECT inv.journal_id FROM account_invoice_payment_rel AS rel, account_invoice AS inv 
+					WHERE pay.id = rel.payment_id AND rel.invoice_id = inv.id LIMIT 1) 
+				END) as doc_type,
+				'refund' as document, /* hacemos que el pago sea tratado como una nota credito*/
+				(SELECT CASE WHEN account.user_type_id = (SELECT id FROM account_account_type WHERE name = 'Receivable' LIMIT 1) THEN 0 ELSE 1 END) AS sub_order,
+				(SELECT (CASE WHEN line.credit > 0.00 THEN (line.credit * -1) WHEN line.debit > 0.00 THEN line.debit ELSE 0.00 END )) AS amount
+			FROM account_move_line AS line, account_payment as pay, res_partner AS partner, account_account AS account, account_journal as journal
+			WHERE (line.date BETWEEN '{}' AND '{}') AND line.partner_id = partner.id AND line.payment_id = pay.id
+				AND pay.journal_id = journal.id AND line.account_id = account.id 
+				AND journal.default_debit_account_id in (SELECT AA2.id FROM account_account as AA2, account_account_type AS AT2 WHERE AA2.user_type_id = AT2.id AND AT2.name = 'Expenses')
+			ORDER BY id DESC)
 		SELECT 'ACTUALS' Ledger, 
 		split_part(chartfield, ',', 5) AS account,
 		(SELECT CASE WHEN doc_type = -1 THEN (CONCAT('REIMB_', (SELECT CASE WHEN split_part(chartfield, ',', 5) = '6998' THEN '6998' ELSE '6999' END))) ELSE '' END) as entry_event,
@@ -266,10 +315,10 @@ class PeopleSoftReport(models.AbstractModel):
 		split_part(chartfield, ',', 9) AS activity,
 		split_part(chartfield, ',', 10) AS Analysis
 		FROM people_soft_data
-		WHERE {}
+		WHERE {} {}
 		GROUP BY Ledger, account, entry_event, fund, dsgc, budget_ref, dept_id, Currency, reference, program, class, project, proj_unit,activity, doc_type, Analysis, invoice, sub_order
 		ORDER BY invoice DESC, sub_order DESC;
-		""".format(dt_from, dt_to, by_state, by_documents, by_categ)
+		""".format(dt_from, dt_to, dt_from, dt_to, by_categ, by_state)
 
 		return sql
 
