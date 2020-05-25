@@ -15,4 +15,4 @@ class InvoiceReport(models.Model):
         api = library.RestAPI()
         api.authenticate()
         # logging.info(str(api.execute('/api')))
-        logging.info('prueba REST API' + str(api.execute('/api/read/account.invoice.report?ids='+ str(self.ids))))
+        logging.info('prueba REST API' + str(api.execute('/api/read/account.invoice.report?ids=%5B375%5D&fields=%27number%27%2C%27id%27%2C%27account_line_id%27')))
