@@ -9,7 +9,8 @@ class InvoiceReport(models.Model):
     # _name= 'invoice.view'
     _inherit = 'account.invoice.report'
 
-
+    test= fields.Char(compute='action_muki_connect')
+    
     def action_muki_connect(self):
         api = library.RestAPI()
         api.authenticate()
