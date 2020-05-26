@@ -28,7 +28,7 @@ class InvoiceReport(models.Model):
 	def _compute_hs_chartfield(self):
 		for item in self:
 			temp = item.product_id.property_account_income_id.stri_fund
-			chartfield = temp
+			chartfield = temp if temp else ''"
  
 			temp = item.product_id.property_account_income_id.stri_fund
 			chartfield = (chartfield + "," + temp) if temp  else chartfield + ","
