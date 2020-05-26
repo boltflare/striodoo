@@ -5,7 +5,7 @@
             <field name="name">Reporting Wizard</field>
             <field name="model">sale.excel</field>
             <field name="arch" type="xml">
-                <form string="Sales Details">
+                <form string="Sales Details" create="false" edit="false">
                     <group>
                         <field name="file_name" invisible="1"/>
                         <field name="excel_file" filename="file_name"/>

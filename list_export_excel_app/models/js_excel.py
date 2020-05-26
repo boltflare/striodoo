@@ -28,7 +28,7 @@ class js_excel(models.TransientModel):
 			models = self.env[model].browse(ids)
 			workbook = xlwt.Workbook()
 			worksheet = workbook.add_sheet('Sheet 1')
-			filename = 'Detail Report.xls'
+			filename = 'Sales Report.xls'
 			values = self.env[model].search_read([('id','in', ids)],fields_row)
 
 			selection_value = [];
