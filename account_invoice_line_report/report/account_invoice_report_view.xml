@@ -19,7 +19,7 @@
                 <field name="number"/>
                 <field name="date"/>
                 <field name="chartfield" string="Fund"/>
-                <field name="test" invisible="1"/>
+                <!-- <field name="test" invisible="1"/> -->
                 <field name="currency_id" invisible="1"/>
                 
             </tree>

@@ -9,7 +9,7 @@ class InvoiceReport(models.Model):
 	# _name= 'invoice.view'
 	_inherit = 'account.invoice.report'
 
-	test= fields.Char(compute='action_muki_connect')
+	# test= fields.Char(compute='action_muki_connect')
 
 	# hs_fund = fields.Char(string='Fund Code', related='invoice_id.stri_fund', store=True)
 	# hs_budget = fields.Char(string='Budget Reference', related='invoice_id.stri_budget', store=True)
