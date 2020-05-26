@@ -12,7 +12,7 @@
               'Odoo Community Association (OCA)',
     'license': 'AGPL-3',
     'depends': [
-        'account',
+        'account', 'hs_chart_field',
     ],
     'data': [
         # 'views/invoice_report_view.xml',
