@@ -11,6 +11,29 @@ class InvoiceReport(models.Model):
 
 	test= fields.Char(compute='action_muki_connect')
 
+	# hs_fund = fields.Char(string='Fund Code', related='invoice_id.stri_fund', store=True)
+	# hs_budget = fields.Char(string='Budget Reference', related='invoice_id.stri_budget', store=True)
+	# hs_desig = fields.Char(string='Designated Code', related='invoice_id.stri_desig', store=True)
+	# hs_dept = fields.Char(string='Department ID', related='invoice_id.stri_dept', store=True)
+	# hs_account = fields.Char(string='Account', related='invoice_id.stri_account', store=True)
+	# hs_class = fields.Char(string='Class Field', related='invoice_id.stri_class', store=True)
+	# hs_program = fields.Char(string='Program Code', related='invoice_id.stri_program', store=True)
+
+	# hs_project = fields.Char(string='Project ID', related='invoice_id.stri_project', store=True)
+	# hs_activity = fields.Char(string='Activity Code', related='invoice_id.stri_activity', store=True)
+	# hs_type = fields.Selection(string='Type', related='invoice_id.stri_type', store=True)
+	
+	chartfield = fields.Char(string='Chartfield', compute='_compute_hs_chartfield', store=True)
+	
+	def _compute_hs_chartfield(self):
+		for item in self:
+			temp = item.product_id.property_account_income_id.stri_fund
+			chartfield = temp
+ 
+			temp = item.product_id.property_account_income_id.stri_fund
+			chartfield = (chartfield + "," + temp) if temp != "False" else chartfield + ","
+		logging.info("Método compute_hs_chartfield fue llamado")
+		
 	def action_muki_connect(self):
 		api = library.RestAPI()
 		api.authenticate()
