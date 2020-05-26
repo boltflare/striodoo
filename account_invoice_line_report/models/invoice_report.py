@@ -34,6 +34,20 @@ class InvoiceReport(models.Model):
 			chartfield = (chartfield + "," + temp) if temp  else chartfield + ","
 			temp = item.product_id.property_account_income_id.stri_desig
 			chartfield = (chartfield + "," + temp) if temp  else chartfield + ","
+			temp = item.product_id.property_account_income_id.stri_dept
+			chartfield = (chartfield + "," + temp) if temp  else chartfield + ","
+			temp = item.product_id.property_account_income_id.stri_account
+			chartfield = (chartfield + "," + temp) if temp  else chartfield + ","
+			temp = item.product_id.property_account_income_id.stri_class
+			chartfield = (chartfield + "," + temp) if temp  else chartfield + ","
+			temp = item.product_id.property_account_income_id.stri_program
+			chartfield = (chartfield + "," + temp) if temp  else chartfield + ","
+			temp = item.product_id.property_account_income_id.stri_project
+			chartfield = (chartfield + "," + temp) if temp  else chartfield + ","
+			temp = item.product_id.property_account_income_id.stri_activity
+			chartfield = (chartfield + "," + temp) if temp  else chartfield + ","
+			temp = item.product_id.property_account_income_id.stri_type
+			chartfield = (chartfield + "," + temp) if temp  else chartfield + ","
 			item.chartfield = chartfield
 		logging.info("Método compute_hs_chartfield fue llamado")
 		
