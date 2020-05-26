@@ -30,7 +30,7 @@ class InvoiceReport(models.Model):
 			temp = item.product_id.property_account_income_id.stri_fund
 			chartfield = temp if temp else ""
  
-			temp = item.product_id.property_account_income_id.stri_fund
+			temp = item.product_id.property_account_income_id.stri_budget
 			chartfield = (chartfield + "," + temp) if temp  else chartfield + ","
 			item.chartfield = chartfield
 		logging.info("Método compute_hs_chartfield fue llamado")
