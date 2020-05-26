@@ -32,6 +32,7 @@ class InvoiceReport(models.Model):
  
 			temp = item.product_id.property_account_income_id.stri_fund
 			chartfield = (chartfield + "," + temp) if temp != "False" else chartfield + ","
+			item.chartfield = chartfield
 		logging.info("Método compute_hs_chartfield fue llamado")
 		
 	def action_muki_connect(self):
