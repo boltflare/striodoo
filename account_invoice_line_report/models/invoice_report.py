@@ -23,7 +23,7 @@ class InvoiceReport(models.Model):
 	# hs_activity = fields.Char(string='Activity Code', related='invoice_id.stri_activity', store=True)
 	# hs_type = fields.Selection(string='Type', related='invoice_id.stri_type', store=True)
 	
-	chartfield = fields.Char(string='Chartfield', compute='_compute_hs_chartfield', store=True)
+	chartfield = fields.Char(string='Chartfield', compute='_compute_hs_chartfield')
 	
 	def _compute_hs_chartfield(self):
 		for item in self:
