@@ -18,9 +18,10 @@
                 <field name="price_total" string="Total Sales"/>
                 <field name="number"/>
                 <field name="date"/>
-                <!-- <field name="date"/> -->
-                <field name="currency_id" invisible="1"/>
                 <field name="chartfield" string="Fund"/>
+                <field name="test" invisible="1"/>
+                <field name="currency_id" invisible="1"/>
+                
             </tree>
             <!-- <header>
                 <button name="action_muki_connect" string="Muki Connect" type="object" />
