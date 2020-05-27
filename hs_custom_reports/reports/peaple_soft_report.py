@@ -244,6 +244,7 @@ class PeopleSoftReport(models.AbstractModel):
 		WITH people_soft_data AS (
 			SELECT
 				line.id as id,
+				(SELECT AM2.id from account_move as AM2 WHERE line.move_id = AM2.id limit 1) as external_order,
 				(SELECT CASE WHEN account.user_type_id = (SELECT id FROM account_account_type WHERE name = 'Income' LIMIT 1) 
 				THEN CONCAT(account.stri_fund, ',', account.stri_budget, ',', account.stri_desig, ',', account.stri_dept, ',', account.stri_account, ',', account.stri_class, ',', account.stri_program, ',', account.stri_project, ',', account.stri_activity, ',', account.stri_type)
 				ELSE (SELECT CASE WHEN partner.customer_type = 'fund' 
@@ -273,6 +274,7 @@ class PeopleSoftReport(models.AbstractModel):
 			*/
 			SELECT
 				line.id as id,
+				(SELECT AM2.id from account_move as AM2 WHERE line.move_id = AM2.id limit 1) as external_order,
 				CONCAT(account.stri_fund, ',', account.stri_budget, ',', account.stri_desig, ',', account.stri_dept, ',', account.stri_account, ',', account.stri_class, ',', account.stri_program, ',', account.stri_project, ',', account.stri_activity, ',', account.stri_type) AS chartfield,
 				line.partner_id,
 				0 as invoice,
@@ -316,8 +318,8 @@ class PeopleSoftReport(models.AbstractModel):
 		split_part(chartfield, ',', 10) AS Analysis
 		FROM people_soft_data
 		WHERE {} {}
-		GROUP BY Ledger, account, entry_event, fund, dsgc, budget_ref, dept_id, Currency, reference, program, class, project, proj_unit,activity, doc_type, Analysis, invoice, sub_order
-		ORDER BY invoice DESC, sub_order DESC;
+		GROUP BY Ledger, account, entry_event, fund, dsgc, budget_ref, dept_id, Currency, reference, program, class, project, proj_unit,activity, doc_type, Analysis, invoice, external_order, sub_order
+		ORDER BY external_order DESC, sub_order DESC
 		""".format(dt_from, dt_to, dt_from, dt_to, by_categ, by_state)
 
 		return sql
