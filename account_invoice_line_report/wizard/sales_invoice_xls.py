@@ -31,7 +31,7 @@ class WizardWizards(models.Model):
     def action_sale_report(self):          
 #XLS report         
         custom_value = {}
-        label_lists=['PO','POR','CLIENTREF','BARCODE','DEFAULTCODE','NAME','QTY','VENDORPRODUCTCODE','TITLE', 'PARTNERNAME', 'EMAIL', 'PHONE', 'MOBILE', 'STREET', 'STREET2', 'ZIP', 'CITY', 'COUNTRY']                    
+        # label_lists=['PO','POR','CLIENTREF','BARCODE','DEFAULTCODE','NAME','QTY','VENDORPRODUCTCODE','TITLE', 'PARTNERNAME', 'EMAIL', 'PHONE', 'MOBILE', 'STREET', 'STREET2', 'ZIP', 'CITY', 'COUNTRY']                    
         order = self.env['account.invoice.report'].browse(self._context.get('active_ids', list()))      
         workbook = xlwt.Workbook()                      
         for rec in order:              
@@ -60,11 +60,11 @@ class WizardWizards(models.Model):
             style0 = xlwt.easyxf('font: name Times New Roman bold on;align: horiz right;', num_format_str='#,##0.00')
             style1 = xlwt.easyxf('font: name Times New Roman bold on; pattern: pattern solid, fore_colour black;align: horiz center;', num_format_str='#,##0.00')
             style2 = xlwt.easyxf('font:height 400,bold True; pattern: pattern solid, fore_colour black;', num_format_str='#,##0.00')         
-            style3 = xlwt.easyxf('font:bold True;', num_format_str='#,##0.00')
-            style4 = xlwt.easyxf('font:bold True;  borders:top double;align: horiz right;', num_format_str='#,##0.00')
+            # style3 = xlwt.easyxf('font:bold True;', num_format_str='#,##0.00')
+            # style4 = xlwt.easyxf('font:bold True;  borders:top double;align: horiz right;', num_format_str='#,##0.00')
             style5 = xlwt.easyxf('font: name Times New Roman bold on;align: horiz center;', num_format_str='#,##0')
             style6 = xlwt.easyxf('font: name Times New Roman bold on;', num_format_str='#,##0.00')
-            style7 = xlwt.easyxf('font:bold True;  borders:top double;', num_format_str='#,##0.00')
+            # style7 = xlwt.easyxf('font:bold True;  borders:top double;', num_format_str='#,##0.00')
             
                           
             sheet = workbook.add_sheet(rec.name)
@@ -93,7 +93,7 @@ class WizardWizards(models.Model):
             sheet.write_merge(10, 10, 20, 23, 'FUND', style1)
             # sheet.write(10, 11, 'SUBTOTAL', style1)
             
-            n = 23; 
+            n = 23 
             for product in custom_value['products']:
                 sheet.write_merge(n, n, 1, 2, custom_value['account_line_id'], style5)  
                 sheet.write_merge(n, n, 3, 4, custom_value['partner_id'], style6)      

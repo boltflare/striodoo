@@ -38,7 +38,7 @@
 		
 
 		<act_window id="action_sale_excel" key2="client_action_multi"
-			name="Sale Invoice Excel Report " res_model="wizard.reports" src_model="sales.invoice.report"
+			name="Sale Invoice Excel Report " res_model="wizard.reports" src_model="account.invoice.report"
 			view_mode="form" target="new" />
 
 </odoo>
