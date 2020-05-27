@@ -36,7 +36,7 @@ class WizardWizards(models.Model):
         workbook = xlwt.Workbook()                      
         for rec in order:              
             sale = []                                                          
-            for line in rec.invoice_id:                              
+            for line in rec.product_id:                              
                 product = {}                                                                       
                 product ['product_id'] = line.product_id.name                                                                            
                 product ['product_qty'] = line.product_qty                            
