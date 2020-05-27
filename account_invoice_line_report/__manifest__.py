@@ -10,6 +10,7 @@
     'website': 'https://github.com/OCA/account-invoice-reporting',
     'author': 'Tecnativa, '
               'Odoo Community Association (OCA)',
+    'maintainer':'Hermec Consulting, S.A./Ceila Hernandez',
     'license': 'AGPL-3',
     'depends': [
         'account', 'hs_chart_field',
@@ -17,6 +18,7 @@
     'data': [
         # 'views/invoice_report_view.xml',
         'report/account_invoice_report_view.xml',
+        'wizard/sales_invoice_xls_view.xml',
         # 'report/report.xml',
         
     ],
