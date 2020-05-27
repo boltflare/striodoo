@@ -16,7 +16,7 @@
         'account', 'hs_chart_field',
     ],
     'data': [
-        # 'views/invoice_report_view.xml',
+        'security/ir.model.access.csv',
         'report/account_invoice_report_view.xml',
         'wizard/sales_invoice_xls_view.xml',
         # 'report/report.xml',
