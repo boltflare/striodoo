@@ -275,7 +275,13 @@ class PeopleSoftReport(models.AbstractModel):
 			SELECT
 				line.id as id,
 				(SELECT AM2.id from account_move as AM2 WHERE line.move_id = AM2.id limit 1) as external_order,
-				CONCAT(account.stri_fund, ',', account.stri_budget, ',', account.stri_desig, ',', account.stri_dept, ',', account.stri_account, ',', account.stri_class, ',', account.stri_program, ',', account.stri_project, ',', account.stri_activity, ',', account.stri_type) AS chartfield,
+				(SELECT CASE WHEN account.user_type_id = (SELECT at2.id FROM account_account_type AS at2 WHERE account.user_type_id = at2.id AND at2.name = 'Expenses' limit 1)
+				THEN CONCAT(account.stri_fund, ',', account.stri_budget, ',', account.stri_desig, ',', account.stri_dept, ',', account.stri_account, ',', account.stri_class, ',', account.stri_program, ',', account.stri_project, ',', account.stri_activity, ',', account.stri_type)
+				ELSE
+					(SELECT CONCAT(aa2.stri_fund, ',', aa2.stri_budget, ',', aa2.stri_desig, ',', aa2.stri_dept, ',', aa2.stri_account, ',', aa2.stri_class, ',', aa2.stri_program, ',', aa2.stri_project, ',', aa2.stri_activity, ',', aa2.stri_type) as strifund
+					FROM account_invoice_payment_rel AS rel, account_invoice AS inv, account_journal AS aj2, account_account AS aa2 
+					WHERE pay.id = rel.payment_id AND rel.invoice_id = inv.id AND inv.journal_id = aj2.id AND aj2.default_debit_account_id = aa2.id LIMIT 1)
+				END) AS chartfield,
 				line.partner_id,
 				0 as invoice,
 				pay.name as reference,
