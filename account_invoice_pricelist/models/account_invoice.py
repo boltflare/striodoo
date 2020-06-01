@@ -1,6 +1,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import models, fields, api
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class AccountInvoice(models.Model):
@@ -22,6 +24,7 @@ class AccountInvoice(models.Model):
                 and self.partner_id.property_product_pricelist:
             self.pricelist_id = self.partner_id.property_product_pricelist
         return result
+        logging.info('PRUEBA:' + str(result))
 
     #FUNCION PARA HACER ACTUALIZACION DE PRECIO
 
@@ -85,3 +88,4 @@ class AccountInvoiceLine(models.Model):
         """overwrite current prices from pricelist"""
         for line in self.filtered(lambda r: r.invoice_id.state == 'draft'):
             line._onchange_product_id_account_invoice_pricelist()
+        logging.info('VALOR DE LINE:' + str(line))
