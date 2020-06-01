@@ -32,7 +32,7 @@
         <field name="arch" type="xml">
             <field name="date" position="before">
                 <field name="uom_name" string="Partner Tags" filter_domain="[('partner_id.commercial_partner_id.category_id', '=', self)]"/>
-                <!-- <field name="chartfield" string="Chartfield" filter_domain="[('product_id.property_account_income_id.stri_fund', '=', self)]"/> -->
+                <field name="chartfield" string="Chartfield" filter_domain="[('product_id.property_account_income_id.stri_fund', '=', self)]"/>
                 <separator/>
             </field>
             <field name="categ_id" position="after">
@@ -46,9 +46,6 @@
             <!-- <field name="temp"/>
                     <filter string="Fund Code" name="stri_fund" domain="[('temp','=','stri_fund')]"
                             help="Invoices with items as Meal Card"/>-->
-            <xpath expr="//field[@name='duemonth']" position="after">
-                <field name="chartfield"/>
-            </xpath>
         </field>
     </record>
 
