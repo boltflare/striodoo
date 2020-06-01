@@ -44,8 +44,8 @@
             <!--TRATANDO DE APLICAR FILTROS POR CAMPOS DE CHARTFIELD-->
             <!-- <field name="temp"/>
                     <filter string="Fund Code" name="stri_fund" domain="[('temp','=','stri_fund')]"
-                            help="Invoices with items as Meal Card"/>
-        </field> -->
+                            help="Invoices with items as Meal Card"/>-->
+        </field>
     </record>
 
     <record id="action_account_invoice_line_report" model="ir.actions.act_window">
