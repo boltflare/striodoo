@@ -23,6 +23,13 @@ class AccountInvoice(models.Model):
             self.pricelist_id = self.partner_id.property_product_pricelist
         return result
 
+    #FUNCION PARA HACER ACTUALIZACION DE PRECIO
+    @api.onchange('pricelist_id','product_id')
+    def _onchange_update_prices_from_pricelist(self):
+        for inv in self.filtered(lambda r: r.state == 'draft'):
+            inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
+        self.filtered(lambda r: r.state == 'draft').compute_taxes()
+    
     @api.multi
     def button_update_prices_from_pricelist(self):
         for inv in self.filtered(lambda r: r.state == 'draft'):
