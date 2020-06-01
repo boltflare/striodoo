@@ -25,7 +25,7 @@ class AccountInvoice(models.Model):
 
     #FUNCION PARA HACER ACTUALIZACION DE PRECIO
 
-    @api.multi
+    @api.depends('pricelist_id')
     def update_prices_product_from_pricelist(self):
         for inv in self.filtered(lambda r: r.state == 'draft'):
             inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
