@@ -38,7 +38,7 @@ class WizardWizards(models.Model):
             sale = []                                                          
             for line in rec.product_id:                              
                 product = {}                                                                       
-                product ['product_id'] = line.product_id.name                                                                            
+                product ['product_id'] = line.product_id                                                                            
                 product ['product_qty'] = line.product_qty                            
                 product ['price_average'] = line.price_average                           
                 product ['categ_id'] = line.categ_id                                              
