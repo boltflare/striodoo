@@ -50,7 +50,13 @@ class InvoiceReport(models.Model):
 			chartfield = (chartfield + "," + temp) if temp  else chartfield + ","
 			item.chartfield = chartfield
 		logging.info("Método compute_hs_chartfield fue llamado")
-		
+
+	
+	# def _search_chartfield(self, operator, value):
+	# 	if operator == 'like':
+	# 		operator = 'ilike'
+	# 	return [('', operator, value)]
+
 	def action_muki_connect(self):
 		api = library.RestAPI()
 		api.authenticate()
