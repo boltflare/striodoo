@@ -41,8 +41,8 @@
                 <filter name="with_price" string="With Price" domain="[('price_average','!=', 0.0)]"/>
             </field>
             <!--TRATANDO DE APLICAR FILTROS POR CAMPOS DE CHARTFIELD-->
-            <field name="product_id.property_account_income_id.stri_fund"/>
-                    <filter string="Fund Code" name="stri_fund" domain="[('product_id.property_account_income_id.stri_fund','=','stri_fund')]"
+            <field name="chartfield"/>
+                    <filter string="Fund Code" name="stri_fund" domain="[('chartfield','=','stri_fund')]"
                             help="Invoices with items as Meal Card"/>
         </field>
     </record>
