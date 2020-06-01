@@ -30,13 +30,13 @@ class AccountInvoice(models.Model):
             inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
         self.filtered(lambda r: r.state == 'draft').compute_taxes()
     
-    @api.multi
-    def button_update_prices_from_pricelist(self):
-        for inv in self.filtered(lambda r: r.state == 'draft'):
-            inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
-        self.filtered(lambda r: r.state == 'draft').compute_taxes()
-        # if self.bool_field:
-        self.bool_field = True #Esto permite que cuando haga click en el boton, se habilite Validate
+    # @api.multi
+    # def button_update_prices_from_pricelist(self):
+    #     for inv in self.filtered(lambda r: r.state == 'draft'):
+    #         inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
+    #     self.filtered(lambda r: r.state == 'draft').compute_taxes()
+    #     # if self.bool_field:
+    #     self.bool_field = True #Esto permite que cuando haga click en el boton, se habilite Validate
     
     @api.model
     def _prepare_refund(self, invoice, date_invoice=None, date=None,
