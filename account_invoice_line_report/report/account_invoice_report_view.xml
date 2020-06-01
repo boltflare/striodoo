@@ -32,13 +32,14 @@
         <field name="arch" type="xml">
             <field name="date" position="before">
                 <field name="uom_name" string="Partner Tags" filter_domain="[('partner_id.commercial_partner_id.category_id', '=', self)]"/>
-                <field name="chartfield" string="Chartfield" filter_domain="[('product_id.property_account_income_id.stri_fund', '=', self)]"/>
+                <!-- <field name="chartfield" string="Chartfield" filter_domain="[('product_id.property_account_income_id.stri_fund', '=', self)]"/> -->
                 <separator/>
             </field>
             <field name="categ_id" position="after">
                 <separator/>
                 <filter name="without_price" string="Without Price" domain="[('price_average','=', 0.0)]"/>
                 <filter name="with_price" string="With Price" domain="[('price_average','!=', 0.0)]"/>
+                <filter name="chartfield" string="Fund Code"  domain="[('chartfield','=','stri_fund')]"/>
             </field>
             <!--TRATANDO DE APLICAR FILTROS POR CAMPOS DE CHARTFIELD-->
             <!-- <field name="temp"/>
