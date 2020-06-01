@@ -41,11 +41,14 @@
                 <filter name="with_price" string="With Price" domain="[('price_average','!=', 0.0)]"/>
                 <!-- <filter name="chartfield" string="Fund Code"  domain="[('chartfield','=','stri_fund')]"/> -->
             </field>
-            <field name="chartfield"/>
+            <!-- <field name="chartfield"/> -->
             <!--TRATANDO DE APLICAR FILTROS POR CAMPOS DE CHARTFIELD-->
             <!-- <field name="temp"/>
                     <filter string="Fund Code" name="stri_fund" domain="[('temp','=','stri_fund')]"
                             help="Invoices with items as Meal Card"/>-->
+            <xpath expr="//field[@name='duemonth']" position="after">
+                <field name="chartfield"/>
+            </xpath>
         </field>
     </record>
 
