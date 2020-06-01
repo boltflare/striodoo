@@ -30,7 +30,7 @@
         <field name="model">account.invoice.report</field>
         <field name="inherit_id" ref="account.view_account_invoice_report_search"/>
         <field name="arch" type="xml">
-            <search string="Search Invoice">
+            <search string="Invoices Analysis">
                 <field name="chartfield"/>
                 <!-- <field name="hs_state"/>  -->
 
