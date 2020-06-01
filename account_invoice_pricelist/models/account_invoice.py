@@ -26,15 +26,23 @@ class AccountInvoice(models.Model):
     
 
     #FUNCION PARA HACER ACTUALIZACION DE PRECIO
-    @api.onchange('partner_id')
-    def _onchange_prices_product_from_pricelist(self):
-        if self.partner_id and self.state == 'draft'\
-                and self.partner_id.property_product_pricelist:
-            self.pricelist_id = self.partner_id.property_product_pricelist
-            for inv in self:
-                inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
+    # @api.onchange('partner_id')
+    # def _onchange_prices_product_from_pricelist(self):
+    #     if self.partner_id and self.state == 'draft'\
+    #             and self.partner_id.property_product_pricelist:
+    #         self.pricelist_id = self.partner_id.property_product_pricelist
+    #         for inv in self:
+    #             inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
         
-    
+    @api.onchange('invoice_line_ids')
+    def _onchange_invoice_line(self):
+        try:
+            for invoice_line in self.invoice_line_ids:
+                if self.partner_id and self.invoice_line.product_id:
+                    self.invoice_line
+                 #invoice_line.product_id #Obtener producto
+                 #self.partner_id #Ver si se le aplica una lista de precios
+
     # @api.multi
     # def update_prices_product_from_pricelist(self):
     #     for inv in self.filtered(lambda r: r.state == 'draft'):
