@@ -30,6 +30,11 @@
         <field name="model">account.invoice.report</field>
         <field name="inherit_id" ref="account.view_account_invoice_report_search"/>
         <field name="arch" type="xml">
+            <search string="Search Invoice">
+                <field name="chartfield"/>
+                <!-- <field name="hs_state"/>  -->
+
+            </search>
             <field name="date" position="before">
                 <field name="uom_name" string="Partner Tags" filter_domain="[('partner_id.commercial_partner_id.category_id', '=', self)]"/>
                 <field name="chartfield" string="Chartfield" filter_domain="[('product_id.property_account_income_id.stri_fund', '=', self)]"/>
@@ -41,12 +46,12 @@
                 <filter name="with_price" string="With Price" domain="[('price_average','!=', 0.0)]"/>
             </field> -->
             <!--TRATANDO DE APLICAR FILTROS POR CAMPOS DE CHARTFIELD-->
-            <xpath expr="/search/field[@name='categ_id']" position="before">
+            <!-- <xpath expr="/search/field[@name='categ_id']" position="before">
                 
                <field name="chartfield" string="Chartfield" domain="[('chartfield','=','stri_fund')]"/>
                   <field name="stri_fund"/> #how to add that search
                  
-            </xpath>
+            </xpath> -->
         </field>
     </record>
 
