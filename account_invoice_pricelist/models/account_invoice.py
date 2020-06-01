@@ -24,7 +24,7 @@ class AccountInvoice(models.Model):
         return result
 
     #FUNCION PARA HACER ACTUALIZACION DE PRECIO
-    @api.onchange('pricelist_id','product_id')
+    @api.onchange('product_id')
     def _onchange_update_prices_from_pricelist(self):
         for inv in self.filtered(lambda r: r.state == 'draft'):
             inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
