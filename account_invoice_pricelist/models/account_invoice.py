@@ -14,7 +14,7 @@ class AccountInvoice(models.Model):
         states={'draft': [('readonly', False)]},
     )
     # Este campo permite validar si se ha hecho click en Update prices
-    bool_field = fields.Boolean('Click update', default=False)
+    # bool_field = fields.Boolean('Click update', default=False)
 
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id_account_invoice_pricelist(self):
