@@ -9,7 +9,7 @@
                 <button type="object"
                         name="button_update_prices_from_pricelist"
                         string="Update prices"
-                        attrs="{'invisible': ['|', ('pricelist_id', '=', False), ('state', 'not in', ['draft'])]}"
+                        attrs="{'invisible': ['|','|', ('pricelist_id', '=', False), ('state', 'not in', ['draft']), ('account_id', '!=', '101234 BCI FOOD SVCS')]}"
                         help="Update price in lines from the pricelist"
                 />
             </button>
