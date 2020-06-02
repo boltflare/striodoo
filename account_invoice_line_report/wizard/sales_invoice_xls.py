@@ -48,6 +48,12 @@ class WizardWizards(models.Model):
             #     sale.append(product)
                                                                                            
             # custom_value['products'] = sale               
+            custom_value ['product_id'] = rec.product_id
+            custom_value ['product_qty'] = rec.product_qty
+            custom_value ['price_average'] = rec.price_average
+            custom_value ['categ_id'] = rec.categ_id
+            custom_value ['price_unit'] = rec.price_unit
+            custom_value ['price_total'] = rec.price_total
             custom_value ['partner_id'] = rec.partner_id
             custom_value ['user_id'] = rec.user_id
             custom_value ['account_line_id'] = rec.account_line_id
@@ -94,15 +100,15 @@ class WizardWizards(models.Model):
             # sheet.write(10, 11, 'SUBTOTAL', style1)
             
             n = 23 
-            for product in custom_value['products']:
+            for custom_value in rec:
                 sheet.write_merge(n, n, 1, 2, custom_value['account_line_id'], style5)  
                 sheet.write_merge(n, n, 3, 4, custom_value['partner_id'], style6)      
                 sheet.write_merge(n, n, 5, 6, custom_value['user_id'], style0)
-                sheet.write_merge(n, n, 7, 8, product['categ_id'], style0)
-                sheet.write_merge(n, n, 9, 11, product['product_id'], style0)
-                sheet.write(n, 12, product['product_qty'], style0)
-                sheet.write(n, 13, product['price_average'], style0) 
-                sheet.write_merge(n, n, 14, 15, product['price_total'], style0)
+                sheet.write_merge(n, n, 7, 8, custom_value['categ_id'], style0)
+                sheet.write_merge(n, n, 9, 11, custom_value['product_id'], style0)
+                sheet.write(n, 12, custom_value['product_qty'], style0)
+                sheet.write(n, 13, custom_value['price_average'], style0) 
+                sheet.write_merge(n, n, 14, 15, custom_value['price_total'], style0)
                 sheet.write_merge(n, n, 16, 17, custom_value['number'], style6)
                 sheet.write_merge(n, n, 18, 19, custom_value['date'], style6)
                 sheet.write_merge(n, n, 20, 23, custom_value['chartfield'], style6)                        
