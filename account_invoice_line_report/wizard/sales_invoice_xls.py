@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from odoo import api, fields, models, _
 import xlwt
 import datetime
 import unicodedata
@@ -9,8 +10,6 @@ import io
 from io import StringIO
 import csv
 from datetime import datetime
-from odoo import api, fields, models, _
-
 
 class SalesInvoiceReport(models.Model):        
     _name = 'sales.invoice.report'
@@ -98,7 +97,7 @@ class WizardWizards(models.Model):
             sheet.write_merge(10, 10, 20, 23, 'FUND', style1)
             # sheet.write(10, 11, 'SUBTOTAL', style1)
             
-            n = 23 
+            n = 11 
             for custom_value in rec:
                 sheet.write_merge(n, n, 1, 2, custom_value['account_line_id'], style5)  
                 sheet.write_merge(n, n, 3, 4, custom_value['partner_id'], style6)      
