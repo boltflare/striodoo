@@ -26,11 +26,11 @@ class AccountInvoice(models.Model):
     @api.onchange('invoice_line_ids')
     def _onchange_from_pricelist(self):
         try:
-            for line in self.invoice_line_ids:
-                if self.partner_id and self.invoice_line.product_id:
-                    line.invoice_line_ids.filtered('product_id').update_from_pricelist()
+            for invoice_line in self.invoice_line_ids:
+                if self.partner_id and invoice_line.product_id:
+                    invoice_line.invoice_line_ids.filtered('product_id').update_from_pricelist()
                 else:
-                    line.price_unit  
+                    invoice_line.price_unit  
         except Exception:
             raise exceptions.Warning("No se ha actualizado el precio")
     
