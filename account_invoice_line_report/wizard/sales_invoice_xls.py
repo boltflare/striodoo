@@ -52,7 +52,6 @@ class WizardWizards(models.Model):
             custom_value ['product_qty'] = rec.product_qty
             custom_value ['price_average'] = rec.price_average
             custom_value ['categ_id'] = rec.categ_id
-            custom_value ['price_unit'] = rec.price_unit
             custom_value ['price_total'] = rec.price_total
             custom_value ['partner_id'] = rec.partner_id
             custom_value ['user_id'] = rec.user_id
