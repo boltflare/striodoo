@@ -67,7 +67,7 @@ class WizardWizards(models.Model):
             # style7 = xlwt.easyxf('font:bold True;  borders:top double;', num_format_str='#,##0.00')
             
                           
-            sheet = workbook.add_sheet(rec.name)
+            sheet = workbook.add_sheet(rec)
             
             sheet.write_merge(2, 3, 4, 6, 'Sales Report :', style2)
             # sheet.write_merge(2, 3, 7, 8, custom_value['partner_no'], style2)     
