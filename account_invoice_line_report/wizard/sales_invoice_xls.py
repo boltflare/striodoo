@@ -36,7 +36,7 @@ class WizardWizards(models.Model):
         workbook = xlwt.Workbook()                      
         for rec in order:              
             sale = []                                                          
-            for line in rec.product_id:                              
+            for line in rec.invoice_line:                              
                 product = {}                                                                       
                 product ['product_id'] = line.product_id                                                                            
                 product ['product_qty'] = line.product_qty                            
@@ -48,7 +48,7 @@ class WizardWizards(models.Model):
                 sale.append(product)
                                                                                            
             custom_value['products'] = sale               
-            custom_value ['partner_id'] = rec.partner_id.name
+            custom_value ['partner_id'] = rec.partner_id
             custom_value ['user_id'] = rec.user_id
             custom_value ['account_line_id'] = rec.account_line_id
             custom_value ['date'] = rec.date
