@@ -35,19 +35,19 @@ class WizardWizards(models.Model):
         order = self.env['account.invoice.report'].browse(self._context.get('active_ids', list()))      
         workbook = xlwt.Workbook()                      
         for rec in order:              
-            sale = []                                                          
-            for line in rec.invoice_id:                              
-                product = {}                                                                       
-                product ['product_id'] = line.product_id                                                                            
-                product ['product_qty'] = line.product_qty                            
-                product ['price_average'] = line.price_average                           
-                product ['categ_id'] = line.categ_id                                              
-                # product ['price_unit'] = line.price_unit                        
-                # product ['taxes_id'] = line.taxes_id.name                      
-                product ['price_total'] = str(line.price_total)+' '+line.currency_id.symbol                        
-                sale.append(product)
+            # sale = []                                                          
+            # for line in rec.invoice_id:                              
+            #     product = {}                                                                       
+            #     product ['product_id'] = line.product_id                                                                            
+            #     product ['product_qty'] = line.product_qty                            
+            #     product ['price_average'] = line.price_average                           
+            #     product ['categ_id'] = line.categ_id                                              
+            #     # product ['price_unit'] = line.price_unit                        
+            #     # product ['taxes_id'] = line.taxes_id.name                      
+            #     product ['price_total'] = str(line.price_total)+' '+line.currency_id.symbol                        
+            #     sale.append(product)
                                                                                            
-            custom_value['products'] = sale               
+            # custom_value['products'] = sale               
             custom_value ['partner_id'] = rec.partner_id
             custom_value ['user_id'] = rec.user_id
             custom_value ['account_line_id'] = rec.account_line_id
