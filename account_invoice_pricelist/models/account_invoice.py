@@ -28,7 +28,7 @@ class AccountInvoice(models.Model):
         try:
             for line in self.invoice_line_ids:
                 if self.partner_id and self.invoice_line.product_id:
-                    line.price_unit = line.product_id.pricelist_id
+                    line.invoice_line_ids.filtered('product_id').update_from_pricelist()
                 else:
                     line.price_unit  
         except Exception:
