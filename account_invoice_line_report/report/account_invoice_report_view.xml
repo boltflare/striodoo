@@ -30,9 +30,13 @@
         <field name="model">account.invoice.report</field>
         <field name="inherit_id" ref="account.view_account_invoice_report_search"/>
         <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="chartfield" string="Chartfield"/>
+            </xpath>
+            
             <field name="date" position="before">
                 <!-- <field name="uom_name" string="Partner Tags" filter_domain="[('partner_id.commercial_partner_id.category_id', '=', self)]"/> -->
-                <field name="chartfield" string="Chartfield" filter_domain="[('product_id.property_account_income_id.stri_fund', '=', self)]"/>
+                <field name="chartfield" string="Fund Code" filter_domain="[('product_id.property_account_income_id.stri_fund', '=', self)]"/>
                 <separator/>
             </field>
             <!-- <field name="categ_id" position="after">
