@@ -29,16 +29,15 @@ class AccountInvoice(models.Model):
             for invoice_line in self.invoice_line_ids:
                 if self.partner_id and invoice_line.product_id:
                     invoice_line.update_from_pricelist()
-                    # invoice_line.invoice_line_ids.product_id.update_from_pricelist()
-                
+                    # invoice_line.invoice_line_ids.product_id.update_from_pricelist()       
         except Exception:
             raise exceptions.Warning("No se ha actualizado el precio")
     
-    @api.multi
-    def button_update_prices_from_pricelist(self):
-        for inv in self.filtered(lambda r: r.state == 'draft'):
-            inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
-        self.filtered(lambda r: r.state == 'draft').compute_taxes()
+    # @api.multi
+    # def button_update_prices_from_pricelist(self):
+    #     for inv in self.filtered(lambda r: r.state == 'draft'):
+    #         inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
+    #     self.filtered(lambda r: r.state == 'draft').compute_taxes()
         # if self.bool_field:
         # self.bool_field = True #Esto permite que cuando haga click en el boton, se habilite Validate
     
