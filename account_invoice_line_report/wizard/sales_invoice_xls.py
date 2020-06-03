@@ -19,8 +19,6 @@ class SalesInvoiceReport(models.Model):
     file_name = fields.Binary('Sales Excel Report', readonly=True)
     # purchase_work = fields.Char('Name', size=256)
     # file_names = fields.Binary('Purchase CSV Report', readonly=True)
-    date_from = fields.Date(string='Start Date')
-    date_to = fields.Date(string='End Date')
     
     
     # def _get_data(self):
@@ -40,6 +38,8 @@ class WizardWizards(models.Model):
     _name = 'wizard.reports'
     _description = 'sales wizard'
     
+    date_from = fields.Date(string='Start Date')
+    date_to = fields.Date(string='End Date')
 #purchase order excel report button actions               
     @api.multi
     def action_sale_report(self):          
