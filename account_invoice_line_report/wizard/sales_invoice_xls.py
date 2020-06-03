@@ -49,19 +49,7 @@ class WizardWizards(models.Model):
         order = self.env['account.invoice.report'].browse(self._context.get('active_ids', list()))      
         workbook = xlwt.Workbook()                      
         for rec in order:              
-            # sale = []                                                          
-            # for line in rec.invoice_id:                              
-            #     product = {}                                                                       
-            #     product ['product_id'] = line.product_id                                                                            
-            #     product ['product_qty'] = line.product_qty                            
-            #     product ['price_average'] = line.price_average                           
-            #     product ['categ_id'] = line.categ_id                                              
-            #     # product ['price_unit'] = line.price_unit                        
-            #     # product ['taxes_id'] = line.taxes_id.name                      
-            #     product ['price_total'] = str(line.price_total)+' '+line.currency_id.symbol                        
-            #     sale.append(product)
-                                                                                           
-            # custom_value['products'] = sale               
+
             custom_value ['product_id'] = rec.product_id
             custom_value ['product_qty'] = rec.product_qty
             custom_value ['price_average'] = rec.price_average
@@ -89,16 +77,7 @@ class WizardWizards(models.Model):
             sheet = workbook.add_sheet('Sheet 1')
             
             sheet.write_merge(2, 3, 4, 6, 'Sales Report :', style2)
-            # sheet.write_merge(2, 3, 7, 8, custom_value['partner_no'], style2)     
-            # sheet.write(5, 1, 'Vendor', style3)
-            # sheet.write(5, 2, custom_value['partner_id'], style0)     
-            # sheet.write_merge(5, 5, 8, 9, 'Order  Date', style3)
-            # sheet.write_merge(5, 5, 10, 11, custom_value['date_order'], style0)     
-            # sheet.write_merge(6, 6, 8, 9, 'Vendor Reference', style3)
-            # sheet.write_merge(6, 6, 10, 11, custom_value['partner_ref'], style0)
-            # sheet.write_merge(7, 7, 8, 9, 'Payment Terms', style3)
-            # sheet.write_merge(7, 7, 10, 11, custom_value['payment_term_id'], style0)
-
+            
             sheet.write_merge(10, 10, 1, 2, 'DEPARTMENT', style1)                           
             sheet.write_merge(10, 10, 3, 4, 'CUSTOMER', style1)
             sheet.write_merge(10, 10, 5, 6, 'SALESPERSON', style1)        
@@ -134,45 +113,8 @@ class WizardWizards(models.Model):
             # sheet.write(n+2, 11, custom_value['amount_tax'], style4)
             # sheet.write_merge(n+3, n+3, 9, 10, 'Total', style7)
             # sheet.write(n+3, 11, custom_value['amount_total'], style4)
-#CSV report
-        # datas = []
-        # for values in order:
-        #     for value in values.order_line:
-        #         if value.product_id.seller_ids:
-        #             item = [
-        #                     str(value.order_id.name or ''),
-        #                     str(''),
-        #                     str(''),                            
-        #                     str(value.product_id.barcode or ''),
-        #                     str(value.product_id.default_code or ''),
-        #                     str(value.product_id.name or ''),
-        #                     str(value.product_qty or ''),
-        #                     str(value.product_id.seller_ids[0].product_code or ''),
-        #                     str(value.partner_id.title or ''),
-        #                     str(value.partner_id.name or ''),
-        #                     str(value.partner_id.email or ''),
-        #                     str(value.partner_id.phone or ''),
-        #                     str(value.partner_id.mobile or ''),
-        #                     str(value.partner_id.street or ''),
-        #                     str(value.partner_id.street2 or ''),
-        #                     str(value.partner_id.zip or ''),
-        #                     str(value.partner_id.city or ''),
-        #                     str(value.partner_id.country_id.name or ' '),                        
-        #                     ] 
-        #             datas.append(item)    
-            
-        # output = StringIO()
-        # label = ';'.join(label_lists)               
-        # output.write(label)         
-        # output.write("\n")
-                     
-        # for data in datas:       
-        #     record = ';'.join(data)
-        #     output.write(record)
-        #     output.write("\n")
-        # data = base64.b64encode(bytes(output.getvalue(),"utf-8"))
         
-                                
+        output = io.BytesIO()                       
         filename = ('Sale Report'+ '.xls')
         workbook.save(filename)
         fp = open(filename, "rb")
