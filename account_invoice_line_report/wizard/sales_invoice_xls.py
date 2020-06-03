@@ -115,7 +115,7 @@ class WizardWizards(models.Model):
             n=11
             for custom_value in rec:
                 # worksheet.write(row_2, col_0, value[lines][1], xlwt.easyxf
-                sheet.write_merge(n, n, 1, 2, custom_value['account_line_id'], style5)  
+                sheet.write_merge(n, n, 1, 2, 'account_line_id', style5)  
                 sheet.write_merge(n, n, 3, 4, custom_value['partner_id'], style6)      
                 sheet.write_merge(n, n, 5, 6, custom_value['user_id'], style0)
                 sheet.write_merge(n, n, 7, 8, custom_value['categ_id'], style0)
