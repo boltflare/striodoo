@@ -9,11 +9,11 @@
 				<group>
 					<group>
 						<field name="date_from"/>
-					<group/>
+					</group>
 					<group>
 						<field name="date_to"/>
-					<group/>
-				<group/>
+					</group>
+				</group>
 				<p class="oe_grey">
 				You want to Print Sales Invoice Excel Report?
 				</p>			  
