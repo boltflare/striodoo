@@ -28,7 +28,8 @@ class AccountInvoice(models.Model):
         try:
             for invoice_line in self.invoice_line_ids:
                 if self.partner_id and invoice_line.product_id:
-                    invoice_line.invoice_line_ids.product_id.update_from_pricelist()
+                    invoice_line.invoice_line_ids.filtered('product_id').update_from_pricelist()
+                    # invoice_line.invoice_line_ids.product_id.update_from_pricelist()
                 
         except Exception:
             raise exceptions.Warning("No se ha actualizado el precio")
