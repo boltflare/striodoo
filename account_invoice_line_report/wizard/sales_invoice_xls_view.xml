@@ -6,6 +6,14 @@
 			<field name="model">wizard.reports</field>
 			<field name="arch" type="xml">
 				<form string="Export Sales Invoices Report">
+				<group>
+					<group>
+						<field name="date_from"/>
+					<group/>
+					<group>
+						<field name="date_to"/>
+					<group/>
+				<group/>
 				<p class="oe_grey">
 				You want to Print Sales Invoice Excel Report?
 				</p>			  

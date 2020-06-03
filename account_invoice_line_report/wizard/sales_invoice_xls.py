@@ -19,8 +19,23 @@ class SalesInvoiceReport(models.Model):
     file_name = fields.Binary('Sales Excel Report', readonly=True)
     # purchase_work = fields.Char('Name', size=256)
     # file_names = fields.Binary('Purchase CSV Report', readonly=True)
+    date_from = fields.Date(string='Start Date')
+    date_to = fields.Date(string='End Date')
     
-   
+    
+    # def _get_data(self):
+    #     current_date = fields.Date.today()     
+    #     #used to get today’s date#
+    #     domain = []                                 
+    #     domain += [('date_from', '>=', current_date), (current_date, '<=', self.date_to)] 
+    #     #used to create a domain to filter based on the start & end date# 
+    #     res = self.env['model.model'].search(domain)
+    #     #created an environment in a variable for the model from which we need to filter the data based on the domain#
+    #     docargs = []
+    #     docargs.append(
+    #         { ‘key’ : value }
+    #         )
+
 class WizardWizards(models.Model):        
     _name = 'wizard.reports'
     _description = 'sales wizard'
@@ -28,7 +43,7 @@ class WizardWizards(models.Model):
 #purchase order excel report button actions               
     @api.multi
     def action_sale_report(self):          
-#XLS report         
+        #XLS report         
         custom_value = {}
         # label_lists=['PO','POR','CLIENTREF','BARCODE','DEFAULTCODE','NAME','QTY','VENDORPRODUCTCODE','TITLE', 'PARTNERNAME', 'EMAIL', 'PHONE', 'MOBILE', 'STREET', 'STREET2', 'ZIP', 'CITY', 'COUNTRY']                    
         order = self.env['account.invoice.report'].browse(self._context.get('active_ids', list()))      
@@ -97,21 +112,21 @@ class WizardWizards(models.Model):
             sheet.write_merge(10, 10, 20, 23, 'FUND', style1)
             # sheet.write(10, 11, 'SUBTOTAL', style1)
             
-             
-            # for custom_value in rec:
-            # worksheet.write(row_2, col_0, value[lines][1], xlwt.easyxf
-            sheet.write(11, 11, 1, custom_value['account_line_id'], style5)  
-            sheet.write_merge(11, 11, 3, 4, custom_value['partner_id'], style6)      
-            sheet.write_merge(11, 11, 5, 6, custom_value['user_id'], style0)
-            sheet.write_merge(11, 11, 7, 8, custom_value['categ_id'], style0)
-            sheet.write_merge(11, 11, 9, 11, custom_value['product_id'], style0)
-            sheet.write(11, 12, custom_value['product_qty'], style0)
-            sheet.write(11, 13, custom_value['price_average'], style0) 
-            sheet.write_merge(11, 11, 14, 15, custom_value['price_total'], style0)
-            sheet.write_merge(11, 11, 16, 17, custom_value['number'], style6)
-            sheet.write_merge(11, 11, 18, 19, custom_value['date'], style6)
-            sheet.write_merge(11, 11, 20, 23, custom_value['chartfield'], style6)                        
-            
+            n=11
+            for custom_value in rec:
+                # worksheet.write(row_2, col_0, value[lines][1], xlwt.easyxf
+                sheet.write_merge(n, n, 1, 2, custom_value['account_line_id'], style5)  
+                sheet.write_merge(n, n, 3, 4, custom_value['partner_id'], style6)      
+                sheet.write_merge(n, n, 5, 6, custom_value['user_id'], style0)
+                sheet.write_merge(n, n, 7, 8, custom_value['categ_id'], style0)
+                sheet.write_merge(n, n, 9, 11, custom_value['product_id'], style0)
+                sheet.write(n, 12, custom_value['product_qty'], style0)
+                sheet.write(n, 13, custom_value['price_average'], style0) 
+                sheet.write_merge(n, n, 14, 15, custom_value['price_total'], style0)
+                sheet.write_merge(n, n, 16, 17, custom_value['number'], style6)
+                sheet.write_merge(n, n, 18, 19, custom_value['date'], style6)
+                sheet.write_merge(n, n, 20, 23, custom_value['chartfield'], style6)                        
+                n += 1
             #     n += 1; i += 1
             # sheet.write_merge(n+1, n+1, 9, 10, 'Untaxed Amount', style7)
             # sheet.write(n+1, 11, custom_value['amount_untaxed'], style4)
