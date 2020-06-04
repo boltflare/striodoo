@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions
 
 
 class AccountInvoice(models.Model):
@@ -13,7 +13,7 @@ class AccountInvoice(models.Model):
         states={'draft': [('readonly', False)]},
     )
     # Este campo permite validar si se ha hecho click en Update prices
-    bool_field = fields.Boolean('Click update', default=False)
+    # bool_field = fields.Boolean('Click update', default=False)
 
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id_account_invoice_pricelist(self):
@@ -23,13 +23,23 @@ class AccountInvoice(models.Model):
             self.pricelist_id = self.partner_id.property_product_pricelist
         return result
 
-    @api.multi
-    def button_update_prices_from_pricelist(self):
-        for inv in self.filtered(lambda r: r.state == 'draft'):
-            inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
-        self.filtered(lambda r: r.state == 'draft').compute_taxes()
+    @api.onchange('invoice_line_ids')
+    def _onchange_from_pricelist(self):
+        try:
+            for invoice_line in self.invoice_line_ids:
+                if self.partner_id and invoice_line.product_id:
+                    invoice_line.update_from_pricelist()
+                    # invoice_line.invoice_line_ids.product_id.update_from_pricelist()       
+        except Exception:
+            raise exceptions.Warning("No se ha actualizado el precio")
+    
+    # @api.multi
+    # def button_update_prices_from_pricelist(self):
+    #     for inv in self.filtered(lambda r: r.state == 'draft'):
+    #         inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
+    #     self.filtered(lambda r: r.state == 'draft').compute_taxes()
         # if self.bool_field:
-        self.bool_field = True #Esto permite que cuando haga click en el boton, se habilite Validate
+        # self.bool_field = True #Esto permite que cuando haga click en el boton, se habilite Validate
     
     @api.model
     def _prepare_refund(self, invoice, date_invoice=None, date=None,

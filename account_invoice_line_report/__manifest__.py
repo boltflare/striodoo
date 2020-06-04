@@ -10,12 +10,18 @@
     'website': 'https://github.com/OCA/account-invoice-reporting',
     'author': 'Tecnativa, '
               'Odoo Community Association (OCA)',
+    'maintainer':'Hermec Consulting, S.A./Ceila Hernandez',
     'license': 'AGPL-3',
     'depends': [
-        'account',
+        'account', 'hs_chart_field',
     ],
     'data': [
+        #'security/ir.model.access.csv',
         'report/account_invoice_report_view.xml',
+        #'wizard/sales_invoice_xls_view.xml',
+        # 'report/report.xml',
+        
     ],
     'installable': True,
+    'external_dependencies': {'python' : ['requests_oauthlib']}
 }
