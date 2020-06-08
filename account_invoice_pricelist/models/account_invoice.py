@@ -10,7 +10,7 @@ class AccountInvoice(models.Model):
         comodel_name='product.pricelist',
         string='Pricelist',
         readonly=True,
-        # states={'draft': [('readonly', False)]},
+        states={'draft': [('readonly', False)]},
     )
     #ESTE CAMPO ES PARA OBTENER EL USUARIO LOGGEADO
     # current_user = fields.Boolean('Current user', default=False, compute='_compute_current_user')
