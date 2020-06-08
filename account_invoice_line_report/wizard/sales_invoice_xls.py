@@ -114,7 +114,7 @@ class WizardWizards(models.Model):
             # sheet.write_merge(n+3, n+3, 9, 10, 'Total', style7)
             # sheet.write(n+3, 11, custom_value['amount_total'], style4)
         
-        output = io.BytesIO()                       
+        # output = io.BytesIO()                       
         filename = ('Sale Report'+ '.xls')
         workbook.save(filename)
         fp = open(filename, "rb")

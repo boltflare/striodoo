@@ -31,7 +31,7 @@ class js_excel(models.TransientModel):
 			filename = 'Sales Report.xls'
 			values = self.env[model].search_read([('id','in', ids)],fields_row)
 
-			selection_value = [];
+			selection_value = []
 
 			for key in selection_field:
 				for value in key:
@@ -47,7 +47,7 @@ class js_excel(models.TransientModel):
 			
 			for value in values:
 				for lines in fields_row:
-					sql = "SELECT ttype FROM ir_model_fields ir inner join ir_model mo on (ir.model_id = mo.id) WHERE ir.name='%s' and mo.model='%s';" %( str(lines),str(model));
+					sql = "SELECT ttype FROM ir_model_fields ir inner join ir_model mo on (ir.model_id = mo.id) WHERE ir.name='%s' and mo.model='%s';" %( str(lines),str(model))
 					try:
 							self.env.cr.execute(sql)
 							[val] = self.env.cr.fetchone()
