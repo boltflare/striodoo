@@ -18,7 +18,7 @@ class AccountInvoice(models.Model):
     
     def _compute_current_user(self):
         user = self.env['res.users'].browse(self.env.uid)
-        if user.has_group('account.group_account_user'):
+        if user.has_group('account.group_account_manager'):
             self.current_user = True
         else:
             self.current_user = False
