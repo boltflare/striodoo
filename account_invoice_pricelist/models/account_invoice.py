@@ -9,19 +9,19 @@ class AccountInvoice(models.Model):
     pricelist_id = fields.Many2one(
         comodel_name='product.pricelist',
         string='Pricelist',
-        # readonly=True,
+        readonly=True,
         # states={'draft': [('readonly', False)]},
     )
     #ESTE CAMPO ES PARA OBTENER EL USUARIO LOGGEADO
-    current_user = fields.Boolean('Current user', default=False, compute='_compute_current_user')
-    # current_user = fields.Many2one('res.users','Current User', default=lambda self: self.env.user)
+    # current_user = fields.Boolean('Current user', default=False, compute='_compute_current_user')
+    # # current_user = fields.Many2one('res.users','Current User', default=lambda self: self.env.user)
     
-    def _compute_current_user(self):
-        user = self.env['res.users'].browse(self.env.uid)
-        if user.has_group('account.group_account_manager'):
-            self.current_user = True
-        else:
-            self.current_user = False
+    # def _compute_current_user(self):
+    #     user = self.env['res.users'].browse(self.env.uid)
+    #     if user.has_group('account.group_account_manager'):
+    #         self.current_user = True
+    #     else:
+    #         self.current_user = False
     # Este campo permite validar si se ha hecho click en Update prices
     # bool_field = fields.Boolean('Click update', default=False)
 
