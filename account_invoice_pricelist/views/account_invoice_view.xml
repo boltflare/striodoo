@@ -14,8 +14,8 @@
                 />
             </button> -->
             <field name="user_id" position="after">
-                <field name="pricelist_id"/>
-                <field name="current_user"/>
+                <field name="current_user" invisible="1"/>
+                <field name="pricelist_id" attrs="{'readonly':[('current_user', '=', False)]}"/>
             </field>
             <!-- Campo invisible para uso de activacion de botones -->
             <!-- <xpath expr="//button[@name='preview_invoice']" position="before">

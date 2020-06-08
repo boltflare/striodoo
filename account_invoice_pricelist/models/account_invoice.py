@@ -12,8 +12,16 @@ class AccountInvoice(models.Model):
         readonly=True,
         states={'draft': [('readonly', False)]},
     )
-
-    current_user = fields.Many2one('res.users','Current User', default=lambda self: self.env.user)
+    #ESTE CAMPO ES PARA OBTENER EL USUARIO LOGGEADO
+    current_user = fields.Boolean('Current user', default=False, compute='_compute_current_user')
+    # current_user = fields.Many2one('res.users','Current User', default=lambda self: self.env.user)
+    
+    def _compute_current_user(self):
+        user = self.env['res.users'].browse(self.env.uid)
+        if user.has_group('account.group_account_user'):
+            self.current_user = True
+        else:
+            self.current_user = False
     # Este campo permite validar si se ha hecho click en Update prices
     # bool_field = fields.Boolean('Click update', default=False)
 
