@@ -15,6 +15,7 @@
             </button> -->
             <field name="user_id" position="after">
                 <field name="pricelist_id"/>
+                <field name="current_user"/>
             </field>
             <!-- Campo invisible para uso de activacion de botones -->
             <!-- <xpath expr="//button[@name='preview_invoice']" position="before">

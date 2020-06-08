@@ -12,6 +12,8 @@ class AccountInvoice(models.Model):
         readonly=True,
         states={'draft': [('readonly', False)]},
     )
+
+    current_user = fields.Many2one('res.users','Current User', default=lambda self: self.env.user)
     # Este campo permite validar si se ha hecho click en Update prices
     # bool_field = fields.Boolean('Click update', default=False)
 
