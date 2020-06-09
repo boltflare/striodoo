@@ -16,12 +16,12 @@
         'account', 'hs_chart_field',
     ],
     'data': [
-        'security/ir.model.access.csv',
+        #'security/ir.model.access.csv',
         'report/account_invoice_report_view.xml',
-        'wizard/sales_invoice_xls_view.xml',
+        #'wizard/sales_invoice_xls_view.xml',
         # 'report/report.xml',
         
     ],
     'installable': True,
-    'external_dependencies': {'python' : ['requests_oauthlib']}
+    #'external_dependencies': {'python' : ['requests_oauthlib']}
 }
