@@ -28,7 +28,7 @@ class AccountInvoice(models.Model):
 		user = self.env['res.users'].browse(self.env.uid)
 		for sesion in self:
 			#user = self.env['res.users'].browse(self.env.uid)
-			sesion.login = True if user.has_group('account.group_account_manager') else False
+			sesion.login = True if not user.has_group('account.group_account_manager') else False
 			#invoice.customer_is_fund = True if customer_type == 'fund' else False
 	
 	# Este campo permite validar si se ha hecho click en Update prices
