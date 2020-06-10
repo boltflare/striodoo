@@ -13,7 +13,7 @@ class AccountInvoice(models.Model):
 		states={'draft': [('readonly', False)]},
 	)
 	#ESTE CAMPO ES PARA OBTENER EL USUARIO LOGGEADO
-	login = fields.Boolean(string="Is_login", compute="_get_current_user", default=False)
+	login = fields.Boolean(string="Is_login", compute="_get_current_user")
 	# # current_user = fields.Many2one('res.users','Current User', default=lambda self: self.env.user)
 	
 	# def _get_current_user(self):
@@ -23,13 +23,17 @@ class AccountInvoice(models.Model):
 	#     else:
 	#         self.login = False
 	
-	@api.depends('user_id')
+	@api.depends('login')
 	def _get_current_user(self):
 		user = self.env['res.users'].browse(self.env.uid)
-		for sesion in self:
-			#user = self.env['res.users'].browse(self.env.uid)
-			sesion.login = True if not user.has_group('account.group_account_manager') else False
-			#invoice.customer_is_fund = True if customer_type == 'fund' else False
+		if not user.has_group('account.group_account_manager'):
+			self.login = True
+		else:
+			self.login = False
+		# for sesion in self:
+		# 	#user = self.env['res.users'].browse(self.env.uid)
+		# 	sesion.login = True if not user.has_group('account.group_account_manager') else False
+		# 	#invoice.customer_is_fund = True if customer_type == 'fund' else False
 	
 	# Este campo permite validar si se ha hecho click en Update prices
 	# bool_field = fields.Boolean('Click update', default=False)
