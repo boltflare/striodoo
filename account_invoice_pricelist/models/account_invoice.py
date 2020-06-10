@@ -8,8 +8,7 @@ class AccountInvoice(models.Model):
 
 	pricelist_id = fields.Many2one(
 		comodel_name='product.pricelist',
-		string='Pricelist',
-		readonly=True,
+		string='Pricelist'
 	)
 	# readonly=True,
 	# states={'draft': [('readonly', False)]},
@@ -82,6 +81,8 @@ class AccountInvoice(models.Model):
 				'pricelist_id': invoice.pricelist_id.id,
 			})
 		return values
+
+
 
 	# Este metodo debe hacer la validacion si se hace click en Update Price 
 	# El campo cambie a True y habilite el boton validate
