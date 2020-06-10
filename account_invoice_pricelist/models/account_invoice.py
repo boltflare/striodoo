@@ -9,9 +9,9 @@ class AccountInvoice(models.Model):
 	pricelist_id = fields.Many2one(
 		comodel_name='product.pricelist',
 		string='Pricelist',
-		readonly=True,
-		states={'draft': [('readonly', False)]},
 	)
+	# readonly=True,
+	# states={'draft': [('readonly', False)]},
 	#ESTE CAMPO ES PARA OBTENER EL USUARIO LOGGEADO
 	login = fields.Boolean(string="Is_login", compute="_get_current_user")
 	# # current_user = fields.Many2one('res.users','Current User', default=lambda self: self.env.user)
@@ -25,8 +25,8 @@ class AccountInvoice(models.Model):
 	
 	@api.depends('login')
 	def _get_current_user(self):
+		user = self.env['res.users'].browse(self.env.uid)
 		for sesion in self:
-			user = self.env['res.users'].browse(self.env.uid)
 			sesion.login = True if not user.has_group('account.group_account_manager') else False
 		
 		# 	#invoice.customer_is_fund = True if customer_type == 'fund' else False
