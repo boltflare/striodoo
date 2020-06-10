@@ -23,7 +23,7 @@ class AccountInvoice(models.Model):
 	#     else:
 	#         self.login = False
 	
-	@api.depends('login')
+	@api.depends('login','user_id')
 	def _get_current_user(self):
 		user = self.env['res.users'].browse(self.env.uid)
 		for sesion in self:
