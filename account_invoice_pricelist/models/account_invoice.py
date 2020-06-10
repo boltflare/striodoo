@@ -15,7 +15,7 @@ class AccountInvoice(models.Model):
 	# states={'draft': [('readonly', False)]},
 	
 	#ESTE CAMPO ES PARA OBTENER EL USUARIO LOGGEADO
-	# login = fields.Boolean(string="Is_login", compute="_get_current_user")
+	login = fields.Boolean(string="Is_login", compute="_get_current_user")
 	# # current_user = fields.Many2one('res.users','Current User', default=lambda self: self.env.user)
 	
 	# def _get_current_user(self):
@@ -25,17 +25,18 @@ class AccountInvoice(models.Model):
 	#     else:
 	#         self.login = False
 	
-	# @api.depends('login','user_id')
-	# def _get_current_user(self):
-	# 	user = self.env['res.users'].browse(self.env.uid)
-	# 	for sesion in self:
-	# 		sesion.login = True if user.has_group('account.group_account_manager') else False
+	#@api.depends('login','user_id')
+	def _get_current_user(self):
+		#user = self.env['res.users'].browse(self.env.uid)
+		user = self.env.user
+		for sesion in self:
+			sesion.login = True if user.has_group('account.group_account_manager') else False
 		
 		# 	#invoice.customer_is_fund = True if customer_type == 'fund' else False
 	
 	# Este campo permite validar si se ha hecho click en Update prices
 	# bool_field = fields.Boolean('Click update', default=False)
-
+	"""
 	@api.onchange('partner_id', 'company_id')
 	def _onchange_partner_id_account_invoice_pricelist(self):
 		result = super(AccountInvoice, self)._onchange_partner_id()
@@ -43,6 +44,13 @@ class AccountInvoice(models.Model):
 				and self.partner_id.property_product_pricelist:
 			self.pricelist_id = self.partner_id.property_product_pricelist
 		return result
+	"""
+
+	@api.onchange('partner_id')
+	def get_partner_pricelist(self):
+		if self.type in ('out_invoice', 'out_refund') and self.partner_id.property_product_pricelist:
+			self.pricelist_id = self.partner_id.property_product_pricelist
+
 
 	@api.onchange('invoice_line_ids')
 	def _onchange_from_pricelist(self):
