@@ -25,14 +25,10 @@ class AccountInvoice(models.Model):
 	
 	@api.depends('login')
 	def _get_current_user(self):
-		user = self.env['res.users'].browse(self.env.uid)
-		if not user.has_group('account.group_account_manager'):
-			self.login = True
-		else:
-			self.login = False
-		# for sesion in self:
-		# 	#user = self.env['res.users'].browse(self.env.uid)
-		# 	sesion.login = True if not user.has_group('account.group_account_manager') else False
+		for sesion in self:
+			user = self.env['res.users'].browse(self.env.uid)
+			sesion.login = True if not user.has_group('account.group_account_manager') else False
+		
 		# 	#invoice.customer_is_fund = True if customer_type == 'fund' else False
 	
 	# Este campo permite validar si se ha hecho click en Update prices
