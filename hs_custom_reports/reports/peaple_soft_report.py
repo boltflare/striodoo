@@ -411,8 +411,12 @@ ORDER BY external_order DESC, sub_order DESC
 		new_options = options
 		new_options["published_entries"] = True
 		#new_options["documents"] = documents
-		self = self.with_context(docs = documents)
-		return self.print_xlsx(new_options)
+		# self = self.with_context(docs = documents)
+		# return self.print_xlsx(new_options)
+		self._build_options(None)
+		action = self.env.ref('hs_custom_reports.action_account_peaplesoft_report').read()[0]
+		action['target'] = 'main'
+		return action
 	
 
 	@api.model

@@ -17,6 +17,12 @@ class AccountInvoiceInherit(models.Model):
 		])
 	"""
 
+	def create(self, vals_list):
+		for vals in vals_list:
+			if vals.get('people_soft_registered'):
+				vals['people_soft_registered'] = False
+		return super(AccountInvoiceInherit, self).create(vals)
+
 
 	"""
 	@api.multi
