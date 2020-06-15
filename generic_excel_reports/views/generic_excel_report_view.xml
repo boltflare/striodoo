@@ -28,7 +28,7 @@
             <form string="Excel Report">
             <field name="state" invisible="1"/>
             <field name="name" invisible="1"/>
-            <group states="choose" string="Generic Excel Report">
+            <group states="choose" string="Excel Report">
             <div>
                 <h2 style="color:blue;"> Are you sure to print report? </h2>
             </div>

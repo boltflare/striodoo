@@ -261,7 +261,7 @@ class generic_excel_report_wizard(models.TransientModel):
 		self.write({
 			'state': 'get',
 			'data': base64.encodestring(file_data.getvalue()),
-			'name': "generic excel report.xls"
+			'name': "excel report.xls"
 		})
 		return {
 			'type': 'ir.actions.act_window',
@@ -325,7 +325,7 @@ class generic_excel_report_wizard(models.TransientModel):
 		self.write({
 			'state': 'get',
 			'data': base64.encodestring(file_data.getvalue()),
-			'name': "generic excel report.xls"
+			'name': "excel report.xls"
 		})
 		return {
 			'type': 'ir.actions.act_window',
@@ -415,7 +415,7 @@ class generic_excel_report_wizard(models.TransientModel):
 		self.write({
 			'state': 'get',
 			'data': base64.encodestring(file_data.getvalue()),
-			'name': "generic excel report.xls"
+			'name': "excel report.xls"
 		})
 		return {
 			'type': 'ir.actions.act_window',
