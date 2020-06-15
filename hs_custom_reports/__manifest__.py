@@ -15,12 +15,7 @@
 
 	'data': [
 		'reports/items_funds.xml',
-		'reports/people_soft_report.xml',
-		'reports/people_soft_wizard.xml',
 		'reports/stock_product.xml',
-		'data/people_soft_data.xml',
-		'views/account_journal.xml',
-		'views/people_soft_report.xml',
 	],
 		
 	'installable': True,
