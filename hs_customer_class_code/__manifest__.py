@@ -6,7 +6,7 @@
     'version': '12.0',
     'summary':'List and create class code',
     'category': 'Tool',
-    'depends': ['base', 'account'],
+    'depends': ['base', 'account', 'point_of_sale'],
     'description': """
         Is a Module to create and add class code for customers.
     """,
@@ -22,7 +22,9 @@
       'views/principal_investigator_view.xml',
       'views/regular_companies_view.xml',
       'views/res_partner_view.xml',
-     
+      'views/sale_view.xml',
+	  'views/payment_view.xml',
+	  'views/stock_picking_view.xml',
     ],
     
     'installable': True,
