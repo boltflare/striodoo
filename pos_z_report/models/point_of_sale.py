@@ -28,11 +28,8 @@ from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from openerp.exceptions import UserError, ValidationError
 
 import logging
-_logger = logging.getLogger(__name__)
-
 
 class PosConfig(models.Model):
-    _inherit = 'pos.config'
 
     mail_ids = fields.One2many('pos.mail.mail','mail_id',string="Mail")
     print_z_report = fields.Boolean('Print Z Report')
