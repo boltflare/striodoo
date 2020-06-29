@@ -39,6 +39,10 @@
 					<field name="regular_companies_id" attrs="{'invisible':[('customer_type', '!=', 'regular')]}"/>
 				</xpath>
 
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="visitor"/>
+				</xpath>
+
 			</field>
 		</record>
 	</data>
