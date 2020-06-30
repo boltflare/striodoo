@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="0">
-        <template id="cybersource_form">
+	<data noupdate="0">
+		<template id="cybersource_form">
             <input  id='payment_confirmation' name='data_set' t-att-data-action-url="tx_url" data-remove-me=""/>
             <input type="hidden" id="access_key" name="access_key" t-att-value="access_key"/>
             <input type="hidden" id="profile_id" name="profile_id" t-att-value="profile_id"/>
-            <input type="hidden" id="signed_field_names" name="signed_field_names" value="access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency"/>
+            <input type="hidden" id="signed_field_names" name="signed_field_names" t-att-value="signed_field_names"/>
             <input type="hidden" id="unsigned_field_names" name="unsigned_field_names" t-att-value="unsigned_field_names"/>
             <input type="hidden" id="signed_date_time" name="signed_date_time" t-att-value="signed_date_time"/>
             <input type="hidden" id="locale" name="locale" value="en"/>
@@ -14,7 +14,15 @@
             <input type="hidden" id="transaction_uuid" name="transaction_uuid" t-att-value="transaction_uuid"/>
             <input type="hidden" id="reference_number" name="reference_number" t-att-value="reference_number"/>
             <input type="hidden" id="amount" name="amount" t-att-value="amount"/>
+            <input type="hidden" id="line_item_count" name="line_item_count" value="0"/>
+            <input type="hidden" id="item_0_tax_amount" name="item_0_tax_amount" value="0.24"/>
             <input type="hidden" id="signature" name="signature" t-att-value="signature"/>
+            <input type="hidden" id="merchant_defined_data5" name="merchant_defined_data5" t-att-value="merchant_defined_data5"/>
+            <input type="hidden" id="merchant_defined_data6" name="merchant_defined_data6" t-att-value="merchant_defined_data6"/>
+            <input type="hidden" id="merchant_defined_data7" name="merchant_defined_data7" t-att-value="merchant_defined_data7"/>
+            <input type="hidden" id="merchant_defined_data8" name="merchant_defined_data8" t-att-value="merchant_defined_data8"/>
+            <input type="hidden" id="merchant_defined_data9" name="merchant_defined_data9" t-att-value="merchant_defined_data9"/>
+            <input type="hidden" id="merchant_defined_data10" name="merchant_defined_data10" t-att-value="merchant_defined_data10"/>
             <input type='hidden' name='c_login' t-att-value='c_login'/>
             <input type='hidden' name='c_amount' t-att-value='c_amount'/>
             <input type='hidden' name='c_show_form' t-att-value="c_show_form"/>
@@ -51,7 +59,7 @@
             <input type='hidden' name='c_ship_to_email' t-att-value="email"/>
             <input type='hidden' name='c_ship_to_state' t-att-value="state"/>
     </template>
-         <template id="cybersource_s2s_form">
+		 <template id="cybersource_s2s_form">
             <input type="hidden" name="data_set" data-create-route="/payment/cybersource/s2s/create_json_3ds"/>
             <div class="mt8">
                 <div t-att-class="'form-group col-md-12' if bootstrap_formatting else 'form-group'">
@@ -82,18 +90,31 @@
             </xpath>
         </template>
          <template id="PaymentFailed">
-                   <t t-call="web.login_layout">
-                  <form action="/shop" method="post" id="payment_failed">
-                              <div id="notfound" style="background-color: lightslategrey;">
-                                <div class="notfound">
-                                    <div class="notfound-404">
-                                        <h2 style="color: red;"><t t-esc='reason'/></h2>
-                                    </div>
-                                    <a href="/shop/payment">Back</a>
+              <t t-call="web.login_layout">
+              <form action="/shop" method="post" id="payment_failed">
+                        <div id="notfound" style="background-color: lightslategrey;">
+                            <div class="notfound">
+                                <div class="notfound-404">
+                                    <h2 style="color: red;"><t t-esc='reason'/></h2>
+                                </div>
+                                <a href="/shop/payment">Back</a>
+                            </div>
+                        </div>
+              </form>
+          </t>
+         </template>
+        <template id="PaymentFailed_cybersource">
+              <t t-call="web.login_layout">
+              <form action="/shop" method="post" id="payment_failed">
+                        <div id="notfound" style="background-color: lightslategrey;">
+                            <div class="notfound">
+                                <div class="notfound-404">
+                                    <h2 style="color: red;"><t t-esc='reason'/></h2>
                                 </div>
                             </div>
-                  </form>
-              </t>
+                        </div>
+              </form>
+          </t>
          </template>
-    </data>
+	</data>
 </odoo>

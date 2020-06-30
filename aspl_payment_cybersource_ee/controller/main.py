@@ -16,6 +16,8 @@ from requests import get
 import werkzeug
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 from werkzeug import urls, utils
+from datetime import datetime
+from dateutil import relativedelta
 import json
 from suds.sudsobject import asdict
 import logging
@@ -76,10 +78,6 @@ class WebsiteSale(WebsiteSale):
 
 class CyberSourceController(http.Controller):
     
-    _notify_url = '/payment/cybersource/feedback/'
-    _return_url = '/payment/cybersource/return/'
-    _cancel_url = '/payment/cybersource/cancel/'
-    
     def recursive_dict(self,d):
         out = {}
         for k, v in asdict(d).items():
@@ -95,6 +93,92 @@ class CyberSourceController(http.Controller):
             else:
                 out[k] = v
         return out
+    
+    @http.route(['/payment/cybersource/s2s/create_json_3ds'], type='json', auth='public', csrf=False)
+    def cybersource_s2s_create_json_3ds(self, verify_validity=False, **kwargs):
+        order_id = request.session.get('sale_order_id')
+        order = request.env['sale.order'].sudo().search([('id', '=', order_id)])
+        payment_acquirer = request.env['payment.acquirer'].sudo().search([('id', '=', kwargs.get('acquirer_id'))])
+        responseData = self.request_payment_status(kwargs)
+        data = json.loads(json.dumps(self.recursive_dict(responseData)))
+        reason = reason_code.get(data.get('reasonCode'), 'Invalid Data')
+        return_url = '/'
+        data.update({'amount' : order.amount_total,'id' : order.name, 'reason' : reason})
+        request.session['reason'] = reason
+        if responseData:
+            if data.get('reasonCode') == 100 or data.get('reasonCode') == 480:
+                token_id = request.env['payment.token'].sudo().create({'partner_id':order.partner_id.id,'acquirer_id':payment_acquirer.id,
+                            'acquirer_ref':order.name,'active':True,'name': 'XXXXXXXXXXXX%s - %s' % (kwargs.get('cc_number')[-4:], kwargs.get('cc_holder_name'))})
+                return_url = '/shop/confirmation'
+                request.session['requestID'] = data.get('requestID')
+        # transaction = request.env['payment.transaction'].sudo().form_feedback(data, 'cybersource')
+        if data.get('reasonCode') == 100 or data.get('reasonCode') == 480 :
+            return {
+                'result': True,
+                '3d_secure': False,
+                'id': token_id.id,
+                'short_name': token_id.acquirer_ref,
+                'verified': True,
+                }
+        else: 
+            return {
+                'result': True,
+                '3d_secure': False,
+                'verified': True,
+                }
+            
+    @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
+    def payment_confirmation(self, **post):
+        payment_acquirer = request.env['payment.acquirer'].sudo().search([('provider', '=', 'cybersource')])
+        payment_token = request.env['payment.token'].sudo().search([('acquirer_id', '=', payment_acquirer.id)])
+        if payment_acquirer.save_token == 'none':
+            for token_id in payment_token:
+                token_id.unlink()
+        sale_order_id = request.session.get('sale_last_order_id')
+        if sale_order_id:
+            order = request.env['sale.order'].sudo().browse(sale_order_id)
+            if not order or order.state != 'draft':
+                request.website.sale_reset()
+            return request.render("website_sale.confirmation", {'order': order})
+        else:
+            return request.redirect('/shop')
+
+    @http.route(['/payment/cybersource/response/'], type='http', auth='public', csrf=False)
+    def check_response(self, **post):
+        request.session['response_message'] = post.get('message')
+        if post.get('auth_response') == '100':
+            return werkzeug.utils.redirect('/payment/cybersource/return/')
+        else:
+            return werkzeug.utils.redirect('/payment/failed')
+
+    @http.route([
+        '/payment/cybersource/return/',
+    ], type='http', auth='public', csrf=False)
+    def cybersource_form_feedback(self, **post):
+            data = request.session.get("__payment_tx_ids__", [])
+            ten_minutes_ago = datetime.now() - relativedelta.relativedelta(minutes=10)
+            retry_limit_date = datetime.now() - relativedelta.relativedelta(days=2)
+            transaction = request.env['payment.transaction'].search([('id','in',list(data)), ('is_processed','=',False)])
+            request.env['payment.transaction'].sudo().form_feedback(transaction, 'cybersource')
+            request.session['response_message'] = False
+            return werkzeug.utils.redirect('/payment/process')
+
+    @http.route(['/payment/cybersource/cancel/',], type='http', method=['GET','POST'], auth='public', csrf=False)
+    def cybersource_form_feedback_cancel(self, **post):
+        return werkzeug.utils.redirect('/payment/failed')
+
+    @http.route(['/payment/failed'], type="http", auth="public", website=True, sitemap=False)
+    def payment_failed(self, **kwargs):
+        data = request.session.get("__payment_tx_ids__", [])
+        transaction = request.env['payment.transaction'].search([('id', 'in', list(data)), ('is_processed', '=', False)])
+        for tran in transaction:
+            tran.write({'is_processed':'True'})
+            tran._set_transaction_cancel()
+        reason = request.session.get('response_message')
+        request.session['response_message'] = False
+        if not reason:
+            reason = 'The consumer cancelled the transaction'
+        return request.render("aspl_payment_cybersource_ee.PaymentFailed_cybersource", {'reason': reason})
 
 
     def request_payment_status(self,post):
@@ -156,154 +240,3 @@ class CyberSourceController(http.Controller):
         except Exception as e:
             resp = None
         return resp    
-
-
-    @http.route(['/payment/cybersource/s2s/create_json_3ds'], type='json', auth='public', csrf=False)
-    def cybersource_s2s_create_json_3ds(self, verify_validity=False, **kwargs):
-        order_id = request.session.get('sale_order_id')
-        order = request.env['sale.order'].sudo().search([('id', '=', order_id)])
-        payment_acquirer = request.env['payment.acquirer'].sudo().search([('id', '=', kwargs.get('acquirer_id'))])
-        responseData = self.request_payment_status(kwargs)
-        data = json.loads(json.dumps(self.recursive_dict(responseData)))
-        reason = reason_code.get(data.get('reasonCode'), 'Invalid Data')
-        return_url = '/'
-        data.update({'amount' : order.amount_total,'id' : order.name, 'reason' : reason})
-        request.session['reason'] = reason
-        if responseData:
-            if data.get('reasonCode') == 100 or data.get('reasonCode') == 480:
-                token_id = request.env['payment.token'].sudo().create({'partner_id':order.partner_id.id,'acquirer_id':payment_acquirer.id,
-                            'acquirer_ref':order.name,'active':True,'name': 'XXXXXXXXXXXX%s - %s' % (kwargs.get('cc_number')[-4:], kwargs.get('cc_holder_name'))})
-                return_url = '/shop/confirmation'
-                request.session['requestID'] = data.get('requestID')
-        # transaction = request.env['payment.transaction'].sudo().form_feedback(data, 'cybersource')
-        if data.get('reasonCode') == 100 or data.get('reasonCode') == 480 :
-            return {
-                'result': True,
-                '3d_secure': False,
-                'id': token_id.id,
-                'short_name': token_id.acquirer_ref,
-                'verified': True,
-                }
-        else: 
-            return {
-                'result': True,
-                '3d_secure': False,
-                'verified': True,
-                }
-            
-    @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
-    def cybersource_payment_confirmation(self, **post):
-        payment_acquirer = request.env['payment.acquirer'].sudo().search([('provider', '=', 'cybersource')])
-        payment_token = request.env['payment.token'].sudo().search([('acquirer_id', '=', payment_acquirer.id)])
-        if payment_acquirer.save_token == 'none':
-            for token_id in payment_token:
-                token_id.unlink()
-        sale_order_id = request.session.get('sale_last_order_id')
-        if sale_order_id:
-            order = request.env['sale.order'].sudo().browse(sale_order_id)
-            if not order or order.state != 'draft':
-                request.website.sale_reset()
-            return request.render("website_sale.confirmation", {'order': order})
-        else:
-            return request.redirect('/shop')
-
-
-    @http.route('/payment/cybersource/feedback/', type='http', auth="public", csrf=False,  website=True)
-    def cybersource_form_feedback(self, **post):
-
-        try:
-            if post:
-                content = ""
-                for key, value in post.items():
-                    content = content + "'{}' : {}, ".format(key, value)
-                logging.info("____Cybersource: El valor de post es: " + content)
-        
-            reference = post.get('req_reference_number')
-            payment = request.env["payment.transaction"].sudo().search([('reference', '=', reference)], limit=1)
-            data_ids = request.session.get("__payment_tx_ids__", [])
-            exist = False
-            if payment.id in data_ids:
-                exist = True
-
-            contents = []
-            if len(data_ids) > 0:
-                transactions = request.env["payment.transaction"].sudo().browse(data_ids)
-                for transaction in transactions:
-                    data = post
-                    data['req_reference_number'] = transaction.reference
-                    data['req_amount'] = transaction.amount
-                    contents.append(data)
-
-            if exist:
-                for item in contents:
-                    logging.info("El valor de req_reference_number es %s y de req_amount es %s " % 
-                        (item.get('req_reference_number'), item.get('req_amount')))
-                    request.env['payment.transaction'].sudo().form_feedback(item, 'cybersource')
-            else:
-                request.env['payment.transaction'].sudo().form_feedback(post, 'cybersource')
-            
-            #request.env['payment.transaction'].sudo().form_feedback(post, 'cybersource')
-            # return werkzeug.utils.redirect('/payment/process')
-            return ''
-        except Exception as __ERROR:
-            logging.error(__ERROR)
-            return False
-
-
-    @http.route([
-        '/payment/cybersource/return/',
-        '/payment/cybersource/cancel/',
-    ], type='http', auth='public', csrf=False)
-    def cybersource_payment_return(self, **post):
-        #data = request.session.get("__payment_tx_ids__", [])
-        logging.info("____Cybersource: El valor de session en cybersource_final_step es: " + str(request.session))
-        #request.env['payment.transaction'].sudo().form_feedback(data, 'cybersource')
-        return werkzeug.utils.redirect('/payment/process')
-
-
-        """
-        if sale_order_id is None:
-            order = request.website.sale_get_order()
-        else:
-            order = request.env['sale.order'].sudo().browse(sale_order_id)
-            assert order.id == request.session.get('sale_last_order_id')
-
-        data = {}
-        data.update({'amount': order.amount_total, 'id': str(order.name).split('-')[0], 'reason': 'Success'})
-        transaction_id = request.env['payment.transaction'].sudo().form_feedback(data, 'cybersource')
-        if transaction_id:
-            tx = request.env['payment.transaction'].sudo().browse(transaction_id)
-            assert tx in order.transaction_ids()
-        elif order:
-            tx = order.get_portal_last_transaction()
-        else:
-            tx = None
-
-        if not order or (order.amount_total and not tx):
-            return request.redirect('/shop')
-
-        if order and not order.amount_total and not tx:
-            return request.redirect(order.get_portal_url())
-
-        # clean context and session, then redirect to the confirmation page
-        request.website.sale_reset()
-        if tx and tx.state == 'draft':
-            return request.redirect('/shop')
-        
-
-    @http.route([
-        '/payment/cybersource/return/',
-        '/payment/cybersource/cancel/',
-    ], type='http', auth='public', csrf=False)
-    def cybersource_form_feedback(self, **post):
-         
-        if post:
-            content = ""
-            for key, value in post.items():
-                content = content + "'{}' : {}, ".format(key, value)
-            logging.warning("____El valor de post es: " + content)
-            
-        data = request.session.get("__payment_tx_ids__", [])
-        request.env['payment.transaction'].sudo().form_feedback(data, 'cybersource')
-        return werkzeug.utils.redirect('/payment/process')
-    """
