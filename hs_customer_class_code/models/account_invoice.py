@@ -18,8 +18,8 @@ class accountInvoiceInherit2(models.Model):
 	#btn_credit_note = fields.Boolean(compute="_compute_btn_credit_note", string="Activar button credit note")
 	#CAMPO PARA SOBRESCRIBIR EL CAMPO DE FECHA
 	date_invoice = fields.Date(string='Invoice Date',
-        readonly=True, states={'draft': [('readonly', False)]}, default = fields.Date.context_today, index=True,
-        help="Keep empty to use the current date", copy=False)
+		readonly=True, states={'draft': [('readonly', False)]}, default = fields.Date.context_today, index=True,
+		help="Keep empty to use the current date", copy=False)
 
 
 	@api.depends('partner_id')
@@ -29,6 +29,14 @@ class accountInvoiceInherit2(models.Model):
 			customer_type = invoice.partner_id.customer_type
 			invoice.customer_is_fund = True if customer_type == 'fund' else False
 
+	@api.model
+	def create(self, values):
+		if values.get('origin') and values.get('type') == 'out_refund':
+			reference = values.get('origin')
+			invoice = self.env['account.invoice'].search([('number', '=', reference)], limit=1)
+			values['class_code'] = invoice.class_code.id
+		return super(accountInvoiceInherit2, self).create(values)
+	
 	"""
 	@api.depends('type')
 	def _compute_btn_credit_note(self):
