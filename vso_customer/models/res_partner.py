@@ -32,7 +32,7 @@ class ResPartnerInherit(models.Model):
 				'model': "res.partner",
 				'values': json.dumps(values),
 				'domain': json.dumps([['customer_type', '=', "regular"]]),
-				'fields': json.dumps(['name', 'visitor_id', 'email']),
+				#'fields': json.dumps(['name', 'visitor_id', 'email']),
 			}
 			response = api.execute('/api/create', type="POST", data=data)
 			customer = next(iter(response))
