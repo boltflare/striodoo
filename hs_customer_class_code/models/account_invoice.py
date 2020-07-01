@@ -34,7 +34,7 @@ class accountInvoiceInherit2(models.Model):
 		if values.get('origin') and values.get('type') == 'out_refund':
 			reference = values.get('origin')
 			invoice = self.env['account.invoice'].search([('number', '=', reference)], limit=1)
-			values['class_code'] = invoice.class_code.id
+			values['class_code'] = invoice.class_code.id if invoice.customer_type == 'fund' else False
 		return super(accountInvoiceInherit2, self).create(values)
 	
 	"""
