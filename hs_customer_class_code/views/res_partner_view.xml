@@ -40,7 +40,7 @@
 				</xpath>
 
 				<xpath expr="//field[@name='regular_companies_id']" position="before">
-					<field name="visitor_id"/>
+					<field name="visitor"/>
 				</xpath>
 
 			</field>
