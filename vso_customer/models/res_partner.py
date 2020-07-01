@@ -34,7 +34,7 @@ class ResPartnerInherit(models.Model):
 				'domain': json.dumps([['customer_type', '=', "regular"]]),
 				#'fields': json.dumps(['name', 'visitor_id', 'email']),
 			}
-			response = api.execute('/api/create', type="POST", data=data)
+			response = api.execute('/api/custom/vso', type="POST", data=data)
 			customer = next(iter(response))
 		# data = {
 		# 	'model': "account.invoice",
