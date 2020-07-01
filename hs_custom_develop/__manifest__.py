@@ -22,6 +22,7 @@
 		'views/stock_view.xml',
 		'views/point_of_sale.xml',
 		'views/pos_session.xml',
+		'views/res_config_setting.xml',
 		'wizard/acc_acc_budget.xml',
 		'wizard/res_partner_budget.xml',
 	],
