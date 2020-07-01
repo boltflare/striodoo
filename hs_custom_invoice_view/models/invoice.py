@@ -7,6 +7,10 @@ class InvoiceInherit2(models.Model):
 	# _inherit = ['todo.task', 'mail.thread']
 
 	# is_fund = fields.Boolean(string="Is Fund")
+	#CAMPO PARA SOBRESCRIBIR EL CAMPO DE FECHA
+	date_invoice = fields.Date(string='Invoice Date',
+        readonly=True, states={'draft': [('readonly', False)]}, default = fields.Date.context_today, index=True,
+        help="Keep empty to use the current date", copy=False)
 
 	note =  fields.Char(string='Description')
 
