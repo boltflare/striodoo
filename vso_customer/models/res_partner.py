@@ -22,7 +22,7 @@ class ResPartnerInherit(models.Model):
 		logging.info(str(api.execute('/api/custom/vso')))
 
 		# CREATE CUSTOMER
-		#customer = ''
+		customer = ''
 		if not customer:
 			values = {
 				'name': "Prueba VSO",
