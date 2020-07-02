@@ -37,6 +37,17 @@ class ResPartnerInherit(models.Model):
 			}
 			response = api.execute('/api/custom/vso', type="POST", data=data)
 			customer = next(iter(response))
+		
+		# check customer
+		data = {
+    		'model': "res.partner",
+    		'domain': json.dumps([['visitor', '=', "23"]]),
+    		'limit': 1
+		}
+		response = api.execute('/api/custom/search/vso', data=data)
+		customer = next(iter(response), False)
+		
+		
 		# data = {
 		# 	'model': "account.invoice",
 		# 	'domain': json.dumps([['type', '=', "out_invoice"], ['state', '!=', 'draft']]),
