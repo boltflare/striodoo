@@ -19,9 +19,23 @@ class ResPartnerInherit(models.Model):
 		
 		# test API
 		logging.info(str(api.execute('/api')))
-		logging.info(str(api.execute('/api/custom/create/vso')))
+		logging.info(str(api.execute('/api/custom/search_create/vso')))
 
-		#SEARCH AND CREATE CUSTOMER 
+		#SEARCH AND CREATE CUSTOMER
+		data = {
+			'model': "rest.partner",
+			#'values': json.dumps(values),
+			#'domain': json.dumps([['type', '=', "out_invoice"], ['state', '!=', 'draft']]),
+			'fields': json.dumps(['name', 'visitor' 'email']),
+		}
+		response = api.execute('/api/custom/search_create/vso', data=data)
+		for entry in response:
+			name = entry.get('name')
+			visitor_num = entry.get('visitor')
+			email = entry.get('email')
+			self.env["muki.rest"].create({'name':name,'visit':visitor_num,'email':email,})
+		logging.info(str(response)) 
+
 		""" values = {
 			'name': "Prueba VSO",
 			'visitor': "59",
