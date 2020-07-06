@@ -8,7 +8,7 @@ class MukiREST(models.Model):
 
 	name = fields.Char("Nombre")
 	amount = fields.Char("Email")
-	visita = fields.Char("Visitor ID")
+	# visita = fields.Char("Visitor ID")
 
 
 

@@ -23,15 +23,15 @@ class ResPartnerInherit(models.Model):
 
 		data = {
 			'model': "res.partner",
-			'domain': json.dumps([['customer_type', '=', "regular"], ['visitor', '!=', False]]),
-			'fields': json.dumps(['name', 'email','visitor']),
+			'domain': json.dumps([['customer_type', '=', "person"]]),
+			'fields': json.dumps(['name', 'email']),
 		}
-		response = api.execute('/api/custom/customer/vso', data=data)
+		response = api.execute('/api/search_read', data=data)
 		for entry in response:
 			number = entry.get('name')
 			total = entry.get('email')
-			visit = entry.get('visitor')
-			self.env["muki.rest"].create({'name':number,'amount':total,'visita':visit})
+			# visit = entry.get('visitor')
+			self.env["muki.rest"].create({'name':number,'amount':total})
 		logging.info(str(response))
 
 
