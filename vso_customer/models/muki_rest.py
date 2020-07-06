@@ -6,8 +6,9 @@ class MukiREST(models.Model):
 	_name = "muki.rest"
 	_description = "Ejemplo Muki Rest"
 
-	name = fields.Char("Factura")
-	amount = fields.Float("Cantidad")
+	name = fields.Char("Customer")
+	email = fields.Char("Email")
+	visitor_num = fields.Char("Visitor ID")
 
 
 
