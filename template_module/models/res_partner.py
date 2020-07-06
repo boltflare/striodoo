@@ -21,18 +21,30 @@ class ResPartnerInherit(models.Model):
 		logging.info(str(api.execute('/api')))
 		logging.info(str(api.execute('/api/user')))
 
-		data = {
-			'model': "res.partner",
-			'domain': json.dumps([['customer_type', '=', "person"]]),
-			'fields': json.dumps(['name', 'email']),
-		}
-		response = api.execute('/api/search_read', data=data)
-		for entry in response:
-			number = entry.get('name')
-			total = entry.get('email')
-			# visit = entry.get('visitor')
-			self.env["muki.rest"].create({'name':number,'amount':total})
-		logging.info(str(response))
+		# create customer
+		if not customer:
+			values = {
+				'name': "Sample Customer",
+			}
+			data = {
+				'model': "res.partner",
+				'values': json.dumps(values),
+			}
+			response = api.execute('/api/create', type="POST", data=data)
+			customer = next(iter(response))
+			
+		# data = {
+		# 	'model': "res.partner",
+		# 	'domain': json.dumps([['customer_type', '=', "person"]]),
+		# 	'fields': json.dumps(['name', 'email']),
+		# }
+		# response = api.execute('/api/search_read', data=data)
+		# for entry in response:
+		# 	number = entry.get('name')
+		# 	total = entry.get('email')
+		# 	# visit = entry.get('visitor')
+		# 	self.env["muki.rest"].create({'name':number,'amount':total})
+		# logging.info(str(response))
 
 
 		"""
