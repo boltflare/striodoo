@@ -24,21 +24,21 @@ class ResPartnerInherit(models.Model):
 		#SEARCH AND CREATE CUSTOMER 
 		values = {
 			'name': "Prueba VSO",
-			'visitor_id': "59",
+			'visitor': "59",
 			'email': "chernandez@hermecsolutions.com",
 		}
 		data = {
 			'model': "account.invoice",
 			'values': json.dumps(values),
-		 	#'domain': json.dumps([['type', '=', "out_invoice"], ['state', '!=', 'draft']]),
-		 	#'fields': json.dumps(['number', 'amount_total']),
+			 #'domain': json.dumps([['type', '=', "out_invoice"], ['state', '!=', 'draft']]),
+			 #'fields': json.dumps(['number', 'amount_total']),
 		}
 		response = api.execute('/api/custom/create/vso', data=data)
 		for entry in response:
-		 	name = entry.get('name')
-		 	email = entry.get('email')
+			name = entry.get('name')
 			visitor_num = entry.get('visitor')
-		 	self.env["muki.rest"].create({'name':name,'email':email, 'visit':visitor_num})
+			email = entry.get('email')
+			self.env["muki.rest"].create({'name':name,'visit':visitor_num,'email':email,})
 		logging.info(str(response))
 
 
@@ -61,9 +61,9 @@ class ResPartnerInherit(models.Model):
 		
 		# check customer
 		# data = {
-    	# 	'model': "res.partner",
-    	# 	'domain': json.dumps([['visitor', '=', "23"]]),
-    	# 	'limit': 1
+		# 	'model': "res.partner",
+		# 	'domain': json.dumps([['visitor', '=', "23"]]),
+		# 	'limit': 1
 		# }
 		# response = api.execute('/api/custom/search/vso', data=data)
 		# customer = next(iter(response), False)
