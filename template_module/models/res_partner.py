@@ -31,7 +31,7 @@ class ResPartnerInherit(models.Model):
 				'model': "res.partner",
 				'values': json.dumps(values),
 			}
-			response = api.execute('/api/create', type="POST", data=data)
+			response = api.execute('/api/custom/create/vso', type="POST", data=data)
 			customer = next(iter(response))
 
 		# data = {
