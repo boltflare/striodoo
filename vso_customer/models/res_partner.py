@@ -23,9 +23,9 @@ class ResPartnerInherit(models.Model):
 
 		#SEARCH AND CREATE CUSTOMER
 		data = {
-			'model': "rest.partner",
+			'model': "res.partner",
 			#'values': json.dumps(values),
-			#'domain': json.dumps([['type', '=', "out_invoice"], ['state', '!=', 'draft']]),
+			'domain': json.dumps([['customer_type', '=', "regular"]]),
 			'fields': json.dumps(['name', 'visitor' 'email']),
 		}
 		response = api.execute('/api/custom/search_create/vso', data=data)
