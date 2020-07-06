@@ -21,40 +21,18 @@ class ResPartnerInherit(models.Model):
 		logging.info(str(api.execute('/api')))
 		logging.info(str(api.execute('/api/custom/search_create/vso')))
 
-		#SEARCH AND CREATE CUSTOMER
-		data = {
-			'model': "res.partner",
-			#'values': json.dumps(values),
-			'domain': json.dumps([['customer_type', '=', "regular"]]),
-			'fields': json.dumps(['name', 'visitor' 'email']),
-		}
-		api.execute('/api/custom/customer/vso', data=data)
-		# for entry in response:
-		# 	name = entry.search('name')
-		# 	visitor_num = entry.search('visitor')
-		# 	email = entry.search('email')
-		# 	self.env["muki.rest"].create({'name':name,'visit':visitor_num,'email':email,})
-		# logging.info(str(response)) 
-
-		""" values = {
-			'name': "Prueba VSO",
-			'visitor': "59",
-			'email': "chernandez@hermecsolutions.com",
-		}
-		data = {
-			'model': "account.invoice",
-			'values': json.dumps(values),
-			 #'domain': json.dumps([['type', '=', "out_invoice"], ['state', '!=', 'draft']]),
-			 #'fields': json.dumps(['number', 'amount_total']),
-		}
-		response = api.execute('/api/custom/create/vso', data=data)
-		for entry in response:
-			name = entry.post('name')
-			visitor_num = entry.post('visitor')
-			email = entry.post('email')
-			self.env["muki.rest"].create({'name':name,'visit':visitor_num,'email':email,})
-		logging.info(str(response)) """
-
+		# create customer
+		if not customer:
+			values = {
+				'name': "Sample Customer",
+			}
+			data = {
+				'model': "res.partner",
+				'values': json.dumps(values),
+			}
+			response = api.execute('/api/custom/create/vso', type="POST", data=data)
+			customer = next(iter(response))
+		
 
 		# CREATE CUSTOMER
 		""" customer = ''
