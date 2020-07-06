@@ -28,13 +28,13 @@ class ResPartnerInherit(models.Model):
 			'domain': json.dumps([['customer_type', '=', "regular"]]),
 			'fields': json.dumps(['name', 'visitor' 'email']),
 		}
-		response = api.execute('/api/custom/search_create/vso', data=data)
-		for entry in response:
-			name = entry.search('name')
-			visitor_num = entry.search('visitor')
-			email = entry.search('email')
-			self.env["muki.rest"].create({'name':name,'visit':visitor_num,'email':email,})
-		logging.info(str(response)) 
+		api.execute('/api/custom/customer/vso', data=data)
+		# for entry in response:
+		# 	name = entry.search('name')
+		# 	visitor_num = entry.search('visitor')
+		# 	email = entry.search('email')
+		# 	self.env["muki.rest"].create({'name':name,'visit':visitor_num,'email':email,})
+		# logging.info(str(response)) 
 
 		""" values = {
 			'name': "Prueba VSO",
