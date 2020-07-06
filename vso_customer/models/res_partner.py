@@ -21,8 +21,29 @@ class ResPartnerInherit(models.Model):
 		logging.info(str(api.execute('/api')))
 		logging.info(str(api.execute('/api/custom/create/vso')))
 
+		#SEARCH AND CREATE CUSTOMER 
+		values = {
+			'name': "Prueba VSO",
+			'visitor_id': "59",
+			'email': "chernandez@hermecsolutions.com",
+		}
+		data = {
+			'model': "account.invoice",
+			'values': json.dumps(values),
+		 	#'domain': json.dumps([['type', '=', "out_invoice"], ['state', '!=', 'draft']]),
+		 	#'fields': json.dumps(['number', 'amount_total']),
+		}
+		response = api.execute('/api/custom/create/vso', data=data)
+		for entry in response:
+		 	name = entry.get('name')
+		 	email = entry.get('email')
+			visitor_num = entry.get('visitor')
+		 	self.env["muki.rest"].create({'name':name,'email':email, 'visit':visitor_num})
+		logging.info(str(response))
+
+
 		# CREATE CUSTOMER
-		customer = ''
+		""" customer = ''
 		if not customer:
 			values = {
 				'name': "Prueba VSO",
@@ -36,7 +57,7 @@ class ResPartnerInherit(models.Model):
 				#'fields': json.dumps(['name', 'visitor_id', 'email']),
 			}
 			response = api.execute('/api/custom/create/vso', type="POST", data=data)
-			customer = next(iter(response))
+			customer = next(iter(response)) """
 		
 		# check customer
 		# data = {
