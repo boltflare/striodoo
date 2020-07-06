@@ -19,7 +19,7 @@ class ResPartnerInherit(models.Model):
 		
 		# test API
 		logging.info(str(api.execute('/api')))
-		logging.info(str(api.execute('/api/custom/create/vso')))
+		logging.info(str(api.execute('/api/custom/search_create/vso')))
 
 		#SEARCH AND CREATE CUSTOMER 
 		values = {
@@ -33,11 +33,11 @@ class ResPartnerInherit(models.Model):
 			 #'domain': json.dumps([['type', '=', "out_invoice"], ['state', '!=', 'draft']]),
 			 #'fields': json.dumps(['number', 'amount_total']),
 		}
-		response = api.execute('/api/custom/create/vso', data=data)
+		response = api.execute('/api/custom/search_create/vso', data=data)
 		for entry in response:
-			name = entry.post('name')
-			visitor_num = entry.post('visitor')
-			email = entry.post('email')
+			name = entry.get('name')
+			visitor_num = entry.get('visitor')
+			email = entry.get('email')
 			self.env["muki.rest"].create({'name':name,'visit':visitor_num,'email':email,})
 		logging.info(str(response))
 
