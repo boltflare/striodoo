@@ -19,7 +19,7 @@ class ResPartnerInherit(models.Model):
 		
 		# test API
 		logging.info(str(api.execute('/api')))
-		logging.info(str(api.execute('/api/custom/vso')))
+		logging.info(str(api.execute('/api/custom/create/vso')))
 
 		# CREATE CUSTOMER
 		customer = ''
@@ -35,7 +35,7 @@ class ResPartnerInherit(models.Model):
 				#'domain': json.dumps([['customer_type', '=', "regular"]]),
 				#'fields': json.dumps(['name', 'visitor_id', 'email']),
 			}
-			response = api.execute('/api/custom/vso', type="POST", data=data)
+			response = api.execute('/api/custom/create/vso', type="POST", data=data)
 			customer = next(iter(response))
 		
 		# check customer

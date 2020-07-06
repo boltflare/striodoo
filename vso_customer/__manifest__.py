@@ -26,8 +26,8 @@
 
 	# always loaded
 	'data': [
-		#'security/ir.model.access.csv',
-		#'views/muki_rest.xml',
+		'security/ir.model.access.csv',
+		'views/muki_rest.xml',
 		'views/res_partner.xml',
 	],
 	# only loaded in demonstration mode
