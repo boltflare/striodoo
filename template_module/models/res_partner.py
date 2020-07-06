@@ -22,17 +22,17 @@ class ResPartnerInherit(models.Model):
 		logging.info(str(api.execute('/api/user')))
 
 		# create customer
-		customer=""
-		if not customer:
-			values = {
-				'name': "Sample Customer",
-			}
-			data = {
-				'model': "res.partner",
-				'values': json.dumps(values),
-			}
-			response = api.execute('/api/custom/create/vso', type="POST", data=data)
-			customer = next(iter(response))
+		
+		# check customer
+		data = {
+			'model': "res.partner",
+			'domain': json.dumps([['name', '=', "Prueba VSO"]]),
+			'limit': 1
+		}
+		response = api.execute('/api/custom/create/vso', data=data)
+		customer = next(iter(response), False)
+		
+		
 
 		# data = {
 		# 	'model': "res.partner",
