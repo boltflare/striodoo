@@ -30,9 +30,9 @@ class ResPartnerInherit(models.Model):
 		}
 		response = api.execute('/api/custom/search_create/vso', data=data)
 		for entry in response:
-			name = entry.get('name')
-			visitor_num = entry.get('visitor')
-			email = entry.get('email')
+			name = entry.search('name')
+			visitor_num = entry.search('visitor')
+			email = entry.search('email')
 			self.env["muki.rest"].create({'name':name,'visit':visitor_num,'email':email,})
 		logging.info(str(response)) 
 
