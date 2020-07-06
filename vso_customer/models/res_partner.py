@@ -57,7 +57,7 @@ class ResPartnerInherit(models.Model):
 
 
 		# CREATE CUSTOMER
-		customer = ''
+		""" customer = ''
 		if not customer:
 			values = {
 				'name': "Prueba VSO",
@@ -71,7 +71,7 @@ class ResPartnerInherit(models.Model):
 				#'fields': json.dumps(['name', 'visitor_id', 'email']),
 			}
 			response = api.execute('/api/custom/create/vso', type="POST", data=data)
-			customer = next(iter(response))
+			customer = next(iter(response)) """
 		
 		# check customer
 		# data = {
