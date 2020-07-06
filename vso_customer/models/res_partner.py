@@ -47,11 +47,11 @@ class ResPartnerInherit(models.Model):
 		if not customer:
 			values = {
 				'name': "Prueba VSO",
-				'visitor_id': "59",
+				'visitor_num': "59",
 				'email': "chernandez@hermecsolutions.com",
 			}
 			data = {
-				'model': "res.partner",
+				'model': "muki.rest",
 				'values': json.dumps(values),
 				#'domain': json.dumps([['customer_type', '=', "regular"]]),
 				#'fields': json.dumps(['name', 'visitor_id', 'email']),
