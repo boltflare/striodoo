@@ -22,7 +22,7 @@ class ResPartnerInherit(models.Model):
 		logging.info(str(api.execute('/api/custom/create/vso')))
 
 		#SEARCH AND CREATE CUSTOMER 
-""" 		values = {
+		""" values = {
 			'name': "Prueba VSO",
 			'visitor': "59",
 			'email': "chernandez@hermecsolutions.com",
@@ -33,11 +33,11 @@ class ResPartnerInherit(models.Model):
 			 #'domain': json.dumps([['type', '=', "out_invoice"], ['state', '!=', 'draft']]),
 			 #'fields': json.dumps(['number', 'amount_total']),
 		}
-		response = api.execute('/api/custom/search_create/vso', data=data)
+		response = api.execute('/api/custom/create/vso', data=data)
 		for entry in response:
-			name = entry.get('name')
-			visitor_num = entry.get('visitor')
-			email = entry.get('email')
+			name = entry.post('name')
+			visitor_num = entry.post('visitor')
+			email = entry.post('email')
 			self.env["muki.rest"].create({'name':name,'visit':visitor_num,'email':email,})
 		logging.info(str(response)) """
 
@@ -47,11 +47,11 @@ class ResPartnerInherit(models.Model):
 		if not customer:
 			values = {
 				'name': "Prueba VSO",
-				'visitor_num': "59",
+				'visitor_id': "59",
 				'email': "chernandez@hermecsolutions.com",
 			}
 			data = {
-				'model': "muki.rest",
+				'model': "res.partner",
 				'values': json.dumps(values),
 				#'domain': json.dumps([['customer_type', '=', "regular"]]),
 				#'fields': json.dumps(['name', 'visitor_id', 'email']),
