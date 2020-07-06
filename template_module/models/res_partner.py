@@ -22,6 +22,7 @@ class ResPartnerInherit(models.Model):
 		logging.info(str(api.execute('/api/user')))
 
 		# create customer
+		customer=""
 		if not customer:
 			values = {
 				'name': "Sample Customer",
@@ -32,7 +33,7 @@ class ResPartnerInherit(models.Model):
 			}
 			response = api.execute('/api/create', type="POST", data=data)
 			customer = next(iter(response))
-			
+
 		# data = {
 		# 	'model': "res.partner",
 		# 	'domain': json.dumps([['customer_type', '=', "person"]]),
