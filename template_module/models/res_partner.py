@@ -22,15 +22,16 @@ class ResPartnerInherit(models.Model):
 		logging.info(str(api.execute('/api/user')))
 
 		data = {
-			'model': "account.invoice",
-			'domain': json.dumps([['type', '=', "out_invoice"], ['state', '!=', 'draft']]),
-			'fields': json.dumps(['number', 'amount_total']),
+			'model': "res.partner",
+			'domain': json.dumps([['customer_type', '=', "regular"], ['visitor', '!=', False]]),
+			'fields': json.dumps(['name', 'email','visitor']),
 		}
-		response = api.execute('/api/search_read', data=data)
+		response = api.execute('/api/custom/customer/vso', data=data)
 		for entry in response:
-			number = entry.get('number')
-			total = entry.get('amount_total')
-			self.env["muki.rest"].create({'name':number,'amount':total})
+			number = entry.get('name')
+			total = entry.get('email')
+			visit = entry.get('visitor')
+			self.env["muki.rest"].create({'name':number,'amount':total,'visita':visit})
 		logging.info(str(response))
 
 
