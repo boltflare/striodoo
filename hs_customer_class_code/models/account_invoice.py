@@ -42,7 +42,7 @@ class accountInvoiceInherit2(models.Model):
     def search_classcode(self, cr, uid, ids, context=None): 
         record= []
         for rec in self.browse(cr, uid, ids, context): 
-            record.append((rec.class_code.id, (rec.class_code.code) + rec.class_code.name))
+            record.append((rec.class_code.code, (rec.class_code.code) + rec.class_code.name))
             # searching = rec.env['class.code'].search([('code', '=', rec.class_code.id),('name', '=', rec.class_code.name)])
             # record.append((searching))
         return record
