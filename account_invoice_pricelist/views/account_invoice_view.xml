@@ -47,7 +47,13 @@
             </xpath>
         </field>
     </record>
-     <record id="action_invoice_tree1" model="ir.actions.act_window">
+     
+    <record id="action_invoice_tree" model="ir.actions.act_window">
+        <field name="context">{'search_default_invoices': 1}</field>
+        <field name="name">Invoices</field>
+        <field name="res_model">account.invoice</field>
+    </record> 
+     <!-- <record id="action_invoice_tree1" model="ir.actions.act_window">
             <field name="name">Invoices</field>
             <field name="res_model">account.invoice</field>
             <field name="view_type">form</field>
@@ -55,7 +61,7 @@
             <field eval="False" name="view_id"/>
             <field name="context">{'search_default_invoices': 1}</field>
             <field name="search_view_id" ref="account.view_account_invoice_filter"/>
-        </record>
+        </record> -->
          
     <!-- <record id="view_account_invoice_search_filter" model="ir.actions.act_window">
         <field name="res_model">account.invoice</field>
