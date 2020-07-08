@@ -46,7 +46,11 @@ class ResPartnerInherit(models.Model):
             total = entry.get('email')
             visit = entry.get('visitor')
         response = api.execute('/api/custom/visitor/vso', type="POST")
-        result1 = response['result']
+        result1 = response['result1']
+        for entry in result1:
+            name = entry.get('name')
+            email = entry.get('email')
+            visitor = entry.get('visitor')
         # self.env["res.partner"].create({'name':number,'email':total,'visitor':visit})
         logging.info(str(response))
 
