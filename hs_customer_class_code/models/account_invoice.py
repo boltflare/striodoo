@@ -38,12 +38,21 @@ class accountInvoiceInherit2(models.Model):
         return super(accountInvoiceInherit2, self).create(values)
     
 
-    @api.onchange('class_code') 
-    def onchange_classcode(self): 
+    @api.multi 
+    def get_classcode(self): 
+        record= []
         for rec in self: 
-            selected_lines = rec.env['class.code'].search([('code', '=', rec.class_code.id)]) 
-        return selected_lines 
+            searching = rec.env['class.code'].search([('code', '=', rec.class_code.id),('name', '=', rec.class_code.name)])
+            record.append((searching))
+        return record
     
+    # def name_get(self):
+    #     result = []
+    #     for record in self:
+    #         record_name = '[' + record.code + '] ' + record.name
+    #         result.append((record.id, record_name))
+    #     return result
+
     """
     @api.depends('type')
     def _compute_btn_credit_note(self):
