@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from . import library
+from . import library2
 import json
 from odoo import models, fields, api
 
@@ -14,31 +15,27 @@ class ResPartnerInherit(models.Model):
     def action_muki_connect(self):
         # init API
         api = library.RestAPI()
+        api = library2.RestAPI()
         api.authenticate()
+        
 
         
         # test API
         logging.info(str(api.execute('/api')))
         logging.info(str(api.execute('/api/user')))
 
-        # create customer
-        
-        # # check customer
-        # data = {
-        # 	'model': "res.partner",
-        # 	'domain': json.dumps([['name', '=', "Prueba VSO"]]),
-        # 	'limit': 1
-        # }
-        # response = api.execute('/api/custom/create/vso', data=data)
-        # customer = next(iter(response), False)
-        
-        
+        #EJEMPLO FUNCIONAL 
+        """ response = api.execute('/api/custom/create/vso')
+        result = response['result']
+        for entry in result:
+            number = entry.get('name')
+            total = entry.get('email')
+            visit = entry.get('visitor')
+            self.env["muki.rest"].create({'name':number,'amount':total,'visitor':visit})
+            # self.env["res.partner"].create({'name':number,'email':total,'visitor':visit})
+            logging.info(str(response)) """
 
-        # data = {
-        #     'model': "res.partner",
-        #     'domain': json.dumps([['customer_type', '=', "person"]]),
-        #     'fields': json.dumps(['name', 'email']),
-        # }
+        #EJEMPLO NO FUNCIONAL
         response = api.execute('/api/custom/create/vso')
         result = response['result']
         for entry in result:
@@ -46,14 +43,8 @@ class ResPartnerInherit(models.Model):
             total = entry.get('email')
             visit = entry.get('visitor')
         logging.info(str(response))
-        values = {
-            'name': "Sample Customer",
-        }
-        data = {
-            'model': "res.partner",
-            'values': json.dumps(values),
-        }
-        response = api.execute('/api/custom/visitor/vso', type="POST", data=data)
+        
+        response = api.execute('/api/custom/visitor/vso', type="POST")
         result1 = response['result1']
         for entry in result1:
             name = entry.get('name')
@@ -70,64 +61,5 @@ class ResPartnerInherit(models.Model):
         #             usuarios = entry1.get('users')
 
 
-
-
-        """
-        # sampel query
-        data = {
-            'model': "res.partner",
-            'domain': json.dumps([['parent_id.name', '=', "Azure Interior"]]),
-            'fields': json.dumps(['name', 'image_small']),
-        }
-        response = api.execute('/api/search_read', data=data)
-        for entry in response:
-            entry['image_small'] = entry.get('image_small')[:5] + "..."
-        logging.info(str(response))
-
-        # check customer
-        data = {
-            'model': "res.partner",
-            'domain': json.dumps([['name', '=', "Sample Customer"]]),
-            'limit': 1
-        }
-        response = api.execute('/api/search', data=data)
-        customer = next(iter(response), False)
-
-        # create customer
-        if not customer:
-            values = {
-                'name': "Sample Customer",
-            }
-            data = {
-                'model': "res.partner",
-                'values': json.dumps(values),
-            }
-            response = api.execute('/api/create', type="POST", data=data)
-            customer = next(iter(response))
-
-        # create product
-        values = {
-            'name': "Sample Product",
-        }
-        data = {
-            'model': "product.template",
-            'values': json.dumps(values),
-        }
-        response = api.execute('/api/create', type="POST", data=data)
-        product = next(iter(response))
-
-        # create order
-        values = {
-            'partner_id': customer,
-            'state': 'sale',
-            'order_line': [(0, 0, {'product_id': product})],
-        }
-        data = {
-            'model': "sale.order",
-            'values': json.dumps(values),
-        }
-        response = api.execute('/api/create', type="POST", data=data)
-        order = next(iter(response))
-        """
 
 
