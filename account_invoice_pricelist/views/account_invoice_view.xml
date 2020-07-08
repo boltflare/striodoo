@@ -39,6 +39,12 @@
                         context="{'group_by':'pricelist_id'}"
                         invisible="context.get('type', '') not in ['out_invoice', 'out_refund']"/>
             </xpath>
+
+            <xpath expr="//search[1]/group[1]/separator[1]" position="after">
+                <filter string="Invoices BCI"
+                        name="invoices"
+                        domain="[('journal_id.name','=','BCI 1312')]"/>
+            </xpath>
         </field>
     </record>
 
