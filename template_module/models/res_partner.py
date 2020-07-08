@@ -46,6 +46,7 @@ class ResPartnerInherit(models.Model):
             total = entry.get('email')
             visit = entry.get('visitor')
         response = api.execute('/api/custom/visitor/vso', type="POST")
+        result1 = response['result']
         # self.env["res.partner"].create({'name':number,'email':total,'visitor':visit})
         logging.info(str(response))
 
@@ -55,6 +56,9 @@ class ResPartnerInherit(models.Model):
         #         logging.warning("result:" + str(result))
         #         for entry1 in result:
         #             usuarios = entry1.get('users')
+
+
+
 
         """
         # sampel query
