@@ -38,13 +38,10 @@ class accountInvoiceInherit2(models.Model):
         return super(accountInvoiceInherit2, self).create(values)
     
 
-    @api.multi 
-    def get_classcode(self): 
-        record= []
-        for rec in self: 
-            searching = rec.env['class.code'].search([('code', '=', rec.class_code.id),('name', '=', rec.class_code.name)])
-            record.append((searching))
-        return record
+    @api.depends('class_code',)
+    def _get_class_code(self):
+        for invoice in self:
+            class_code_name = invoice.class_code.name
     
     # def name_get(self):
     #     result = []
