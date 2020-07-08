@@ -54,7 +54,7 @@
             <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
             <field eval="False" name="view_id"/>
             <field name="context">{'search_default_invoices': 1}</field>
-            <field name="search_view_id" ref="view_account_invoice_search"/>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
         </record>
          
     <!-- <record id="view_account_invoice_search_filter" model="ir.actions.act_window">
