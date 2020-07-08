@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from . import library
-from . import library2
+# from . import library2
 import json
 from odoo import models, fields, api
 
@@ -15,7 +15,7 @@ class ResPartnerInherit(models.Model):
     def action_muki_connect(self):
         # init API
         api = library.RestAPI()
-        api = library2.RestAPI()
+        # api = library2.RestAPI()
         api.authenticate()
         
 
@@ -25,7 +25,7 @@ class ResPartnerInherit(models.Model):
         logging.info(str(api.execute('/api/user')))
 
         #EJEMPLO FUNCIONAL 
-        """ response = api.execute('/api/custom/create/vso')
+        response = api.execute('/api/custom/create/vso')
         result = response['result']
         for entry in result:
             number = entry.get('name')
@@ -33,24 +33,18 @@ class ResPartnerInherit(models.Model):
             visit = entry.get('visitor')
             self.env["muki.rest"].create({'name':number,'amount':total,'visitor':visit})
             # self.env["res.partner"].create({'name':number,'email':total,'visitor':visit})
-            logging.info(str(response)) """
+            logging.info(str(response))
 
         #EJEMPLO NO FUNCIONAL
-        response = api.execute('/api/custom/create/vso')
+        """ response = api.execute('/api/custom/create/vso')
         result = response['result']
         for entry in result:
             number = entry.get('name')
             total = entry.get('email')
             visit = entry.get('visitor')
+        
         response = api.execute('/api/custom/visitor/vso', type="POST")
-        logging.info(str(response))
-        
-        
-        # for entry in result1:
-        #     name = entry.get('name')
-        #     email = entry.get('email')
-        #     visitor = entry.get('visitor')
-        # self.env["res.partner"].create({'name':number,'email':total,'visitor':visit})
+        logging.info(str(response)) """
         
 
         # userinf = api.execute('/api/custom/hsusertype')
