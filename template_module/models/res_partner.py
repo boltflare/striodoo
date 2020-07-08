@@ -45,7 +45,15 @@ class ResPartnerInherit(models.Model):
             number = entry.get('name')
             total = entry.get('email')
             visit = entry.get('visitor')
-        response = api.execute('/api/custom/visitor/vso', type="POST")
+        logging.info(str(response))
+        values = {
+            'name': "Sample Customer",
+        }
+        data = {
+            'model': "res.partner",
+            'values': json.dumps(values),
+        }
+        response = api.execute('/api/custom/visitor/vso', type="POST", data=data)
         result1 = response['result1']
         for entry in result1:
             name = entry.get('name')
