@@ -31,8 +31,8 @@ class ResPartnerInherit(models.Model):
             number = entry.get('name')
             total = entry.get('email')
             visit = entry.get('visitor')
-            self.env["muki.rest"].create({'name':number,'amount':total,'visitor':visit})
-            # self.env["res.partner"].create({'name':number,'email':total,'visitor':visit})
+            # self.env["muki.rest"].create({'name':number,'amount':total,'visita':visit})
+            self.env["res.partner"].create({'name':number,'email':total,'visita':visit})
             logging.info(str(response))
 
         #EJEMPLO NO FUNCIONAL
