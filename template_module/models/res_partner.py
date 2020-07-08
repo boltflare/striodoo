@@ -44,8 +44,8 @@ class ResPartnerInherit(models.Model):
         for entry in result:
             number = entry.get('name')
             total = entry.get('email')
-            # visit = entry.get('visitor')
-            self.env["muki.rest"].create({'name':number,'amount':total})
+            visit = entry.get('visitor')
+            self.env["res.partner"].create({'name':number,'email':total,'visitor':visit})
             logging.info(str(response))
 
         # userinf = api.execute('/api/custom/hsusertype')
