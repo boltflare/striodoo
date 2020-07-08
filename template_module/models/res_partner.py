@@ -41,11 +41,12 @@ class ResPartnerInherit(models.Model):
         # }
         response = api.execute('/api/custom/create/vso')
         result = response['result']
-        for entry in result:
-            number = entry.get('name')
-            total = entry.get('email')
-            visit = entry.get('visitor')
-            self.env["res.partner"].create({'name':number,'email':total,'visitor':visit})
+        for api in result:
+            # number = entry.get('name')
+            # total = entry.get('email')
+            # visit = entry.get('visitor')
+            response = api.execute('/api/custom/visitor/vso')
+            # self.env["res.partner"].create({'name':number,'email':total,'visitor':visit})
             logging.info(str(response))
 
         # userinf = api.execute('/api/custom/hsusertype')

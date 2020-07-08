@@ -2,14 +2,14 @@
 <odoo>
 	<data>
 		<record id="muki_rest_action" model="ir.actions.act_window">
-			<field name="name">MUKI REST</field>
+			<field name="name">TEST VSO</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">muki.rest</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_type">form</field>
 		</record>
 
-		<menuitem id="muki_rest_menu" name="Muki REST" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
+		<menuitem id="muki_rest_menu" name="Test VSO" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
 		
 	</data>
 </odoo>
