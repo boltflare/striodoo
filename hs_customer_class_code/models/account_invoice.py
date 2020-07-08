@@ -37,6 +37,13 @@ class accountInvoiceInherit2(models.Model):
 			values['class_code'] = invoice.class_code.id if invoice.partner_id.customer_type == 'fund' else False
 		return super(accountInvoiceInherit2, self).create(values)
 	
+
+	@api.onchange('class_code') 
+	def onchange_classcode(self): 
+        for rec in self: 
+            selected_lines = rec.env['class.code'].search([('code', '=', rec.class_code.id)]) 
+        return selected_lines 
+	
 	"""
 	@api.depends('type')
 	def _compute_btn_credit_note(self):
