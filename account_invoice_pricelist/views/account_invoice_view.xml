@@ -58,5 +58,11 @@
             </xpath> -->
         </field>
     </record>
-
+    <record id="action_account_invoice_search" model="ir.actions.act_window">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="action_invoice_refund_out_tree"/>
+        <field name="arch" type="xml">
+           <field name="context">{'search_default_invoices': 1}</field>
+        </field>
+    </record>
 </odoo>
