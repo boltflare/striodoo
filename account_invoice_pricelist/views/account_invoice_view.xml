@@ -48,7 +48,7 @@
         </field>
     </record>
      
-    <record id="action_invoice_tree1" model="ir.actions.act_window">
+    <!-- <record id="action_invoice_tree1" model="ir.actions.act_window">
         <field name="name">Invoices</field>
         <field name="res_model">account.invoice</field>
         <field name="view_type">form</field>
@@ -64,7 +64,7 @@
              Create invoices, register payments and keep track of the discussions with your customers.
             </p>
         </field>
-    </record>
+    </record> -->
      <!-- <record id="action_invoice_tree1" model="ir.actions.act_window">
             <field name="name">Invoices</field>
             <field name="res_model">account.invoice</field>
