@@ -40,49 +40,21 @@
                         invisible="context.get('type', '') not in ['out_invoice', 'out_refund']"/>
             </xpath>
 
+            <!-- FILTROS PARA LAS FACTURAS -->
             <xpath expr="//search[1]/group[1]/separator[1]" position="after">
-                <filter string="Invoices BCI"
-                        name="invoices"
+                <filter string="BCI"
+                        name="invoice_bci"
                         domain="[('journal_id.name','=','BCI 1312')]"/>
+                
+                <filter string="ADMINISTRATION"
+                        name="invoice_stri"
+                        domain="[('journal_id.name','=','Administration 1380')]"/>
+                
+                <filter string="STRIFUND"
+                        name="invoice_fund"
+                        domain="[('class_code','=', True)]"/>
             </xpath>
         </field>
     </record>
-     
-    <!-- <record id="action_invoice_tree1" model="ir.actions.act_window">
-        <field name="name">Invoices</field>
-        <field name="res_model">account.invoice</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
-        <field eval="False" name="view_id"/>
-        <field name="domain">[('type','=','out_invoice')]</field>
-        <field name="context">{'type':'out_invoice', 'journal_type': 'sale','search_default_invoices': 1 }</field>
-        <field name="search_view_id" ref="view_account_invoice_filter"/>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a customer invoice
-            </p><p>
-             Create invoices, register payments and keep track of the discussions with your customers.
-            </p>
-        </field>
-    </record> -->
-     <!-- <record id="action_invoice_tree1" model="ir.actions.act_window">
-            <field name="name">Invoices</field>
-            <field name="res_model">account.invoice</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
-            <field eval="False" name="view_id"/>
-            <field name="context">{'search_default_invoices': 1}</field>
-            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
-        </record> -->
-         
-    <!-- <record id="view_account_invoice_search_filter" model="ir.actions.act_window">
-        <field name="res_model">account.invoice</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form,kanban,calendar,graph,pivot</field>
-        <field name="view_id" ref="invoice_tree"/>
-        <field name="domain">[]</field>
-        <field name="context">{'search_default_invoices': 1}</field>
-        <field name="search_view_id" ref="view_account_invoice_search"/>
-    </record> -->
 
 </odoo>
