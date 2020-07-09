@@ -16,7 +16,7 @@
 						widget="radio" 
 						class="oe_edit_only" 
 						options="{'horizontal': true}" 
-						context="{'default_company_type': 'company'}"/>
+						context="{'default_company_type': 'person'}" attrs="{'invisible':[('supplier', '=', True)]}"/>
 				</xpath>
 
 
@@ -39,6 +39,9 @@
 					<field name="regular_companies_id" attrs="{'invisible':[('customer_type', '!=', 'regular')]}"/>
 				</xpath>
 
+				<xpath expr="//field[@name='vat']" position="before">
+					<field name="visitor" attrs="{'invisible':[('customer_type', '!=', 'regular')]}"/>
+				</xpath>
 			</field>
 		</record>
 	</data>
