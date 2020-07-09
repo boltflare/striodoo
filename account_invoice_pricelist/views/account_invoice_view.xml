@@ -52,7 +52,7 @@
                 
                 <filter string="STRIFUND"
                         name="invoice_fund"
-                        domain="[('class_code','=', True)]"/>
+                        domain="[('class_code','!=',False)]"/>
             </xpath>
         </field>
     </record>
