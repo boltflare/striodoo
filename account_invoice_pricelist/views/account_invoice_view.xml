@@ -39,6 +39,21 @@
                         context="{'group_by':'pricelist_id'}"
                         invisible="context.get('type', '') not in ['out_invoice', 'out_refund']"/>
             </xpath>
+
+            <!-- FILTROS PARA LAS FACTURAS -->
+            <xpath expr="//search[1]/group[1]/separator[1]" position="after">
+                <filter string="BCI"
+                        name="invoice_bci"
+                        domain="[('journal_id.name','=','BCI 1312')]"/>
+                
+                <filter string="ADMINISTRATION"
+                        name="invoice_stri"
+                        domain="[('journal_id.name','=','Administration 1380')]"/>
+                
+                <filter string="STRIFUND"
+                        name="invoice_fund"
+                        domain="[('class_code','!=',False)]"/>
+            </xpath>
         </field>
     </record>
 
