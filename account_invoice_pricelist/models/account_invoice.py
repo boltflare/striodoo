@@ -116,7 +116,7 @@ class AccountInvoiceLine(models.Model):
 	#FUNCION PARA OBTENER LA CATEGORIA DEL PRODUCTO Y OTRA PARA PODER BLOQUEAR QUE PERMITA EL CAMBIO DE PRECIO
 	@api.onchange('account_id')
 	def get_product_category(self):
-		if self.product_id and self.invoice_id.account_id =='101234 BCI FOODS':
+		if self.product_id and self.invoice_id.account_id.name =='101234 BCI FOODS':
 			self.account_id = self.invoice_id.account_id.name
 		logging.info('PRODUCT CATEGORY:' + str(self.account_id))
 

@@ -44,7 +44,7 @@ class accountInvoiceInherit2(models.Model):
         record= []
         for rec in self.browse(): 
             result = '[' + rec.code + '] ' + rec.name
-            record.append((rec.class_code, result))
+            record.append((rec.id, result))
         return record
     
 
