@@ -105,7 +105,7 @@ class AccountInvoiceLine(models.Model):
 			pricelist=self.invoice_id.pricelist_id.id,
 			uom=self.uom_id.id,
 			# account_id=self.account_id,
-			item_type=self.invoice_id.hs_item,
+			item_type=self.item_type,
 			fiscal_position=(
 				self.invoice_id.partner_id.property_account_position_id.id)
 		)
