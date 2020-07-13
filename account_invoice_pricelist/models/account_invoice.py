@@ -55,7 +55,7 @@ class AccountInvoice(models.Model):
 	def _onchange_from_pricelist(self):
 		try:
 			for invoice_line in self.invoice_line_ids:
-				if self.partner_id and invoice_line.product_id and invoice_line.account_id =='101234 BCI FOODS': #puedo tratar de agregara cuando la category solo sea BCI
+				if self.partner_id and invoice_line.product_id and invoice_line.account_id.name =='101234 BCI FOODS': #puedo tratar de agregara cuando la category solo sea BCI
 					invoice_line.update_from_pricelist()
 					# invoice_line.invoice_line_ids.product_id.update_from_pricelist()       
 		except Exception:
@@ -114,11 +114,11 @@ class AccountInvoiceLine(models.Model):
 			self.company_id)
 
 	#FUNCION PARA OBTENER LA CATEGORIA DEL PRODUCTO Y OTRA PARA PODER BLOQUEAR QUE PERMITA EL CAMBIO DE PRECIO
-	@api.onchange('account_id')
-	def get_product_category(self):
-		if self.product_id and self.invoice_id.account_id.name =='101234 BCI FOODS':
-			self.account_id = self.invoice_id.account_id.name
-		logging.info('PRODUCT CATEGORY:' + str(self.account_id))
+	# @api.onchange('account_id')
+	# def get_product_category(self):
+	# 	if self.product_id and self.invoice_id.account_id.name =='101234 BCI FOODS':
+	# 		self.account_id = self.invoice_id.account_id.name
+	# 	logging.info('PRODUCT CATEGORY:' + str(self.account_id))
 
 	@api.multi
 	def update_from_pricelist(self):
