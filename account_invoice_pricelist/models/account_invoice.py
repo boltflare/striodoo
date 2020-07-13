@@ -117,7 +117,7 @@ class AccountInvoiceLine(models.Model):
 	@api.onchange('account_id')
 	def get_product_category(self):
 		if self.product_id and self.invoice_id.account_id =='101234 BCI FOODS':
-			self.account_id = self.invoice_id.account_id
+			self.account_id = self.invoice_id.account_id.name
 		logging.info('PRODUCT CATEGORY:' + str(self.account_id))
 
 	@api.multi
