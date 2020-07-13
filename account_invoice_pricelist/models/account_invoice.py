@@ -55,7 +55,7 @@ class AccountInvoice(models.Model):
 	def _onchange_from_pricelist(self):
 		try:
 			for invoice_line in self.invoice_line_ids:
-				if self.partner_id and invoice_line.product_id:
+				if self.partner_id and invoice_line.product_id: #puedo tratar de agregara cuando la category solo sea BCI
 					invoice_line.update_from_pricelist()
 					# invoice_line.invoice_line_ids.product_id.update_from_pricelist()       
 		except Exception:
@@ -93,7 +93,7 @@ class AccountInvoice(models.Model):
 class AccountInvoiceLine(models.Model):
 	_inherit = 'account.invoice.line'
 
-	@api.onchange('product_id', 'quantity', 'uom_id', 'categ_id')
+	@api.onchange('product_id', 'quantity', 'uom_id')
 	def _onchange_product_id_account_invoice_pricelist(self):
 		if not self.invoice_id.pricelist_id or not self.invoice_id.partner_id:
 			return
@@ -104,7 +104,7 @@ class AccountInvoiceLine(models.Model):
 			date_order=self.invoice_id.date_invoice,
 			pricelist=self.invoice_id.pricelist_id.id,
 			uom=self.uom_id.id,
-			categ_id=self.categ_id,
+			# categ_id=self.categ_id,
 			fiscal_position=(
 				self.invoice_id.partner_id.property_account_position_id.id)
 		)

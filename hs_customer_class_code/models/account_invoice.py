@@ -16,6 +16,7 @@ class accountInvoiceInherit2(models.Model):
     class_code = fields.Many2one("class.code", "Class Code")
     customer_is_fund = fields.Boolean(string="Is Customer Fund?", compute="_customer_is_fund", default=False)
     #btn_credit_note = fields.Boolean(compute="_compute_btn_credit_note", string="Activar button credit note")
+    
     #CAMPO PARA SOBRESCRIBIR EL CAMPO DE FECHA
     date_invoice = fields.Date(string='Invoice Date',
         readonly=True, states={'draft': [('readonly', False)]}, default = fields.Date.context_today, index=True,
@@ -42,7 +43,7 @@ class accountInvoiceInherit2(models.Model):
     def search_classcode(self, cr, uid, ids, context=None): 
         record= []
         for rec in self.browse(cr, uid, ids, context): 
-            record.append((rec.class_code.id, (rec.class_code) + rec.class_code.name))
+            record.append((rec.class_code.id, rec.class_code + rec.class_code.name))
             # searching = rec.env['class.code'].search([('code', '=', rec.class_code.id),('name', '=', rec.class_code.name)])
             # record.append((searching))
         return record
