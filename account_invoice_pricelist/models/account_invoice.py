@@ -55,7 +55,7 @@ class AccountInvoice(models.Model):
 	def _onchange_from_pricelist(self):
 		try:
 			for invoice_line in self.invoice_line_ids:
-				if self.partner_id and invoice_line.product_id: #puedo tratar de agregara cuando la category solo sea BCI
+				if self.partner_id and invoice_line.product_id and categ_id in ('BCI','BCI / Administration'): #puedo tratar de agregara cuando la category solo sea BCI
 					invoice_line.update_from_pricelist()
 					# invoice_line.invoice_line_ids.product_id.update_from_pricelist()       
 		except Exception:
