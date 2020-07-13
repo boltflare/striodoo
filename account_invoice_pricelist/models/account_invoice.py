@@ -55,7 +55,7 @@ class AccountInvoice(models.Model):
 	def _onchange_from_pricelist(self):
 		try:
 			for invoice_line in self.invoice_line_ids:
-				if self.partner_id and invoice_line.product_id and categ_id in ('BCI','BCI / Administration'): #puedo tratar de agregara cuando la category solo sea BCI
+				if self.partner_id and invoice_line.product_id and invoice_line.account_id in ('101234 BCI FOODS'): #puedo tratar de agregara cuando la category solo sea BCI
 					invoice_line.update_from_pricelist()
 					# invoice_line.invoice_line_ids.product_id.update_from_pricelist()       
 		except Exception:
@@ -93,7 +93,7 @@ class AccountInvoice(models.Model):
 class AccountInvoiceLine(models.Model):
 	_inherit = 'account.invoice.line'
 
-	@api.onchange('product_id', 'quantity', 'uom_id')
+	@api.onchange('product_id', 'quantity', 'uom_id', 'account_id')
 	def _onchange_product_id_account_invoice_pricelist(self):
 		if not self.invoice_id.pricelist_id or not self.invoice_id.partner_id:
 			return
@@ -104,7 +104,7 @@ class AccountInvoiceLine(models.Model):
 			date_order=self.invoice_id.date_invoice,
 			pricelist=self.invoice_id.pricelist_id.id,
 			uom=self.uom_id.id,
-			# categ_id=self.categ_id,
+			account_id=self.account_id,
 			fiscal_position=(
 				self.invoice_id.partner_id.property_account_position_id.id)
 		)
@@ -114,11 +114,11 @@ class AccountInvoiceLine(models.Model):
 			self.company_id)
 
 	#FUNCION PARA OBTENER LA CATEGORIA DEL PRODUCTO Y OTRA PARA PODER BLOQUEAR QUE PERMITA EL CAMBIO DE PRECIO
-	@api.onchange('categ_id')
+	@api.onchange('account_id')
 	def get_product_category(self):
-		if self.product_id and self.product_id.categ_id in ('BCI','BCI / Administration'):
-			self.categ_id = self.product_id.categ_id
-		logging.info('PRODUCT CATEGORY:' + str(self.categ_id))
+		if self.product_id and self.invoice_id.account_id in ('101234 BCI FOODS'):
+			self.account_id = self.invoice_id.account_id
+		logging.info('PRODUCT CATEGORY:' + str(self.account_id))
 
 	@api.multi
 	def update_from_pricelist(self):
