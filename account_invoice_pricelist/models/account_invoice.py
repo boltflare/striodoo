@@ -1,7 +1,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import models, fields, api, exceptions
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class AccountInvoice(models.Model):
 	_inherit = 'account.invoice'
@@ -31,7 +32,6 @@ class AccountInvoice(models.Model):
 		for sesion in self:
 			sesion.login = True if user.has_group('account.group_account_manager') else False
 		
-		# 	#invoice.customer_is_fund = True if customer_type == 'fund' else False
 	
 	# Este campo permite validar si se ha hecho click en Update prices
 	# bool_field = fields.Boolean('Click update', default=False)
@@ -93,7 +93,7 @@ class AccountInvoice(models.Model):
 class AccountInvoiceLine(models.Model):
 	_inherit = 'account.invoice.line'
 
-	@api.onchange('product_id', 'quantity', 'uom_id')
+	@api.onchange('product_id', 'quantity', 'uom_id', 'categ_id')
 	def _onchange_product_id_account_invoice_pricelist(self):
 		if not self.invoice_id.pricelist_id or not self.invoice_id.partner_id:
 			return
@@ -104,6 +104,7 @@ class AccountInvoiceLine(models.Model):
 			date_order=self.invoice_id.date_invoice,
 			pricelist=self.invoice_id.pricelist_id.id,
 			uom=self.uom_id.id,
+			categ_id=self.categ_id,
 			fiscal_position=(
 				self.invoice_id.partner_id.property_account_position_id.id)
 		)
@@ -111,6 +112,13 @@ class AccountInvoiceLine(models.Model):
 		self.price_unit = tax_obj._fix_tax_included_price_company(
 			product.price, product.taxes_id, self.invoice_line_tax_ids,
 			self.company_id)
+
+	#FUNCION PARA OBTENER LA CATEGORIA DEL PRODUCTO Y OTRA PARA PODER BLOQUEAR QUE PERMITA EL CAMBIO DE PRECIO
+	@api.onchange('categ_id')
+	def get_product_category(self):
+		if self.product_id and self.product_id.categ_id in ('BCI','BCI / Administration'):
+			self.categ_id = self.product_id.categ_id
+		logging.info('PRODUCT CATEGORY:' + str(self.categ_id))
 
 	@api.multi
 	def update_from_pricelist(self):
