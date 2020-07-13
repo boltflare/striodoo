@@ -40,9 +40,9 @@ class accountInvoiceInherit2(models.Model):
     
 
    
-    def search_classcode(self, cr, uid, ids, context=None): 
+    def search_classcode(self): 
         record= []
-        for rec in self.browse(cr, uid, ids, context): 
+        for rec in self.browse(): 
             record.append((rec.class_code, (rec.code  + rec.class_code.name)))
         return record
     
