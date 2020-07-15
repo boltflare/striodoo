@@ -30,6 +30,13 @@ class PartnerLedgerInherit(models.AbstractModel):
 		return super(PartnerLedgerInherit, self)._group_by_partner_id(options, line_id)
 
 
+	def _get_payment_name(self, line):
+		lines = line.move_id.line_ids
+		for item in lines:
+			if item.debit > 0:
+				return item.name
+		return line.name
+
 
 	@api.model
 	def _get_lines(self, options, line_id=None):
@@ -68,9 +75,11 @@ class PartnerLedgerInherit(models.AbstractModel):
 				columns.append('')
 			columns.append(self.format_value(balance))
 			# don't add header for `load more`
+			"""
 			logging.info("________________________________________")
 			logging.info(columns)
 			logging.info("________________________________________")
+			"""
 			if offset == 0:
 				lines.append({
 					'id': 'partner_' + str(partner.id),
@@ -117,7 +126,13 @@ class PartnerLedgerInherit(models.AbstractModel):
 
 					# Removemos el code de jounal y agregamos el name de move
 					# removemos el code de account
-					domain_columns = [line.move_id.name, self._format_aml_name(line),
+					if line.invoice_id:
+						line_name = line.move_id.name
+					elif line.statement_id:
+						line_name = line.name
+					else:
+						line_name = self._get_payment_name(line)
+					domain_columns = [line_name, self._format_aml_name(line),
 									  line.date_maturity and format_date(self.env, line.date_maturity) or '',
 									  line.full_reconcile_id.name or '', self.format_value(progress_before),
 									  line_debit != 0 and self.format_value(line_debit) or '',
