@@ -47,26 +47,16 @@ class accountInvoiceInherit2(models.Model):
     #         record.append((rec.id, result))
     #     return record
 
-    @api.model
-    def name_search(self, name, args=None, operator='ilike', limit=100):
-        args = args or []
-        recs = self.browse()
-        if not recs:
-            recs = self.search([('code', operator, name)] + args, limit=limit)
-        return recs.name_get()
-    
+    # @api.model
+    # def name_search(self, name, args=None, operator='ilike', limit=100):
+    #     args = args or []
+    #     recs = self.browse()
+    #     if not recs:
+    #         recs = self.search([('code', operator, name)] + args, limit=limit)
+    #     return recs.name_get()
+    # class_search
 
-    # def name_get(self, cr, uid, ids, context=None):
-    #     result = []
-    #     for bank in self.browse(cr, uid, ids, context):
-    #         result.append((bank.id, (bank.bic and (bank.bic + ' - ') or '') + bank.name))
-    #     return result
-    # def name_get(self):
-    #     result = []
-    #     for record in self:
-    #         record_name = '[' + record.code + '] ' + record.name
-    #         result.append((record.id, record_name))
-    #     return result
+    
 
     """
     @api.depends('type')
