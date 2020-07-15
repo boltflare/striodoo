@@ -1,6 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
 	<data>
+		
+		<!--tree view-->
+        <record id = "muki_rest_tree_view" model = "ir.ui.view">
+            <field name = "name">Muk Rest View Tree</field>
+            <field name = "model">muki.rest</field>
+            <field name = "arch" type = "xml">
+                <tree string = "Visitor Search" create="false" edit="false" delete="false">
+                <!-- <tree string = "Invoice View"> -->
+                   <header>
+				   		<button name="button_search" string="Search" class="oe_highlight" type="object"/>
+				   </header>
+                </tree>
+            </field>
+        </record>
+
 		<record id="muki_rest_action" model="ir.actions.act_window">
 			<field name="name">TEST VSO</field>
 			<field name="type">ir.actions.act_window</field>

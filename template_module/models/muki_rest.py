@@ -4,11 +4,11 @@ from odoo import models, fields, api
 
 class MukiREST(models.Model):
 	_name = "muki.rest"
-	_description = "Ejemplo Muki Rest"
+	_description = "Visitor Search"
 
 	name = fields.Char("Nombre")
-	amount = fields.Char("Email")
-	visita = fields.Char("Visitor ID")
+	hstatus = fields.Char("Status")
+	# visita = fields.Char("Visitor ID")
 
 
 
