@@ -40,12 +40,20 @@ class accountInvoiceInherit2(models.Model):
     
 
 
-    def search_classcode(self): 
-        record= []
-        for rec in self.browse(): 
-            result = '[' + rec.code + '] ' #+ rec.name
-            record.append((rec.id, result))
-        return record
+    # def search_classcode(self): 
+    #     record= []
+    #     for rec in self.browse(): 
+    #         result = '[' + rec.code + '] ' #+ rec.name
+    #         record.append((rec.id, result))
+    #     return record
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        args = args or []
+        recs = self.browse()
+        if not recs:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        return recs.name_get()
     
 
     # def name_get(self, cr, uid, ids, context=None):
