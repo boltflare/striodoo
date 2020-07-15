@@ -30,6 +30,9 @@
 		'views/muki_rest.xml',
 		'views/res_partner.xml',
 	],
+	'qweb': [
+        "static/src/xml/muki_vso.xml",
+    ],
 	# only loaded in demonstration mode
 	'demo': [
 		#'demo/demo.xml',
