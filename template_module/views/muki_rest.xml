@@ -3,15 +3,52 @@
 	<data>
 		
 		<!--tree view-->
-        <!-- <record id = "muki_rest_tree_view" model = "ir.ui.view">
-            <field name = "name">Muk Rest View Tree</field>
+        <record id = "vso_tree_view" model = "ir.ui.view">
+            <field name = "name">VSO View Tree</field>
             <field name = "model">muki.rest</field>
             <field name = "arch" type = "xml">
-                <tree string = "Visitor Search" create="false" edit="false" delete="false">
-                   <header>
-				   		<button name="button_search" string="Search" class="oe_highlight" type="object"/>
-				   </header>
+                <tree string = "VSO Search" create="false" edit="false" delete="false">
+					<header>
+						<button name="button_search" string="Search" class="oe_highlight" type="object"/>
+					</header>
+                	<!-- <tree string = "Invoice View"> -->
+
+                    <field name = "name" />
+					<field name = "hstatus" />
                 </tree>
+            </field>
+        </record>
+		<!-- <record id = "vso_form_view" model = "ir.ui.view">
+            <field name = "name">VSO View Form</field> 
+            <field name = "model">muki.rest</field> 
+            <field name = "arch" type = "xml"> 
+                <form string = "Meal Card Invoices View"> 
+                    <sheet> 
+                        <group>
+                            <group>
+                            	<field name = "hs_number" />
+                            </group>
+							<group>
+								<field name = "hs_date" />
+							</group>
+							<group>
+								<field name = "hs_partner_id" />
+							</group>
+							<group>
+								<field name = "hs_product_id" />
+							</group>
+                            <group>
+                                <field name = "quantity" />
+                            </group>
+							<group>
+								<field name = "price_subtotal" string="Total" />
+                            </group>
+							<group>
+                            	<field name = "hs_note" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
             </field>
         </record> -->
 
@@ -21,9 +58,7 @@
 			<field name="res_model">muki.rest</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_type">form</field>
-			<header>
-				<button name="button_search" string="Search" class="oe_highlight" type="object"/>
-			</header>
+			
 		</record>
 
 		<menuitem id="muki_rest_menu" name="Test VSO" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
