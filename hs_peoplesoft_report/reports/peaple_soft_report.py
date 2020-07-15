@@ -264,7 +264,7 @@ WITH people_soft_data AS (
 		(SELECT (CASE WHEN credit > 0.00 THEN (credit * -1) WHEN debit > 0.00 THEN debit ELSE 0.00 END )) AS amount
 		FROM account_move_line AS line, account_invoice AS inv, res_partner AS partner, account_account AS account, account_journal as journal
 		WHERE (line.date BETWEEN '{}' AND '{}') AND line.invoice_id = inv.id AND line.partner_id = partner.id AND partner.customer_type = 'regular'
-		AND inv.journal_id = journal.id AND line.account_id = account.id AND inv.type in ('out_invoice', 'out_refund') AND inv.state = 'open'
+		AND inv.journal_id = journal.id AND line.account_id = account.id AND inv.type in ('out_invoice', 'out_refund')
 
 		
 		UNION
