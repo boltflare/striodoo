@@ -3,18 +3,17 @@
 	<data>
 		
 		<!--tree view-->
-        <record id = "muki_rest_tree_view" model = "ir.ui.view">
+        <!-- <record id = "muki_rest_tree_view" model = "ir.ui.view">
             <field name = "name">Muk Rest View Tree</field>
             <field name = "model">muki.rest</field>
             <field name = "arch" type = "xml">
                 <tree string = "Visitor Search" create="false" edit="false" delete="false">
-                <!-- <tree string = "Invoice View"> -->
                    <header>
 				   		<button name="button_search" string="Search" class="oe_highlight" type="object"/>
 				   </header>
                 </tree>
             </field>
-        </record>
+        </record> -->
 
 		<record id="muki_rest_action" model="ir.actions.act_window">
 			<field name="name">TEST VSO</field>
@@ -22,6 +21,9 @@
 			<field name="res_model">muki.rest</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_type">form</field>
+			<header>
+				<button name="button_search" string="Search" class="oe_highlight" type="object"/>
+			</header>
 		</record>
 
 		<menuitem id="muki_rest_menu" name="Test VSO" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
