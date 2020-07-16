@@ -22,6 +22,9 @@ class PartnerLedgerInherit(models.AbstractModel):
 		# Eliminamos la columna Account
 		columns.pop(2)
 
+		# Eliminamos la columna Due Date
+		columns.pop(3)
+
 		# Nada a pasado
 		return columns
 
@@ -31,10 +34,15 @@ class PartnerLedgerInherit(models.AbstractModel):
 
 
 	def _get_payment_name(self, line):
+		recordset = self.env["account.payment"].search([('move_line_ids', '=', line.id)])
+		for payment in recordset:
+			return payment.name
+		"""
 		lines = line.move_id.line_ids
 		for item in lines:
 			if item.debit > 0:
 				return item.name
+		"""
 		return line.name
 
 
@@ -75,11 +83,6 @@ class PartnerLedgerInherit(models.AbstractModel):
 				columns.append('')
 			columns.append(self.format_value(balance))
 			# don't add header for `load more`
-			"""
-			logging.info("________________________________________")
-			logging.info(columns)
-			logging.info("________________________________________")
-			"""
 			if offset == 0:
 				lines.append({
 					'id': 'partner_' + str(partner.id),
@@ -89,7 +92,7 @@ class PartnerLedgerInherit(models.AbstractModel):
 					'trust': partner.trust,
 					'unfoldable': True,
 					'unfolded': 'partner_' + str(partner.id) in options.get('unfolded_lines') or unfold_all,
-					'colspan': 5,
+					'colspan': 4,
 				})
 			user_company = self.env.user.company_id
 			used_currency = user_company.currency_id
@@ -132,8 +135,9 @@ class PartnerLedgerInherit(models.AbstractModel):
 						line_name = line.name
 					else:
 						line_name = self._get_payment_name(line)
-					domain_columns = [line_name, self._format_aml_name(line),
-									  line.date_maturity and format_date(self.env, line.date_maturity) or '',
+					domain_columns = [line_name, 
+									  self._format_aml_name(line),
+									  # line.date_maturity and format_date(self.env, line.date_maturity) or '',
 									  line.full_reconcile_id.name or '', self.format_value(progress_before),
 									  line_debit != 0 and self.format_value(line_debit) or '',
 									  line_credit != 0 and self.format_value(line_credit) or '']
@@ -161,14 +165,15 @@ class PartnerLedgerInherit(models.AbstractModel):
 						'class': 'o_account_reports_load_more text-center',
 						'parent_id': 'partner_%s' % partner.id,
 						'name': _('Load more... (%s remaining)') % remaining_lines,
-						'colspan': 10 if self.user_has_groups('base.group_multi_currency') else 9,
+						'colspan': 8 if self.user_has_groups('base.group_multi_currency') else 7,
 						'columns': [{}],
 					})
 				lines += domain_lines
 
 		if not line_id:
 			# total_columns = ['', '', '', '', '', self.format_value(total_initial_balance), self.format_value(total_debit), self.format_value(total_credit)]
-			total_columns = ['', '', '', '', self.format_value(total_initial_balance), self.format_value(total_debit), self.format_value(total_credit)]
+			# total_columns = ['', '', '', '', self.format_value(total_initial_balance), self.format_value(total_debit), self.format_value(total_credit)]
+			total_columns = ['', '', '', self.format_value(total_initial_balance), self.format_value(total_debit), self.format_value(total_credit)]
 			if self.user_has_groups('base.group_multi_currency'):
 				total_columns.append('')
 			total_columns.append(self.format_value(total_balance))
