@@ -308,7 +308,7 @@ WITH people_soft_data AS (
 		END) AS chartfield,
 		line.partner_id,
 		0 as invoice,
-		pay.name as reference,
+		(SELECT AM3.name from account_move as AM3 WHERE line.move_id = AM3.id limit 1) as reference,
 		pay.people_soft_registered as registered,
 		/*Hacemos una consulta a la factura asociada al pago para obtener el journal 
 		y asi identificar si viene de BCI o STRI para luego guardarlo en la columna doc_type*/
