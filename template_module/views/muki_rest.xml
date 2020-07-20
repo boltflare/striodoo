@@ -47,9 +47,16 @@
 			
 		</record>
 
-		<record id="vso_menu_form" model="ir.actions.act_window.view">
-            <field name="act_window_id" ref="template_module.muki_rest_action"/>
+         <record id="vso_menu_tree" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="template_module.muki_rest_action" />
             <field name="view_id" ref="template_module.vso_tree_view"/>
+            <field name="view_mode">tree</field>
+            <field name="sequence" eval="2"/>
+        </record>
+		
+        <record id="vso_menu_form" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="template_module.muki_rest_action"/>
+            <field name="view_id" ref="template_module.vso_form_view"/>
             <field name="view_mode">form</field>
             <field name="sequence" eval="2"/>
         </record>
