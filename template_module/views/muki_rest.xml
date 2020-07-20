@@ -1,7 +1,23 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
 	<data>
-		
+		 <!--tree view-->
+        <record id = "vso_tree_view" model = "ir.ui.view">
+            <field name = "name">VSO View Tree</field>
+            <field name = "model">muki.rest</field>
+            <field name = "arch" type = "xml">
+                <tree string = "VSO Search View" create="false" edit="false" delete="false">
+                    <field name = "name" />
+					<field name = "hstatus" />
+					<!-- <field name = "hs_partner_id" />
+					<field name = "hs_product_id" />
+                    <field name = "hs_item" />
+                    <field name = "quantity" /> -->
+                </tree>
+            </field>
+        </record>
+
+		<!--FORM VIEW-->
         <record id = "vso_form_view" model = "ir.ui.view">
             <field name = "name">VSO View Form</field>
             <field name = "model">muki.rest</field>
@@ -33,7 +49,7 @@
 
 		<record id="vso_menu_form" model="ir.actions.act_window.view">
             <field name="act_window_id" ref="template_module.muki_rest_action"/>
-            <field name="view_id" ref="template_module.muki_rest_action"/>
+            <field name="view_id" ref="template_module.vso_tree_view"/>
             <field name="view_mode">form</field>
             <field name="sequence" eval="2"/>
         </record>

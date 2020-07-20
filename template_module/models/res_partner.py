@@ -15,7 +15,8 @@ class ResPartnerInherit(models.Model):
     def action_muki_connect(self):
         # init API
         api = library.RestAPI()
-        # api = library2.RestAPI()
+        # api2 = library2.RestAPI()
+        #api2.authenticate()
         api.authenticate()
         
 
@@ -36,14 +37,14 @@ class ResPartnerInherit(models.Model):
             logging.info(str(response))
 
         #EJEMPLO NO FUNCIONAL
-        """ response = api.execute('/api/custom/create/vso')
+        """ response = api2.execute('/api/custom/create/vso')
         result = response['result']
         for entry in result:
             number = entry.get('name')
             total = entry.get('email')
             visit = entry.get('visitor')
         
-        response = api.execute('/api/custom/visitor/vso', type="POST")
+        response = api2.execute('/api/custom/visitor/vso', type="POST")
         logging.info(str(response)) """
         
 
