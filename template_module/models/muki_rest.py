@@ -6,8 +6,11 @@ class MukiREST(models.Model):
 	_name = "muki.rest"
 	_description = "Visitor Search"
 
-	name = fields.Char("Name")
 	hstatus = fields.Char("Status")
+	name = fields.Char("Name")
+	housing = fields.Char("Housing")
+
+	
 	# visita = fields.Char("Visitor ID")
 
 
