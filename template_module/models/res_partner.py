@@ -19,8 +19,6 @@ class ResPartnerInherit(models.Model):
         #api2.authenticate()
         api.authenticate()
         
-
-        
         # test API
         logging.info(str(api.execute('/api')))
         logging.info(str(api.execute('/api/user')))

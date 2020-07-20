@@ -7,8 +7,8 @@
             <field name = "model">muki.rest</field>
             <field name = "arch" type = "xml">
                 <tree string = "VSO Search View" create="false" edit="false" delete="false">
-                    <field name = "name" />
-					<field name = "hstatus" />
+                    <field name = "name" string="Name"/>
+					<field name = "hstatus" string="Status"/>
 					<!-- <field name = "hs_partner_id" />
 					<field name = "hs_product_id" />
                     <field name = "hs_item" />
@@ -22,7 +22,7 @@
             <field name = "name">VSO View Form</field>
             <field name = "model">muki.rest</field>
             <field name = "arch" type = "xml">
-                <form string = "VSO Search" create="false" edit="false" delete="false">
+                <form string = "VSO Search" edit="false" delete="false">
 					<header>
 						<button name="button_search" string="Search" class="oe_highlight" type="object"/>
 					</header>

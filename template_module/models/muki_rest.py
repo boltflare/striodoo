@@ -6,7 +6,7 @@ class MukiREST(models.Model):
 	_name = "muki.rest"
 	_description = "Visitor Search"
 
-	name = fields.Char("Nombre")
+	name = fields.Char("Name")
 	hstatus = fields.Char("Status")
 	# visita = fields.Char("Visitor ID")
 
