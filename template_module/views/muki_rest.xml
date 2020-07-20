@@ -1,24 +1,30 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
 	<data>
+
+        <record id="muki_rest_action" model="ir.actions.act_window">
+			<field name="name">VSO CONNECT</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">muki.rest</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_type">form</field>
+		</record>
+
+		<menuitem id="muki_rest_menu" name="VSO Connect" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
 		 <!--tree view-->
-        <record id = "vso_tree_view" model = "ir.ui.view">
+        <!-- <record id = "vso_tree_view" model = "ir.ui.view">
             <field name = "name">VSO View Tree</field>
             <field name = "model">muki.rest</field>
             <field name = "arch" type = "xml">
                 <tree string = "VSO Search View" create="false" edit="false" delete="false">
                     <field name = "name" string="Name"/>
 					<field name = "hstatus" string="Status"/>
-					<!-- <field name = "hs_partner_id" />
-					<field name = "hs_product_id" />
-                    <field name = "hs_item" />
-                    <field name = "quantity" /> -->
                 </tree>
             </field>
-        </record>
+        </record> -->
 
 		<!--FORM VIEW-->
-        <record id = "vso_form_view" model = "ir.ui.view">
+        <!-- <record id = "vso_form_view" model = "ir.ui.view">
             <field name = "name">VSO View Form</field>
             <field name = "model">muki.rest</field>
             <field name = "arch" type = "xml">
@@ -36,9 +42,9 @@
 					</sheet>
                 </form>
             </field>
-        </record>
+        </record> -->
 
-		<record id="muki_rest_action" model="ir.actions.act_window">
+		<!-- <record id="muki_rest_action" model="ir.actions.act_window">
 			<field name="name">TEST VSO</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">muki.rest</field>
@@ -52,16 +58,16 @@
             <field name="view_id" ref="template_module.vso_tree_view"/>
             <field name="view_mode">tree</field>
             <field name="sequence" eval="2"/>
-        </record>
+        </record> -->
 		
-        <record id="vso_menu_form" model="ir.actions.act_window.view">
+        <!-- <record id="vso_menu_form" model="ir.actions.act_window.view">
             <field name="act_window_id" ref="template_module.muki_rest_action"/>
             <field name="view_id" ref="template_module.vso_form_view"/>
             <field name="view_mode">form</field>
             <field name="sequence" eval="2"/>
-        </record>
+        </record> -->
 
-		<menuitem id="muki_rest_menu" name="Test VSO" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
+		<!-- <menuitem id="muki_rest_menu" name="Test VSO" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/> -->
 		
 	</data>
 </odoo>
