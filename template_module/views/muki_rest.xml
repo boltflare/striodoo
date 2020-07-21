@@ -7,9 +7,11 @@
             <field name = "model">muki.rest</field>
             <field name = "arch" type = "xml">
                 <tree string = "VSO Search View"  edit="false" delete="false">
+                    <field name = "visitor" string="Visitor_id"/>
+                    <field name = "visitor_name" string="Name"/>
+					<field name = "visitor_email" string="Email"/>
                     <field name = "hstatus" string="Status"/>
-                    <field name = "name" string="Name"/>
-					<field name = "housing" string="Housing"/>
+                    
                 </tree>
             </field>
         </record>
@@ -24,9 +26,10 @@
                     <sheet> 
                         <group>
                             <group>
-                            	<field name = "hstatus" string="Status"/>
-                                <field name = "name" string="Name"/>
-					            <field name = "housing" string="Housing"/>
+                            	<field name = "visitor" string="Visitor_id"/>
+                                <field name = "hstatus" string="Status"/>
+                                <field name = "visitor_name" string="Name"/>
+					            <field name = "visitor_email" string="Email"/>
                             </group>
                         </group>
                     </sheet>

@@ -7,6 +7,7 @@ class MukiREST(models.Model):
 	_description = "Visitor Search"
 
 	hstatus = fields.Char("Status")
-	name = fields.Char("Name")
-	housing = fields.Char("Housing")
+	visitor_name = fields.Char("Name")
+	visitor_email = fields.Char("Email")
+	visitor = fields.Char("Visitor_id")
 
