@@ -1,3 +1,4 @@
+alert("TEST1");
 odoo.define('template_module.action_call', function (require) {
     "use strict";
 
@@ -5,8 +6,9 @@ odoo.define('template_module.action_call', function (require) {
     var ListView = require('web.ListView');
     var ListController = require("web.ListController");
 
+    alert("Va a llamar la funcion");
     var IncludeListView = {
-
+        
         renderButtons: function() {
             this._super.apply(this, arguments);
             alert("TEST");
