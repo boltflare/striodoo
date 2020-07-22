@@ -61,18 +61,32 @@ class ProductCategoryInherit1(models.Model):
 			
 
 
+"""
+class ProductTemplateInherit2(models.Model):
+	_inherit = "product.template"
+
+
+	salesperson_id = fields.compute(compute="compute_salesperson_ids", 
+		string="Vendedores")
+
+
+	def _compute_user_count(self):
+		for product in self:
+			product.salesperson_id = self.env["product.product"].\
+				search([('product_tmpl_id', '=', product.id)])
+"""
 
 
 
 class ProductInherit2(models.Model):
-	_inherit = "product.product"
+	_inherit = "product.template"
 
 	current_user = fields.Many2one('res.users','Current User', 
 		default=lambda self: self.env.user)
 
 	
 	salesperson_ids = fields.Many2many("res.users", 
-		"product_salesperson_rel", "product_id", 
+		"product_salesperson_rel1", "product_id", 
 		"salesperson_id", "Salesperson")
 
 

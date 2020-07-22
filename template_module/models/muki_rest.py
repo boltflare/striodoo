@@ -4,22 +4,10 @@ from odoo import models, fields, api
 
 class MukiREST(models.Model):
 	_name = "muki.rest"
-	_description = "Ejemplo Muki Rest"
+	_description = "Visitor Search"
 
-	name = fields.Char("Nombre")
-	amount = fields.Char("Email")
-	# visita = fields.Char("Visitor ID")
+	hstatus = fields.Char("Status")
+	visitor_name = fields.Char("Name")
+	visitor_email = fields.Char("Email")
+	visitor = fields.Char("Visitor_id")
 
-
-
-# class template_module(models.Model):
-#     _name = 'template_module.template_module'
-
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100

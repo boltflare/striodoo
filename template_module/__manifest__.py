@@ -29,7 +29,11 @@
 		'security/ir.model.access.csv',
 		'views/muki_rest.xml',
 		'views/res_partner.xml',
+		'views/vso_button.xml',
 	],
+	'qweb': [
+        "static/src/xml/muki_vso.xml",
+    ],
 	# only loaded in demonstration mode
 	'demo': [
 		#'demo/demo.xml',

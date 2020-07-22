@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, exceptions, _
-
+from odoo.osv import expression
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -18,7 +18,10 @@ class ResPartnerInherit2(models.Model):
 	principal_investigator = fields.Many2one("principal.investigator", "Principal Investigator")
 	only_pos = fields.Boolean("Visible solo en PoS", required=True, default=False)
 	regular_companies_id = fields.Many2one("regular.companies", "Company")
-	visitor = fields.Char(string="Visitor ID")
+	visitor = fields.Char(string='Visitor ID')
+	_sql_constraints = [
+        ('visitor_uniq', 'unique(visitor)', "A Visitor can only be assigned to one customer !"),
+    ]
 
 
 	@api.onchange('customer_type')

@@ -71,7 +71,7 @@ class ResUsersInherit1(models.Model):
 				if len(products) > 0:
 					products.write({"salesperson_ids": [(4, self.id)]})
 		except Exception as error:
-			_logger.info("value in self.departments_ids is: " + str(error))
+			_logger.info("Error in self.departments_ids is: " + str(error))
 
 
 		return super(ResUsersInherit1, self).write(values)
