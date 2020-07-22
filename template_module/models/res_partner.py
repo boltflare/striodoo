@@ -28,8 +28,8 @@ class ResPartnerInherit(models.Model):
         result = response['result']
         for entry in result:
             # estado = entry.get('hstatus')
-            nombre = entry.get('visitor_name')
-            correo = entry.get('visitor_email')
+            nombre = entry.get('name')
+            correo = entry.get('email')
             visit = entry.get('visitor')
             self.env["muki.rest"].create({'visitor_name':nombre,'visitor_email':correo, 'visitor':visit})
             # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
