@@ -9,9 +9,11 @@ odoo.define('template_module.action_call', function (require) {
 
         renderButtons: function() {
             this._super.apply(this, arguments);
+            alert("TEST");
             if (this.modelName === "muki.rest") {
                 var summary_apply_leave_btn = this.$buttons.find('button.oe_action_button');              
                 summary_apply_leave_btn.on('click', this.proxy('oe_action_button'))
+                alert("ENTRO EN EL IF");
             }
         },
         crete_leave_from_summary: function(){
