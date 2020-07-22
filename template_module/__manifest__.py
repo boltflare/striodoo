@@ -29,7 +29,7 @@
 		'security/ir.model.access.csv',
 		'views/muki_rest.xml',
 		'views/res_partner.xml',
-		'static/src/xml/vso_button.xml',
+		"views/vso_button.xml"
 	],
 	'qweb': [
         "static/src/xml/muki_vso.xml",
