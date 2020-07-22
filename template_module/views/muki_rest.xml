@@ -45,9 +45,9 @@
             <field name="arch" type="xml">
                 <search string="Search Visitor">
                         <field name="visitor" string="Visitor_id" filter_domain="[('visitor', '=', self)]"/>
-                        <field name="visitor_name" string="Budget Reference" filter_domain="[('visitor_name', '=', self)]"/>
-                        <field name="visitor_email" string="Designated Code" filter_domain="[('visitor_email', '=', self)]"/>
-                        <field name="hstatus" string="Department ID" filter_domain="[('hstatus', '=', self)]"/>
+                        <field name="visitor_name" string="Name" filter_domain="[('visitor_name', '=', self)]"/>
+                        <field name="visitor_email" string="Email" filter_domain="[('visitor_email', '=', self)]"/>
+                        <field name="hstatus" string="Status" filter_domain="[('hstatus', '=', self)]"/>
                         <separator/>
                     
                 </search>
