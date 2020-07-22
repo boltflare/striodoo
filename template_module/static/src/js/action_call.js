@@ -18,7 +18,7 @@ odoo.define('template_module.action_call', function (require) {
                 // alert("ENTRO EN EL IF");
             }
         },
-        crete_leave_from_summary: function(){
+        oe_action_button: function(){
             var self = this;
             var action = {
                 type: "ir.actions.act_window",
