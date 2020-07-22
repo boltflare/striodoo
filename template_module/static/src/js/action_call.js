@@ -1,3 +1,4 @@
+console.log("rest");
 odoo.define('template_module.action_call', function (require) {
     "use strict";
 
