@@ -27,12 +27,23 @@ class ResPartnerInherit(models.Model):
         response = api.execute('/api/custom/create/vso')
         result = response['result']
         for entry in result:
-            number = entry.get('name')
-            total = entry.get('email')
+            # estado = entry.get('hstatus')
+            nombre = entry.get('visitor_name')
+            correo = entry.get('visitor_email')
             visit = entry.get('visitor')
-            # self.env["muki.rest"].create({'name':number,'amount':total,'visita':visit})
-            self.env["res.partner"].create({'name':number,'email':total,'visitor':visit})
+            self.env["muki.rest"].create({'visitor_name':nombre,'visitor_email':correo, 'visitor':visit})
+            # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
             logging.info(str(response))
+
+        # response = api.execute('/api/custom/create/vso')
+        # result = response['result']
+        # for entry in result:
+        #     number = entry.get('name')
+        #     total = entry.get('email')
+        #     visit = entry.get('visitor')
+        #     # self.env["muki.rest"].create({'name':number,'amount':total,'visita':visit})
+        #     self.env["res.partner"].create({'name':number,'email':total,'visitor':visit})
+        #     logging.info(str(response))
 
         #EJEMPLO NO FUNCIONAL
         """ response = api2.execute('/api/custom/create/vso')
