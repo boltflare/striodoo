@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="index" name="aspl_pos_classic index" inherit_id="point_of_sale.index">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pos_event_registration_ee/static/src/js/screen.js"></script>
+	        	<link rel="stylesheet" href="/pos_event_registration_ee/static/src/css/pos.css" id="pos-stylesheet"/>
+	        </xpath>
+	    </template>
+    </data>
+</odoo>
