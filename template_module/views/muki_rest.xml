@@ -6,9 +6,11 @@
             <field name = "name">VSO View Tree</field>
             <field name = "model">muki.rest</field>
             <field name = "arch" type = "xml">
-                <tree string = "VSO Search View"  edit="false" delete="false">
-                    <field name = "visitor" string="Visitor_id"/>
+                <tree string = "Search Visitor" create="false" edit="false" delete="false">
+                    <field name = "visitor" string="Visitor ID"/>
                     <field name = "visitor_name" string="Name"/>
+                    <field name = "name" string="First Name"/>
+                    <field name = "last_name" string="Last Name"/>
 					<field name = "visitor_email" string="Email"/>
                     <field name = "hstatus" string="Status"/>
                     
@@ -26,7 +28,7 @@
                     <sheet> 
                         <group>
                             <group>
-                            	<field name = "visitor" string="Visitor_id"/>
+                            	<field name = "visitor" string="Visitor ID"/>
                                 <field name = "hstatus" string="Status"/>
                                 <field name = "visitor_name" string="Name"/>
 					            <field name = "visitor_email" string="Email"/>
@@ -44,10 +46,12 @@
             <field name="model">muki.rest</field>
             <field name="arch" type="xml">
                 <search string="Search Visitor">
-                        <field name="visitor" string="Visitor_id" filter_domain="[('visitor', '=', self)]"/>
+                        <field name="visitor" string="Visitor ID" filter_domain="[('visitor', '=', self)]"/>
                         <field name="visitor_name" string="Name" filter_domain="[('visitor_name', '=', self)]"/>
                         <field name="visitor_email" string="Email" filter_domain="[('visitor_email', '=', self)]"/>
                         <field name="hstatus" string="Status" filter_domain="[('hstatus', '=', self)]"/>
+                        <field name="name" string="First Name" filter_domain="[('name', '=', self)]"/>
+                        <field name="last_name" string="Last Name" filter_domain="[('last_name', '=', self)]"/>
                         <separator/>
                     
                 </search>

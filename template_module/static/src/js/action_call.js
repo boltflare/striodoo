@@ -22,7 +22,7 @@ odoo.define('template_module.action_call', function (require) {
             var self = this;
             var action = {
                 type: "ir.actions.act_window",
-                name: "Leave",
+                name: "Search Visitor",
                 res_model: "muki.rest",
                 views: [[false,'form']],
                 target: 'new',
