@@ -31,6 +31,8 @@
                             	<field name = "visitor" string="Visitor ID"/>
                                 <field name = "hstatus" string="Status"/>
                                 <field name = "visitor_name" string="Name"/>
+                                <field name = "name" string="First Name"/>
+                                <field name = "last_name" string="Last Name"/>
 					            <field name = "visitor_email" string="Email"/>
                             </group>
                         </group>
