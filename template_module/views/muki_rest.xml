@@ -70,7 +70,14 @@
 			<field name="view_type">form</field>
 		</record>
 
-        
+        <act_window name="Create Visitor"
+            id="create_visitor_action"
+            res_model="create.customer"
+            binding_model="muki.rest"
+            binding_views="form"
+            view_mode="list"
+            target="new"
+        />
        
        <!-- Este es la acción heredada que permite mostrar los datos en vista arbol -->
         <record id="vso_menu_tree" model="ir.actions.act_window.view">
@@ -89,14 +96,6 @@
             <field name="sequence" eval="2"/>
         </record>
 
-        <act_window name="Create Visitor"
-            id="create_visitor_action"
-            res_model="create.customer"
-            binding_model="muki.rest"
-            binding_views="form"
-            view_mode="list"
-            target="new"
-        />
         
 		<menuitem id="muki_rest_menu" name="VSO Connect" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
 		 <!--tree view-->
