@@ -19,7 +19,6 @@
         </record>
 
         <!--FORM VIEW-->
-
         <record id = "vso_form_view" model = "ir.ui.view">
             <field name = "name">VSO View Form</field> 
             <field name = "model">muki.rest</field> 
