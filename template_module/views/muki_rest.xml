@@ -60,6 +60,24 @@
             </field>
         </record>
 
+         <record id="create_visitor_action" model="ir.ui.view">
+            <field name="name">Create Visitor</field>
+            <field name="model">create.customer</field>
+            <field name="arch" type="xml">
+                <form string="CREATE CUSTOMER">
+                    <label string="Do you want create this costumer? "/>
+                    <!-- <group>
+                        <group>
+                            <field name="state"/>
+                        </group>
+                    </group> -->
+                    <footer>
+                        <button name="create_visitor" string="Create" type="object"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
 
         <record id="muki_rest_action" model="ir.actions.act_window">
 			<field name="name">VSO SEARCH</field>
@@ -69,6 +87,7 @@
             <field name="search_view_id" ref="vso_search_view"/>
 			<field name="view_type">form</field>
 		</record>
+
        
        <!-- Este es la acción heredada que permite mostrar los datos en vista arbol -->
         <record id="vso_menu_tree" model="ir.actions.act_window.view">
