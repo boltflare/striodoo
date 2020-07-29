@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-    <data noupdate="1">
+    <data>
         <!-- Add you code here -->
         <record id="create_visitor_action" model="ir.ui.view">
             <field name="name">Create Visitor</field>
@@ -21,13 +21,21 @@
             </field>
         </record>
 
-        <act_window name="Create Visitor"
+        <record id="create_visitor_wizard" model="ir.actions.act_window">
+            <field name="name">Create Visitor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">create.customer</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="create_visitor_action"/>
+            <field name="target">new<field/>
+        </record>
+        <!-- <act_window name="Create Visitor"
             id="create_visitor_action"
             res_model="create.customer"
             binding_model="muki.rest"
             binding_views="form"
             view_mode="list"
-            target="new"/>
+            target="new"/> -->
     </data>
 </odoo>
         
