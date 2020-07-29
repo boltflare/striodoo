@@ -1,14 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
 	<data>
-        <act_window name="Create Visitor"
-            id="create_visitor_action"
-            res_model="create.customer"
-            binding_model="muki.rest"
-            binding_views="form"
-            view_mode="list"
-            target="new"
-        />
         <!--tree view-->
         <record id = "vso_tree_view" model = "ir.ui.view">
             <field name = "name">VSO View Tree</field>
