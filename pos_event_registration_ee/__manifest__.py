@@ -10,7 +10,7 @@
 #################################################################################
 {
     'name': "Pos Event Registration",
-    'version': '0.0.1',
+    'version': '0.0.2',
     'category': 'Point of Sale',
     'description': """
 This module is used to register event on pos interface

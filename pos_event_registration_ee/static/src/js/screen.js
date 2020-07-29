@@ -208,7 +208,7 @@ var _t = core._t;
             _super_orderline.initialize.call(this,attr,options);
             this.event = this.event || "";
             this.event_id = this.event || false;
-            this.event_ticket_id = this.event || false;
+            this.pos_event_ticket_id = this.event || false;
 
         },
         set_event: function(event){
@@ -218,12 +218,12 @@ var _t = core._t;
         get_event: function(event){
             return this.event;
         },
-        set_ticket_id: function(event_ticket_id){
-            this.event_ticket_id = event_ticket_id;
+        set_ticket_id: function(pos_event_ticket_id){
+            this.pos_event_ticket_id = pos_event_ticket_id;
 //            this.trigger('change',this);
         },
         get_ticket_id: function(ticket_id){
-            return this.event_ticket_id;
+            return this.pos_event_ticket_id;
         },
         set_id: function(id){
             this.event_id = id;
@@ -236,14 +236,14 @@ var _t = core._t;
             var json = _super_orderline.export_as_JSON.call(this);
             json.event = this.get_event();
             json.event_id = this.get_id();
-            json.event_ticket_id = this.get_ticket_id();
+            json.pos_event_ticket_id = this.get_ticket_id();
             return json;
         },
         init_from_JSON: function(json){
             _super_orderline.init_from_JSON.apply(this,arguments);
             this.event = json.event;
             this.event_id = json.event_id;
-            this.event_ticket_id = json.event_ticket_id;
+            this.pos_event_ticket_id = json.pos_event_ticket_id;
         },
     });
 });

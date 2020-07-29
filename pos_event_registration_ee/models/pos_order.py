@@ -14,19 +14,19 @@ from odoo import api, fields, models, _
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    event_ok = fields.Boolean(string='Is an Event Ticket', help="If checked this product automatically "
+    pos_event_ok = fields.Boolean(string='Is an Event Ticket', help="If checked this product automatically "
       "creates an event registration at the sales order confirmation.")
 
 
 class Product(models.Model):
     _inherit = 'product.product'
 
-    event_ticket_ids = fields.One2many('pos.event.ticket', 'product_id', string='Event Tickets')
+    pos_event_ticket_ids = fields.One2many('pos.event.ticket', 'product_id', string='Event Tickets')
 
-    @api.onchange('event_ok')
-    def _onchange_event_ok(self):
+    @api.onchange('pos_event_ok')
+    def _onchange_pos_event_ok(self):
         """ Redirection, inheritance mechanism hides the method on the model """
-        if self.event_ok:
+        if self.pos_event_ok:
             self.type = 'service'
 
 class PosOrderLine(models.Model):
@@ -35,14 +35,14 @@ class PosOrderLine(models.Model):
 
     event_id = fields.Many2one('event.event', string='Event',
        help="Choose an event and it will automatically create a registration for this event.")
-    event_ticket_id = fields.Many2one('pos.event.ticket', string='Event Ticket', help="Choose "
+    pos_event_ticket_id = fields.Many2one('pos.event.ticket', string='Event Ticket', help="Choose "
         "an event ticket and it will automatically create a registration for this event ticket.")
-    event_ok = fields.Boolean(related='product_id.event_ok', readonly=True)
+    pos_event_ok = fields.Boolean(related='product_id.pos_event_ok', readonly=True)
 
     def _order_line_fields(self, line, session_id=None):
         lines = super(PosOrderLine, self)._order_line_fields(line, session_id=None)
         lines[2].update({'event_id': line[2].get('event_id', False)})
-        lines[2].update({'event_ticket_id': line[2].get('event_ticket_id', False)})
+        lines[2].update({'pos_event_ticket_id': line[2].get('pos_event_ticket_id', False)})
         return line
 
 
@@ -56,20 +56,20 @@ class EventTicket(models.Model):
     name = fields.Char(string='Name', required=True, translate=True)
     event_id = fields.Many2one('event.event', string="Event", ondelete='cascade')
     product_id = fields.Many2one('product.product', string='Product',
-                                 required=True, domain=[("event_ok", "=", True)],
+                                 required=True, domain=[("pos_event_ok", "=", True)],
                                  default=_default_product_id)
 
 class Event(models.Model):
     _inherit = 'event.event'
 
-    event_ticket_ids = fields.One2many(
+    pos_event_ticket_ids = fields.One2many(
         'pos.event.ticket', 'event_id', string='Event Ticket',
         copy=True)
 
 class EventRegistration(models.Model):
     _inherit = 'event.registration'
 
-    event_ticket_id = fields.Many2one('pos.event.ticket', string='Event Ticket', readonly=True)
+    pos_event_ticket_id = fields.Many2one('pos.event.ticket', string='Event Ticket', readonly=True)
     pos_order_line_id = fields.Many2one('pos.order.line', string='Sales Order Line', ondelete='cascade')
 
 class PosOrder(models.Model):
@@ -85,7 +85,7 @@ class PosOrder(models.Model):
                     data = {
                         'pos_order_line_id': line.id,
                         'event_id' : line.event_id.id or False,
-                        'event_ticket_id': line.event_ticket_id.id or False,
+                        'pos_event_ticket_id': line.pos_event_ticket_id.id or False,
                         'state':'open',
                     }
                     Registration.create(data)

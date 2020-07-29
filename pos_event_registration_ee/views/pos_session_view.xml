@@ -23,7 +23,7 @@
         <field name="inherit_id" ref="event.view_registration_search" />
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='createmonth']" position="after">
-                <filter string="Event Ticket" name="event_ticket_id" context="{'group_by':'event_ticket_id'}"/>
+                <filter string="Event Ticket" name="pos_event_ticket_id" context="{'group_by':'pos_event_ticket_id'}"/>
             </xpath>
         </field>
     </record>
@@ -34,7 +34,7 @@
         <field name="inherit_id" ref="event.view_event_registration_tree" />
         <field name="arch" type="xml">
             <field name="email" position="after">
-                <field name="event_ticket_id" string="Ticket"></field>
+                <field name="pos_event_ticket_id" string="Ticket"></field>
             </field>
         </field>
     </record>

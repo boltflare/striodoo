@@ -6,8 +6,8 @@
              <field name="inherit_id" ref="product.product_template_form_view" />
              <field name="arch" type="xml">
                 <group name="email_template_and_project" position="after">
-                    <group string="Events">
-                        <field name="event_ok" />
+                    <group string="Events POS">
+                        <field name="pos_event_ok" />
                     </group>
                 </group>
              </field>
