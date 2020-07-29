@@ -1,6 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
 	<data>
+        <act_window name="Create Visitor"
+            id="create_visitor_action"
+            res_model="create.customer"
+            binding_model="muki.rest"
+            binding_views="form"
+            view_mode="list"
+            target="new"
+        />
         <!--tree view-->
         <record id = "vso_tree_view" model = "ir.ui.view">
             <field name = "name">VSO View Tree</field>
@@ -62,22 +70,13 @@
 
 
         <record id="muki_rest_action" model="ir.actions.act_window">
-			<field name="name">VSO CONNECT</field>
+			<field name="name">VSO SEARCH</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">muki.rest</field>
 			<field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="vso_search_view"/>
 			<field name="view_type">form</field>
 		</record>
-
-        <act_window name="Create Visitor"
-            id="create_visitor_action"
-            res_model="create.customer"
-            binding_model="muki.rest"
-            binding_views="form"
-            view_mode="list"
-            target="new"
-        />
        
        <!-- Este es la acción heredada que permite mostrar los datos en vista arbol -->
         <record id="vso_menu_tree" model="ir.actions.act_window.view">
