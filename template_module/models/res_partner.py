@@ -66,4 +66,3 @@ class ResPartnerInherit(models.Model):
 
 
 
-
