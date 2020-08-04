@@ -63,7 +63,7 @@
         <field name="inherit_id" ref="account.view_account_payment_search"/>
         <field name="arch" type="xml">
             <!-- FILTROS -->
-            <xpath expr="//search/group/separator" position="after">
+            <xpath expr="//search/separator" position="after">
                 <filter string="BCI"
                         name="invoice_bci"
                         domain="[('journal_id.name','=','BCI 1312')]"/>
