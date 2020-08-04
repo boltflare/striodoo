@@ -3,7 +3,7 @@
     <data>
 
         <record id="view_visitor_wizard" model="ir.ui.view">
-            <field name="name">Visitor Search</field>
+            <field name="name">Search Visitor</field>
             <field name="model">visitor.wizard</field>
             <field name="arch" type="xml">
                 <form string="Do a search">
@@ -19,7 +19,6 @@
                     </group>
                     <footer>
                         <button name="search_visitor" string="Search" type="object" class="oe_highlight" />
-                        or
                         <button string="Cancel" class="oe_link" special="cancel"/>
                     </footer>
                 </form>

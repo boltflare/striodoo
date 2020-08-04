@@ -24,17 +24,17 @@ odoo.define('template_module.action_call', function (require) {
                 type: "ir.actions.act_window",
                 name: "Search Visitor",
                 res_model: "visitor.wizard",
-                views: [[false,'form']],
-                target: 'new',
-                views: [[false, 'form']], 
                 view_type : 'form',
-                view_mode : 'form',
-                view_id: 'view_visitor_wizard', 
+                view_mode : 'tree, form',
+                view_id: 'view_visitor_wizard',
+                views: [[false, 'list'], [false, 'form']],
+                target: 'new'
+                // views: [[false, 'form']], 
                 // flags: {'form': {'action_buttons': true, 'options': {'mode': 'edit'}}}
             };
             return this.do_action(action);
         },
-
+       
     };
     ListController.include(IncludeListView);
 });
