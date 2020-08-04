@@ -5,18 +5,18 @@
         <field name="model">visitor.wizard</field>
         <field name="arch" type="xml">
             <form string="Do a search">
-                <group>
+               <sheet> 
                     <group>
-                        <field name="status" />
-                        <field name="visit_name"/>
-                        <field name="name"/>
+                        <group>
+                            <field name = "visitor" string="Visitor ID"/>
+                            <field name = "hstatus" string="Status"/>
+                            <field name = "visitor_name" string="Name"/>
+                            <field name = "name" string="First Name"/>
+                            <field name = "last_name" string="Last Name"/>
+					        <field name = "visitor_email" string="Email"/>
+                        </group>
                     </group>
-                    <group>
-                        <field name="last_name"/>
-                        <field name="visit_email"/>
-                        <field name="visitor"/>
-                    </group>
-                </group>
+                </sheet>
                 <footer>
                     <button name="search_visitor" string="Search" type="object" class="oe_highlight" />
                     <button string="Cancel" class="oe_link" special="cancel"/>
