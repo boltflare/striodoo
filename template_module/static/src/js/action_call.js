@@ -25,9 +25,9 @@ odoo.define('template_module.action_call', function (require) {
                 name: "Search Visitor",
                 res_model: "visitor.wizard",
                 view_type : 'form',
-                view_mode : 'tree, form',
+                view_mode : 'form',
                 view_id: 'view_visitor_wizard',
-                views: [[false, 'list'], [false, 'form']],
+                views: [false, 'form'],
                 target: 'new'
                 // views: [[false, 'form']], 
                 // flags: {'form': {'action_buttons': true, 'options': {'mode': 'edit'}}}

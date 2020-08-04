@@ -8,14 +8,13 @@
             <field name="arch" type="xml">
                 <form string="Do a search">
                     <group>
-                        <group>
-                            <field name="status" />
-                            <field name="visit_name"/>
-                            <field name="name"/>
-                            <field name="last_name"/>
-                            <field name="visit_email"/>
-                            <field name="visitor"/>
-                        </group>
+                        <field name="status" />
+                        <field name="visit_name"/>
+                        <field name="name"/>
+                        <field name="last_name"/>
+                        <field name="visit_email"/>
+                        <field name="visitor"/>
+                        
                     </group>
                     <footer>
                         <button name="search_visitor" string="Search" type="object" class="oe_highlight" />
