@@ -57,4 +57,26 @@
         </field>
     </record>
 
+    <!-- FILTROS PARA LA VISTA DE PAGOS  -->
+    <record id="view_account_payment_filter" model="ir.ui.view">
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_search"/>
+        <field name="arch" type="xml">
+            <!-- FILTROS -->
+            <xpath expr="//search[1]/group[1]/separator[1]" position="after">
+                <filter string="BCI"
+                        name="invoice_bci"
+                        domain="[('journal_id.name','=','BCI 1312')]"/>
+                
+                <filter string="ADMINISTRATION"
+                        name="invoice_stri"
+                        domain="[('journal_id.name','=','Administration 1380')]"/>
+                
+                <filter string="STRIFUND"
+                        name="invoice_fund"
+                        domain="[('journal_id.name','=','Strifund')]"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
