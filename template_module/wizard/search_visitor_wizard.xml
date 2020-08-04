@@ -1,20 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-    <data>
-
-        <record id="view_visitor_wizard" model="ir.ui.view">
+    <record id="view_visitor_wizard" model="ir.ui.view">
             <field name="name">Search Visitor</field>
             <field name="model">visitor.wizard</field>
             <field name="arch" type="xml">
                 <form string="Do a search">
                     <group>
-                        <field name="status" />
-                        <field name="visit_name"/>
-                        <field name="name"/>
-                        <field name="last_name"/>
-                        <field name="visit_email"/>
-                        <field name="visitor"/>
-                        
+                        <group>
+                            <field name="status" />
+                            <field name="visit_name"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="last_name"/>
+                            <field name="visit_email"/>
+                            <field name="visitor"/>
+                        </group>
                     </group>
                     <footer>
                         <button name="search_visitor" string="Search" type="object" class="oe_highlight" />
@@ -23,6 +24,11 @@
                 </form>
             </field>
         </record>
-    </data>
+
+        <act_window id="search_visitor_action_wizard"
+                name="Search Visitor"
+                res_model="visitor.wizard"
+                view_mode="form"
+                target="new"/>
 </odoo>
 
