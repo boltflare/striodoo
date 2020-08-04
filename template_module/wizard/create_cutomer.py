@@ -5,6 +5,7 @@ class CreateCustomer(models.TransientModel):
     _name = 'create.customer'
     _description = 'Create a new visitor on customers'
     
+    visit_name = fields.Char("Name")
     # state = fields.Selection([
     #     ('draft', 'Quotation'),
     #     ('sent', 'Quotation Sent'),
@@ -16,4 +17,4 @@ class CreateCustomer(models.TransientModel):
     def create_visitor(self):
         active_ids = self._context.get('active_ids', []) or []
         for record in self.env['muki.rest'].browse(active_ids):
-            record.visitor = self.visitor
+            record.visit_name = self.visit_name
