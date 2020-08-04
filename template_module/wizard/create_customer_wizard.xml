@@ -22,7 +22,7 @@
         </record>
 
         <record id="create_visitor_wizard" model="ir.actions.act_window">
-            <field name="name">Create Visitor</field>
+            <field name="name">Create Customer</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">create.customer</field>
             <field name="view_mode">form</field>
