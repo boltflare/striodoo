@@ -8,11 +8,11 @@
             <field name="arch" type="xml">
                 <form string="CREATE CUSTOMER">
                     <label string="Do you want create this costumer? "/>
-                    <!-- <group>
+                    <group>
                         <group>
-                            <field name="state"/>
+                            <field name = "visitor_name"/>
                         </group>
-                    </group> -->
+                    </group>
                     <footer>
                         <button name="create_visitor" string="Create" type="object"/>
                         <button string="Cancel" class="btn-secondary" special="cancel"/>
