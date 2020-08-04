@@ -27,15 +27,7 @@
             </field>
         </record>
 
-        <record id="search_visitor_wizard" model="ir.actions.act_window">
-                <field name="name">Search Visitor</field>
-                <field name="type">ir.actions.act_window</field>
-                <field name="res_model">visitor.wizard</field>
-                <field name="view_mode">form</field>
-                <field name="view_id" ref="view_visitor_wizard"/>
-                <field name="target">new<field/>
-        </record>
-            
+
     </data>
         
 </odoo>
