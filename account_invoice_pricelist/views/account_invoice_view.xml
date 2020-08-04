@@ -74,7 +74,7 @@
                 
                 <filter string="STRIFUND"
                         name="invoice_fund"
-                        domain="[('journal_id.name','=','Strifund')]"/>
+                        domain="[('journal_id','=','Strifund')]"/>
             </xpath>
         </field>
     </record>
