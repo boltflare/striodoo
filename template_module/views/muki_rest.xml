@@ -59,7 +59,7 @@
             </field>
         </record>
         
-        <record id="create_visitor_action" model="ir.actions.act_window">
+        <!-- <record id="create_visitor_action" model="ir.actions.act_window">
 			<field name="name">Create Customer</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">create.customer</field>
@@ -67,7 +67,7 @@
             <field name="view_id" ref="template_module.vso_tree_view"/>
 			<field name="view_type">form</field>
             <field name="binding_model_id" ref="model_muki_rest"/>
-		</record>
+		</record> -->
 
         <record id="muki_rest_action" model="ir.actions.act_window">
 			<field name="name">VSO SEARCH</field>
