@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from . import library
+from . import library2
 # from . import library2
 import json
 from odoo import models, fields, api, _
@@ -23,7 +23,7 @@ class CreateCustomer(models.TransientModel):
         return self.env['muki.rest'].browse(self._context.get('active_ids'))
 
     def create_visitor(self):
-        api = library.RestAPI()
+        api = library2.RestAPI()
         api.authenticate()
         
         # test API
