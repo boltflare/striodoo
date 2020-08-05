@@ -97,11 +97,12 @@
                         <label string="Do you want create this costumer?"/>
                         <field name = "visitor_name"/>
                     </group>
+                    <footer>
+                        <button name="create_visitor" string="Create" type="object"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
                 </form>
-                <footer>
-                    <button name="create_visitor" string="Create" type="object"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel"/>
-                </footer>
+                
             </field>
         </record>
 
