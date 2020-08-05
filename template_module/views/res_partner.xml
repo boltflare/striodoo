@@ -11,7 +11,7 @@
 				
 				<xpath expr="/form/*" position="before">
 					<header>
-						<button name="action_muki_connect" string="VSO Connect" type="object" />
+						<button name="muki_rest_action" string="VSO Connect" type="object" />
 					</header>
 				</xpath>
 
