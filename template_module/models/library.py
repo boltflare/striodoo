@@ -12,9 +12,9 @@ _logger = logging.getLogger(__name__)
 
 class RestAPI:
 	def __init__(self):
-		self.url = 'https://stri-plantillas-1300821.dev.odoo.com'
-		self.client_id = 'DCV4TbXIqV4zER0oqKBBxR2svVIltk'
-		self.client_secret = 'VJkG8vymdvq9wxaY44pav5y4JylWaU'
+		self.url = 'https://stri-plantillas-1339542.dev.odoo.com'
+		self.client_id = '16rJ4CDCuTmdDJrl3JTNwa18YYI6QE'
+		self.client_secret = '3J6BBEEY0AfrstZgGh49kSh4kp6Qh6'
 		self.client = BackendApplicationClient(client_id=self.client_id)
 		self.oauth = OAuth2Session(client=self.client)
 

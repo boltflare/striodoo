@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
+from odoo import api, fields, models
 
-from odoo import models, fields, api, _
 
-class MukiREST(models.Model):
-	_name = "muki.rest"
-	_description = "Visitor Search"
+class searchVisitorWizard(models.TransientModel):
+	_name = 'visitor.wizard'
+	_description = 'Wizard for Search Visitor STRI'
 
-	hstatus = fields.Selection([
+	status = fields.Selection([
 		('Check-OUT', 'Check-OUT'),
 		('Cancelled', 'Cancelled'),
 		('Declined', 'Declined'),
@@ -15,13 +15,11 @@ class MukiREST(models.Model):
 		('Check-IN', 'Check-IN'),
 		('Approved', 'Approved'),
 		('Submit', 'Submit')],string = 'Status')
-	visitor_name = fields.Char("Name")
+	visit_name = fields.Char("Name")
 	name = fields.Char("First Name")
 	last_name = fields.Char("Last Name")
-	visitor_email = fields.Char("Email")
+	visit_email = fields.Char("Email")
 	visitor = fields.Char("Visitor ID")
 
-
-
-
-
+	def search_visitor(self):
+		active_ids = self._context.get('active_ids', []) or []

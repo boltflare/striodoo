@@ -7,12 +7,12 @@
             <field name = "model">muki.rest</field>
             <field name = "arch" type = "xml">
                 <tree string = "Search Visitor" create="false" edit="false" delete="false">
-                    <field name = "visitor" string="Visitor ID"/>
-                    <field name = "visitor_name" string="Name"/>
-                    <field name = "name" string="First Name"/>
-                    <field name = "last_name" string="Last Name"/>
-					<field name = "visitor_email" string="Email"/>
-                    <field name = "hstatus" string="Status"/>
+                    <field name = "visitor"/>
+                    <field name = "visitor_name" />
+                    <field name = "name" />
+                    <field name = "last_name"/>
+					<field name = "visitor_email"/>
+                    <field name = "hstatus"/>
                     
                 </tree>
             </field>
@@ -27,12 +27,12 @@
                     <sheet> 
                         <group>
                             <group>
-                            	<field name = "visitor" string="Visitor ID"/>
-                                <field name = "hstatus" string="Status"/>
-                                <field name = "visitor_name" string="Name"/>
-                                <field name = "name" string="First Name"/>
-                                <field name = "last_name" string="Last Name"/>
-					            <field name = "visitor_email" string="Email"/>
+                            	<field name = "visitor"/>
+                                <field name = "hstatus" />
+                                <field name = "visitor_name" />
+                                <field name = "name"/>
+                                <field name = "last_name" />
+					            <field name = "visitor_email" />
                             </group>
                         </group>
                     </sheet>
@@ -58,16 +58,6 @@
                 </search>
             </field>
         </record>
-        
-        <record id="create_visitor_action" model="ir.actions.act_window">
-			<field name="name">Create Visitor</field>
-			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">create.customer</field>
-			<field name="view_mode">tree,form</field>
-            <field name="view_id" ref="template_module.vso_tree_view"/>
-			<field name="view_type">form</field>
-            <field name="binding_model_id" ref="model_muki_rest"/>
-		</record>
 
         <record id="muki_rest_action" model="ir.actions.act_window">
 			<field name="name">VSO SEARCH</field>
@@ -78,7 +68,6 @@
 			<field name="view_type">form</field>
 		</record>
 
-       
        <!-- Este es la acción heredada que permite mostrar los datos en vista arbol -->
         <record id="vso_menu_tree" model="ir.actions.act_window.view">
             <field name="act_window_id" ref="template_module.muki_rest_action" />
@@ -99,63 +88,34 @@
         
 		<menuitem id="muki_rest_menu" name="VSO Connect" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
 		
-        <!--tree view-->
-        <!-- <record id = "vso_tree_view" model = "ir.ui.view">
-            <field name = "name">VSO View Tree</field>
-            <field name = "model">muki.rest</field>
-            <field name = "arch" type = "xml">
-                <tree string = "VSO Search View" create="false" edit="false" delete="false">
-                    <field name = "name" string="Name"/>
-					<field name = "hstatus" string="Status"/>
-                </tree>
+        <record model="ir.ui.view" id="wizard_form_view">
+            <field name="name">wizard.form</field>
+            <field name="model">create.customer</field>
+            <field name="arch" type="xml">
+                <form string="CREATE CUSTOMER">
+                    <group>
+                        <div>
+                            <h3> Are you sure to create this costumer? </h3>
+                        </div>
+                        <!-- <label string="Do you want create this costumer?"/> -->
+                        <!-- <field name = "visitor_name"/> -->
+                    </group>
+                    <footer>
+                        <button name="create_visitor" type="object"
+                                string="Create" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>    
             </field>
-        </record> -->
+        </record>
 
-		<!--FORM VIEW-->
-        <!-- <record id = "vso_form_view" model = "ir.ui.view">
-            <field name = "name">VSO View Form</field>
-            <field name = "model">muki.rest</field>
-            <field name = "arch" type = "xml">
-                <form string = "VSO Search" edit="false" delete="false">
-					<header>
-						<button name="button_search" string="Search" class="oe_highlight" type="object"/>
-					</header>
-                	<sheet> 
-                        <group>
-                            <group>
-                            	<field name = "name" />
-								<field name = "hstatus" />
-                            </group>
-						</group>
-					</sheet>
-                </form>
-            </field>
-        </record> -->
-
-		<!-- <record id="muki_rest_action" model="ir.actions.act_window">
-			<field name="name">TEST VSO</field>
-			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">muki.rest</field>
-			<field name="view_mode">tree,form</field>
-			<field name="view_type">form</field>
-			
-		</record>
-
-         <record id="vso_menu_tree" model="ir.actions.act_window.view">
-            <field name="act_window_id" ref="template_module.muki_rest_action" />
-            <field name="view_id" ref="template_module.vso_tree_view"/>
-            <field name="view_mode">tree</field>
-            <field name="sequence" eval="2"/>
-        </record> -->
-		
-        <!-- <record id="vso_menu_form" model="ir.actions.act_window.view">
-            <field name="act_window_id" ref="template_module.muki_rest_action"/>
-            <field name="view_id" ref="template_module.vso_form_view"/>
-            <field name="view_mode">form</field>
-            <field name="sequence" eval="2"/>
-        </record> -->
-
-		<!-- <menuitem id="muki_rest_menu" name="Test VSO" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/> -->
-		
+        <act_window id="launch_session_wizard"
+                    name="Create Customer"
+                    src_model="muki.rest"
+                    res_model="create.customer"
+                    view_mode="form"
+                    target="new"
+                    key2="client_action_multi"/>
 	</data>
 </odoo>
