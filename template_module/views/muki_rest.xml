@@ -93,6 +93,7 @@
             <field name="model">create.customer</field>
             <field name="arch" type="xml">
                 <form string="CREATE CUSTOMER">
+                    <label string="Do you want create this costumer? "/>
                     <group>
                        <field name = "visitor_name"/>
                     </group>
@@ -101,7 +102,7 @@
         </record>
 
         <act_window id="launch_session_wizard"
-                    name="Add Attendees"
+                    name="Create Customer"
                     src_model="muki.rest"
                     res_model="create.customer"
                     view_mode="form"
