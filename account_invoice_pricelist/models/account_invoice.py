@@ -1,6 +1,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import models, fields, api, exceptions
+import logging
+_logger = logging.getLogger(__name__)
 
 class AccountInvoice(models.Model):
 	_inherit = 'account.invoice'
@@ -111,6 +113,13 @@ class AccountInvoiceLine(models.Model):
 		self.price_unit = tax_obj._fix_tax_included_price_company(
 			product.price, product.taxes_id, self.invoice_line_tax_ids,
 			self.company_id)
+
+	#FUNCION PARA OBTENER LA CATEGORIA DEL PRODUCTO Y OTRA PARA PODER BLOQUEAR QUE PERMITA EL CAMBIO DE PRECIO
+	# @api.onchange('account_id')
+	# def get_product_category(self):
+	# 	if self.product_id and self.invoice_id.account_id.name =='101234 BCI FOODS':
+	# 		self.account_id = self.invoice_id.account_id.name
+	# 	logging.info('PRODUCT CATEGORY:' + str(self.account_id))
 
 	@api.multi
 	def update_from_pricelist(self):
