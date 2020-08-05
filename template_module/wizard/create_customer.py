@@ -21,6 +21,7 @@ class CreateCustomer(models.TransientModel):
     #Funcion para obtener los registros seleccionados
     def _get_visitors(self):
         return self.env['muki.rest'].browse(self._context.get('active_ids'))
+    logging.info(str(_get_visitors))
 
     def create_visitor(self):
         api = library2.RestAPI()
