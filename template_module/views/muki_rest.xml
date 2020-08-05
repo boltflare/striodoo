@@ -94,13 +94,13 @@
             <field name="arch" type="xml">
                 <form string="CREATE CUSTOMER">
                     <group>
-                        <label string="Do you want create this costumer?"/>
+                        <!-- <label string="Do you want create this costumer?"/> -->
                         <field name = "visitor_name"/>
                     </group>
-                    <footer>
+                    <!-- <footer>
                         <button name="create_visitor" string="Create" type="object"/>
                         <button string="Cancel" class="btn-secondary" special="cancel"/>
-                    </footer>
+                    </footer> -->
                 </form>
                 
             </field>
