@@ -89,7 +89,7 @@
 		<menuitem id="muki_rest_menu" name="VSO Connect" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
 		
         <record id="view_create_visitor_wizard_form" model="ir.ui.view" >
-            <field name="name">create.visitor.wizard.form</field>
+            <field name="name">Create Visitor Wizard</field>
             <field name="model">create.customer</field>
             <field name="arch" type="xml">
                 <form string="CREATE CUSTOMER">
