@@ -94,8 +94,11 @@
             <field name="arch" type="xml">
                 <form string="CREATE CUSTOMER">
                     <group>
+                        <div>
+                            <h3> Are you sure to create this costumer? </h3>
+                        </div>
                         <!-- <label string="Do you want create this costumer?"/> -->
-                        <field name = "visitor_name"/>
+                        <!-- <field name = "visitor_name"/> -->
                     </group>
                     <footer>
                         <button name="create_visitor" type="object"
