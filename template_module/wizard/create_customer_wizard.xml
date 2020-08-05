@@ -1,7 +1,33 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_create_visitor_action" model="ir.ui.view">
+        <field name="name">create.visitor.action.view.form</field>
+        <field name="model">create.customer</field>
+        <field name="arch" type="xml">
+            <form string="CREATE CUSTOMER">
+                <label string="Do you want create this costumer? "/>
+                <group>
+                    <group>
+                        <field name = "visitor_name"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="create_visitor" string="Create" type="object"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+                
+            </form>
+        </field>
+    </record>
+</odoo>
+
+
+
+
+<!-- <?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
-        <!-- Add you code here -->
+        
         <record id="create_visitor_action" model="ir.ui.view">
             <field name="name">Create Visitor</field>
             <field name="model">create.customer</field>
@@ -29,15 +55,9 @@
             <field name="view_id" ref="template_module.vso_tree_view"/>
             <field name="target">new<field/>
         </record>
-        <!-- <act_window name="Create Visitor"
-            id="create_visitor_action"
-            res_model="create.customer"
-            binding_model="muki.rest"
-            binding_views="form"
-            view_mode="list"
-            target="new"/> -->
+        
     </data>
-</odoo>
+</odoo> -->
         
 
 
