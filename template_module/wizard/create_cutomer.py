@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+from . import library
+import json
+
+import logging
+_logger = logging.getLogger(__name__)
 from odoo import models, fields, api, _
 
 class CreateCustomer(models.TransientModel):
@@ -16,12 +21,31 @@ class CreateCustomer(models.TransientModel):
     def _get_visitors(self):
         return self.env['muki.rest'].browse(self._context.get('active_ids'))
 
-    # session_ids = fields.Many2many('muki.rest',
-    #     string="Sessions", required=True, default=_default_sessions)
-    # attendee_ids = fields.Many2many('res.partner', string="Attendees")
-
-    @api.multi
     def create_visitor(self):
+        api = library.RestAPI()
+        api.authenticate()
+        
+        # test API
+        logging.info(str(api.execute('/api')))
+        logging.info(str(api.execute('/api/user')))
+
+        #EJEMPLO FUNCIONAL 
+        response = api.execute('/api/custom/create/customer')
+        result = response['result']
+        for entry in result:
+            # estado = entry.get('hstatus')
+            nombre = entry.get('name')
+            correo = entry.get('email')
+            visit = entry.get('visitor')
+            self.env["res.partner"].create({'visitor_name':nombre,'visitor_email':correo, 'visitor':visit})
+            # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
+            logging.info(str(response))
+
+    """ @api.multi
+    def create_visitor(self):
+
+        /api/custom/create/customer
+
         customer = self.env['res.partner']
         customers = customer
         for visitor_vals in self._get_visitors():
@@ -36,6 +60,6 @@ class CreateCustomer(models.TransientModel):
             'view_id': False,
             'type': 'ir.actions.act_window',
         }
-        return action_vals
+        return action_vals """
 
     
