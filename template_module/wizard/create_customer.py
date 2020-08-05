@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from . import library
+# from . import library2
 import json
+from odoo import models, fields, api, _
 
 import logging
 _logger = logging.getLogger(__name__)
-from odoo import models, fields, api, _
 
 class CreateCustomer(models.TransientModel):
     _name = 'create.customer'
