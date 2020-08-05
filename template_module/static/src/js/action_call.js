@@ -26,7 +26,7 @@ odoo.define('template_module.action_call', function (require) {
                 res_model: "visitor.wizard",
                 view_type : 'form',
                 view_mode : 'form',
-                view_id: 'view_visitor_wizard',
+                // view_id: 'view_visitor_wizard',
                 views: [false, 'form'],
                 target: 'new',
                 // views: [[false, 'form']], 
