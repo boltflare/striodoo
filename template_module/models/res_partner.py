@@ -72,13 +72,13 @@ class ResPartnerInherit(models.Model):
             'type':'ir.actions.act_window',
             'view_type':'form',
             'view_mode':'tree,form',
-            'views': [(view_id_tree[0].id, 'tree'),(False,'form')],
+            # 'views': [(view_id_tree[0].id, 'tree'),(False,'form')],
             'target':'current', 
             'res_model':'muki.rest',
             'view_id ref="template_module.vso_tree_view"': '',
             'domain':[('project_id','in',[vso_ids])]
-            }
-      }
+        }
+
 
     """ @api.multi
     def cmd_back(self,context=None):
