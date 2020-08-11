@@ -6,7 +6,7 @@
             <field name = "name">VSO View Tree</field>
             <field name = "model">muki.rest</field>
             <field name = "arch" type = "xml">
-                <tree string = "Search Visitor" create="false" edit="false" delete="false">
+                <tree string = "Search Visitor" create="false" edit="false" delete="true">
                     <field name = "visitor"/>
                     <field name = "visitor_name" />
                     <field name = "name" />
@@ -35,6 +35,12 @@
 					            <field name = "visitor_email" />
                             </group>
                         </group>
+                        <footer>
+                        <button name="create_visitor" type="object"
+                                string="Create" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
                     </sheet>
                 </form>
             </field>
