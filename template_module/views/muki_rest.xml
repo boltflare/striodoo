@@ -36,8 +36,8 @@
                             </group>
                         </group>
                         <footer>
-                            <button name="create_visitor" type="object"
-                                    string="Create" class="oe_highlight"/>
+                            <button name="search_visitor" type="object"
+                                    string="Search" class="oe_highlight"/>
                             or
                             <button special="cancel" string="Cancel"/>
                         </footer>
