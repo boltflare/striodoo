@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-
+import logging
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
+_logger = logging.getLogger(__name__)
 
 class AccountInvoiceInherit(models.Model):
 	_inherit = "account.invoice"
@@ -17,8 +18,9 @@ class AccountInvoiceInherit(models.Model):
 		])
 	"""
 
-	def create(self, vals_list):
-		for vals in vals_list:
+	@api.model
+	def create(self, vals):
+		if type(vals) != str:
 			if vals.get('people_soft_registered'):
 				vals['people_soft_registered'] = False
 		return super(AccountInvoiceInherit, self).create(vals)

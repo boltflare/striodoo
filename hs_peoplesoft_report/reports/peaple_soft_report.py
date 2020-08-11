@@ -395,22 +395,27 @@ ORDER BY external_order DESC, sub_order DESC
 		return lines
 
 
-	def publish_report(self, options):
+	def action_publish(self, options):
 		invoices = self._do_query(options)
 
-		documents = []
+		# documents = []
 		for item in invoices:
 			number = item[9] 	#9 es la columna del numero de factura
-			if not number in documents:
-				resp = self.env["account.invoice"].search([('number', '=', number)], limit=1)
-				if resp:
-					resp.people_soft_registered = True
-					documents.append(number)
-				else:
-					pay = self.env["account.payment"].search([('name', '=', number)], limit=1)
-					if pay:
-						pay.people_soft_registered = True
-						documents.append(number)
+			# if not number in documents:
+			inv = self.env["account.invoice"].search([('number', '=', number)])
+			if inv:
+				inv.write({'people_soft_registered':True})
+				continue
+		
+			pay = self.env["account.payment"].search([('name', '=', number)])
+			if pay:
+				pay.write({'people_soft_registered':True})
+				continue
+			
+			pay = self.env['account.payment'].search([('move_name', '=', number)])
+			if pay:
+				pay.write({'people_soft_registered':True})
+				continue
 
 				
 		
@@ -434,9 +439,5 @@ ORDER BY external_order DESC, sub_order DESC
 
 	def _get_reports_buttons(self):
 		buttons = super(PeopleSoftReport, self)._get_reports_buttons()
-		buttons.append({
-			'name': _('publish'), 
-			'action': 'publish_report', 
-			'invisible': "[('published_entries', '=', True)]"
-		})
+		buttons.append({'name': _('Publish'), 'action': 'action_publish'})
 		return buttons
