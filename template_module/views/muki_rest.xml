@@ -35,12 +35,12 @@
 					            <field name = "visitor_email" />
                             </group>
                         </group>
-                        <!-- <footer>
-                        <button name="create_visitor" type="object"
-                                string="Create" class="oe_highlight"/>
-                        or
-                        <button special="cancel" string="Cancel"/>
-                    </footer> -->
+                        <footer>
+                            <button name="create_visitor" type="object"
+                                    string="Create" class="oe_highlight"/>
+                            or
+                            <button special="cancel" string="Cancel"/>
+                        </footer>
                     </sheet>
                 </form>
             </field>

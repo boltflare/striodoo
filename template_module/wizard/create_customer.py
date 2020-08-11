@@ -43,25 +43,5 @@ class CreateCustomer(models.TransientModel):
             # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
             logging.info(str(response))
 
-    """ @api.multi
-    def create_visitor(self):
-
-        /api/custom/create/customer
-
-        customer = self.env['res.partner']
-        customers = customer
-        for visitor_vals in self._get_visitors():
-            customers += customer.create(visitor_vals)
-        customers.post()
-
-        action_vals = {
-            'name': _('customers'),
-            'domain': [('id', 'in', customers.ids)],
-            'view_type': 'form',
-            'res_model': 'res.partner',
-            'view_id': False,
-            'type': 'ir.actions.act_window',
-        }
-        return action_vals """
-
+   
     
