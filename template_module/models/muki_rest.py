@@ -54,6 +54,7 @@ class MukiREST(models.Model):
 
 		# esta funcion deberia abrir la respuesta enviada en el request
 		rsp = urllib.request.urlopen(req)
+		logging.info("CONTIENE:" + str(rsp))
 		# print(rsp.read)
 		# con esta linea leemos los datos de la respuesta
 		content = rsp.read()
@@ -69,8 +70,4 @@ class MukiREST(models.Model):
 			logging.info(str(rsp))
 			
 		# imprimimos la respuesta, este content es el que se utilizaria para enviar la data a la vista segun se requiera
-		print(content
-
-
-
-
+		print(content)
