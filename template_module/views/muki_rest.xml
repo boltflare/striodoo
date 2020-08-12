@@ -23,7 +23,7 @@
             <field name = "name">VSO View Form</field> 
             <field name = "model">muki.rest</field> 
             <field name = "arch" type = "xml"> 
-                <form string = "VSO View"> 
+                <form string = "VSO View" create="false" edit="false"> 
                     <sheet> 
                         <group>
                             <group>
