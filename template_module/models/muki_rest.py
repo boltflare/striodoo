@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import urllib3.request, urllib3.parse, urllib3.error, json
+import urllib3, json
 import base64
 import socket
 import logging
@@ -72,4 +72,4 @@ class MukiREST(models.Model):
 		# 	logging.info(str(rsp))
 			
 		# imprimimos la respuesta, este content es el que se utilizaria para enviar la data a la vista segun se requiera
-		# print(content)
+		print(content)
