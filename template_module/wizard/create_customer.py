@@ -17,7 +17,11 @@ class CreateCustomer(models.TransientModel):
     #     active_ids = self._context.get('active_ids', []) or []
     #     for record in self.env['muki.rest'].browse(active_ids):
     #         record.visitor_name = self.visitor_name
-            
+       """ def update_state(self):
+        active_ids = self._context.get('active_ids', []) or []
+        for record in self.env['sale.order'].browse(active_ids):
+            record.state = self.state      """
+
     #Funcion para obtener los registros seleccionados
     def _get_visitors(self):
         return self.env['muki.rest'].browse(self._context.get('active_ids'))
