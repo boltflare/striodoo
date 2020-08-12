@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
 import urllib.request, urllib.parse, urllib.error, json
 import base64
 import socket
 import logging
 _logger = logging.getLogger(__name__)
+from odoo import models, fields, api, _
 
 class MukiREST(models.Model):
 	_name = "muki.rest"
@@ -71,4 +71,4 @@ class MukiREST(models.Model):
 		# 	logging.info(str(rsp))
 			
 		# imprimimos la respuesta, este content es el que se utilizaria para enviar la data a la vista segun se requiera
-		print(content)
+		# print(content)
