@@ -40,7 +40,8 @@ class MukiREST(models.Model):
 		# url del web service
 		url = 'https://visitors.stri.si.edu/services/getVisits'
 		# aqui se armaria el diccionario con los valores necesarios para los filtros
-		values = {"visitor_id": "visitor","status": "hstatus" }
+		values = {"status": "Check-OUT", "name": "Paula"}
+		# values = {"visitor_id": "visitor","status": "hstatus" }
 
 		# a continuacion, se utiliza urllib.parse.urlencode para transformar los valores a un formato valido del request
 		data = urllib.parse.urlencode(values).encode('utf-8')
@@ -59,15 +60,15 @@ class MukiREST(models.Model):
 		# con esta linea leemos los datos de la respuesta
 		content = rsp.read()
 						   
-		for entry1 in content:
-			visita = entry1.get('visitor_id')
-			nom = entry1.get('visitor_name')
-			fna = entry1.get('name')
-			lna = entry1.get('last_name')
-			mail = entry1.get('email')
-			estado = entry1.get('status')     
-			self.env["muki.rest"].create({'visitor':visita,'visitor_name':nom, 'name':fna, 'last_name':lna, 'visitor_email':mail, 'hstatus':estado })
-			logging.info(str(rsp))
+		# for entry1 in content:
+		# 	visita = entry1.get('visitor_id')
+		# 	nom = entry1.get('visitor_name')
+		# 	fna = entry1.get('name')
+		# 	lna = entry1.get('last_name')
+		# 	mail = entry1.get('email')
+		# 	estado = entry1.get('status')     
+		# 	self.env["muki.rest"].create({'visitor':visita,'visitor_name':nom, 'name':fna, 'last_name':lna, 'visitor_email':mail, 'hstatus':estado })
+		# 	logging.info(str(rsp))
 			
 		# imprimimos la respuesta, este content es el que se utilizaria para enviar la data a la vista segun se requiera
 		print(content)
