@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import urllib.request, urllib.parse, urllib.error, json
+import urllib3.request, urllib3.parse, urllib3.error, json
 import base64
 import socket
 import logging
@@ -44,18 +44,18 @@ class MukiREST(models.Model):
 		# values = {"visitor_id": "visitor","status": "hstatus" }
 
 		# a continuacion, se utiliza urllib.parse.urlencode para transformar los valores a un formato valido del request
-		data = urllib.parse.urlencode(values).encode('utf-8')
+		data = urllib3.parse.urlencode(values).encode('utf-8')
 		# declaramos los headers necesarios
 		headers={'Accept': 'application/json',
 				'X-VSO-caller': ipBase}
 
 		# aramamos el request tipo post de la libreria
-		req = urllib.request.Request(url, data=data, headers=headers)
+		req = urllib3.request.Request(url, data=data, headers=headers)
 		logging.info("REQ:" + str(req))
 		# print(req)
 
 		# esta funcion deberia abrir la respuesta enviada en el request
-		rsp = urllib.request.urlopen(req)
+		rsp = urllib3.request.urlopen(req)
 		logging.info("CONTIENE:" + str(rsp))
 		# print(rsp.read)
 		# con esta linea leemos los datos de la respuesta
