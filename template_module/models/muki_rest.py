@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo import urllib3.request, urllib3.parse, urllib3.error, json
+import urllib3, json
+# import urllib3.request, urllib3.parse, urllib3.error, json
 import base64
 import socket
 import logging
