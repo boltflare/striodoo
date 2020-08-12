@@ -19,12 +19,11 @@ class CreateCustomer(models.TransientModel):
     #         record.visitor_name = self.visitor_name
             
     #Funcion para obtener los registros seleccionados
-    """ def _get_visitors(self):
+    def _get_visitors(self):
         return self.env['muki.rest'].browse(self._context.get('active_ids'))
-    logging.info(str(_get_visitors)) """
+    logging.info(str(_get_visitors))
 
     def create_visitor(self):
-        self.env['muki.rest'].browse(self._context.get('active_ids'))
         api = library2.RestAPI()
         api.authenticate()
         
@@ -38,7 +37,6 @@ class CreateCustomer(models.TransientModel):
         result = response['result']
         for entry in result:
             nombre = entry.get('visitor_name')
-            logging.info(str(nombre))
             correo = entry.get('visitor_email')
             visit = entry.get('visitor')
             self.env["res.partner"].create({'name':nombre,'email':correo, 'visitor':visit})
