@@ -51,6 +51,7 @@ class MukiREST(models.Model):
 
 		# aramamos el request tipo post de la libreria
 		req = urllib.request.Request(url, data=data, headers=headers)
+		logging.info("REQ:" + str(req))
 		# print(req)
 
 		# esta funcion deberia abrir la respuesta enviada en el request
