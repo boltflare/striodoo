@@ -38,9 +38,9 @@ class MukiREST(models.Model):
 		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 		url = 'https://visitors.stri.si.edu/services/getVisits'
 
-		values = {"status": "Check-OUT","name": "Paula"}
+		values = {"status": "hstate","name": "fname"}
 		logging.info("VALUES: " + str(values))
-		
+	
 		headers={'Accept': 'application/json',
 				'X-VSO-caller': ipBase}
 
@@ -48,8 +48,6 @@ class MukiREST(models.Model):
 		logging.info("DATA: " + str(datas))
 
 		datas = json.loads(datas.data.decode('utf-8'))
-		logging.info("VALOR: " + str(datas.data))
-	
 		# data = urllib.parse.urlencode(values).encode('utf-8')
 		# declaramos los headers necesarios
 		for data in datas:
