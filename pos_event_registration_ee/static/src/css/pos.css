@@ -1,0 +1,68 @@
+.event_block{
+    position: absolute;
+    left: 6%;
+    width:90%;
+    height: 65px;
+    border-bottom : 1px dashed rgb(105, 105, 105);
+}
+.event_list1{
+    margin-top: 80px;
+	max-height: 400px !important;
+	overflow-y: auto;
+}
+.display_name{
+	float:left;
+	font-size:16px;
+	width:40%;
+}
+.event-list {
+  font-size: 18px;
+  font-weight: 500;
+  border-collapse: collapse;
+  width: 90%;
+  max-height: 170px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  margin-top: 90px;
+  margin-left: 5%;
+  display: inline-block;
+}
+
+.event-list li:nth-child(even){
+    background-color: #f2f2f2;
+}
+.event-list li {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    text-align: left;
+    font-weight: 700;
+    padding: 10px;
+}
+.event-list li:hover {
+    background-color: #ddd;
+}
+.select_event{
+	border: 3px solid #6EC89B !important;
+}
+
+.highlighte{
+    transition: all 150ms linear;
+    background: rgb(110,200,155) !important;
+    color: white;
+}
+.lowlighte{
+    transition: all 150ms linear;
+    background: rgb(216, 238, 227);
+}
+.lowlighte:nth-child(even){
+    transition: all 150ms linear;
+    background: rgb(227, 246, 237);
+}
+.select_item{
+	border: 3px solid #6EC89B !important;
+}
+.highlightb{
+    transition: all 150ms linear;
+    background: rgb(110,200,155) !important;
+    color: white;
+}

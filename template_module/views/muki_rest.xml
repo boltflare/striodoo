@@ -6,7 +6,7 @@
             <field name = "name">VSO View Tree</field>
             <field name = "model">muki.rest</field>
             <field name = "arch" type = "xml">
-                <tree string = "Search Visitor" create="false" edit="false" delete="false">
+                <tree string = "Search Visitor" create="false" edit="false" delete="true">
                     <field name = "visitor"/>
                     <field name = "visitor_name" />
                     <field name = "name" />
@@ -23,7 +23,7 @@
             <field name = "name">VSO View Form</field> 
             <field name = "model">muki.rest</field> 
             <field name = "arch" type = "xml"> 
-                <form string = "VSO View"> 
+                <form string = "VSO View" create="false" edit="false"> 
                     <sheet> 
                         <group>
                             <group>
@@ -35,6 +35,12 @@
 					            <field name = "visitor_email" />
                             </group>
                         </group>
+                        <footer>
+                            <button name="search_visitor" type="object"
+                                    string="Search" class="oe_highlight"/>
+                            or
+                            <button special="cancel" string="Cancel"/>
+                        </footer>
                     </sheet>
                 </form>
             </field>
@@ -86,8 +92,9 @@
         </record>
 
         
-		<menuitem id="muki_rest_menu" name="VSO Connect" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
+		<menuitem id="muki_rest_menu" name="VSO SEARCH" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
 		
+        <!-- DECLARACION DE WIZARD Y DE LA ACCION PARA LEVANTAR EL WIZARD AL HACR CLICK AL ACTION -->
         <record model="ir.ui.view" id="wizard_form_view">
             <field name="name">wizard.form</field>
             <field name="model">create.customer</field>

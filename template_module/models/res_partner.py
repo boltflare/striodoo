@@ -64,5 +64,19 @@ class ResPartnerInherit(models.Model):
         #         for entry1 in result:
         #             usuarios = entry1.get('users')
 
+    @api.multi
+    def action_view_vso(self):
+        vso_ids = self.id
+        return{
+            # 'name'          :   ('Project Cashflow Report'),
+            'type':'ir.actions.act_window',
+            'view_type':'form',
+            'view_mode':'tree,form',
+            # 'views': [(view_id_tree[0].id, 'tree'),(False,'form')],
+            'target':'current', 
+            'res_model':'muki.rest',
+            'view_id ref="template_module.vso_tree_view"': '',
+            'domain':[('project_id','in',[vso_ids])]
+        }
 
 

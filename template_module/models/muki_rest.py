@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
-
+# import urllib3.request, urllib3.parse, urllib3.error, json
+import urllib3, json
+import base64
+import socket
+import logging
+_logger = logging.getLogger(__name__)
 from odoo import models, fields, api, _
 
 class MukiREST(models.Model):
@@ -22,33 +27,37 @@ class MukiREST(models.Model):
 	visitor = fields.Char("Visitor ID")
 
 
-	@api.one
-	def create_add_action(self):
-		ActWindowSudo = self.env['ir.actions.act_window'].sudo()
-		data_obj = self.env['ir.model.data']
-		for action in self.browse(self._ids):
-			src_obj = action.model_name.model
-			model_data_id = data_obj._get_id('create_visitor_action')
-			res_id = data_obj.browse( model_data_id).res_id
-			button_name = _('Create (%s)') % action.name
-			act_id = ActWindowSudo.create({
-				 'name': button_name,
-				 'type': 'ir.actions.act_window',
-				 'res_model': 'create.customer',
-				 'src_model': src_obj,
-				 'view_type': 'form',
-				'context': "{'visitor' : %d}" % (self.id),
-				 'view_mode':'form,tree',
-				 'view_id': res_id,
-				 'target': 'new',
-				 'binding_model_id': action.model_name.id,
-				 'auto_refresh':1
-			})
-			action.write({
-				'ref_ir_act_window': act_id.id,
-			})
-		return True
+	def search_visitor(self):
+		ip_address = '190.140.165.45'
+		#CONVIRTIENDO A FORMATO ASCII EL IP
+		ip_address_bytes = ip_address.encode('ascii')
+		#CONVIRTIENDO A BASE64 EL IP
+		ipBase = base64.b64encode(ip_address_bytes)
 
 
+		http = urllib3.PoolManager()
+		url = 'https://visitors.stri.si.edu/services/getVisits'
+
+		values = {"status": "hstate","name": "name"}
+		headers={'Accept': 'application/json',
+				'X-VSO-caller': ipBase}
 
 
+		datas = http.request('POST', url, fields=values, headers=headers)
+		datas = json.loads(datas.data.decode('utf-8'))
+		# data = urllib.parse.urlencode(values).encode('utf-8')
+		# declaramos los headers necesarios
+
+		print(datas)
+						   
+		# for entry1 in content:
+		# 	visita = entry1.get('visitor_id')
+		# 	nom = entry1.get('visitor_name')
+		# 	fna = entry1.get('name')
+		# 	lna = entry1.get('last_name')
+		# 	mail = entry1.get('email')
+		# 	estado = entry1.get('status')     
+		# 	self.env["muki.rest"].create({'visitor':visita,'visitor_name':nom, 'name':fna, 'last_name':lna, 'visitor_email':mail, 'hstatus':estado })
+		# 	logging.info(str(rsp))
+			
+		# imprimimos la respuesta, este content es el que se utilizaria para enviar la data a la vista segun se requiera
