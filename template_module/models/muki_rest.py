@@ -43,6 +43,7 @@ class MukiREST(models.Model):
 
 		datas = http.request('POST', url, fields=values, headers=headers)
 		datas = json.loads(datas.data.decode('utf-8'))
+		logging.info("VALOR: " + str(datas))
 		# data = urllib.parse.urlencode(values).encode('utf-8')
 		# declaramos los headers necesarios
 		for data in datas:
