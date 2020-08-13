@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # import urllib3.request, urllib3.parse, urllib3.error, json
 import urllib3, json
+import certifi
 import base64
 import socket
 import logging
@@ -34,7 +35,7 @@ class MukiREST(models.Model):
 		#CONVIRTIENDO A BASE64 EL IP
 		ipBase = base64.b64encode(ip_address_bytes)
 
-		http = urllib3.PoolManager()
+		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 		url = 'https://visitors.stri.si.edu/services/getVisits'
 
 		values = {"status": "hstate","name": "fname"}
