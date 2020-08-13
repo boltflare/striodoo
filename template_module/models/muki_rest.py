@@ -29,11 +29,12 @@ class MukiREST(models.Model):
 
 
 	def search_visitor(self):
-		ip_address = '190.140.165.45'
+		# ip_address = '190.140.165.45'
 		#CONVIRTIENDO A FORMATO ASCII EL IP
-		ip_address_bytes = ip_address.encode('ascii')
+		# ip_address_bytes = ip_address.encode('ascii')
 		#CONVIRTIENDO A BASE64 EL IP
-		ipBase = base64.b64encode(ip_address_bytes)
+		# ipBase = base64.b64encode(ip_address_bytes)
+		ipBase = 'MTkwLjE0MC4xNjUuNDU='
 
 		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 		url = 'https://visitors.stri.si.edu/services/getVisits'
