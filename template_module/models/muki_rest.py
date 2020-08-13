@@ -39,6 +39,8 @@ class MukiREST(models.Model):
 		url = 'https://visitors.stri.si.edu/services/getVisits'
 
 		values = {"status": "hstate","name": "fname"}
+		logging.info("VALUES: " + str(values))
+
 		headers={'Accept': 'application/json',
 				'X-VSO-caller': ipBase}
 
