@@ -28,7 +28,7 @@ class MukiREST(models.Model):
 	visitor = fields.Char("Visitor ID")
 
 
-	def search_visitor(self, hstatus, fname):
+	def search_visitor(self):
 		ip_address = '190.140.165.45'
 		#CONVIRTIENDO A FORMATO ASCII EL IP
 		ip_address_bytes = ip_address.encode('ascii')
@@ -38,7 +38,7 @@ class MukiREST(models.Model):
 		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 		url = 'https://visitors.stri.si.edu/services/getVisits'
 
-		values = {"status": hstatus,"name": fname}
+		values = {"status": "Check-OUT","name": "Paula"}
 		logging.info("VALUES: " + str(values))
 	
 		headers={'Accept': 'application/json',
