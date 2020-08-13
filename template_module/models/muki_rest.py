@@ -45,6 +45,8 @@ class MukiREST(models.Model):
 				'X-VSO-caller': ipBase}
 
 		datas = http.request('POST', url, fields=values, headers=headers)
+		logging.info("DATA: " + str(datas))
+
 		datas = json.loads(datas.data.decode('utf-8'))
 		logging.info("VALOR: " + str(datas))
 		# data = urllib.parse.urlencode(values).encode('utf-8')
