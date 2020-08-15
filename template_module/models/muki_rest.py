@@ -28,36 +28,37 @@ class MukiREST(models.Model):
 
 
 	def search_visitor(self):
-		ip_address = '190.140.165.45'
+		ip_address = '34.66.235.140'
 		#CONVIRTIENDO A FORMATO ASCII EL IP
 		ip_address_bytes = ip_address.encode('ascii')
 		#CONVIRTIENDO A BASE64 EL IP
 		ipBase = base64.b64encode(ip_address_bytes)
+		# ipBase = 'MTkwLjE0MC4xNjUuNDU='
 
-
-		http = urllib3.PoolManager()
+		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 		url = 'https://visitors.stri.si.edu/services/getVisits'
 
-		values = {"status": "hstate","name": "name"}
+		values = {"status": "Check-OUT","name": "Paula"}
+		logging.info("VALUES: " + str(values))
+	
 		headers={'Accept': 'application/json',
 				'X-VSO-caller': ipBase}
 
-
 		datas = http.request('POST', url, fields=values, headers=headers)
+		logging.info("DATA: " + str(datas.data))
+
 		datas = json.loads(datas.data.decode('utf-8'))
 		# data = urllib.parse.urlencode(values).encode('utf-8')
 		# declaramos los headers necesarios
-
+	
+		# for data in datas:
+		#    self.env['muki.rest'].create({
+		# 	   'visitor': data['visitor_id'],
+		# 	   'nombre': data['visitor_name'],
+		# 	   'fname': data['name'],
+		# 	   'lname': data['last_name'],
+		# 	   'visitor_email': data['email'],
+		# 	   'hstatus': data['status']
+		#    })
+		#    logging.info("CONTENIDO: " + str(datas))
 		print(datas)
-						   
-		# for entry1 in content:
-		# 	visita = entry1.get('visitor_id')
-		# 	nom = entry1.get('visitor_name')
-		# 	fna = entry1.get('name')
-		# 	lna = entry1.get('last_name')
-		# 	mail = entry1.get('email')
-		# 	estado = entry1.get('status')     
-		# 	self.env["muki.rest"].create({'visitor':visita,'visitor_name':nom, 'name':fna, 'last_name':lna, 'visitor_email':mail, 'hstatus':estado })
-		# 	logging.info(str(rsp))
-			
-		# imprimimos la respuesta, este content es el que se utilizaria para enviar la data a la vista segun se requiera
