@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # import urllib3.request, urllib3.parse, urllib3.error, json
+import certifi
 import urllib3, json
 import base64
 import socket
