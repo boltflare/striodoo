@@ -52,14 +52,22 @@ class MukiREST(models.Model):
 		# data = urllib.parse.urlencode(values).encode('utf-8')
 		# declaramos los headers necesarios
 	
-		# for data in datas:
-		#    self.env['muki.rest'].create({
-		# 	   'visitor': data['visitor_id'],
-		# 	   'nombre': data['visitor_name'],
-		# 	   'fname': data['name'],
-		# 	   'lname': data['last_name'],
-		# 	   'visitor_email': data['email'],
-		# 	   'hstatus': data['status']
-		#    })
-		#    logging.info("CONTENIDO: " + str(datas))
+		for data in datas:
+		    self.env['muki.rest'].create({
+		 	   'visitor': data['visitor_id'],
+		 	   'nombre': data['visitor_name'],
+		 	   'fname': data['name'],
+		 	   'lname': data['last_name'],
+		 	   'visitor_email': data['email'],
+		 	   'hstatus': data['status']
+		    })
+		    logging.info("CONTENIDO: " + str(datas))
 		print(datas)
+
+""" import requests
+response = requests.get("http://httpbin.org/get")
+print('Response from httpbin/get')
+print(response.json())
+print()
+print('response.request.headers')
+print(response.request.headers) """
