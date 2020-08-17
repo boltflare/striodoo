@@ -48,16 +48,16 @@
 			<field name="arch" type="xml">
 				<!-- FILTROS -->
 				<xpath expr="//search/separator" position="after">
-					<!-- <filter string="BCI"
-							name="invoice_bci"
-							domain="[('journal_id.name','=','BCI 1312')]"/>
+					<filter string="BCI"
+							name="payment_bci"
+							domain="[('diario','=','BCI 1312')]"/>
 					
 					<filter string="Administration"
-							name="invoice_stri"
-							domain="[('journal_id.name','=','Administration 1380')]"/> -->
+							name="payment_stri"
+							domain="[('diario','=','Administration 1380')]"/>
 					
 					<filter string="STRIFund"
-							name="invoice_fund"
+							name="payment_fund"
 							domain="[('journal_id','=','Strifund')]"/>
 				</xpath>
 			</field>
