@@ -40,9 +40,27 @@
 				</xpath>
 
 				<xpath expr="//field[@name='regular_companies_id']" position="before">
-					<field name="visitor_name"/>
+					<field name="visitor_name" invisible = "1"/>
 				</xpath>
 
+			</field>
+		</record>
+
+		<!-- CODIGO PARA AGREGARLES LOS FILTROS DE BUSQUEDA PARA REGULAR Y FUND -->
+		<!-- model.name inherit search view -->
+		<record id="view_res_partner_search" model="ir.ui.view">
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_res_partner_filter"/>
+			<field name="arch" type="xml">
+				<xpath expr="//search/separator" position="after">
+					<filter string="Customer Regular"
+							name="partner_regular"
+							domain="[('customer_type','=','regular')]"/>
+					
+					<filter string="STRIFund"
+							name="partner_fund"
+							domain="[('customer_type','=','fund')]"/>
+            	</xpath>
 			</field>
 		</record>
 	</data>
