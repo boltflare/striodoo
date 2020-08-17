@@ -17,13 +17,12 @@ class InvoiceInherit2(models.Model):
 		if lines:
 			lines.write({'hs_state':self.state})
 	
-	@api.depends('invoice_id') 
+	@api.depends('journal_id') 
 	def _compute_journal_id(self):
 		for invoice in self:
-			invoice.hs_journal = invoice.invoice_id.journal_id.name
+			invoice.hs_journal = invoice.journal_id.name
 
 class accountPaymentInherit(models.Model):
     _inherit = 'account.payment'
 
     diario = fields.Char(string='Invoice Journal', related='partner_id.invoice_ids.hs_journal')
-	
