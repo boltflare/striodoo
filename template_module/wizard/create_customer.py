@@ -27,8 +27,8 @@ class CreateCustomer(models.TransientModel):
     def create_visitor(self):
         active_ids = self._context.get('active_ids', []) or []
         for record in self.env['muki.rest'].browse(active_ids):
-            api = library2.RestAPI()
-            api.authenticate()
+            record.api = library2.RestAPI()
+            record.api.authenticate()
             
             # test API
             logging.info(str(api.execute('/api')))
