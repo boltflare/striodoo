@@ -25,7 +25,7 @@ class MukiREST(models.Model):
 	fname = fields.Char("First Name")
 	lname = fields.Char("Last Name")
 	visitor_email = fields.Char("Email")
-	visitor = fields.Integer("Visitor ID")
+	visitor = fields.Char("Visitor ID")
 
 	def search_visitor(self):
 		ip_address = '34.66.235.140'
@@ -51,15 +51,6 @@ class MukiREST(models.Model):
 		datas = json.loads(datas.data.decode('utf-8'))
 		logging.info("QUE TENGO EN DATA: " + str(datas))
 		
-		""" for data in datas:
-			v = data('user_id')
-			n = data('visitor_name')
-			f = data('first_name')
-			l = data('last_name')
-			c = data('email')
-			s = data('status')
-			self.env["muki.rest"].create({'visitor':v,'nombre':n,'fname':f,'lname':l,'visitor_email':c,'hstatus':s}) """
-			
 		for data in datas['visit']:
 			self.env['muki.rest'].create({
 		 	   'visitor': data['user_id'],
