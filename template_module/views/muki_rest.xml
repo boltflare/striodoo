@@ -7,7 +7,7 @@
             <field name = "model">muki.rest</field>
             <field name = "arch" type = "xml">
                 <tree string = "Search Visitor" create="false" edit="false" delete="true">
-                    <field name = "visitor"/>
+                    <field name = "hvisit"/>
                     <field name = "nombre" />
                     <field name = "fname" />
                     <field name = "lname"/>
@@ -27,7 +27,7 @@
                     <sheet> 
                         <group>
                             <group>
-                            	<field name = "visitor"/>
+                            	<field name = "hvisit"/>
                                 <field name = "hstatus" />
                                 <field name = "nombre" />
                                 <field name = "fname"/>
@@ -53,7 +53,7 @@
             <field name="model">muki.rest</field>
             <field name="arch" type="xml">
                 <search string="Search Visitor">
-                        <field name="visitor" string="Visitor ID" filter_domain="[('visitor', '=', self)]"/>
+                        <field name="hvisit" string="Visitor ID" filter_domain="[('hvisit', '=', self)]"/>
                         <field name="nombre" string="Name" filter_domain="[('nombre', '=', self)]"/>
                         <field name="visitor_email" string="Email" filter_domain="[('visitor_email', '=', self)]"/>
                         <field name="hstatus" string="Status" filter_domain="[('hstatus', '=', self)]"/>

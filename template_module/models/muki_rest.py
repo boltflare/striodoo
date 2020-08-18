@@ -25,7 +25,7 @@ class MukiREST(models.Model):
 	fname = fields.Char("First Name")
 	lname = fields.Char("Last Name")
 	visitor_email = fields.Char("Email")
-	visitor = fields.Char("Visitor ID")
+	hvisit = fields.Char("Visitor ID")
 
 	def search_visitor(self):
 		ip_address = '34.66.235.140'
@@ -33,7 +33,6 @@ class MukiREST(models.Model):
 		ip_address_bytes = ip_address.encode('ascii')
 		#CONVIRTIENDO A BASE64 EL IP
 		ipBase = base64.b64encode(ip_address_bytes)
-		# ipBase = 'MTkwLjE0MC4xNjUuNDU='
 
 		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 		url = 'https://visitors.stri.si.edu/services/getVisits'
@@ -53,7 +52,7 @@ class MukiREST(models.Model):
 		
 		for data in datas['visit']:
 			self.env['muki.rest'].create({
-		 	   'visitor': data['user_id'],
+		 	   'hvisit': data['user_id'],
 		 	   'nombre': data['visitor_name'],
 		 	   'fname': data['first_name'],
 		 	   'lname': data['last_name'],
@@ -62,11 +61,3 @@ class MukiREST(models.Model):
 			})
 			logging.info("CONTENIDO: " + str(datas))
 		# print(datas)
-
-""" import requests
-response = requests.get("http://httpbin.org/get")
-print('Response from httpbin/get')
-print(response.json())
-print()
-print('response.request.headers')
-print(response.request.headers) """

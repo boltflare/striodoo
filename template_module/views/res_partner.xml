@@ -14,11 +14,6 @@
 						<button name="action_view_vso" string="VSO Connect" type="object" />
 					</header>
 				</xpath>
-
-				<xpath expr="//field[@name='vat']" position="before">
-					<field name="visitor" attrs="{'invisible':[('customer_type', '!=', 'regular')], 'readonly':'true'}"/>
-				</xpath>
-
 			</field>
 		</record>
 		
