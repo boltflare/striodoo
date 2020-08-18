@@ -25,7 +25,7 @@ class MukiREST(models.Model):
 	fname = fields.Char("First Name")
 	lname = fields.Char("Last Name")
 	visitor_email = fields.Char("Email")
-	visitor = fields.Char("Visitor ID")
+	visitor = fields.Integer("Visitor ID")
 
 	def search_visitor(self):
 		ip_address = '34.66.235.140'
@@ -38,6 +38,7 @@ class MukiREST(models.Model):
 		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 		url = 'https://visitors.stri.si.edu/services/getVisits'
 
+		#aqui hacer un for para recorrer el wizard y obtener los valores de los campos?
 		values = {"status": "Check-OUT","name": "Paula"}
 		logging.info("VALUES: " + str(values))
 	
