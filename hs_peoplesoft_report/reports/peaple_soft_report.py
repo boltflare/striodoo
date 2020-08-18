@@ -369,7 +369,7 @@ ORDER BY external_order DESC, sub_order DESC
 		lines = []
 		docs = self.env.context['docs'] if 'docs' in self.env.context else None
 		invoices = self._do_query(options, docs)
-		count = 0
+		count = 1
 
 		for invoice in invoices:
 			invoice = list(invoice)
