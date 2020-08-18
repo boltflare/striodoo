@@ -62,7 +62,7 @@ class MukiREST(models.Model):
 			
 		for data in datas:
 			self.env['muki.rest'].create({
-		 	   'visitor': data[user_id],
+		 	   'visitor': data.user_id,
 		 	   'nombre': data['visitor_name'],
 		 	   'fname': data['first_name'],
 		 	   'lname': data['last_name'],
