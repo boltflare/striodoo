@@ -20,29 +20,31 @@ class CreateCustomer(models.TransientModel):
             record.state = self.state  """   
 
     #Funcion para obtener los registros seleccionados
-    def _get_visitors(self):
+    """ def _get_visitors(self):
         return self.env['muki.rest'].browse(self._context.get('active_ids'))
-    logging.info(str(_get_visitors))
+    logging.info(str(_get_visitors)) """
 
     def create_visitor(self):
-        api = library2.RestAPI()
-        api.authenticate()
-        
-        # test API
-        logging.info(str(api.execute('/api')))
-        logging.info(str(api.execute('/api/user')))
+        active_ids = self._context.get('active_ids', []) or []
+        for record in self.env['muki.rest'].browse(active_ids):
+            api = library2.RestAPI()
+            api.authenticate()
+            
+            # test API
+            logging.info(str(api.execute('/api')))
+            logging.info(str(api.execute('/api/user')))
 
-        
-        #EJEMPLO FUNCIONAL 
-        response = api.execute('/api/custom/create/customer')
-        result = response['result']
-        for entry in result:
-            nomb = entry.get('nombre')
-            correo = entry.get('visitor_email')
-            visit = entry.get('hvisit')
-            self.env["res.partner"].create({'name':nomb,'email':correo, 'hvisit':visit})
-            # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
-            logging.info(str(response))
+            
+            #EJEMPLO FUNCIONAL 
+            record.response = api.execute('/api/custom/create/customer')
+            record.result = record.response['result']
+            for entry in record.result:
+                nomb = entry.get('nombre')
+                correo = entry.get('visitor_email')
+                visit = entry.get('hvisit')
+                self.env["res.partner"].create({'name':nomb,'email':correo, 'hvisit':visit})
+                # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
+                logging.info(str(record.response))
 
    
     
