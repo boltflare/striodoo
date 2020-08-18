@@ -50,17 +50,15 @@ class MukiREST(models.Model):
 
 		datas = json.loads(datas.data.decode('utf-8'))
 		logging.info("QUE TENGO EN DATA: " + str(datas))
-		# data = urllib.parse.urlencode(values).encode('utf-8')
-		# declaramos los headers necesarios
 	
 		for data in datas:
 		    self.env['muki.rest'].create({
-		 	   'visitor': data['user_id'],
-		 	   'nombre': data['visitor_name'],
-		 	   'fname': data['first_name'],
-		 	   'lname': data['last_name'],
-		 	   'visitor_email': data['email'],
-		 	   'hstatus': data['status']
+		 	   'visitor': data.get['user_id'],
+		 	   'nombre': data.get['visitor_name'],
+		 	   'fname': data.get['first_name'],
+		 	   'lname': data.get['last_name'],
+		 	   'visitor_email': data.get['email'],
+		 	   'hstatus': data.get['status']
 		    })
 		    logging.info("CONTENIDO: " + str(datas))
 		print(datas)
