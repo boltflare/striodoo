@@ -21,12 +21,11 @@ class MukiREST(models.Model):
 		('Check-IN', 'Check-IN'),
 		('Approved', 'Approved'),
 		('Submit', 'Submit')],string = 'Status')
-	visitor_name = fields.Char("Name")
-	name = fields.Char("First Name")
-	last_name = fields.Char("Last Name")
+	nombre = fields.Char("Name")
+	fname = fields.Char("First Name")
+	lname = fields.Char("Last Name")
 	visitor_email = fields.Char("Email")
 	visitor = fields.Char("Visitor ID")
-
 
 	def search_visitor(self):
 		ip_address = '34.66.235.140'
@@ -39,7 +38,7 @@ class MukiREST(models.Model):
 		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 		url = 'https://visitors.stri.si.edu/services/getVisits'
 
-		values = {"status": "Check-OUT","name": "Paula"}
+		values = {"status": "hstatus","name": "fname"}
 		logging.info("VALUES: " + str(values))
 	
 		headers={'Accept': 'application/json',
@@ -54,9 +53,9 @@ class MukiREST(models.Model):
 	
 		""" for data in datas:
 		    self.env['muki.rest'].create({
-		 	   'visitor': data['visitor_id'],
+		 	   'visitor': data['visit_id'],
 		 	   'nombre': data['visitor_name'],
-		 	   'fname': data['name'],
+		 	   'fname': data['first_name'],
 		 	   'lname': data['last_name'],
 		 	   'visitor_email': data['email'],
 		 	   'hstatus': data['status']
