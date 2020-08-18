@@ -25,26 +25,25 @@ class CreateCustomer(models.TransientModel):
     logging.info(str(_get_visitors)) """
 
     def create_visitor(self):
-        active_ids = self._context.get('active_ids', []) or []
-        for record in self.env['muki.rest'].browse(active_ids):
-            api = library2.RestAPI()
-            api.authenticate()
+        
+        api = library2.RestAPI()
+        api.authenticate()
             
-            # test API
-            logging.info(str(api.execute('/api')))
-            logging.info(str(api.execute('/api/user')))
+        # test API
+        logging.info(str(api.execute('/api')))
+        logging.info(str(api.execute('/api/user')))
 
             
-            #EJEMPLO FUNCIONAL 
-            response = api.execute('/api/custom/create/customer')
-            result = response['result']
-            for entry in result:
-                nomb = entry.get('nombre')
-                correo = entry.get('visitor_email')
-                visit = entry.get('hvisit')
-                self.env["res.partner"].create({'name':nomb,'email':correo, 'hvisit':visit})
-                # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
-                logging.info(str(response))
-
+        #EJEMPLO FUNCIONAL 
+        response = api.execute('/api/custom/create/customer')
+        result = response['result']
+        for entry in result:
+            nomb = entry.get('nombre')
+            correo = entry.get('visitor_email')
+            visit = entry.get('hvisit')
+            self.env["res.partner"].create({'name':nomb,'email':correo, 'hvisit':visit})
+            # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
+            logging.info(str(response))
+        return self.env['muki.rest'].browse(self._context.get('active_ids'))
    
     
