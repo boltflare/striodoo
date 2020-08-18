@@ -51,18 +51,18 @@ class MukiREST(models.Model):
 		datas = json.loads(datas.data.decode('utf-8'))
 		logging.info("QUE TENGO EN DATA: " + str(datas))
 		
-		for data in datas:
+		""" for data in datas:
 			v = data('user_id')
 			n = data('visitor_name')
 			f = data('first_name')
 			l = data('last_name')
 			c = data('email')
 			s = data('status')
-			self.env["muki.rest"].create({'visitor':v,'nombre':n,'fname':f,'lname':l,'visitor_email':c,'hstatus':s})
+			self.env["muki.rest"].create({'visitor':v,'nombre':n,'fname':f,'lname':l,'visitor_email':c,'hstatus':s}) """
 			
-		""" for data in datas:
+		for data in datas:
 			self.env['muki.rest'].create({
-		 	   'visitor': data['user_id'],
+		 	    # 'visitor': data['user_id'],
 		 	   'nombre': data['visitor_name'],
 		 	   'fname': data['first_name'],
 		 	   'lname': data['last_name'],
@@ -70,7 +70,7 @@ class MukiREST(models.Model):
 		 	   'hstatus': data['status']
 			})
 			logging.info("CONTENIDO: " + str(datas))
-		print(datas) """
+		# print(datas)
 
 """ import requests
 response = requests.get("http://httpbin.org/get")
