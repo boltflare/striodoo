@@ -37,8 +37,8 @@ class CreateCustomer(models.TransientModel):
             
             #EJEMPLO FUNCIONAL 
             response = api.execute('/api/custom/create/customer')
-            record.result = response['result']
-            for entry in record.result:
+            result = response['result']
+            for entry in result:
                 nomb = entry.get('nombre')
                 correo = entry.get('visitor_email')
                 visit = entry.get('hvisit')
