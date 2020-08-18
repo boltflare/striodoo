@@ -36,7 +36,7 @@ class CreateCustomer(models.TransientModel):
 
             
             #EJEMPLO FUNCIONAL 
-            record.response = api.execute('/api/custom/create/customer')
+            response = api.execute('/api/custom/create/customer')
             record.result = response['result']
             for entry in record.result:
                 nomb = entry.get('nombre')
@@ -44,7 +44,7 @@ class CreateCustomer(models.TransientModel):
                 visit = entry.get('hvisit')
                 self.env["res.partner"].create({'name':nomb,'email':correo, 'hvisit':visit})
                 # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
-                logging.info(str(record.response))
+                logging.info(str(response))
 
    
     
