@@ -41,7 +41,7 @@ class CreateCustomer(models.TransientModel):
             nomb = entry.get('nombre')
             correo = entry.get('visitor_email')
             visit = entry.get('hvisit')
-            self.env["res.partner"].create({'name':nomb,'email':correo, 'hvisit':visit})
+            self.env["res.partner"].create({'name':nomb,'email':correo, 'visitor':visit})
             # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
             logging.info(str(response))
         
