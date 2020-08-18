@@ -18,6 +18,7 @@
 		'security/res_group.xml',
 		'security/ir.model.access.csv',
 		'views/account_invoice.xml',
+		'views/res_partner.xml',
 		'views/sale_view.xml',
 		'views/stock_view.xml',
 		'views/point_of_sale.xml',

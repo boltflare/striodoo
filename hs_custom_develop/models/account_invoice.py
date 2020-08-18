@@ -31,7 +31,7 @@ class AccountInvoiceInherit3(models.Model):
 			if inv.partner_id.customer_type == 'regular':
 				continue
 
-			Payment = self.env['account.payment'].with_context(
+			Payment = self.env['account.payment'].sudo().with_context(
 				default_invoice_ids=[(4, inv.id, False)],
 				default_amount = inv.amount_total,
 				default_payment_date = fields.Date.today()
