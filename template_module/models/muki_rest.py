@@ -52,16 +52,25 @@ class MukiREST(models.Model):
 		logging.info("QUE TENGO EN DATA: " + str(datas))
 	
 		for data in datas:
-		    self.env['muki.rest'].create({
-		 	   'visitor': data.get['user_id'],
-		 	   'nombre': data.get['visitor_name'],
-		 	   'fname': data.get['first_name'],
-		 	   'lname': data.get['last_name'],
-		 	   'visitor_email': data.get['email'],
-		 	   'hstatus': data.get['status']
-		    })
-		    logging.info("CONTENIDO: " + str(datas))
-		print(datas)
+			v = data.get('user_id')
+			n = data.get('visitor_name')
+			f = data.get('first_name')
+			l = data.get('last_name')
+			c = data.get('email')
+			s = data.get('status')
+			self.env["muki.rest"].create({'visitor':v,'nombre':n,'fname':f,'lname':l,'visitor_email':c,'hstatus':s})
+			
+		""" for data in datas:
+			self.env['muki.rest'].create({
+		 	   'visitor': data['user_id'],
+		 	   'nombre': data['visitor_name'],
+		 	   'fname': data['first_name'],
+		 	   'lname': data['last_name'],
+		 	   'visitor_email': data['email'],
+		 	   'hstatus': data['status']
+			})
+			logging.info("CONTENIDO: " + str(datas))
+		print(datas) """
 
 """ import requests
 response = requests.get("http://httpbin.org/get")
