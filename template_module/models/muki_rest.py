@@ -38,7 +38,7 @@ class MukiREST(models.Model):
 		url = 'https://visitors.stri.si.edu/services/getVisits'
 
 		#aqui hacer un for para recorrer el wizard y obtener los valores de los campos?
-		values = {"status": "Check-OUT","name": "Paula","visitor_id": "295"}
+		values = {"status": self.hstatus,"name":self.fname,"visitor_id":self.hvisit}
 		logging.info("VALUES: " + str(values))
 	
 		headers={'Accept': 'application/json',
