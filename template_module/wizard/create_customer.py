@@ -20,9 +20,9 @@ class CreateCustomer(models.TransientModel):
             record.state = self.state  """   
 
     #Funcion para obtener los registros seleccionados
-    """ def _get_visitors(self):
+    def _get_visitors(self):
         return self.env['muki.rest'].browse(self._context.get('active_ids'))
-    logging.info(str(_get_visitors)) """
+    
 
     def create_visitor(self):
         
@@ -44,6 +44,6 @@ class CreateCustomer(models.TransientModel):
             self.env["res.partner"].create({'name':nomb,'email':correo, 'hvisit':visit})
             # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
             logging.info(str(response))
-        return self.env['muki.rest'].browse(self._context.get('active_ids'))
+        
    
     
