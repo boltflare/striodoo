@@ -50,14 +50,14 @@ class MukiREST(models.Model):
 
 		datas = json.loads(datas.data.decode('utf-8'))
 		logging.info("QUE TENGO EN DATA: " + str(datas))
-		result = datas['result']
-		for data in result:
-			v = data.get('user_id')
-			n = data.get('visitor_name')
-			f = data.get('first_name')
-			l = data.get('last_name')
-			c = data.get('email')
-			s = data.get('status')
+		
+		for data in datas:
+			v = data('user_id')
+			n = data('visitor_name')
+			f = data('first_name')
+			l = data('last_name')
+			c = data('email')
+			s = data('status')
 			self.env["muki.rest"].create({'visitor':v,'nombre':n,'fname':f,'lname':l,'visitor_email':c,'hstatus':s})
 			
 		""" for data in datas:
