@@ -39,7 +39,7 @@ class MukiREST(models.Model):
 		url = 'https://visitors.stri.si.edu/services/getVisits'
 
 		#aqui hacer un for para recorrer el wizard y obtener los valores de los campos?
-		values = {"status": "Check-OUT","name": "Paula"}
+		values = {"status": "Check-OUT","name": "Paula","visitor_id": "295"}
 		logging.info("VALUES: " + str(values))
 	
 		headers={'Accept': 'application/json',
@@ -49,12 +49,13 @@ class MukiREST(models.Model):
 		logging.info("DATA: " + str(datas.data))
 
 		datas = json.loads(datas.data.decode('utf-8'))
+		logging.info("QUE TENGO EN DATA: " + str(datas))
 		# data = urllib.parse.urlencode(values).encode('utf-8')
 		# declaramos los headers necesarios
 	
 		for data in datas:
 		    self.env['muki.rest'].create({
-		 	   'visitor': data['visit_id'],
+		 	   'visitor': data['user_id'],
 		 	   'nombre': data['visitor_name'],
 		 	   'fname': data['first_name'],
 		 	   'lname': data['last_name'],
