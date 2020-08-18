@@ -31,12 +31,12 @@ class CreateCustomer(models.TransientModel):
             record.api.authenticate()
             
             # test API
-            logging.info(str(api.execute('/api')))
-            logging.info(str(api.execute('/api/user')))
+            logging.info(str(record.api.execute('/api')))
+            logging.info(str(record.api.execute('/api/user')))
 
             
             #EJEMPLO FUNCIONAL 
-            record.response = api.execute('/api/custom/create/customer')
+            record.response = record.api.execute('/api/custom/create/customer')
             record.result = record.response['result']
             for entry in record.result:
                 nomb = entry.get('nombre')

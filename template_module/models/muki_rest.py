@@ -36,9 +36,20 @@ class MukiREST(models.Model):
 
 		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 		url = 'https://visitors.stri.si.edu/services/getVisits'
+		
+		values = dict()
+		filtros_dic = {
+			"visitor_id":self.hvisit,
+			"status": self.hstatus,
+			"visitor_name":self.nombre,
+			"name":self.fname,
+			"last_name":self.lname,
+			"email":self.visitor_email}
 
-		#aqui hacer un for para recorrer el wizard y obtener los valores de los campos?
-		values = {"visitor_id":self.hvisit,"status": self.hstatus,"visitor_name":self.nombre,"name":self.fname,"last_name":self.lname,"email":self.visitor_email}
+		for key, value in filtros_dic.items():
+			if (value != False):
+				values[key] = value
+		# values = {"visitor_id":self.hvisit,"status": self.hstatus,"visitor_name":self.nombre}
 		logging.info("VALUES: " + str(values))
 	
 		headers={'Accept': 'application/json',
