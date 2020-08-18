@@ -50,8 +50,8 @@ class MukiREST(models.Model):
 
 		datas = json.loads(datas.data.decode('utf-8'))
 		logging.info("QUE TENGO EN DATA: " + str(datas))
-	
-		for data in datas:
+		result = datas['result']
+		for data in result:
 			v = data.get('user_id')
 			n = data.get('visitor_name')
 			f = data.get('first_name')
