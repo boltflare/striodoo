@@ -14,7 +14,6 @@
 						<button name="action_view_vso" string="VSO Connect" type="object" />
 					</header>
 				</xpath>
-
 			</field>
 		</record>
 		

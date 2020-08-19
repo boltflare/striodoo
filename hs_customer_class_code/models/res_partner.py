@@ -22,8 +22,7 @@ class ResPartnerInherit2(models.Model):
 	_sql_constraints = [
         ('visitor_uniq', 'unique(visitor)', "Visitor ID can only be assigned to one customer !"),
     ]
-
-
+	
 	@api.onchange('customer_type')
 	def _on_change_customer_type(self):
 		if self.customer_type == "regular":

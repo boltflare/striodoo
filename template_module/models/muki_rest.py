@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # import urllib3.request, urllib3.parse, urllib3.error, json
-import urllib3, json
 import certifi
+import urllib3, json
 import base64
 import socket
 import logging
@@ -25,41 +25,51 @@ class MukiREST(models.Model):
 	fname = fields.Char("First Name")
 	lname = fields.Char("Last Name")
 	visitor_email = fields.Char("Email")
-	visitor = fields.Char("Visitor ID")
-
+	hvisit = fields.Char("Visitor ID")
 
 	def search_visitor(self):
-		# ip_address = '190.140.165.45'
+		ip_address = '34.66.235.140'
 		#CONVIRTIENDO A FORMATO ASCII EL IP
-		# ip_address_bytes = ip_address.encode('ascii')
+		ip_address_bytes = ip_address.encode('ascii')
 		#CONVIRTIENDO A BASE64 EL IP
-		# ipBase = base64.b64encode(ip_address_bytes)
-		ipBase = 'MTkwLjE0MC4xNjUuNDU='
+		ipBase = base64.b64encode(ip_address_bytes)
+		# ipBase = 'MTkwLjE0MC4xNjUuNDU='
 
 		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 		url = 'https://visitors.stri.si.edu/services/getVisits'
+		
+		values = dict()
+		filtros_dic = {
+			"visitor_id":self.hvisit,
+			"status": self.hstatus,
+			"visitor_name":self.nombre,
+			"name":self.fname,
+			"last_name":self.lname,
+			"email":self.visitor_email}
 
-		values = {"status": "Check-OUT","name": "Paula"}
+		for key, value in filtros_dic.items():
+			if (value != False):
+				values[key] = value
+		# values = {"visitor_id":self.hvisit,"status": self.hstatus,"visitor_name":self.nombre}
 		logging.info("VALUES: " + str(values))
 	
 		headers={'Accept': 'application/json',
 				'X-VSO-caller': ipBase}
 
 		datas = http.request('POST', url, fields=values, headers=headers)
-		logging.info("DATA: " + str(datas.data))
 
 		datas = json.loads(datas.data.decode('utf-8'))
-		# data = urllib.parse.urlencode(values).encode('utf-8')
-		# declaramos los headers necesarios
-	
-		# for data in datas:
-		#    self.env['muki.rest'].create({
-		# 	   'visitor': data['visitor_id'],
-		# 	   'nombre': data['visitor_name'],
-		# 	   'fname': data['name'],
-		# 	   'lname': data['last_name'],
-		# 	   'visitor_email': data['email'],
-		# 	   'hstatus': data['status']
-		#    })
-		#    logging.info("CONTENIDO: " + str(datas))
-		print(datas)
+		logging.info("CONTENIDO: " + str(datas))
+
+		for data in datas['visit']:
+			self.env['muki.rest'].create({
+		 	   'hvisit': data['user_id'],
+		 	   'nombre': data['visitor_name'],
+		 	   'fname': data['first_name'],
+		 	   'lname': data['last_name'],
+		 	   'visitor_email': data['email'],
+		 	   'hstatus': data['status']
+			})
+			
+		# print(datas)
+
