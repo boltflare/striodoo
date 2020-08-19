@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from . import library2
-# from . import library2
 import json
 from odoo import models, fields, api, _
 
@@ -10,8 +9,6 @@ _logger = logging.getLogger(__name__)
 class CreateCustomer(models.TransientModel):
     _name = 'create.customer'
     _description = 'Create a new visitor on customers'
-    
-    visitor_name = fields.Char("Name")
     
 
     """ def update_state(self):
@@ -36,14 +33,16 @@ class CreateCustomer(models.TransientModel):
             
         #EJEMPLO FUNCIONAL 
         response = api.execute('/api/custom/create/customer')
+        logging.info(str(response))
+
         result = response['result']
         for entry in result:
             nomb = entry.get('nombre')
             correo = entry.get('visitor_email')
             visit = entry.get('hvisit')
             self.env["res.partner"].create({'name':nomb,'email':correo, 'visitor':visit})
-            # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
-            logging.info(str(response))
+            
+            
         
    
     
