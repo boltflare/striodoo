@@ -22,7 +22,7 @@ class CreateCustomer(models.TransientModel):
     
 
     def create_visitor(self):
-        active_ids = self._context.get('active_ids', []) or []
+        # active_ids = self._context.get('active_ids', []) or []
        
         api = library2.RestAPI()
         api.authenticate()
@@ -41,7 +41,7 @@ class CreateCustomer(models.TransientModel):
             nomb = entry.get('nombre')
             correo = entry.get('visitor_email')
             visit = entry.get('hvisit')
-            if self.env['muki.rest'].browse(active_ids):
+            if self.env['muki.rest'].browse(self._context.get('active_ids')):
                 self.env["res.partner"].create({'name':nomb,'email':correo, 'visitor':visit})
             
         # return self.env['muki.rest'].browse(self._context.get('active_ids'))
