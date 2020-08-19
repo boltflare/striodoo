@@ -41,8 +41,8 @@ class CreateCustomer(models.TransientModel):
             nomb = entry.get('nombre')
             correo = entry.get('visitor_email')
             visit = entry.get('hvisit')
-            if self.env['muki.rest'].browse(self._context.get('active_ids')):
-                self.env["res.partner"].create({'name':nomb,'email':correo, 'visitor':visit})
+            for record in self.env['muki.rest'].browse(self._context.get('active_ids')):
+                record.agregar = self.env["res.partner"].create({'name':nomb,'email':correo, 'visitor':visit})
             
         # return self.env['muki.rest'].browse(self._context.get('active_ids'))
             
