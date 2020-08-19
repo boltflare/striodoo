@@ -24,10 +24,10 @@ class CreateCustomer(models.TransientModel):
         context = dict(self._context or {})
         active = self.env['muki.rest'].browse(context.get('active_ids'))
         for record in active:
-            nomb = record.get('nombre')
-            correo = record.get('visitor_email')
-            visit = record.get('hvisit')
-            self.env["res.partner"].create({'name':nomb,'email':correo, 'visitor':visit})
+            record.nomb = self.nombre
+            record.correo = self.visitor_email
+            record.visit = self.hvisit
+            self.env["res.partner"].create({'name':record.nomb,'email': record.correo, 'visitor':record.visit})
 
 """  def create_visitor(self):
         # active_ids = self._context.get('active_ids', []) or []
