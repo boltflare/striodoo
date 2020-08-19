@@ -70,6 +70,9 @@ class MukiREST(models.Model):
 		 	   'visitor_email': data['email'],
 		 	   'hstatus': data['status']
 			})
-			
+
+		action = self.env.ref('template_module.muki_rest_action').read()[0]
+		action['target'] = 'main'
+		return action	
 		# print(datas)
 
