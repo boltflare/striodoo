@@ -119,7 +119,7 @@
                     name="Create Customer"
                     src_model="muki.rest"
                     res_model="muki.rest"
-                    view_mode="form"
+                    view_mode="list"
                     target="new"
                     key2="client_action_multi"/>
 	</data>
