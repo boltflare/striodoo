@@ -21,15 +21,24 @@ class AccountMovelineInherit(models.Model):
 		if invoice.payment_ids:
 			for payment in invoice.payment_ids:
 				refund = self.env['account.payment'].sudo().with_context(
-					payment_type = 'outbound', 
-					partner_type = 'supplier'
+					default_payment_type = 'outbound', 
+					default_partner_type = 'supplier',
+					default_payment_date = fields.Date.today()
 				)
-				refund.create({
+				payment_method_name = 'account.account_payment_method_manual_out'
+				payment_method = self.env.ref(payment_method_name)
+				if not payment_method:
+					raise exceptions.ValidationError('Account configuration '
+					'module - Default journal Strifund is empty.')
+				
+				payment_refund = refund.create({
+					'payment_method_id': payment_method.id,
 					'partner_id': payment.partner_id.id,
 					'amount': payment.amount,
 					'journal_id': payment.journal_id.id,
 					'communication': 'Cancel payment %s' % (payment.name)
 				})
+				payment_refund.post()
 
 
 	@api.multi
