@@ -19,7 +19,7 @@ class AccountMovelineInherit(models.Model):
 			invoice ([type]): [description]
 		"""
 		if invoice.payment_ids:
-			for payment in invoices.ids:
+			for payment in invoice.payment_ids:
 				refund = self.env['account.payment'].sudo().with_context(
 					payment_type = 'outbound', 
 					partner_type = 'supplier'
