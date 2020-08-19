@@ -15,6 +15,7 @@
 	'author': 'HS Consul S.A.',
 
 	'data': [
+		'data/ir_sequence.xml',
 		'security/res_group.xml',
 		'security/ir.model.access.csv',
 		'views/account_invoice.xml',

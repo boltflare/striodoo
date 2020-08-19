@@ -20,10 +20,42 @@ class AccountInvoiceInherit3(models.Model):
 				invoice.charfield_project = partner.stri_project
 
 
+	def _create_sequence(self):
+		return self.env['ir.sequence'].sudo().create({
+			'name': 'STRI Invoices',
+			'code': 'stri.account.invoice',
+			'prefix': 'INV',
+			'padding': '5'
+		})
+
+
 	@api.multi
 	def action_invoice_open(self):
+		"""A continuacion se detalla las opciones que realiza este metodo:
+		- crear automaticamente un pago a facturas fondo.
+		- asignar un secuencial unico a la factura.
+
+		Raises:
+			exceptions.ValidationError: [description]
+
+		Returns:
+			[type]: [description]
+		"""
 		action_open = super(AccountInvoiceInherit3, self).action_invoice_open()
 		for inv in self:
+
+			if inv.type == 'out_invoice':
+				query_filter = [
+					('code', '=', 'stri.account.invoice'), 
+					('company_id', '=', inv.company_id.id)
+				]
+				seq = self.env['ir.sequence'].search(query_filter)
+				if not seq:
+					self._create_sequence()
+				sequence = self.env['ir.sequence'].next_by_code('stri.account.invoice')
+				if sequence:
+					inv.number = sequence
+
 
 			if inv.type != 'out_invoice':
 				continue
