@@ -23,25 +23,25 @@ class CreateCustomer(models.TransientModel):
 
     def create_visitor(self):
         active_ids = self._context.get('active_ids', []) or []
-        for record in self.env['muki.rest'].browse(active_ids):
-            api = library2.RestAPI()
-            api.authenticate()
+       
+        api = library2.RestAPI()
+        api.authenticate()
                 
-            # test API
-            logging.info(str(api.execute('/api')))
-            logging.info(str(api.execute('/api/user')))
+        # test API
+        logging.info(str(api.execute('/api')))
+        logging.info(str(api.execute('/api/user')))
 
                 
-            #EJEMPLO FUNCIONAL 
-            record.response = api.execute('/api/custom/create/customer')
-            logging.info(str(record.response))
+        #EJEMPLO FUNCIONAL 
+        response = api.execute('/api/custom/create/customer')
+        logging.info(str(response))
 
-            result = record.response['result']
-            for entry in result:
-                nomb = entry.get('nombre')
-                correo = entry.get('visitor_email')
-                visit = entry.get('hvisit')
-                self.env["res.partner"].create({'name':nomb,'email':correo, 'visitor':visit})
+        result = response['result']
+        for entry in result and self.env['muki.rest'].browse(active_ids):
+            nomb = entry.get('nombre')
+            correo = entry.get('visitor_email')
+            visit = entry.get('hvisit')
+            self.env["res.partner"].create({'name':nomb,'email':correo, 'visitor':visit})
             
         # return self.env['muki.rest'].browse(self._context.get('active_ids'))
             
