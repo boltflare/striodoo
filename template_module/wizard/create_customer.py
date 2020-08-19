@@ -28,7 +28,7 @@ class CreateCustomer(models.TransientModel):
         # active = self.env['muki.rest'].browse(context.get('active_ids'))
         active_ids = self._context.get('active_ids', []) or []
         for record in self.env['muki.rest'].browse(active_ids):
-            record.nombre = self.env['muki.rest'].search([('nombre', '=', self.nombre)])
+            # record.nombre = self.env['muki.rest'].search([('nombre', '=', self.nombre)])
             # record.nombre = self.nombre
             # record.visitor_email = self.visitor_email
             # record.hvisit = self.hvisit
