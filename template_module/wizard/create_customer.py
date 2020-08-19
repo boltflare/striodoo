@@ -10,15 +10,6 @@ class CreateCustomer(models.TransientModel):
     _name = 'create.customer'
     _description = 'Create a new visitor on customers'
     
-    hstatus = fields.Selection([
-        ('Check-OUT', 'Check-OUT'),
-        ('Cancelled', 'Cancelled'),
-        ('Declined', 'Declined'),
-        ('Draft', 'Draft'),
-        ('Revision', 'Revision'),
-        ('Check-IN', 'Check-IN'),
-        ('Approved', 'Approved'),
-        ('Submit', 'Submit')],string = 'Status')
     nombre = fields.Char("Name")
     fname = fields.Char("First Name")
     lname = fields.Char("Last Name")
@@ -30,19 +21,19 @@ class CreateCustomer(models.TransientModel):
         for record in self.env['sale.order'].browse(active_ids):
             record.state = self.state  """   
 
-    #Funcion para obtener los registros seleccionados
-    """ def _get_visitors(self):
-        return self.env['muki.rest'].browse(self._context.get('active_ids')) """
+   
     
     def create_customer(self):
         # context = dict(self._context or {})
         # active = self.env['muki.rest'].browse(context.get('active_ids'))
         active_ids = self._context.get('active_ids', []) or []
         for record in self.env['muki.rest'].browse(active_ids):
-            record.nombre = self.nombre
-            record.visitor_email = self.visitor_email
-            record.hvisit = self.hvisit
-            self.env["res.partner"].create({'name':record.nombre,'email':record.visitor_email, 'visitor':record.hvisit})
+            record.nombre = self.env['muki.rest'].search([('nombre', '=', self.nombre)])
+            # record.nombre = self.nombre
+            # record.visitor_email = self.visitor_email
+            # record.hvisit = self.hvisit
+            self.env["res.partner"].create({'name':record.nombre})
+            # self.env["res.partner"].create({'name':record.nombre,'email':record.visitor_email, 'visitor':record.hvisit})
 
 """  def create_visitor(self):
         # active_ids = self._context.get('active_ids', []) or []
