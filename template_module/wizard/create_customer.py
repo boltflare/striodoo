@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from . import library2
-import json
+# from . import library2
+# import json
 from odoo import models, fields, api, _
 
-import logging
-_logger = logging.getLogger(__name__)
+# import logging
+# _logger = logging.getLogger(__name__)
 
 class CreateCustomer(models.TransientModel):
     _name = 'create.customer'
@@ -20,8 +20,16 @@ class CreateCustomer(models.TransientModel):
     """ def _get_visitors(self):
         return self.env['muki.rest'].browse(self._context.get('active_ids')) """
     
+    def create_customer(self):
+        context = dict(self._context or {})
+        active = self.env['muki.rest'].browse(context.get('active_ids'))
+        for record in active:
+            nomb = record.get('nombre')
+            correo = record.get('visitor_email')
+            visit = record.get('hvisit')
+            self.env["res.partner"].create({'name':nomb,'email':correo, 'visitor':visit})
 
-    def create_visitor(self):
+"""  def create_visitor(self):
         # active_ids = self._context.get('active_ids', []) or []
        
         api = library2.RestAPI()
@@ -42,7 +50,7 @@ class CreateCustomer(models.TransientModel):
             correo = entry.get('visitor_email')
             visit = entry.get('hvisit')
             for record in self.env['muki.rest'].browse(self._context.get('active_ids')):
-                record.create = self.env["res.partner"].create({'name':nomb,'email':correo, 'visitor':visit})
+                record.create = self.env["res.partner"].create({'name':nomb,'email':correo, 'visitor':visit}) """
             
         # return self.env['muki.rest'].browse(self._context.get('active_ids'))
             
