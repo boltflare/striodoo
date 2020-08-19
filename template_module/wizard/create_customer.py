@@ -10,6 +10,20 @@ class CreateCustomer(models.TransientModel):
     _name = 'create.customer'
     _description = 'Create a new visitor on customers'
     
+    hstatus = fields.Selection([
+        ('Check-OUT', 'Check-OUT'),
+        ('Cancelled', 'Cancelled'),
+        ('Declined', 'Declined'),
+        ('Draft', 'Draft'),
+        ('Revision', 'Revision'),
+        ('Check-IN', 'Check-IN'),
+        ('Approved', 'Approved'),
+        ('Submit', 'Submit')],string = 'Status')
+    nombre = fields.Char("Name")
+    fname = fields.Char("First Name")
+    lname = fields.Char("Last Name")
+    visitor_email = fields.Char("Email")
+    hvisit = fields.Char("Visitor ID")
 
     """ def update_state(self):
         active_ids = self._context.get('active_ids', []) or []
