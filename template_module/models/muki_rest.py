@@ -71,3 +71,14 @@ class MukiREST(models.Model):
 			})
 			
 		# print(datas)
+
+	#ESTOY AGREGANDO LA FUNCION PARA CREAR EL CUSTOMER AQUI
+	def create_customer(self):
+        # context = dict(self._context or {})
+        # active = self.env['muki.rest'].browse(context.get('active_ids'))
+        active_ids = self._context.get('active_ids', []) or []
+        for record in self.env['muki.rest'].browse(active_ids):
+            record.nombre = self.nombre
+            record.visitor_email = self.visitor_email
+            record.hvisit = self.hvisit
+            self.env["res.partner"].create({'name':record.nombre,'email':record.visitor_email, 'visitor':record.hvisit})
