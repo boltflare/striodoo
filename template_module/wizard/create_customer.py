@@ -37,11 +37,12 @@ class CreateCustomer(models.TransientModel):
         logging.info(str(response))
 
         result = response['result']
-        for entry in result and self.env['muki.rest'].browse(active_ids):
+        for entry in result:
             nomb = entry.get('nombre')
             correo = entry.get('visitor_email')
             visit = entry.get('hvisit')
-            self.env["res.partner"].create({'name':nomb,'email':correo, 'visitor':visit})
+            if self.env['muki.rest'].browse(active_ids):
+                self.env["res.partner"].create({'name':nomb,'email':correo, 'visitor':visit})
             
         # return self.env['muki.rest'].browse(self._context.get('active_ids'))
             
