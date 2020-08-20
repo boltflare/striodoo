@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		
+		<!-- Sobreescribimos el action para mostrar las facturas borrador  
+		dentro del tab invoiced en customer-->
+		<record id="account.action_invoice_refund_out_tree" model="ir.actions.act_window">
+			<field name="domain">[('type','in', ['out_invoice', 'out_refund']), ('state', 'not in', ['cancel'])]</field>
+		</record>
+		
+	</data>
+</odoo>

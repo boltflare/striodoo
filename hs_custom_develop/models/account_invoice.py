@@ -20,10 +20,42 @@ class AccountInvoiceInherit3(models.Model):
 				invoice.charfield_project = partner.stri_project
 
 
+	def _create_sequence(self):
+		return self.env['ir.sequence'].sudo().create({
+			'name': 'STRI Invoices',
+			'code': 'stri.account.invoice',
+			'prefix': 'INV',
+			'padding': '5'
+		})
+
+
 	@api.multi
 	def action_invoice_open(self):
+		"""A continuacion se detalla las opciones que realiza este metodo:
+		- crear automaticamente un pago a facturas fondo.
+		- asignar un secuencial unico a la factura.
+
+		Raises:
+			exceptions.ValidationError: [description]
+
+		Returns:
+			[type]: [description]
+		"""
 		action_open = super(AccountInvoiceInherit3, self).action_invoice_open()
 		for inv in self:
+
+			if inv.type == 'out_invoice':
+				query_filter = [
+					('code', '=', 'stri.account.invoice'), 
+					('company_id', '=', inv.company_id.id)
+				]
+				seq = self.env['ir.sequence'].search(query_filter)
+				if not seq:
+					self._create_sequence()
+				sequence = self.env['ir.sequence'].next_by_code('stri.account.invoice')
+				if sequence:
+					inv.number = sequence
+
 
 			if inv.type != 'out_invoice':
 				continue
@@ -31,15 +63,15 @@ class AccountInvoiceInherit3(models.Model):
 			if inv.partner_id.customer_type == 'regular':
 				continue
 
-			Payment = self.env['account.payment'].with_context(
+			Payment = self.env['account.payment'].sudo().with_context(
 				default_invoice_ids=[(4, inv.id, False)],
 				default_amount = inv.amount_total,
 				default_payment_date = fields.Date.today()
 			)
 
 			filter_config = 'hs_custom_develop.default_journal_strifund'
-			config = self.env['ir.config_parameter'].get_param(filter_config)
-			journal = self.env['account.journal'].sudo(True).browse(int(config))
+			config = self.env['ir.config_parameter'].sudo().get_param(filter_config)
+			journal = self.env['account.journal'].sudo().sudo(True).browse(int(config))
 			payment_method = self.env.ref('account.account_payment_method_manual_in')
 			if not payment_method:
 				raise exceptions.ValidationError('Account configuration '
