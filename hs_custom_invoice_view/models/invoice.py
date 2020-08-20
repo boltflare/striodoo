@@ -9,7 +9,7 @@ class InvoiceInherit2(models.Model):
 	# is_fund = fields.Boolean(string="Is Fund")
 	
 	note =  fields.Char(string='Description')
-	hs_journal = fields.Char(compute='_compute_journal_id', string='Journal STRI', store=True)
+	hs_journal = fields.Char(compute='_compute_journal_id', string='Journal', store=True)
 
 	@api.multi
 	def update_status_meal_card(self):
