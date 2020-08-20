@@ -28,7 +28,7 @@ class MukiREST(models.Model):
 	hvisit = fields.Char("Visitor ID")
 
 	def search_visitor(self):
-		ip_address = '34.66.235.140'
+		ip_address = '35.222.101.46'
 		#CONVIRTIENDO A FORMATO ASCII EL IP
 		ip_address_bytes = ip_address.encode('ascii')
 		#CONVIRTIENDO A BASE64 EL IP
