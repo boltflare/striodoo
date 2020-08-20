@@ -35,7 +35,7 @@
                     <!-- <field name = "photo" widget = "image" class = "oe_left oe_avatar" /> -->                   
                         <group>
                             <group>
-                             <field name = "code" />
+                             <field name = "code"/> <!-- context="{'class_search': True}"--> 
                             </group>
                             <group>
                                 <field name = "name" />
