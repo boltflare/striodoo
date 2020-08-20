@@ -62,18 +62,13 @@ class EventTicket(models.Model):
 class Event(models.Model):
     _inherit = 'event.event'
 
-<<<<<<< HEAD
     pos_event_ticket_ids = fields.One2many(
-=======
-    event_ticket_ids = fields.One2many(
         'pos.event.ticket', 'event_id', string='Event Ticket',
-    _inherit = 'event.registration'
+        copy=True)
 
-<<<<<<< HEAD
+class EventRegistration(models.Model):
+    _inherit = 'event.registration'
     pos_event_ticket_id = fields.Many2one('pos.event.ticket', string='Event Ticket', readonly=True)
-=======
-    event_ticket_id = fields.Many2one('pos.event.ticket', string='Event Ticket', readonly=True)
->>>>>>> Plantillas
     pos_order_line_id = fields.Many2one('pos.order.line', string='Sales Order Line', ondelete='cascade')
 
 class PosOrder(models.Model):
@@ -89,11 +84,7 @@ class PosOrder(models.Model):
                     data = {
                         'pos_order_line_id': line.id,
                         'event_id' : line.event_id.id or False,
-<<<<<<< HEAD
                         'pos_event_ticket_id': line.pos_event_ticket_id.id or False,
-=======
-                        'event_ticket_id': line.event_ticket_id.id or False,
->>>>>>> Plantillas
                         'state':'open',
                     }
                     Registration.create(data)
