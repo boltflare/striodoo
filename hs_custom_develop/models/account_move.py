@@ -10,7 +10,7 @@ class AccountMovelineInherit(models.Model):
 	_inherit = 'account.move.line'
 
 
-	def create_refund_payment(self, invoice):
+	def create_refund_payment(self, payments):
 		"""Crea automaticamente un pago a proveedor para cancelar el pago
 		registrado del fondo. Esto con el objetivo que el fondo no tengo 
 		saldo a favor
@@ -18,8 +18,12 @@ class AccountMovelineInherit(models.Model):
 		Args:
 			invoice ([type]): [description]
 		"""
-		if invoice.payment_ids:
-			for payment in invoice.payment_ids:
+		if payments:
+			for payment in payments:
+				payment.cancel()
+					
+				#return
+				"""
 				refund = self.env['account.payment'].sudo().with_context(
 					default_payment_type = 'outbound', 
 					default_partner_type = 'supplier',
@@ -39,6 +43,7 @@ class AccountMovelineInherit(models.Model):
 					'communication': 'Cancel payment %s' % (payment.name)
 				})
 				payment_refund.post()
+				"""
 
 
 	@api.multi
@@ -62,7 +67,11 @@ class AccountMovelineInherit(models.Model):
 				if user in group_manager.users:
 					raise exceptions.ValidationError('No cuenta con los \
 						permisos necesarios para realizar esta acción.')
+				return super(AccountMovelineInherit, self).remove_move_reconcile()
 			else:
-				self.create_refund_payment(invoice)
+				payments = invoice.payment_ids
+				unreconcile = super(AccountMovelineInherit, self).remove_move_reconcile()
+				self.create_refund_payment(payments)
+				return unreconcile
 		
 		return super(AccountMovelineInherit, self).remove_move_reconcile()

@@ -70,8 +70,8 @@ class AccountInvoiceInherit3(models.Model):
 			)
 
 			filter_config = 'hs_custom_develop.default_journal_strifund'
-			config = self.env['ir.config_parameter'].get_param(filter_config)
-			journal = self.env['account.journal'].sudo(True).browse(int(config))
+			config = self.env['ir.config_parameter'].sudo().get_param(filter_config)
+			journal = self.env['account.journal'].sudo().sudo(True).browse(int(config))
 			payment_method = self.env.ref('account.account_payment_method_manual_in')
 			if not payment_method:
 				raise exceptions.ValidationError('Account configuration '
