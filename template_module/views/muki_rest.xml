@@ -131,7 +131,7 @@
 				<form string="SUCCESSFULL">
 					<group>
 						<div>
-							<field name="message"/>
+							<h3>Customer successfully created!</h3>
 						</div>
 					</group>
 					<footer>

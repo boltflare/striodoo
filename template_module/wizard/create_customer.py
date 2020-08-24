@@ -26,14 +26,14 @@ class CreateCustomer(models.TransientModel):
 		record_set.unlink()
 
 		#ESTA OPCION ES PARA MOSTRAR MENSAJE LUEGO DEL CREATE
-		message_id = self.env['message.wizard'].create({'message': _("Customer successfully created!")})
+		# message_id = self.env['message.wizard'].create({'message': _("Customer successfully created!")})
 		return {
 			'name': _('Successfull'),
 			'type': 'ir.actions.act_window',
 			'view_mode': 'form',
 			'res_model': 'message.wizard',
 			# pass the id
-			'res_id': message_id.id,
+			# 'res_id': message_id.id,
 			'target': 'new'
 		}
 		
@@ -42,8 +42,6 @@ class CreateCustomer(models.TransientModel):
    
 class MessageWizard(models.TransientModel):
 	_name = 'message.wizard'
-
-	message = fields.Text('Message', required=True)
 
 	@api.multi
 	def action_ok(self):
