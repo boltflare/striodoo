@@ -23,7 +23,7 @@ class CreateCustomer(models.TransientModel):
 			
 		# self.env['muki.rest'].search([()]).unlink()
 		record_set = self.env['muki.rest'].search([])
-        record_set.unlink()
+		record_set.unlink()
 		
    
 	
