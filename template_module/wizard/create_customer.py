@@ -20,10 +20,32 @@ class CreateCustomer(models.TransientModel):
 		for record in self.env['muki.rest'].browse(active_ids):
 			# record.nombre = self.env['muki.rest'].search([('nombre', '=', self.nombre)])
 			self.env["res.partner"].create({'name':record.nombre,'visitor':record.hvisit,'email':record.visitor_email})
-			
-		# self.env['muki.rest'].search([()]).unlink()
+
+		# ESTA PROPIEDAD PERMITE ELIMINAR TODOS LOS REGISTROS LUEGO DE HACER EL CREATE
 		record_set = self.env['muki.rest'].search([])
 		record_set.unlink()
+
+		#ESTA OPCION ES PARA MOSTRAR MENSAJE LUEGO DEL CREATE
+		message_id = self.env['message.wizard'].create({'message': _("Customer successfully created!")})
+		return {
+			'name': _('Successfull'),
+			'type': 'ir.actions.act_window',
+			'view_mode': 'form',
+			'res_model': 'message.wizard',
+			# pass the id
+			'res_id': message_id.id,
+			'target': 'new'
+		}
+		
+		
 		
    
-	
+class MessageWizard(models.TransientModel):
+	_name = 'message.wizard'
+
+	message = fields.Text('Message', required=True)
+
+	@api.multi
+	def action_ok(self):
+		""" close wizard"""	
+		return {'type': 'ir.actions.act_window_close'}
