@@ -137,7 +137,7 @@
 					<footer>
 						<button name="action_ok" string="Ok" type="object" default_focus="1" class="oe_highlight"/> 
 					</footer>
-				<form>
+				</form>
 			</field>
 		</record>
 	</data>
