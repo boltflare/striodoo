@@ -22,7 +22,8 @@ class CreateCustomer(models.TransientModel):
 			self.env["res.partner"].create({'name':record.nombre,'visitor':record.hvisit,'email':record.visitor_email})
 			
 		# self.env['muki.rest'].search([()]).unlink()
-			
+		record_set = self.env['muki.rest'].search([])
+        record_set.unlink()
 		
    
 	
