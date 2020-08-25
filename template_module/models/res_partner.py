@@ -29,18 +29,16 @@ class UpdateCustomer(models.Model):
 		response = api.execute('/api/write', type="PUT", data=data)
 		logging.info(str(response))
 
-       """  #EJEMPLO FUNCIONAL 
-        response = api.execute('/api/custom/update/customer')
-        result = response['result']
-        for entry in result:
-            nombre = entry.get('name')
-            correo = entry.get('email')
-            visit = entry.get('visitor')
-            self.env["muki.rest"].create({'visitor_name':nombre,'visitor_email':correo, 'visitor':visit})
-            # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
-            logging.info(str(response)) """
+		"""  #EJEMPLO FUNCIONAL 
+		response = api.execute('/api/custom/update/customer')
+		result = response['result']
+		for entry in result:
+			nombre = entry.get('name')
+			correo = entry.get('email')
+			visit = entry.get('visitor')
+			self.env["muki.rest"].create({'visitor_name':nombre,'visitor_email':correo, 'visitor':visit})
+			# self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
+			logging.info(str(response)) """
 		
-		
-		
-		
+
 		#URL: https://demo12.mukit.at/api/write/res.partner?ids=%5B14%5D&values=%7B%27name%27%3A%20%27TEST%20UPDATE%27%7D
