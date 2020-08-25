@@ -23,22 +23,24 @@ class UpdateCustomer(models.Model):
 		}
 		data = {
 		 	'model': "res.partner",
+			'domain': json.dumps([['visitor', '=', '1708']]),
 			'values': json.dumps(values),
-		 	'domain': json.dumps([['visitor', '=', '1708']]),
 		}
-		response = api.execute('/api/custom/update/customer', type="PUT", data=data)
+		response = api.execute('/api/write', type="PUT", data=data)
 		logging.info(str(response))
-		# customer = next(iter(response), False)
+
+       """  #EJEMPLO FUNCIONAL 
+        response = api.execute('/api/custom/update/customer')
+        result = response['result']
+        for entry in result:
+            nombre = entry.get('name')
+            correo = entry.get('email')
+            visit = entry.get('visitor')
+            self.env["muki.rest"].create({'visitor_name':nombre,'visitor_email':correo, 'visitor':visit})
+            # self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
+            logging.info(str(response)) """
 		
 		
-		# data = {
-		# 	'model': "account.invoice",
-		# 	'domain': json.dumps([['type', '=', "out_invoice"], ['state', '!=', 'draft']]),
-		# 	'fields': json.dumps(['number', 'amount_total']),
-		# }
-		# response = api.execute('/api/search_read', data=data)
-		# for entry in response:
-		# 	number = entry.get('number')
-		# 	total = entry.get('amount_total')
-		# 	self.env["muki.rest"].create({'name':number,'amount':total})
-		# logging.info(str(response))
+		
+		
+		#URL: https://demo12.mukit.at/api/write/res.partner?ids=%5B14%5D&values=%7B%27name%27%3A%20%27TEST%20UPDATE%27%7D
