@@ -2,10 +2,10 @@
 {
 	'name': "Muki Rest",
 
-	'summary': """Muki rest""",
+	'summary': """APP for Integration with VSO and Update customer information""",
 
 	'description': """
-		Long description of module's purpose
+		APP for Integration with VSO and Update customer information
 	""",
 
 	'author': "HS Consult",
