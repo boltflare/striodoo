@@ -23,12 +23,13 @@ class UpdateCustomer(models.Model):
 		}
 		data = {
 		 	'model': "res.partner",
-			'domain': json.dumps([['visitor', '=', '1708']]),
+			# 'domain': json.dumps([['visitor', '=', '1708']]),
 			'values': json.dumps(values),
 		}
-		response = api.execute('/api/write', type="PUT", data=data)
+		response = api.execute('/api/custom/update/customer', type="PUT", data=data)
 		logging.info(str(response))
-
+		
+		# /api/write
 		"""  #EJEMPLO FUNCIONAL 
 		response = api.execute('/api/custom/update/customer')
 		result = response['result']
