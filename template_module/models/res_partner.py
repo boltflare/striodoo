@@ -27,7 +27,15 @@ class UpdateCustomer(models.Model):
 			'values': json.dumps(values),
 		}
 		response = api.execute('/api/custom/update/customer', type="PUT", data=data)
-		logging.info(str(response))
+		result = response['result']
+		for entry in result:
+			nombre = entry.get('name')
+			correo = entry.get('email')
+			visit = entry.get('visitor')
+			self.env["res.partner"].update({'name':nombre,'email':correo, 'visitor':visit})
+			# self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
+			logging.info(str(response))
+		
 		
 		# /api/write
 		"""  #EJEMPLO FUNCIONAL 
