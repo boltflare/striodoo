@@ -29,6 +29,6 @@ class accountPaymentInherit(models.Model):
 	diario = fields.Char(compute='_compute_journal_name', string='Invoice Journal', store=True)
 
 	@api.depends('invoice_ids.hs_journal') 
-	def _compute_journal_id(self):
+	def _compute_journal_name(self):
 		for invoice in self:
 			invoice.diario = invoice.invoice_ids.hs_journal
