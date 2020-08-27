@@ -23,6 +23,12 @@ class InvoiceInherit2(models.Model):
 			invoice.hs_journal = invoice.journal_id.name
 
 class accountPaymentInherit(models.Model):
-    _inherit = 'account.payment'
+	_inherit = 'account.payment'
 
-    diario = fields.Char(string='Invoice Journal', related='partner_id.invoice_ids.hs_journal')
+	#    diario  = fields.Char(string='Invoice Journal', related='partner_id.invoice_ids.hs_journal')
+	diario = fields.Char(compute='_compute_journal_name', string='Invoice Journal', store=True)
+
+	@api.depends('invoice_ids.hs_journal') 
+	def _compute_journal_name(self):
+		for invoice in self:
+			invoice.diario = invoice.invoice_ids.hs_journal
