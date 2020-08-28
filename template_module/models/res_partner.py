@@ -19,14 +19,15 @@ class UpdateCustomer(models.Model):
 		# Update customer
 		values = {
 			
-			'email': "alextrillo@outlook.com",
+		 	'email': "aguila5@comcast.net",
 		}
 		data = {
-		 	'model': "res.partner",
-			# 'domain': json.dumps([['visitor', '=', '1708']]),
-			'values': json.dumps(values),
+		  	'model': "res.partner",
+	 		'domain': json.dumps([['visitor', '=', '17']]),
+		 	'values': json.dumps(values),
+			'fields': json.dumps(['name','email','phone','street','visitor']),
 		}
-		response = api.execute('/api/custom/update/customer', type="PUT", data=data)
+		response = api.execute('api/search_read/', type="GET", data=data)
 		result = response['result']
 		for entry in result:
 			nombre = entry.get('name')
