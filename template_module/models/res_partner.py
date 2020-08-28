@@ -27,7 +27,7 @@ class UpdateCustomer(models.Model):
 		 	'values': json.dumps(values),
 			'fields': json.dumps(['name','email','phone','street','visitor']),
 		}
-		response = api.execute('api/search_read/', type="GET", data=data)
+		response = api.execute('/api/search_read/', type="GET", data=data)
 		result = response['result']
 		for entry in result:
 			nombre = entry.get('name')
