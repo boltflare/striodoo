@@ -17,7 +17,7 @@ class UpdateCustomer(models.Model):
 		logging.info(str(api.execute('/api/user')))
 
 		# Update customer
-		values = {
+		""" values = {
 			
 		 	'email': "aguila5@comcast.net",
 		}
@@ -26,8 +26,8 @@ class UpdateCustomer(models.Model):
 	 		'domain': json.dumps([['visitor', '=', '17']]),
 		 	'values': json.dumps(values),
 			'fields': json.dumps(['name','email','phone','street','visitor']),
-		}
-		response = api.execute('/api/search_read/', type="GET", data=data)
+		} """
+		response = api.execute('/api/custom/update/customer', type="GET")
 		result = response['result']
 		for entry in result:
 			nombre = entry.get('name')
