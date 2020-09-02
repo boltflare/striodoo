@@ -35,6 +35,16 @@
 			<field name="model">account.payment</field>
 			<field name="inherit_id" ref="account.view_account_payment_tree"/>
 			<field name="arch" type="xml">
+				<xpath expr="//field[@name='payment_date']" position="replace">
+    				<field name="payment_date" string="Date"/>
+  				</xpath>
+				<xpath expr="//field[@name='amount']" position="replace">
+    				<field name="amount" string="Amount"/>
+  				</xpath>
+				<xpath expr="//field[@name='payment_method_id']" position="replace">
+    				<field name="payment_method_id" invisible="1"/>
+  				</xpath>
+
 				<xpath expr="//field[@name='journal_id']" position="after">
     				<field name="diario"/>
   				</xpath>
