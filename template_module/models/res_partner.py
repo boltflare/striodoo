@@ -16,6 +16,16 @@ class UpdateCustomer(models.Model):
 		logging.info(str(api.execute('/api')))
 		logging.info(str(api.execute('/api/user')))
 
+
+		data = {
+			'model': "res.partner",
+			'domain': json.dumps([['visitor', '=', '17']]),
+			# 'limit': 1
+		}
+		response = api.execute('/api/search', data=data)
+		logging.info(str(response))
+		
+		
 		# Update customer
 		""" values = {
 			
@@ -27,7 +37,7 @@ class UpdateCustomer(models.Model):
 		 	'values': json.dumps(values),
 			'fields': json.dumps(['name','email','phone','street','visitor']),
 		} """
-		response = api.execute('/api/custom/update/customer', type="GET")
+		""" response = api.execute('/api/custom/update/customer', type="GET")
 		result = response['result']
 		for entry in result:
 			nombre = entry.get('name')
@@ -35,7 +45,7 @@ class UpdateCustomer(models.Model):
 			visit = entry.get('visitor')
 			self.env["res.partner"].write({'name':nombre,'email':correo, 'visitor':visit})
 			# self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
-			logging.info(str(response))
+			logging.info(str(response)) """
 		
 	""" # FUNCION PARA HACER UPDATE EN ODOO
 	@api.multi
