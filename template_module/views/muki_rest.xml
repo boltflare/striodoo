@@ -84,12 +84,12 @@
  
 		<!-- Este es la accion heredada que permite mostrar los datos en vista formulario 
 		de facturas en invoice view -->
-		<record id="vso_menu_form" model="ir.actions.act_window.view">
+		<!-- <record id="vso_menu_form" model="ir.actions.act_window.view">
 			<field name="act_window_id" ref="template_module.muki_rest_action"/>
 			<field name="view_id" ref="template_module.vso_form_view"/>
 			<field name="view_mode">form</field>
 			<field name="sequence" eval="2"/>
-		</record>
+		</record> -->
 
 		
 		<menuitem id="muki_rest_menu" name="VSO Search" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
