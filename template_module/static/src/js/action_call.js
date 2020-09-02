@@ -28,7 +28,7 @@ odoo.define('template_module.action_call', function (require) {
                 views: [[false,'form']],
                 target: 'new',
                 // views: [[false, 'form']], 
-                view_type : 'form',
+                // view_type : 'form',
                 view_mode : 'form',
                 // view_id: 'view_visitor_wizard', 
                 // flags: {'form': {'action_buttons': true, 'options': {'mode': 'edit'}}}

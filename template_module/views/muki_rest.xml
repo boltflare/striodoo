@@ -19,7 +19,7 @@
 		</record>
 
 		<!--FORM VIEW-->
-		<record id = "vso_form_view" model = "ir.ui.view">
+		<!-- <record id = "vso_form_view" model = "ir.ui.view">
 			<field name = "name">VSO View Form</field> 
 			<field name = "model">muki.rest</field> 
 			<field name = "arch" type = "xml"> 
@@ -44,7 +44,7 @@
 					</sheet>
 				</form>
 			</field>
-		</record>
+		</record> -->
 		
 		<!--CREANDO VISTA DE BUSQUEDA PARA APLICAR FILTROS-->
 		
@@ -94,6 +94,34 @@
 		
 		<menuitem id="muki_rest_menu" name="VSO Search" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
 		
+		<!-- DECLARACION DE WIZARD Y DE LA ACCION PARA LEVANTAR EL WIZARD AL HACR CLICK AL SEARCH -->
+		<record model="ir.ui.view" id="wizard_form_search">
+			<field name="name">wizard.form.search</field>
+			<field name="model">muki.rest</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet> 
+						<group>
+							<group>
+								<field name = "hvisit"/>
+								<field name = "hstatus" />
+								<field name = "nombre" />
+								<field name = "fname"/>
+								<field name = "lname" />
+								<field name = "visitor_email" />
+							</group>
+						</group>
+						<footer>
+							<button name="search_visitor" type="object"
+									string="Search" class="oe_highlight"/>
+							or
+							<button special="cancel" string="Cancel"/>
+						</footer>
+					</sheet>
+				</form>    
+			</field>
+		</record>
+
 		<!-- DECLARACION DE WIZARD Y DE LA ACCION PARA LEVANTAR EL WIZARD AL HACR CLICK AL ACTION -->
 		<record model="ir.ui.view" id="wizard_form_view">
 			<field name="name">wizard.form</field>
