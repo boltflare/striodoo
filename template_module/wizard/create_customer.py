@@ -40,6 +40,7 @@ class CreateCustomer(models.TransientModel):
 		
 class MessageWizard(models.TransientModel):
 	_name = 'message.wizard'
+	_description = 'Display a message after create customers'
 
 	@api.multi
 	def action_ok(self):
