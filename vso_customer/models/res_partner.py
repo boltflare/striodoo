@@ -11,15 +11,27 @@ _logger = logging.getLogger(__name__)
 class ResPartnerInherit(models.Model):
 	_inherit = "res.partner"
 
-	def action_muki_connect(self):
-		# init API
-		api = library.RestAPI()
-		api.authenticate()
+	api = library.RestAPI()
+	api.authenticate()
 
 		
-		# test API
-		logging.info(str(api.execute('/api')))
-		logging.info(str(api.execute('/api/custom/search_create/vso')))
+	# test API
+	logging.info(str(api.execute('/api')))
+	logging.info(str(api.execute('/api/custom/search_create/vso')))
+
+
+
+	data = {
+		'model': "res.partner",
+		'domain': json.dumps([['visitor', '=', '17']]),
+		# 'limit': 1
+	}
+	response = api.execute('/api/search', data=data)
+	logging.info(str(response))
+	
+	""" def action_muki_connect(self):
+		# init API
+		
 
 		# create customer
 		if not customer:
@@ -31,25 +43,10 @@ class ResPartnerInherit(models.Model):
 				'values': json.dumps(values),
 			}
 			response = api.execute('/api/custom/create/vso', type="POST", data=data)
-			customer = next(iter(response))
+			customer = next(iter(response)) """
 		
 
-		# CREATE CUSTOMER
-		""" customer = ''
-		if not customer:
-			values = {
-				'name': "Prueba VSO",
-				'visitor_num': "59",
-				'email': "chernandez@hermecsolutions.com",
-			}
-			data = {
-				'model': "muki.rest",
-				'values': json.dumps(values),
-				#'domain': json.dumps([['customer_type', '=', "regular"]]),
-				#'fields': json.dumps(['name', 'visitor_id', 'email']),
-			}
-			response = api.execute('/api/custom/create/vso', type="POST", data=data)
-			customer = next(iter(response)) """
+		
 		
 		# check customer
 		# data = {
@@ -74,7 +71,7 @@ class ResPartnerInherit(models.Model):
 		# logging.info(str(response))
 
 
-		"""
+	"""
 		# sampel query
 		data = {
 			'model': "res.partner",
