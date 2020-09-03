@@ -9,4 +9,4 @@ class PrincipalInvestigator (models.Model):
     # _inherit = 'account.invoice'
    
     name = fields.Char (string = 'Name', required = True)
-    email = fields.Char (string = 'Email', required = True)
+    email = fields.Char (string = 'Email')
