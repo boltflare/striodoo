@@ -71,7 +71,7 @@ class MukiREST(models.Model):
 		 	   'hstatus': data['status']
 			})
 
-		action = self.env.ref('template_module.muki_rest_action').read()[1]
+		action = self.env.ref('template_module.muki_rest_action').read()[0]
 		action['target'] = 'main'
 		return action	
 		# print(datas)
