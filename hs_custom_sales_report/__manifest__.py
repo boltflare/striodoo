@@ -2,13 +2,13 @@
 # 
 
 {
-	'name': 'Reporte para Ventas',
+	'name': 'Payment Filters',
 	'version': '1.0',
-	'summary':'Vista de para visualizar las ventas por accounting y pos',
+	'summary':'Modificaciones varias a la vista de Pagos',
 	'category': 'Tool',
 	'depends': ['base', 'account', 'point_of_sale'],
 	'description': """
-		En este modulo se creara una vista para visualizar las ventas de accounting y del pos para STRI
+		En este modulo se agregó filtros para los pagos por journal de factura/ Renombrar labels de algunos campos de la vista 
 	""",
 
 	'author': 'Hermec Consulting, S.A.',
