@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		
+	<template id="stri_extra_info" inherit_id="website_sale.extra_info">
+		<xpath expr="//form[hasclass('s_website_form')]" position="replace">
+		<!--xpath expr="//div[hasclass('o_website_form_custom')][0]" position="inside"-->
+			<div id="hs_website_storeroom_forms">
+				<!--form action="/website_form/" method="post" class="s_website_form container-fluid" enctype="multipart/form-data" data-force_action="shop.sale.order" data-model_name="sale.order" data-success_page="/shop/payment"-->
+				<form action="/shop/extra_info" method="get" class="s_website_form container-fluid">
+					<div class="form-group row form-field o_website_form_custom">
+						<div class="col-lg-3 col-md-4 text-md-right">
+							<label class="col-form-label">Fund</label>
+						</div>
+						<div class="col-lg-9 col-md-8">
+							<div class="input-group">
+								<input type="text" name="search" class="search-query form-control oe_search_box" placeholder="Search..." t-att-value="search"/>
+								<div class="input-group-append">
+									<button type="submit" class="btn btn-primary oe_search_button" aria-label="Search" title="Search"><i class="fa fa-search"/></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!--div class="form-group row form-field o_website_form_custom">
+						<div class="col-lg-3 col-md-4 text-md-right">
+							<label class="col-form-label" for="ChartfieldSearch">Fund</label>
+						</div>
+						<div class="col-lg-9 col-md-8">
+							<input type="text" class="form-control o_website_form_input" id="ChartfieldSearch"/>
+						</div>
+					</div>
+					<div class="form-group row form-field o_website_form_custom">
+						<div class="col-sm-12 text-right">
+							<button type="button" class="btn btn-primary" id="btn_search_fund">
+								<i class="fa fa-search"></i> Search
+							</button>
+						</div>
+					</div-->
+					<div class="form-group row form-field o_website_form_custom">
+						<div class="col-lg-3 col-md-4 text-md-right">
+							<label class="col-form-label">Results</label>
+						</div>
+						<div class="col-lg-9 col-md-8">
+							<!--textarea class="form-control o_website_form_input" rows="8" id="ChartfieldResult" /-->
+							<table class="table table-sm">
+								<thead>
+									<tr><th>StriFund</th></tr>
+								</thead>
+								<tbody>
+									<!--tr t-foreach="bins" t-as="tr_product">
+										<t t-foreach="tr_product" t-as="td_product">
+											<t t-if="td_product">
+												<t t-set="product" t-value="td_product['product']" />
+												<td t-att-colspan="td_product['x'] != 1 and td_product['x']" t-att-rowspan="td_product['y'] != 1 and td_product['y']" t-attf-class="oe_product oe_grid oe-height-#{td_product['y']*2} #{ td_product['class'] }">
+													<div class="oe_product_cart" t-att-data-publish="product.website_published and 'on' or 'off'">
+														<t t-set="product_image_big" t-value="td_product['x']+td_product['y'] &gt; 2" />
+														<t t-call="website_sale.products_item" />
+													</div>
+												</td>
+											</t>
+											<td t-if="not td_product" class="oe-height-2" />
+										</t>
+									</tr-->
+									<t t-foreach="funds" t-as="fund">
+										<tr>
+											<td>
+												<t t-set="FundID" t-value="fund[0]"></t>
+												<t t-set="FundName" t-value="fund[1]"></t>
+												<div class="radio">
+													<label>
+														<input type="radio" name="fund_result" t-att-id="FundID" t-att-value="FundID" />
+														<t t-esc="FundName"></t>
+													</label>
+												</div>
+											</td>
+										</tr>
+									</t>
+									<!--tr t-foreach="funds" t-as="tr_fund">
+										<t t-foreach="tr_fund" t-as="td_fund">
+											<t t-if="td_fund">
+												<!-t t-set="product" t-value="td_fund['product']" /->
+												<td>
+													<div>
+														Hola Mundo
+													</div>
+													<!-div class="oe_product_cart" t-att-data-publish="product.website_published and 'on' or 'off'">
+														<t t-set="product_image_big" t-value="td_product['x']+td_product['y'] &gt; 2" />
+														<t t-call="website_sale.products_item" />
+													</div->
+												</td>
+											</t>
+											<td t-if="not td_fund" class="oe-height-2" />
+										</t>
+									</tr-->
+								</tbody>
+							</table>
+							<t t-if="not funds">
+								<div class="text-center text-muted">
+									<h3 class="css_editable_display mt8">No Fund defined.</h3>
+									<t t-if="search">
+										<p>
+											No results found for "<strong t-esc='search'/>".
+										</p>
+									</t>
+								</div>
+							</t>
+						</div>
+					</div>
+				</form>
+				<form action="/website_form/" method="post" class="s_website_form container-fluid" enctype="multipart/form-data" data-force_action="shop.sale.order" data-model_name="sale.order" data-success_page="/shop/payment">
+					<div class="form-group row form-field o_website_form_custom ">
+						<div class="col-lg-3 col-md-4 text-md-right">
+							<label class="col-form-label" for="ChartfieldResult">Info</label>
+						</div>
+						<div class="col-lg-9 col-md-8">
+							<input type="text" class="form-control o_website_form_input" name="strifund" readonly="readonly"/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-lg-3 col-md-4">
+						</div>
+						<div class="col-lg-9 col-md-8">
+							<a role="button" href="/shop/checkout" class="btn btn-secondary mb32 float-left"><span class="fa fa-chevron-left" /> Previous</a>
+							<a role="button" class="btn btn-primary float-right mb32 o_website_form_send" href="/shop/confirm_order">Next <span class="fa fa-chevron-right" /></a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</xpath>
+	</template>
+
+	<template id="payment" inherit_id="website_sale.payment">
+		<xpath expr="//div[@id='payment_method']" position="replace">
+			<div id="payment_method" class="mt-3" t-if="(acquirers or tokens) and website_sale_order.amount_total">
+				<h3 class="mb24">Confirm Order </h3>
+				<t t-call="payment.payment_tokens_list">
+					<t t-set="mode" t-value="'payment'"/>
+					<t t-set="submit_txt">Send</t>
+					<t t-set="icon_right" t-value="1"/>
+					<t t-set="icon_class" t-value="'fa-chevron-right'"/>
+					<t t-set="submit_class" t-value="'btn btn-primary'"/>
+					<t t-set="pms" t-value="tokens"/>
+					<t t-set="form_action" t-value="'/shop/payment/token'"/>
+					<t t-set="prepare_tx_url" t-value="'/shop/payment/transaction/'"/>
+					<t t-set="partner_id" t-value="partner"/>
+
+					<t t-set="back_button_icon_class" t-value="'fa-chevron-left'"/>
+					<t t-set="back_button_txt">Return to Cart</t>
+					<t t-set="back_button_class" t-value="'btn btn-secondary'"/>
+					<t t-set="back_button_link" t-value="'/shop/cart'"/>
+				</t>
+			</div>
+		</xpath>
+	</template>
+		
+
+	<template id="assets_frontend" inherit_id="website.assets_frontend">
+		<xpath expr="script[last()]" position="after">
+			<script type="text/javascript" src="/hs_storeroom_develop/static/src/js/storeroom_website_sale.js"></script>
+		</xpath>
+	</template>
+
+	</data>
+</odoo>
