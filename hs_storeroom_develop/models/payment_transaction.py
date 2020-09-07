@@ -19,9 +19,13 @@ class PaymentTransactionInherit(models.Model):
 				user = self.env['res.users'].sudo().search(filter_query, limit=1)
 				if user:
 					sale_order.user_id = user
+					
+				partner_invoice = order.partner_invoice_id
+				partner_shipping = order.partner_shipping_id
+				
 				sale_order.partner_id = order.strifund
-				sale_order.partner_invoice_id = order.strifund
-				sale_order.partner_shipping_id = order.strifund
+				sale_order.partner_invoice_id = partner_invoice
+				sale_order.partner_shipping_id = partner_shipping
 
 
 	def _transfer_form_validate(self, data):

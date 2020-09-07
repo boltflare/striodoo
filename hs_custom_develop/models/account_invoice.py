@@ -29,6 +29,26 @@ class AccountInvoiceInherit3(models.Model):
 		})
 
 
+	def change_move_number(self):
+		if self.move_id:
+			move = self.env['account.move'].sudo().browse(self.move_id.id)
+			move.write({
+				'name': self.number
+			})
+
+
+	def change_move_ref(self):
+		if self.move_id:
+			move = self.env['account.move'].sudo().browse(self.move_id.id)
+			number = self.number
+
+			if self.move_id.ref:
+				reference = self.move_id.ref.split("/")
+				move.write({
+					'ref': "{}/{}".format(number, reference[1])
+				})
+
+
 	@api.multi
 	def action_invoice_open(self):
 		"""A continuacion se detalla las opciones que realiza este metodo:
@@ -55,6 +75,8 @@ class AccountInvoiceInherit3(models.Model):
 				sequence = self.env['ir.sequence'].next_by_code('stri.account.invoice')
 				if sequence:
 					inv.number = sequence
+					inv.change_move_number()
+					inv.change_move_ref()
 
 
 			if inv.type != 'out_invoice':
