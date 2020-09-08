@@ -112,7 +112,7 @@
 							</group>
 						</group>
 						<footer>
-							<button name="search_visitor" type="action"
+							<button name="search_visitor" type="object"
 									string="Search" class="oe_highlight"/>
 							or
 							<button special="cancel" string="Cancel"/>
