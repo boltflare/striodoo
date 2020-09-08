@@ -26,7 +26,7 @@ odoo.define('template_module.action_call', function (require) {
                 res_model: "muki.rest",
                 // res_model: "visitor.wizard",
                 views: [[false,'form']],
-                target: 'new',
+                // target: 'new',
                 // views: [[false, 'form']], 
                 // view_type : 'form',
                 view_mode : 'form',
