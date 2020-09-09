@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+    alert("TEST1");
     $("#btn_search").click(function(){
         remover_item();
     });
