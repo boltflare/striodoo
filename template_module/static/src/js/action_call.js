@@ -28,6 +28,13 @@ odoo.define('template_module.action_call', function (require) {
     };
     ListController.include(includeDict);
     });
-    var list = document.getElementsByClassName("ui-sortable")[0];
-    list.removeChild(list.childNodes[0]);
-    console.log('Esta funcionando');
+    $( document ).ready(function() {
+        setTimeout(function(){
+            var list = document.getElementsByClassName("ui-sortable")[0];
+            list.removeChild(list.childNodes[0]);
+            console.log('Esta funcionando');
+        },1000)
+    });
+    
+    
+    
