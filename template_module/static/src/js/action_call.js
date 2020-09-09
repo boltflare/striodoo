@@ -27,7 +27,6 @@ odoo.define('template_module.action_call', function (require) {
         }
     };
     ListController.include(includeDict);
-    document.getElementById("btn_search").onclick = remover_item;
     });
     // $( document ).ready(function() {
     //     setTimeout(function(){
@@ -36,6 +35,7 @@ odoo.define('template_module.action_call', function (require) {
     //         console.log('Esta funcionando');
     //     },1000)
     // });
+    document.getElementById("btn_search").onclick = remover_item;
     function remover_item(){
         var list = document.getElementsByClassName("ui-sortable")[0];
         console.log(list);
