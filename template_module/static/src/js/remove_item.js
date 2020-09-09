@@ -12,15 +12,15 @@
 //     list.removeChild(list.childNodes[0]);
 //     console.log('Esta funcionando');
 // }
-// $( document ).ready(function() {
+$( document ).ready(function() {
     
-//     $(".oe_action_button").click(function(){
-//         remover_item();
-//     });
+    $(".oe_action_button").click(function(){
+        remover_item();
+    });
     
-//  });
+ });
 //document.getElementById("btn_search").onclick = remover_item;
-// function remover_item(){
+function remover_item(){
 setTimeout(function(){ 
 
 var list = document.getElementsByClassName("ui-sortable")[0];
@@ -29,5 +29,5 @@ var list = document.getElementsByClassName("ui-sortable")[0];
     console.log('Esta funcionando');
 }, 10000);
    
-// }
+}
 
