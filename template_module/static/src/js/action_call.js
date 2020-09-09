@@ -1,5 +1,5 @@
 // alert("TEST1");
-odoo.define('template_module.action_button'), function (require) {
+odoo.define('template_module.action_def'), function (require) {
     "use strict";
     
     var rpc = require('web.rpc');
