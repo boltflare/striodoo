@@ -1,5 +1,5 @@
 // alert("TEST1");
-odoo.define('template_module.action_def'), function (require) {
+odoo.define('template_module.action_call'), function (require) {
     "use strict";
     
     var rpc = require('web.rpc');
@@ -24,7 +24,7 @@ odoo.define('template_module.action_def'), function (require) {
             rpc.query({
                 model: 'muki.rest',
                 method: 'search_visitor',
-                args: [[user],{'id':user}],
+                // args: [[user],{'id':user}],
                 }).then(function (e) {
                     self.do_action({
                         name: _t('wizard_form_search'),
