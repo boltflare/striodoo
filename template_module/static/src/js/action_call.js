@@ -1,4 +1,4 @@
-alert("TEST1");
+// alert("TEST1");
 odoo.define('template_module.action_call', function (require) {
 
     "use strict";       
@@ -28,3 +28,6 @@ odoo.define('template_module.action_call', function (require) {
     };
     ListController.include(includeDict);
     });
+    var list = document.getElementsByClassName("ui-sortable")[0];
+    list.removeChild(list.childNodes[0]);
+    console.log('Esta funcionando');
