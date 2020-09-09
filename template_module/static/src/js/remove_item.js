@@ -12,18 +12,20 @@
 //     list.removeChild(list.childNodes[0]);
 //     console.log('Esta funcionando');
 // }
-$( document ).ready(function() {
-    $(".oe_action_button").click(function(){
+$(".oe_action_button").click(function(){
+
     setTimeout(function(){ 
     console.log($("button[name*='search_visitor']"));
     $("button[name*='search_visitor']").attr("onclick","remover_item()");
      }, 2000);
       
       });
-     });
+     
     function remover_item(){
+    $("body").append("<div  id='loading_div' style='width: 100%;background-color:black;opacity:0.5;min-height: 100%;height: auto !important;position: fixed;top:0;left:0;'>test</div>")
     setTimeout(function(){ 
     alert("termino");
+    $("#loading_div").remove();
      var list = document.getElementsByClassName("ui-sortable")[0];
         console.log(list);
         list.removeChild(list.childNodes[0]);
