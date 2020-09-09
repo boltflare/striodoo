@@ -98,8 +98,8 @@
 		<record model="ir.ui.view" id="wizard_form_search">
 			<field name="name">wizard.form.search</field>
 			<field name="model">muki.rest</field>
-			<field name="arch" type="xml">
-				<form>
+			<field name="arch" type="xml" >
+				<form create="false" edit="false">
 					<sheet> 
 						<group>
 							<group>
