@@ -27,7 +27,7 @@ odoo.define('template_module.action_call', function (require) {
         }
     };
     ListController.include(includeDict);
-    remover_item();
+    document.getElementById("btn_search").onclick = remover_item;
     });
     // $( document ).ready(function() {
     //     setTimeout(function(){
