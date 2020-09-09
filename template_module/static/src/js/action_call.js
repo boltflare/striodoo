@@ -1,4 +1,4 @@
-// alert("TEST1");
+alert("TEST1");
 odoo.define('template_module.action_call', function (require) {
 
     "use strict";       
@@ -20,7 +20,7 @@ odoo.define('template_module.action_call', function (require) {
                 name: "Search Visitor",
                 res_model: "muki.rest",
                 views: [[false,'form']],
-                target: 'current',
+                target: 'new',
                 view_type : 'form',
                 view_mode : 'form',
         });
