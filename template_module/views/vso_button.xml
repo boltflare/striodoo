@@ -6,8 +6,3 @@
         </xpath>
     </template>
 </odoo>
-
-<!-- <xpath expr="script[last()]" position="after">            
-            <script type="text/javascript" src="/template_module/static/src/js/action_call.js"></script>
-                      
-        </xpath> -->

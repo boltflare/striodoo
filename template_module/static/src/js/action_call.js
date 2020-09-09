@@ -15,6 +15,15 @@ odoo.define('template_module.action_call', function (require) {
             }
         },
         oe_action_button: function(){
+            this.do_action({
+                type: "ir.actions.act_window",
+                name: "Search Visitor",
+                res_model: "muki.rest",
+                views: [[false,'form']],
+                target: 'current',
+                view_type : 'form',
+                view_mode : 'form',
+        });
         }
     };
     ListController.include(includeDict);
