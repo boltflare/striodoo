@@ -68,6 +68,35 @@ class WebsiteSaleInherit(WebsiteSale):
 			values['search'] = post.get('search')
 
 		return request.render("website_sale.extra_info", values)
+
+
+
+	@http.route(['/shop/payment'], type='http', auth="public", website=True, sitemap=False)
+	def payment(self, **post):
+		""" Payment step. This page proposes several payment means based on available
+		payment.acquirer. State at this point :
+
+		 - a draft sales order with lines; otherwise, clean context / session and
+		   back to the shop
+		 - no transaction in context / session, or only a draft one, if the customer
+		   did go to a payment.acquirer website but closed the tab without
+		   paying / canceling
+		"""
+		super(WebsiteSaleInherit, self).payment(**post)
+		order = request.website.sale_get_order()
+		redirection = self.checkout_redirection(order)
+		if redirection:
+			return redirection
+
+		render_values = self._get_shop_payment_values(order, **post)
+		render_values['only_services'] = order and order.only_services or False
+		render_values['category'] = 'sale'
+
+		if render_values['errors']:
+			render_values.pop('acquirers', '')
+			render_values.pop('tokens', '')
+
+		return request.render("website_sale.payment", render_values)
 		
 
 	@http.route('/shop/payment/validate', type='http', auth="public", website=True, sitemap=False)
@@ -85,6 +114,7 @@ class WebsiteSaleInherit(WebsiteSale):
 		return transaction
 
 
+	"""
 	@http.route(['/shop/confirmation'], type='http', auth="public", website=True, sitemap=False)
 	def payment_confirmation(self, **post):
 		logging.info("Entro en payment_confirmation")
@@ -94,3 +124,4 @@ class WebsiteSaleInherit(WebsiteSale):
 			order = request.env['sale.order'].sudo().browse(sale_order_id)
 			order.update_storeroom_order()
 		return transaction
+	"""
