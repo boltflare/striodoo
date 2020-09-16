@@ -25,6 +25,16 @@
 				<xpath expr="//field[@name='partner_id']" position="after">
     				<field name="pos_invoice"/>
  				</xpath>
+				<!--Aqui se esta modificando el boton validar para hacerlo invisible mientras este TRUE el boton Update Price-->
+            	<xpath expr="//button[@name='action_invoice_open']" position="replace">       
+                	<button type="action"
+                        id="account_invoice_payment_btn"
+						name="321"
+                        string="Register Payment"
+						attrs="{'invisible': ['|',('pos_invoice', '=', True),('state', '!=', 'open')]}"
+                        groups="account.group_account_invoice" 
+						class="oe_highlight"/>
+				</xpath>
 			</field>
 		</record>
 
