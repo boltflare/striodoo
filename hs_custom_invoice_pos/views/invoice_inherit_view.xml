@@ -10,7 +10,7 @@
 			<field name="inherit_id" ref="account.invoice_tree_with_onboarding"/>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='origin']" position="after">
-    				<field name="hs_journal"/>
+    				<field name="hs_journal" attrs="{'invisible':[('pos_invoice', '=', False)]}"/>
  				</xpath>
 				
 			</field>

@@ -12,6 +12,22 @@ class InvoiceInherit2(models.Model):
 		for invoice in self:
 			invoice.hs_journal = invoice.journal_id.name
 
+	# pos_invoice = fields.Char(compute='_compute_state_invoice', string='POS Invoice', store=True)
+	pos_invoice = fields.Boolean(string="Is_Pos_Invoice", compute="_get_state_invoice")
+
+	@api.depends('journal_id') 
+	def _get_state_invoice(self):
+		invoice = self.env['account.invoice'].browse(self.env.journal_id)
+		for fac in self:
+			fac.pos_invoice = True if invoice.journal_id.name == 'POS Sale Journal (USD)' else False
+
+	""" @api.depends('origin') 
+	def _compute_state_invoice(self):
+		for invoice in self:
+			invoice.pos_invoice = invoice.origin """
+
+
+
 class accountPaymentInherit(models.Model):
 	_inherit = 'account.payment'
 
