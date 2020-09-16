@@ -17,7 +17,7 @@ $(".oe_action_button").click(function(){
     setTimeout(function(){ 
     console.log($("button[name*='search_visitor']"));
     $("button[name*='search_visitor']").attr("onclick","remover_item()");
-     }, 1000);
+     }, 2000);
       
       });
      
@@ -30,6 +30,6 @@ $(".oe_action_button").click(function(){
         console.log(list);
         list.removeChild(list.childNodes[0]);
         console.log('Esta funcionando');
-     }, 3000);
+     }, 4000);
     }
 
