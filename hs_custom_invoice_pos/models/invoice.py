@@ -10,7 +10,7 @@ class InvoiceInherit2(models.Model):
 
 	def get_pos_invoice(self):
 		# do your computation and change values of flag accordingly
-		self.flag = True
+		self.pos_invoice = True
 
 	@api.depends('journal_id') 
 	def _compute_journal_id(self):
