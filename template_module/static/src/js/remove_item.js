@@ -30,6 +30,6 @@ $(".oe_action_button").click(function(){
         console.log(list);
         list.removeChild(list.childNodes[0]);
         console.log('Esta funcionando');
-     }, 4000);
+     }, 2000);
     }
 
