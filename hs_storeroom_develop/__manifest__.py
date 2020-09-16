@@ -19,7 +19,7 @@
 	'licence': 'OPL-1',
 
 	# any module necessary for this one to work correctly
-	'depends': ['website_sale', 'hs_chart_field', 'payment', 'hs_customer_class_code'],
+	'depends': ['account_payment', 'website_sale', 'hs_chart_field', 'payment', 'hs_customer_class_code'],
 
 	# always loaded
 	'data': [

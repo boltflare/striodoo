@@ -89,8 +89,16 @@ class WebsiteSaleInherit(WebsiteSale):
 			return redirection
 
 		render_values = self._get_shop_payment_values(order, **post)
+		logging.info(render_values)
 		render_values['only_services'] = order and order.only_services or False
 		render_values['category'] = 'sale'
+		
+		if render_values['acquirers']:
+			acquieres_array = []
+			for acq in render_values['acquirers']:
+				if acq.payment_section == 'sale':
+					acquieres_array.append(acq)
+			render_values['acquirers'] = acquieres_array
 
 		if render_values['errors']:
 			render_values.pop('acquirers', '')

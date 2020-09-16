@@ -9,6 +9,6 @@ _logger = logging.getLogger(__name__)
 class AcquirerInherit(models.Model):
 	_inherit = "payment.acquirer"
 
-	category = fields.Selection(selection=[
+	payment_section = fields.Selection(selection=[
 		('sale', 'Ecommerce'), ('invoice', 'Invoice')
-	], string='Category', default='sale')
+	], string='Section', default='sale')
