@@ -6,19 +6,17 @@ class InvoiceInherit2(models.Model):
 	_inherit = 'account.invoice'
 
 	hs_journal = fields.Char(compute='_compute_journal_id', string='Journal', store=True)
+	pos_invoice = fields.Boolean(string="Is_Pos_Invoice", compute="_get_state_invoice")
 
 	@api.depends('journal_id') 
 	def _compute_journal_id(self):
 		for invoice in self:
 			invoice.hs_journal = invoice.journal_id.name
+			if self.hs_journal == 'POS Sale Journal':
+				self.pos_invoice = True
 
 	# pos_invoice = fields.Char(compute='_compute_state_invoice', string='POS Invoice', store=True)
-	pos_invoice = fields.Boolean(string="Is_Pos_Invoice", compute="_get_state_invoice")
-
-	@api.depends('hs_journal') 
-	def _get_state_invoice(self):
-		if self.hs_journal in 'POS Sale Journal':
-			self.pos_invoice = True    
+	
 
 			# if self.bool_field:
 		# self.bool_field = True
