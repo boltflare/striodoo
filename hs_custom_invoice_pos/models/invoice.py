@@ -13,10 +13,10 @@ class InvoiceInherit2(models.Model):
 		for invoice in self:
 			invoice.hs_journal = invoice.journal_id.name
 
-	@api.onchange('state')
+	""" @api.onchange('state')
 	def get_pos_invoice(self):
 		if self.state == 'paid' and self.hs_journal == 'POS Sale Journal':
-			self.pos_invoice = False
+			self.pos_invoice = False """
 	
 	# pos_invoice = fields.Char(compute='_compute_state_invoice', string='POS Invoice', store=True)
 	
