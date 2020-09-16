@@ -6,7 +6,7 @@ class InvoiceInherit2(models.Model):
 	_inherit = 'account.invoice'
 
 	hs_journal = fields.Char(compute='_compute_journal_id', string='Journal', store=True)
-	pos_invoice = fields.Boolean(string="Is_Pos_Invoice", compute="_get_state_invoice")
+	pos_invoice = fields.Boolean(string="Is_Pos_Invoice", default=False)
 
 	@api.depends('journal_id') 
 	def _compute_journal_id(self):
