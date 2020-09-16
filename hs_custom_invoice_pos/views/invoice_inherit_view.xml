@@ -10,14 +10,23 @@
 			<field name="inherit_id" ref="account.invoice_tree_with_onboarding"/>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='origin']" position="after">
-					<field name="pos_invoice"/>
     				<field name="hs_journal"/>
  				</xpath>
-				
 			</field>
 		</record>
 
-
+		<!-- model.name inherit form view -->
+		<record id="invoice_form_inherit2" model="ir.ui.view">
+			<field name="name">invoice.form.inherit2</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form"/>
+			<field name="arch" type="xml">
+				<!-- Add your xpath here -->
+				<xpath expr="//field[@name='partner_id']" position="after">
+    				<field name="pos_invoice"/>
+ 				</xpath>
+			</field>
+		</record>
 
 		<!-- model.name inherit tree view -->
 		<record id="payment_inherit_view_tree" model="ir.ui.view">
