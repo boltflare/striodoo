@@ -15,10 +15,10 @@ class InvoiceInherit2(models.Model):
 	# pos_invoice = fields.Char(compute='_compute_state_invoice', string='POS Invoice', store=True)
 	pos_invoice = fields.Boolean(string="Is_Pos_Invoice", compute="_get_state_invoice")
 
-	@api.depends('journal_id') 
+	@api.depends('hs_journal') 
 	def _get_state_invoice(self):
-		for fac in self:
-			fac.pos_invoice = True if self.journal_id.name == 'POS Sale Journal' else False
+		if self.hs_journal == 'POS Sale Journal':
+			self.pos_invoice = True    
 
 			# if self.bool_field:
 		# self.bool_field = True
