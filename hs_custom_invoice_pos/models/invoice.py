@@ -8,7 +8,7 @@ class InvoiceInherit2(models.Model):
 	hs_journal = fields.Char(compute='_compute_journal_id', string='Journal', store=True)
 	pos_invoice = fields.Boolean(string="Is_Pos_Invoice", compute="get_pos_invoice", default=False)
 
-	def get_stock_status(self):
+	def get_pos_invoice(self):
 		# do your computation and change values of flag accordingly
 		self.flag = True
 
