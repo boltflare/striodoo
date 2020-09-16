@@ -17,9 +17,11 @@ class InvoiceInherit2(models.Model):
 
 	@api.depends('journal_id') 
 	def _get_state_invoice(self):
-		invoice = self.env.account.invoice
 		for fac in self:
-			fac.pos_invoice = True if invoice.journal_id.name == 'POS Sale Journal (USD)' else False
+			fac.pos_invoice = True if self.journal_id.name == 'POS Sale Journal (USD)' else False
+
+			# if self.bool_field:
+		# self.bool_field = True
 
 	""" @api.depends('origin') 
 	def _compute_state_invoice(self):
