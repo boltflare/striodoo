@@ -9,8 +9,8 @@ class InvoiceInherit2(models.Model):
 	pos_invoice = fields.Boolean(string="Is_Pos_Invoice", compute="get_pos_invoice", default=False)
 
 	def get_pos_invoice(self):
-		# do your computation and change values of flag accordingly
-		self.pos_invoice = True
+		if self.state == 'open' and self.journal_id.name == 'POS Sale Journal':
+			self.pos_invoice = True
 
 	@api.depends('journal_id') 
 	def _compute_journal_id(self):
