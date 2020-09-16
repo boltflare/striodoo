@@ -7,7 +7,8 @@
 			<div class="text-center progress-wizard-steplabel">Customer</div>
 		</xpath>
 	</template>
-		
+
+
 	<template id="stri_extra_info" inherit_id="website_sale.extra_info">
 		<xpath expr="//form[hasclass('s_website_form')]" position="replace">
 		<!--xpath expr="//div[hasclass('o_website_form_custom')][0]" position="inside"-->
@@ -27,22 +28,6 @@
 							</div>
 						</div>
 					</div>
-					
-					<!--div class="form-group row form-field o_website_form_custom">
-						<div class="col-lg-3 col-md-4 text-md-right">
-							<label class="col-form-label" for="ChartfieldSearch">Fund</label>
-						</div>
-						<div class="col-lg-9 col-md-8">
-							<input type="text" class="form-control o_website_form_input" id="ChartfieldSearch"/>
-						</div>
-					</div>
-					<div class="form-group row form-field o_website_form_custom">
-						<div class="col-sm-12 text-right">
-							<button type="button" class="btn btn-primary" id="btn_search_fund">
-								<i class="fa fa-search"></i> Search
-							</button>
-						</div>
-					</div-->
 					<div class="form-group row form-field o_website_form_custom">
 						<div class="col-lg-3 col-md-4 text-md-right">
 							<label class="col-form-label">Results</label>
@@ -54,20 +39,6 @@
 									<tr><th>StriFund</th></tr>
 								</thead>
 								<tbody>
-									<!--tr t-foreach="bins" t-as="tr_product">
-										<t t-foreach="tr_product" t-as="td_product">
-											<t t-if="td_product">
-												<t t-set="product" t-value="td_product['product']" />
-												<td t-att-colspan="td_product['x'] != 1 and td_product['x']" t-att-rowspan="td_product['y'] != 1 and td_product['y']" t-attf-class="oe_product oe_grid oe-height-#{td_product['y']*2} #{ td_product['class'] }">
-													<div class="oe_product_cart" t-att-data-publish="product.website_published and 'on' or 'off'">
-														<t t-set="product_image_big" t-value="td_product['x']+td_product['y'] &gt; 2" />
-														<t t-call="website_sale.products_item" />
-													</div>
-												</td>
-											</t>
-											<td t-if="not td_product" class="oe-height-2" />
-										</t>
-									</tr-->
 									<t t-foreach="funds" t-as="fund">
 										<tr>
 											<td>
@@ -82,23 +53,6 @@
 											</td>
 										</tr>
 									</t>
-									<!--tr t-foreach="funds" t-as="tr_fund">
-										<t t-foreach="tr_fund" t-as="td_fund">
-											<t t-if="td_fund">
-												<!-t t-set="product" t-value="td_fund['product']" /->
-												<td>
-													<div>
-														Hola Mundo
-													</div>
-													<!-div class="oe_product_cart" t-att-data-publish="product.website_published and 'on' or 'off'">
-														<t t-set="product_image_big" t-value="td_product['x']+td_product['y'] &gt; 2" />
-														<t t-call="website_sale.products_item" />
-													</div->
-												</td>
-											</t>
-											<td t-if="not td_fund" class="oe-height-2" />
-										</t>
-									</tr-->
 								</tbody>
 							</table>
 							<t t-if="not funds">
@@ -131,23 +85,12 @@
 							<input type="text" class="form-control o_website_form_input" name="client_order_ref"/>
 						</div>
 					</div>
-					<!--div class="form-group row form-field o_website_form_custom">
-						<div class="col-lg-3 col-md-4 text-md-right">
-							<label class="col-form-label" for="Give us your feedback">Give us your feedback</label>
-						</div>
-						<div class="col-lg-9 col-md-8">
-							<textarea class="form-control o_website_form_input" rows="8" name="Give us your feedback" />
-						</div>
-					</div-->
 					<div class="form-group row">
 						<div class="col-lg-3 col-md-4">
 						</div>
 						<div class="col-lg-9 col-md-8">
 							<a role="button" href="/shop/checkout" class="btn btn-secondary mb32 float-left"><span class="fa fa-chevron-left" /> Previous</a>
 							<a role="button" class="btn btn-primary float-right mb32 o_website_form_send disabled" href="/shop/confirm_order">Next <span class="fa fa-chevron-right" /></a>
-							
-							<!--button type="button" id="btnStrifundPrevius" class="btn btn-secondary mb32 float-left"><span class="fa fa-chevron-left"/> Previous</button>
-							<button type="button" id="btnStrifundNext" class="btn btn-primary float-right mb32 o_website_form_send" disabled="disabled">Next <span class="fa fa-chevron-right"/></button-->
 						</div>
 					</div>
 				</form>
