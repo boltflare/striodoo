@@ -11,6 +11,7 @@
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='origin']" position="after">
     				<field name="hs_journal"/>
+					<field name="pos_invoice"/>
  				</xpath>
 			</field>
 		</record>
