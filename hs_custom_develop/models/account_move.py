@@ -21,29 +21,6 @@ class AccountMovelineInherit(models.Model):
 		if payments:
 			for payment in payments:
 				payment.cancel()
-					
-				#return
-				"""
-				refund = self.env['account.payment'].sudo().with_context(
-					default_payment_type = 'outbound', 
-					default_partner_type = 'supplier',
-					default_payment_date = fields.Date.today()
-				)
-				payment_method_name = 'account.account_payment_method_manual_out'
-				payment_method = self.env.ref(payment_method_name)
-				if not payment_method:
-					raise exceptions.ValidationError('Account configuration '
-					'module - Default journal Strifund is empty.')
-				
-				payment_refund = refund.create({
-					'payment_method_id': payment_method.id,
-					'partner_id': payment.partner_id.id,
-					'amount': payment.amount,
-					'journal_id': payment.journal_id.id,
-					'communication': 'Cancel payment %s' % (payment.name)
-				})
-				payment_refund.post()
-				"""
 
 
 	@api.multi
@@ -58,6 +35,7 @@ class AccountMovelineInherit(models.Model):
 		Returns:
 			[type]: [description]
 		"""
+		logging.info('El metodo remove_move_reconcile() fue llamado')
 		invoice_id = self.env.context.get('invoice_id')
 		if invoice_id:
 			invoice = self.env['account.invoice'].browse(invoice_id)
@@ -65,8 +43,8 @@ class AccountMovelineInherit(models.Model):
 				user = self.env.user
 				group_manager = self.env.ref('account.group_account_user')
 				if user in group_manager.users:
-					raise exceptions.ValidationError('No cuenta con los \
-						permisos necesarios para realizar esta acción.')
+					raise exceptions.ValidationError('No cuenta con los '
+						'permisos necesarios para realizar esta acción.')
 				return super(AccountMovelineInherit, self).remove_move_reconcile()
 			else:
 				payments = invoice.payment_ids
