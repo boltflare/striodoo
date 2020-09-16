@@ -17,7 +17,7 @@ class InvoiceInherit2(models.Model):
 
 	@api.depends('journal_id') 
 	def _get_state_invoice(self):
-		invoice = self.env['account.invoice'].browse(self.env.journal_id)
+		invoice = self.env['account.invoice'].search([])
 		for fac in self:
 			fac.pos_invoice = True if invoice.journal_id.name == 'POS Sale Journal (USD)' else False
 
