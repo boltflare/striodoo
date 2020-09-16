@@ -11,7 +11,7 @@
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='origin']" position="after">
 					<field name="pos_invoice"/>
-    				<field name="hs_journal" attrs="{'invisible':[('pos_invoice', '=', False)]}"/>
+    				<field name="hs_journal"/>
  				</xpath>
 				
 			</field>
