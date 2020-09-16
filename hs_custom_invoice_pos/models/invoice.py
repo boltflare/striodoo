@@ -17,7 +17,7 @@ class InvoiceInherit2(models.Model):
 
 	@api.depends('hs_journal') 
 	def _get_state_invoice(self):
-		if self.hs_journal == 'POS Sale Journal':
+		if self.hs_journal in 'POS Sale Journal':
 			self.pos_invoice = True    
 
 			# if self.bool_field:
