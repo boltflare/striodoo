@@ -12,7 +12,7 @@ class InvoiceInherit2(models.Model):
 	def _compute_journal_id(self):
 		for invoice in self:
 			invoice.hs_journal = invoice.journal_id.name
-			if self.hs_journal == 'POS Sale Journal':
+			if self.pos_invoice:
 				self.pos_invoice = True
 
 	# pos_invoice = fields.Char(compute='_compute_state_invoice', string='POS Invoice', store=True)
