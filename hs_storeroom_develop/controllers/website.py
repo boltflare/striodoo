@@ -15,11 +15,17 @@ class WebsiteSaleFormInherit(WebsiteSaleForm):
 	@http.route('/website_form/shop.sale.order', type='http', auth="public", methods=['POST'], website=True)
 	def website_form_saleorder(self, **kwargs):
 		logging.info("Entro en website_form_saleorder")
+		order = request.website.sale_get_order()
 		if kwargs.get('strifund'):
-			order = request.website.sale_get_order()
 			order.write({
 				'strifund': int(kwargs.get('strifund'))
 			})
+		if kwargs.get('client_comment'):
+			order.write({
+				'client_comment': kwargs.get('client_comment')
+			})
+
+		
 		return super(WebsiteSaleFormInherit, self).website_form_saleorder(**kwargs)
 
 
