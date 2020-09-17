@@ -16,7 +16,7 @@ class ResPartnerInherit2(models.Model):
 
 	fund_manager = fields.Many2one("fund.manager", "Fund Manager")
 	principal_investigator = fields.Many2one("principal.investigator", "Principal Investigator")
-	only_pos = fields.Boolean("Visible solo en PoS", required=True, default=False)
+	only_pos = fields.Boolean("Available in PoS", required=True, default=False)
 	regular_companies_id = fields.Many2one("regular.companies", "Company")
 	visitor_name = fields.Char(string='Visitor ID')
 
