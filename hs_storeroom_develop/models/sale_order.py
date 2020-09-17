@@ -12,6 +12,7 @@ class SaleOrderInherit(models.Model):
 
 
 	strifund = fields.Many2one('res.partner', 'Fund')
+	client_comment = fields.Char('comment')
 
 
 	def search_partner_fund(self, filter):
