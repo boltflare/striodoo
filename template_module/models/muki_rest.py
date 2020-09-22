@@ -26,6 +26,12 @@ class MukiREST(models.Model):
 	lname = fields.Char("Last Name")
 	visitor_email = fields.Char("Email")
 	hvisit = fields.Char("Visitor ID")
+	hstreet = fields.Char("Street")
+	hstreet2 = fields.Char("Street2")
+	hcity = fields.Char("City")
+	hzip = fields.Char("Zip")
+	hphone = fields.Char("Phone")
+	hmobile = fields.Char("Mobile")
 
 	def search_visitor(self):
 		ip_address = '34.66.235.140'
@@ -63,12 +69,16 @@ class MukiREST(models.Model):
 
 		for data in datas['visit']:
 			self.env['muki.rest'].create({
-		 	   'hvisit': data['user_id'],
-		 	   'nombre': data['visitor_name'],
-		 	   'fname': data['first_name'],
-		 	   'lname': data['last_name'],
-		 	   'visitor_email': data['email'],
-		 	   'hstatus': data['status']
+				'hvisit': data['user_id'],
+				'nombre': data['visitor_name'],
+				'fname': data['first_name'],
+				'lname': data['last_name'],
+				'visitor_email': data['email'],
+				'hstatus': data['status'],
+				'hstreet':data['line1'],
+				'hstreet2':data['line2'],
+				'hcity': data['city'],
+				'hzip': data['zip']
 			})
 
 		action = self.env.ref('template_module.muki_rest_action').read()[0]
