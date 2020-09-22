@@ -13,12 +13,18 @@ class CreateCustomer(models.TransientModel):
 	lname = fields.Char("Last Name")
 	visitor_email = fields.Char("Email")
 	hvisit = fields.Char("Visitor ID")
+	hstreet = fields.Char("Street")
+	hstreet2 = fields.Char("Street2")
+	hcity = fields.Char("City")
+	hzip = fields.Char("Zip")
+	hphone = fields.Char("Phone")
+	hmobile = fields.Char("Mobile")
  
 	#EN ESTE METODO SE OBTIENE LOS REGISTROS CON EL CHECK ACTIVO, RECORRO LA VISTA Y CREO EN CLIENTES EL REGITRO SELECCIONADO
 	def create_customer(self):
 		active_ids = self._context.get('active_ids', []) or []
 		for record in self.env['muki.rest'].browse(active_ids):
-			self.env["res.partner"].create({'name':record.nombre,'visitor':record.hvisit,'email':record.visitor_email})
+			self.env["res.partner"].create({'name':record.nombre,'visitor':record.hvisit,'street':record.hstreet,'street2':record.hstreet2,'city':record.hcity,'zip':record.hzip,'email':record.visitor_email})
 
 		# ESTA PROPIEDAD PERMITE ELIMINAR TODOS LOS REGISTROS LUEGO DE HACER EL CREATE
 		record_set = self.env['muki.rest'].search([])
