@@ -75,10 +75,14 @@ class MukiREST(models.Model):
 				'lname': data['last_name'],
 				'visitor_email': data['email'],
 				'hstatus': data['status'],
-				'hstreet':data['line1'],
-				'hstreet2':data['line2'],
-				'hcity': data['city'],
-				'hzip': data['zip']
+				'hstreet':data['funding']['address']['line1'],
+                'hstreet2':data['funding']['address']['line2'],
+                'hcity':data['funding']['address']['city'],
+                'hzip':data['funding']['address']['zip']
+				# 'hstreet':data['line1'],
+				# 'hstreet2':data['line2'],
+				# 'hcity': data['city'],
+				# 'hzip': data['zip']
 			})
 
 		action = self.env.ref('template_module.muki_rest_action').read()[0]
