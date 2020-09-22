@@ -67,7 +67,7 @@ class MukiREST(models.Model):
 		datas = json.loads(datas.data.decode('utf-8'))
 		logging.info("CONTENIDO: " + str(datas))
 
-		for data in datas['visit']:
+		"""for data in datas['visit']:
 			self.env['muki.rest'].create({
 				'hvisit': data['user_id'],
 				'nombre': data['visitor_name'],
@@ -76,14 +76,44 @@ class MukiREST(models.Model):
 				'visitor_email': data['email'],
 				'hstatus': data['status'],
 				'hstreet':data['funding']['address']['line1'],
-                'hstreet2':data['funding']['address']['line2'],
-                'hcity':data['funding']['address']['city'],
-                'hzip':data['funding']['address']['zip']
+				'hstreet2':data['funding']['address']['line2'],
+				'hcity':data['funding']['address']['city'],
+				'hzip':data['funding']['address']['zip']
 				# 'hstreet':data['line1'],
 				# 'hstreet2':data['line2'],
 				# 'hcity': data['city'],
 				# 'hzip': data['zip']
-			})
+			}) """
+		for data in datas['visit']:
+			hvisit= data['user_id']
+			nombre= data['visitor_name']
+			fname= data['first_name']
+			lname= data['last_name']
+			visitor_email=data['email']
+			hstatus=data['status']
+			address = data['funding']['address']
+			if address is not None:
+				hstreet=data['funding']['address']['line1']
+				hstreet2=data['funding']['address']['line2']
+				hcity=data['funding']['address']['city']
+				hzip=data['funding']['address']['zip']
+			else:
+				hstreet=""
+				hstreet2=""
+				hcity=""
+				hzip=""
+			self.env['muki.rest'].create({
+				'hvisit': hvisit,
+				'nombre': nombre,
+				'fname': fname,
+				'lname': lname,
+				'visitor_email': visitor_email,
+				'hstatus': hstatus,
+				'hstreet':hstreet,
+				'hstreet2':hstreet2,
+				'hcity':hcity,
+				'hzip':hzip,
+				})
 
 		action = self.env.ref('template_module.muki_rest_action').read()[0]
 		action['target'] = 'main'
