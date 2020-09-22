@@ -75,10 +75,10 @@ class MukiREST(models.Model):
 				'lname': data['last_name'],
 				'visitor_email': data['email'],
 				'hstatus': data['status'],
-				'hstreet':data['address']['line1'],
-                'hstreet2':data['address']['line2'],
-                'hcity':data['address']['city'],
-                'hzip':data['address']['zip']
+				'hstreet':data['funding']['address']['line1'],
+                'hstreet2':data['funding']['address']['line2'],
+                'hcity':data['funding']['address']['city'],
+                'hzip':data['funding']['address']['zip']
 				# 'hstreet':data['line1'],
 				# 'hstreet2':data['line2'],
 				# 'hcity': data['city'],
