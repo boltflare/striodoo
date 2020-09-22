@@ -18,6 +18,7 @@ class AccountBudgetWizard(models.TransientModel):
 		try:
 			doc_ids=self._context.get('active_ids')
 			account = self.env["account.account"].browse(doc_ids)
+			if account: account = account.filtered(lambda a: a.stri_budget != '0000')
 			account.write({'stri_budget' : self.budget_year})
 		except Exception as __ERROR:
 			_logger.error("Error on budget reference field: " + str(__ERROR))
