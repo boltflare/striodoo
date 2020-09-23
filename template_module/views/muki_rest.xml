@@ -13,10 +13,10 @@
 					<field name = "lname"/>
 					<field name = "visitor_email"/>
 					<field name = "hstatus"/>
-					<field name = "hstreet"/>
-					<field name = "hstreet2"/>
-					<field name = "hcity"/>
-					<field name = "hzip"/>
+					<field name = "hstreet" invisible="1"/>
+					<field name = "hstreet2" invisible="1"/>
+					<field name = "hcity" invisible="1"/>
+					<field name = "hzip" invisible="1"/>
 					
 				</tree>
 			</field>
