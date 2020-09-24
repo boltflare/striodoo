@@ -42,7 +42,7 @@ class AccountMovelineInherit(models.Model):
 			if invoice.partner_id.customer_type == "regular":
 				user = self.env.user
 				group_manager = self.env.ref('account.group_account_user')
-				if user in group_manager.users:
+				if user not in group_manager.users:
 					raise exceptions.ValidationError('No cuenta con los '
 						'permisos necesarios para realizar esta acción.')
 				return super(AccountMovelineInherit, self).remove_move_reconcile()
