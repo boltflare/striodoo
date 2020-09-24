@@ -2,10 +2,10 @@
 {
 	'name': "Muki Rest",
 
-	'summary': """Muki rest""",
+	'summary': """APP for Integration with VSO and Update customer information""",
 
 	'description': """
-		Long description of module's purpose
+		APP for Integration with VSO and Update customer information
 	""",
 
 	'author': "HS Consult",
@@ -28,7 +28,7 @@
 	'data': [
 		'security/ir.model.access.csv',
 		'views/muki_rest.xml',
-		'views/res_partner.xml',
+		# 'views/res_partner.xml',
 		'views/vso_button.xml',
 		# 'views/create_customer_wizard.xml',
 	],
