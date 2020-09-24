@@ -79,7 +79,7 @@
 					</div>
 					<div class="form-group row form-field o_website_form_custom">
 						<div class="col-lg-3 col-md-4 text-md-right">
-							<label class="col-form-label" for="client_comment">Comment</label>
+							<label class="col-form-label" for="client_comment">Comments</label>
 						</div>
 						<div class="col-lg-9 col-md-8">
 							<input type="text" class="form-control o_website_form_input" name="client_comment"/>
@@ -130,5 +130,36 @@
 		</xpath>
 	</template>
 
+	
+	<template id="total" inherit_id="website_sale.total">
+		<xpath expr="//tr[@id='order_total_taxes']" position="replace">
+			
+		</xpath>
+	</template>
+
+
+	<template id="address" inherit_id="website_sale.address">
+		<xpath expr="//label[@for='name']" position="replace">
+			<label class="col-form-label" for="name">Name *</label>
+		</xpath>
+
+		<xpath expr="//label[@for='phone']" position="replace">
+			<label class="col-form-label" for="phone">Phone *</label>
+		</xpath>
+
+		<xpath expr="//label[@for='street']" position="replace">
+			<label class="col-form-label" for="street">Street <span class="d-none d-md-inline"> and Number *</span></label>
+		</xpath>
+
+		<xpath expr="//label[@for='city']" position="replace">
+			<label class="col-form-label" for="city">City *</label>
+		</xpath>
+
+		<xpath expr="//label[@for='country_id']" position="replace">
+			<label class="col-form-label" for="country_id">Country *</label>
+		</xpath>
+	</template>
+
+	
 	</data>
 </odoo>
