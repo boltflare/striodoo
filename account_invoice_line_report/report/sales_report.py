@@ -92,7 +92,7 @@ class anexo72Report(models.AbstractModel):
 		invoice.date_invoice,
 		CONCAT (cuenta.stri_fund,',', cuenta.stri_budget,',',cuenta.stri_desig,',',cuenta.stri_dept,',',cuenta.stri_account,',',cuenta.stri_class,',',cuenta.stri_program,',',cuenta.stri_project,',',cuenta.stri_activity,',',cuenta.stri_type) as chartfield
 		from account_invoice_line As detalle , account_invoice as invoice, res_partner as cliente, account_account as cuenta, res_users as sale, product_product as item, product_template as tem
-		where (detalle.date BETWEEN '{}' AND '{}') and detalle.invoice_id = invoice.id and invoice.partner_id = cliente.id and detalle.account_id = cuenta.id and invoice.user_id = sale.id
+		where (invoice.date_invoice BETWEEN '{}' AND '{}') and detalle.invoice_id = invoice.id and invoice.partner_id = cliente.id and detalle.account_id = cuenta.id and invoice.user_id = sale.id
 		and invoice.type IN('out_invoice','out_refund') and detalle.product_id = item.id and item.product_tmpl_id = tem.id;
 		""".format(dt_from, dt_to)
 
