@@ -86,7 +86,7 @@ class anexo72Report(models.AbstractModel):
 		item.default_code,
 		tem.name,
 		case when (invoice.type = 'out_refund') then CONCAT('-',detalle.quantity)
-		else (detalle.quantity) end AS quantity,
+		else (invoice.type = 'out_invoice') then (detalle.quantity) end AS quantity,
 		detalle.price_unit,
 		detalle.price_subtotal,
 		invoice.number,
