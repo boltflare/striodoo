@@ -19,8 +19,9 @@ class CreateCustomer(models.TransientModel):
 	hzip = fields.Char("Zip")
 	hphone = fields.Char("Phone")
 	hmobile = fields.Char("Mobile")
- 
-	#EN ESTE METODO SE OBTIENE LOS REGISTROS CON EL CHECK ACTIVO, RECORRO LA VISTA Y CREO EN CLIENTES EL REGITRO SELECCIONADO
+
+	#EN ESTE METODO SE OBTIENE LOS REGISTROS CON EL CHECK ACTIVO, RECORRO LA VISTA Y 
+	# CREO EN CLIENTES EL REGISTRO SELECCIONADO
 	def create_customer(self):
 		active_ids = self._context.get('active_ids', []) or []
 		for record in self.env['muki.rest'].browse(active_ids):
@@ -41,9 +42,7 @@ class CreateCustomer(models.TransientModel):
 			# 'res_id': message_id.id,
 			'target': 'new'
 		}
-		
-		
-		
+
 class MessageWizard(models.TransientModel):
 	_name = 'message.wizard'
 	_description = 'Display a message after create customers'

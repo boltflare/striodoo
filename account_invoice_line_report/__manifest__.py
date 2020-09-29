@@ -19,7 +19,7 @@
         #'security/ir.model.access.csv',
         'report/account_invoice_report_view.xml',
         #'wizard/sales_invoice_xls_view.xml',
-        # 'report/report.xml',
+        'report/sales_report_view.xml',
         
     ],
     'installable': True,
