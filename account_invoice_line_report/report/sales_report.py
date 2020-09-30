@@ -79,7 +79,7 @@ class anexo72Report(models.AbstractModel):
 		dt_from = options['date'].get('date_from')
 		dt_to = options['date'].get('date_to')
 		query = """
-		select CONCAT ('[',cuenta.code,']',' ',cuenta.name),
+		select CONCAT (cuenta.code,' ',cuenta.name),
 		cliente.name,
 		sale.name,
 		categ.complete_name, 
