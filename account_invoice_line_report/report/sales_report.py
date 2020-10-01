@@ -32,7 +32,8 @@ class anexo72Report(models.AbstractModel):
 				{'name': _("Customer")},
 				{'name': _("Salesperson")},
 				{'name': _("Category")},
-				{'name': _("Item")},
+				{'name': _("Item Code")},
+				{'name': _("Item Description")},
 				{'name': _("Qty Sold"),'class': 'number'},
 				{'name': _("Sold Price"), 'class': 'number'},
 				{'name': _("Total Sales"), 'class': 'number'},
@@ -69,7 +70,7 @@ class anexo72Report(models.AbstractModel):
 				'name': '',
 				'unfoldable': False,
 				'level': 3,
-				'columns': [{'name' : v} for v in ['', '', '', '', '', '', '', '','','','',]],
+				'columns': [{'name' : v} for v in ['', '', '', '', '', '', '', '','','','','',]],
 			})
 		return lines
 
@@ -79,11 +80,12 @@ class anexo72Report(models.AbstractModel):
 		dt_from = options['date'].get('date_from')
 		dt_to = options['date'].get('date_to')
 		query = """
-		select CONCAT (cuenta.code,' ',cuenta.name),
+		select cuenta.name,
 		cliente.name,
 		sale.name,
 		categ.complete_name, 
-		CONCAT ('[',item.default_code,']',' ',tem.name),
+		item.default_code,
+		tem.name,
 		case when (invoice.type = 'out_invoice') then detalle.quantity
 		else (detalle.quantity*-1) end AS quantity,
 		case when (invoice.type = 'out_invoice') then detalle.price_unit
