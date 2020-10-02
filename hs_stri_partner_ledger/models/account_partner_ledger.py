@@ -48,8 +48,40 @@ class PartnerLedgerInherit(models.AbstractModel):
 
 	@api.model
 	def _get_lines(self, options, line_id=None):
-		super(PartnerLedgerInherit, self)._get_lines(options, line_id=line_id)
+		lines = super(PartnerLedgerInherit, self)._get_lines(options, line_id=line_id)
+		for item in lines:
+			if item.get('level') == 2:
+				# El reporte tiene colspan=6, quitamos dos columna, colspans=4
+				item['colspan'] = 4
+			elif item.get('level') == 4:
+				# obtenemos name de move
+				move_line = self.env['account.move.line'].browse(int(item['id']))
+				if move_line.invoice_id:
+					line_name = move_line.move_id.name
+				elif move_line.statement_id:
+					line_name = move_line.name
+				else:
+					line_name = self._get_payment_name(move_line)
+				
+				# removemos la columna account, la columna journal y
+				# actualizamos la primera columna 
+				columns = item.get('columns')
+				columns[0] = {'name': line_name}
+				columns.pop(1)
+				columns.pop(2)
 
+				item['columns'] = columns
+			elif item.get('level') == 0:
+				columns = item.get('columns')
+				# removemos la columna account y la columna journal
+				columns.pop(1)
+				columns.pop(2)
+				item['columns'] = columns
+
+
+
+		"""
+		logging.info(resp)
 
 		offset = int(options.get('lines_offset', 0))
 		lines = []
@@ -135,8 +167,7 @@ class PartnerLedgerInherit(models.AbstractModel):
 						line_name = line.name
 					else:
 						line_name = self._get_payment_name(line)
-					domain_columns = [line_name, 
-									  self._format_aml_name(line),
+					domain_columns = [line.journal_id.code, line.account_id.code, self._format_aml_name(line),
 									  # line.date_maturity and format_date(self.env, line.date_maturity) or '',
 									  line.full_reconcile_id.name or '', self.format_value(progress_before),
 									  line_debit != 0 and self.format_value(line_debit) or '',
@@ -184,4 +215,5 @@ class PartnerLedgerInherit(models.AbstractModel):
 				'class': 'o_account_reports_domain_total',
 				'columns': [{'name': v} for v in total_columns],
 			})
+		"""
 		return lines
