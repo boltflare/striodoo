@@ -17,6 +17,7 @@
 					<field name = "hstreet2" invisible="1"/>
 					<field name = "hcity" invisible="1"/>
 					<field name = "hzip" invisible="1"/>
+					<field name="hcountry"/>
 					
 				</tree>
 			</field>
