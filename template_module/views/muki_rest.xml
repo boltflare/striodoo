@@ -17,6 +17,7 @@
 					<field name = "hstreet2" invisible="1"/>
 					<field name = "hcity" invisible="1"/>
 					<field name = "hzip" invisible="1"/>
+					<field name="hcountry"/>
 					
 				</tree>
 			</field>
@@ -70,12 +71,12 @@
 		</record>
 
 		<record id="muki_rest_action" model="ir.actions.act_window">
-			<field name="name">VSO SEARCH</field>
+			<field name="name">VSO Search</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">muki.rest</field>
-			<field name="view_mode">tree,form</field>
+			<field name="view_mode">tree</field>
 			<field name="search_view_id" ref="vso_search_view"/>
-			<field name="view_type">form</field>
+			<field name="view_type">tree</field>
 		</record>
 
 	   <!-- Este es la acción heredada que permite mostrar los datos en vista arbol -->

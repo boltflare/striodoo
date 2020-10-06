@@ -30,7 +30,7 @@ class MukiREST(models.Model):
 	hstreet2 = fields.Char("Street2")
 	hcity = fields.Char("City")
 	hzip = fields.Char("Zip")
-	hphone = fields.Char("Phone")
+	hcountry = fields.Char("Country")
 	hmobile = fields.Char("Mobile")
 
 	def search_visitor(self):
@@ -39,8 +39,6 @@ class MukiREST(models.Model):
 		ip_address_bytes = ip_address.encode('ascii')
 		#CONVIRTIENDO A BASE64 EL IP
 		ipBase = base64.b64encode(ip_address_bytes)
-		# ipBase = 'MTkwLjE0MC4xNjUuNDU='
-
 		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 		url = 'https://visitors.stri.si.edu/services/getVisits'
 		
@@ -97,11 +95,13 @@ class MukiREST(models.Model):
 				hstreet2=data['funding']['address']['line2']
 				hcity=data['funding']['address']['city']
 				hzip=data['funding']['address']['zip']
+				hcountry=data['funding']['address']['country']
 			else:
 				hstreet=""
 				hstreet2=""
 				hcity=""
 				hzip=""
+				hcountry=""
 			self.env['muki.rest'].create({
 				'hvisit': hvisit,
 				'nombre': nombre,
@@ -113,6 +113,7 @@ class MukiREST(models.Model):
 				'hstreet2':hstreet2,
 				'hcity':hcity,
 				'hzip':hzip,
+				'hcountry':hcountry,
 				})
 
 		action = self.env.ref('template_module.muki_rest_action').read()[0]
