@@ -22,34 +22,6 @@
 				</tree>
 			</field>
 		</record>
-
-		<!--FORM VIEW-->
-		<!-- <record id = "vso_form_view" model = "ir.ui.view">
-			<field name = "name">VSO View Form</field> 
-			<field name = "model">muki.rest</field> 
-			<field name = "arch" type = "xml"> 
-				<form string = "VSO View" create="false" edit="false"> 
-					<sheet> 
-						<group>
-							<group>
-								<field name = "hvisit"/>
-								<field name = "hstatus" />
-								<field name = "nombre" />
-								<field name = "fname"/>
-								<field name = "lname" />
-								<field name = "visitor_email" />
-							</group>
-						</group>
-						<footer>
-							<button name="search_visitor" type="object"
-									string="Search" class="oe_highlight"/>
-							or
-							<button special="cancel" string="Cancel"/>
-						</footer>
-					</sheet>
-				</form>
-			</field>
-		</record> -->
 		
 		<!--CREANDO VISTA DE BUSQUEDA PARA APLICAR FILTROS-->
 		
@@ -65,7 +37,6 @@
 						<field name="fname" string="First Name" filter_domain="[('fname', '=', self)]"/>
 						<field name="lname" string="Last Name" filter_domain="[('lname', '=', self)]"/>
 						<separator/>
-					
 				</search>
 			</field>
 		</record>
@@ -74,11 +45,11 @@
 			<field name="name">VSO Search</field>
 			<field name="res_model">muki.rest</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">tree,graph</field>
+			<field name="view_mode">tree,fom</field>
 			<field name="search_view_id" ref="vso_search_view"/>
 		</record>
 
-	   <!-- Este es la acción heredada que permite mostrar los datos en vista arbol -->
+	   	<!-- Este es la acción heredada que permite mostrar los datos en vista arbol -->
 		<record id="vso_menu_tree" model="ir.actions.act_window.view">
 			<field name="act_window_id" ref="template_module.muki_rest_action" />
 			<field name="view_id" ref="template_module.vso_tree_view"/>
@@ -87,7 +58,6 @@
 		</record>
 
 		<menuitem id="muki_rest_menu" name="VSO Search" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
-
 
 		<!-- DECLARACION DE WIZARD Y DE LA ACCION PARA LEVANTAR EL WIZARD AL HACR CLICK AL SEARCH -->
 		<record model="ir.ui.view" id="wizard_form_search">
