@@ -18,11 +18,10 @@
 					<field name = "hcity" invisible="1"/>
 					<field name = "hzip" invisible="1"/>
 					<field name="hcountry"/>
-					
 				</tree>
 			</field>
 		</record>
-		
+
 		<!--CREANDO VISTA DE BUSQUEDA PARA APLICAR FILTROS-->
 		
 		<record id="vso_search_view" model="ir.ui.view">
@@ -37,6 +36,7 @@
 						<field name="fname" string="First Name" filter_domain="[('fname', '=', self)]"/>
 						<field name="lname" string="Last Name" filter_domain="[('lname', '=', self)]"/>
 						<separator/>
+					
 				</search>
 			</field>
 		</record>
@@ -58,8 +58,10 @@
 			<field name="sequence" eval="2"/>
 		</record>
 
-		<menuitem id="muki_rest_menu" name="VSO Search" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
 
+		
+		<menuitem id="muki_rest_menu" name="VSO Search" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
+		
 		<!-- DECLARACION DE WIZARD Y DE LA ACCION PARA LEVANTAR EL WIZARD AL HACR CLICK AL SEARCH -->
 		<record model="ir.ui.view" id="wizard_form_search">
 			<field name="name">wizard.form.search</field>
