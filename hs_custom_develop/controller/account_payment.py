@@ -12,9 +12,31 @@ _logger = logging.getLogger(__name__)
 
 class PaymentAccountInherit(PortalAccount):
 
+	def _prepare_portal_layout_values(self):
+		"""Sobreescribimos el metodo de contar las facturas para obtener
+		solo la cantidad de facturas que esten abiertas
+
+		Returns:
+			int: Total de facturas abiertas
+		"""
+		values = super(PaymentAccountInherit, self)._prepare_portal_layout_values()
+		filter_query = [('state', '=', 'open')]
+		invoice_count = request.env['account.invoice'].search_count(filter_query)
+		values['invoice_count'] = invoice_count
+		return values
+
+
 	# @http.route()
 	@http.route(['/my/invoices', '/my/invoices/page/<int:page>'], type='http', auth="user", website=True)
 	def portal_my_invoices(self, page=1, date_begin=None, date_end=None, sortby=None, **kw):
+		""" - Sobreescribimos el metodo encargado de mostrar las facturas en el
+		portal, para solo mostrar las facturas que le pertenecen al usuario que
+		este logeado. 
+		- Ordenamos la factura por estados.
+
+		Returns:
+			[type]: [description]
+		"""
 		super(PaymentAccountInherit, self).portal_my_invoices(page=page, 
 			date_begin=date_begin, date_end=date_end, sortby=sortby, **kw)
 		values = self._prepare_portal_layout_values()
@@ -41,7 +63,7 @@ class PaymentAccountInherit(PortalAccount):
 		}
 		# default sort by order
 		if not sortby:
-			sortby = 'date'
+			sortby = 'state'
 		order = searchbar_sortings[sortby]['order']
 
 		archive_groups = self._get_archive_groups('account.invoice', domain)
