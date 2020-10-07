@@ -13,6 +13,7 @@
 					<field name = "lname"/>
 					<field name = "visitor_email"/>
 					<field name = "hstatus"/>
+					<field name="hcateg"/>
 					<field name = "hstreet" invisible="1"/>
 					<field name = "hstreet2" invisible="1"/>
 					<field name = "hcity" invisible="1"/>
