@@ -41,6 +41,7 @@
 		'views/salesperson_account_view.xml',
 		'views/account_view.xml',
 		'views/product_category_view.xml',
+		'views/res_users_views.xml',
 	],
 	'installable': True,
 	'auto_install': False,
