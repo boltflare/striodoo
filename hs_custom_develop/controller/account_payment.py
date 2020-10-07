@@ -20,7 +20,10 @@ class PaymentAccountInherit(PortalAccount):
 			int: Total de facturas abiertas
 		"""
 		values = super(PaymentAccountInherit, self)._prepare_portal_layout_values()
-		filter_query = [('state', '=', 'open')]
+
+		user = request.env.user
+		partner = user.partner_id
+		filter_query = [('partner_id', '=', partner.id), ('state', '=', 'open')]
 		invoice_count = request.env['account.invoice'].search_count(filter_query)
 		values['invoice_count'] = invoice_count
 		return values
