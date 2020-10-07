@@ -93,7 +93,7 @@
 		<record model="ir.ui.view" id="wizard_form_view">
 			<field name="name">wizard.form</field>
 			<field name="model">create.customer</field>
-			<field name="groups_id" eval="[(4,ref('account.group_account_user'))]"/>
+			<!-- <field name="groups_id" eval="[(4,ref('account.group_account_user'))]"/> -->
 			<field name="arch" type="xml">
 				<form string="CREATE CUSTOMER">
 					<group>
@@ -117,7 +117,8 @@
 					res_model="create.customer"
 					view_mode="form"
 					target="new"
-					key2="client_action_multi"/>
+					key2="client_action_multi"
+					groups="account.group_account_user"/>
 	
 		<!--  AGREGANDO WIZARD PARA CREAR EL POP-UP MESSAGE-->
 		<record id="message_wizard_form" model="ir.ui.view">
