@@ -6,7 +6,7 @@
 			<field name = "name">VSO View Tree</field>
 			<field name = "model">muki.rest</field>
 			<field name = "arch" type = "xml">
-				<tree string = "Search Visitor" create="false" edit="false" delete="true">
+				<tree string = "Search Visitor" create="false" edit="false" delete="false">
 					<field name = "hvisit"/>
 					<field name = "nombre" />
 					<field name = "fname" />
