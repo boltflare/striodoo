@@ -11,6 +11,8 @@
 	'author': "HS Consult",
 	'category': 'tools',
 	'version': '5.0',
+	'license': 'LGPL-3',
+
 
 	# any module necessary for this one to work correctly
 	'depends': ['base', 'account'],
@@ -21,6 +23,7 @@
 
 	# always loaded
 	'data': [
+		'security/user_rules.xml',
 		'security/ir.model.access.csv',
 		'views/muki_rest.xml',
 		'views/res_partner.xml',
