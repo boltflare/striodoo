@@ -13,7 +13,7 @@ class MukiREST(models.Model):
 	_description = "Visitor Search"
 
 	user_id = fields.Many2one('res.users', string="Current User",
-		store=False, default=lambda self: self.env.user)
+		default=lambda self: self.env.user)
 
 	hstatus = fields.Selection([
 		('Check-OUT', 'Check-OUT'),
