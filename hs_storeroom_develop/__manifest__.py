@@ -26,7 +26,8 @@
 		'views/website_sale_templates.xml',
 		'views/payment_templates.xml',
 		'views/payment_acquirer_view.xml',
-		'views/sales_order_view.xml'
+		'views/sales_order_view.xml',
+		'views/portal_templates.xml'
 	],
 	# only loaded in demonstration mode
 	'demo': [

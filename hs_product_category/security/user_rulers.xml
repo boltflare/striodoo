@@ -40,7 +40,7 @@
 			<field name="global" eval="False"/>
 			<field name="groups" eval="[(4, ref('account.group_account_invoice'))]"/>
 			<field name="domain_force">
-				['&amp;', ('type', '=', ['cash', 'bank']), ('department_ids', '=', [ categ.id for categ in user.departments_ids])]
+				['|', '&amp;', ('type', '=', 'sale'), ('type', '=', ['cash', 'bank']), ('department_ids', '=', [ categ.id for categ in user.departments_ids])]
 			</field>
 			<field name="perm_create" eval="0"/>
 			<field name="perm_write" eval="0"/>
@@ -51,7 +51,7 @@
 		<!-- Regla de acceso para visualizar los pagos en base a la categoria de producto. 
 		Esta regla es necesaria porque al momento de crear una factura, el sistema necesita 
 		algun journal de tipo sales para poder completar la factura-->
-		<record id="payment_user_access_category2" model="ir.rule">
+		<!--record id="payment_user_access_category2" model="ir.rule">
 			<field name="name">STRI payment user access by category2</field>
 			<field name="model_id" ref="account.model_account_journal"/>
 			<field name="global" eval="False"/>
@@ -63,7 +63,7 @@
 			<field name="perm_write" eval="1"/>
 			<field name="perm_unlink" eval="1"/>
 			<field name="perm_read" eval="1"/>
-		</record>
+		</record-->
 
 
 		<!-- Regla de acceso total a producto para los administradores-->

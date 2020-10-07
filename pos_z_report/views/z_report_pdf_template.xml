@@ -143,7 +143,7 @@
                               
                             </td>
                             <td class="text-right">
-                                <span t-field="o.currency_id.symbol"/><span t-esc="o.cash_register_balance_start"/><br/>
+                                <span t-field="o.currency_id.symbol"/><span t-esc="'%.2f'% o.cash_register_balance_start"/><br/>
                             </td>
                         </tr>
                        
@@ -152,7 +152,7 @@
                                 Sales
                             </td>
                             <td class="text-right">
-                                <span t-field="o.currency_id.symbol"/><span t-esc="o.get_total_sales()"/>
+                                <span t-field="o.currency_id.symbol"/><span t-esc="'%.2f'% o.get_total_sales()"/>
                             </td>
                         </tr>
                         <tr>
@@ -160,7 +160,7 @@
                                 Returns
                             </td>
                             <td class="text-right">
-                                <span t-field="o.currency_id.symbol"/><span t-esc="o.get_total_returns()"/>
+                                <span t-field="o.currency_id.symbol"/><span t-esc="'%.2f'% o.get_total_returns()"/>
                             </td>
                         </tr>
                         <tr>
@@ -168,7 +168,7 @@
                                 Closing Total<br/>
                             </td>
                             <td class="text-right">
-                                <span t-field="o.currency_id.symbol"/><span t-esc="o.cash_register_balance_end_real"/><br/>
+                                <span t-field="o.currency_id.symbol"/><span t-esc="'%.2f'% o.cash_register_balance_end_real"/><br/>
                             </td>
                         </tr>
                         <tr> 
@@ -189,7 +189,7 @@
                             </td>
                             <td class="text-right">
 								<br/>
-								<span t-field="o.currency_id.symbol"/> <span t-esc="o.get_profit_loss()"/>
+								<span t-field="o.currency_id.symbol"/> <span t-esc="'%.2f'% o.get_profit_loss()"/>
                                 <!--$0.00-->
                                 <!-- <span t-field="o.currency_id.symbol"/><span t-esc="'%.2f'% o.get_total_first()"/> -->
                                 <br/>

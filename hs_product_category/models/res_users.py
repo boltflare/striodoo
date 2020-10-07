@@ -25,6 +25,22 @@ class ResUsersInherit1(models.Model):
 				user.departments_count = len(user.departments_ids)
 
 
+	@api.multi
+	def action_account_salesperson(self):
+		for salesperson in self:
+			view_id = self.env.ref('hs_product_category.user_department_form').id
+			return {
+				'type':		'ir.actions.act_window',
+				'res_model':'res.users',
+				'view_type': 'form',
+				'view_mode': 'form',
+				'target':	'current',
+				"res_id":	salesperson.id,
+				'context': self.env.context,
+				'view_id':	view_id,
+			}
+
+
 
 	@api.model
 	def _search(self, args, offset=0, limit=None, order=None, count=False, access_rights_uid=None):

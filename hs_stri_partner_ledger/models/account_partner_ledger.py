@@ -46,6 +46,13 @@ class PartnerLedgerInherit(models.AbstractModel):
 		return line.name
 
 
+	def _get_payment_ref(self, line):
+		recordset = self.env["account.payment"].search([('move_line_ids', '=', line.id)])
+		for payment in recordset:
+			return payment.communication
+		return line.name
+
+
 	@api.model
 	def _get_lines(self, options, line_id=None):
 		lines = super(PartnerLedgerInherit, self)._get_lines(options, line_id=line_id)
@@ -55,6 +62,7 @@ class PartnerLedgerInherit(models.AbstractModel):
 				item['colspan'] = 4
 			elif item.get('level') == 4:
 				# obtenemos name de move
+				is_payment_line = False 
 				move_line = self.env['account.move.line'].browse(int(item['id']))
 				if move_line.invoice_id:
 					line_name = move_line.move_id.name
@@ -62,13 +70,18 @@ class PartnerLedgerInherit(models.AbstractModel):
 					line_name = move_line.name
 				else:
 					line_name = self._get_payment_name(move_line)
-				
+					is_payment_line = True
+	
 				# removemos la columna account, la columna journal y
 				# actualizamos la primera columna 
 				columns = item.get('columns')
 				columns[0] = {'name': line_name}
 				columns.pop(1)
 				columns.pop(2)
+
+				if is_payment_line:
+					payment_ref = self._get_payment_ref(move_line)
+					columns[1] = {'name': payment_ref}
 
 				item['columns'] = columns
 			elif item.get('level') == 0:
