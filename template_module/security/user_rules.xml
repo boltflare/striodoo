@@ -16,20 +16,5 @@
 			<field name="perm_unlink" eval="0"/>
 			<field name="perm_read" eval="1"/>
 		</record>
-        
-        <!-- Regla de acceso para visualizar resultados de busqueda en base al usuario actual para ADMIN-->
-		<record id="vso_access_admin" model="ir.rule">
-			<field name="name">VSO total access to search</field>
-			<field name="model_id" ref="template_module.model_muki_rest"/>
-			<field name="global" eval="False"/>
-			<field name="groups" eval="[(4, ref('account.group_account_user'))]"/>
-			<field name="domain_force">
-				[(1, '=', 1)]
-			</field>
-			<field name="perm_create" eval="1"/>
-			<field name="perm_write" eval="1"/>
-			<field name="perm_unlink" eval="1"/>
-			<field name="perm_read" eval="1"/>
-		</record>
     </data>
 </odoo>
