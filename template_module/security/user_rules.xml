@@ -9,7 +9,7 @@
 			<field name="global" eval="False"/>
 			<field name="groups" eval="[(4, ref('account.group_account_invoice'))]"/>
 			<field name="domain_force">
-				[('salesperson_ids', '=', user.id)]
+				[('user_id', '=', user.id)]
 			</field>
 			<field name="perm_create" eval="0"/>
 			<field name="perm_write" eval="0"/>
