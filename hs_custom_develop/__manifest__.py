@@ -28,6 +28,7 @@
 		'views/res_config_setting.xml',
 		'wizard/acc_acc_budget.xml',
 		'wizard/res_partner_budget.xml',
+		'views/report_invoice_templatea.xml',
 	],
 	'qweb': [
 		'static/src/xml/pos_hide_tax.xml'
