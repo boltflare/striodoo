@@ -2,6 +2,7 @@
 <odoo>
     <data>
         <!-- Regla de acceso para visualizar resultados de busqueda en base al usuario actual-->
+        <!--access_muki_rest_group_advance_user,muki.rest.group.advance,model_muki_rest,account.group_account_advance_user,1,1,0,0-->
 		<record id="vso_access_user" model="ir.rule">
 			<field name="name">VSO Search access by current user</field>
 			<field name="model_id" ref="template_module.model_muki_rest"/>
