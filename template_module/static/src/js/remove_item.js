@@ -1,9 +1,10 @@
 $( document ).ready(function() {
-   alert("TEST1");
+   alert("TEST2");
       // remover_item();
+      console.log("cambio")
    $(".oe_action_button").click(function(){
-
-         setTimeout(function(){ 
+      alert("TEST_1234");         
+      setTimeout(function(){ 
          console.log($("button[name*='search_visitor']"));
          $("button[name*='search_visitor']").attr("onclick","remover_item()");
           }, 4000);
