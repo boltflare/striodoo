@@ -1,9 +1,10 @@
 $( document ).ready(function() {
    // alert("TEST2");
       // remover_item();
+   setTimeout(function(){ 
       console.log("cambio")
       console.log("Boton = " + $(".oe_action_button"))
-      console.log("Boton = " + $(".oe_action_button").lenght)
+      console.log("Boton = " + $(".oe_action_button").length)
    $(".oe_action_button").click(function(){
       alert("TEST_1234");         
       setTimeout(function(){ 
@@ -12,6 +13,7 @@ $( document ).ready(function() {
           }, 4000);
            
            });
+         }, 4000);
    });
     
 //  });
