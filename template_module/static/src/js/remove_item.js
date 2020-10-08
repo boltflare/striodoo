@@ -1,8 +1,7 @@
-// $( document ).ready(function() {
-//     alert("TEST1");
-//     $(".oe_highlight").click(function(){
-//         remover_item();
-//     });
+$( document ).ready(function() {
+   alert("TEST1");
+      remover_item();
+   });
     
 //  });
 // //document.getElementById("btn_search").onclick = remover_item;
