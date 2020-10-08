@@ -1,20 +1,22 @@
 $( document ).ready(function() {
    // alert("TEST2");
       // remover_item();
-   setTimeout(function(){ 
+   
       console.log("cambio")
       console.log("Boton = " + $(".oe_action_button"))
       console.log("Boton = " + $(".oe_action_button").length)
-      $(".oe_action_button").attr("onclick","remover_item()");
-   $(".oe_action_button").click(function(){
-      alert("TEST_1234");         
-      setTimeout(function(){ 
-         console.log($("button[name*='search_visitor']"));
-         $("button[name*='search_visitor']").attr("onclick","remover_item()");
-          }, 4000);
+      
+      
+      validar_boton();
+   // $(".oe_action_button").click(function(){
+   //    alert("TEST_1234");         
+   //    setTimeout(function(){ 
+   //       console.log($("button[name*='search_visitor']"));
+   //       $("button[name*='search_visitor']").attr("onclick","remover_item()");
+   //        }, 4000);
            
-           });
-         }, 4000);
+   //         });
+   //       }, 4000);
    });
     
 //  });
@@ -51,4 +53,19 @@ $( document ).ready(function() {
           console.log(list);
           list.removeChild(list.childNodes[0]);
           console.log('Esta funcionando');
+   }
+
+   function validar_boton() {
+      setTimeout(function(){
+      var boton = $(".oe_action_button").length;
+      if (boton <= 0) {
+         console.log("No se Encuentra!")
+         validar_boton()
+      }
+      else {
+         $(".oe_action_button").attr("onclick","remover_item()");
+         // remover_item()
+      }
+      },500)
+      
    }
