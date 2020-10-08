@@ -2,12 +2,26 @@
 <odoo>
     <data>
         <!-- Regla de acceso para visualizar resultados de busqueda en base al usuario actual-->
-        <!--access_muki_rest_group_advance_user,muki.rest.group.advance,model_muki_rest,account.group_account_advance_user,1,1,0,0-->
 		<record id="vso_access_user" model="ir.rule">
 			<field name="name">VSO Search access by current user</field>
 			<field name="model_id" ref="template_module.model_muki_rest"/>
 			<field name="global" eval="False"/>
 			<field name="groups" eval="[(4, ref('account.group_account_invoice'))]"/>
+			<field name="domain_force">
+				[('user_id', '=', user.id)]
+			</field>
+			<field name="perm_create" eval="0"/>
+			<field name="perm_write" eval="0"/>
+			<field name="perm_unlink" eval="0"/>
+			<field name="perm_read" eval="1"/>
+		</record>
+
+		<!-- Regla de acceso para visualizar resultados de busqueda en base al usuario actual para los Advance Users-->
+		<record id="vso_access_user" model="ir.rule">
+			<field name="name">VSO Search Advance User access by current user</field>
+			<field name="model_id" ref="template_module.model_muki_rest"/>
+			<field name="global" eval="False"/>
+			<field name="groups" eval="[(4, ref('account.group_account_advance_user'))]"/>
 			<field name="domain_force">
 				[('user_id', '=', user.id)]
 			</field>
