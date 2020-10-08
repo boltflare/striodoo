@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-	'name': "Muki Rest",
+	'name': "VSO Integration",
 
 	'summary': """APP for Integration with VSO and Update customer information""",
 
@@ -9,13 +9,10 @@
 	""",
 
 	'author': "HS Consult",
-	'website': "http://www.yourcompany.com",
-
-	# Categories can be used to filter modules in modules listing
-	# Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
-	# for the full list
 	'category': 'tools',
-	'version': '0.1',
+	'version': '5.0',
+	'license': 'LGPL-3',
+
 
 	# any module necessary for this one to work correctly
 	'depends': ['base', 'account'],
@@ -26,6 +23,7 @@
 
 	# always loaded
 	'data': [
+		'security/user_rules.xml',
 		'security/ir.model.access.csv',
 		'views/muki_rest.xml',
 		# 'views/res_partner.xml',

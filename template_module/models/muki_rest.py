@@ -12,6 +12,9 @@ class MukiREST(models.Model):
 	_name = "muki.rest"
 	_description = "Visitor Search"
 
+	user_id = fields.Many2one('res.users', string="Current User",
+		default=lambda self: self.env.user)
+
 	hstatus = fields.Selection([
 		('Check-OUT', 'Check-OUT'),
 		('Cancelled', 'Cancelled'),
@@ -30,8 +33,8 @@ class MukiREST(models.Model):
 	hstreet2 = fields.Char("Street2")
 	hcity = fields.Char("City")
 	hzip = fields.Char("Zip")
-	hphone = fields.Char("Phone")
-	hmobile = fields.Char("Mobile")
+	hcountry = fields.Char("Country")
+	hcateg = fields.Char("Visitor Category")
 
 	def search_visitor(self):
 		ip_address = '35.222.101.46'
@@ -39,8 +42,6 @@ class MukiREST(models.Model):
 		ip_address_bytes = ip_address.encode('ascii')
 		#CONVIRTIENDO A BASE64 EL IP
 		ipBase = base64.b64encode(ip_address_bytes)
-		# ipBase = 'MTkwLjE0MC4xNjUuNDU='
-
 		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 		url = 'https://visitors.stri.si.edu/services/getVisits'
 		
@@ -91,17 +92,20 @@ class MukiREST(models.Model):
 			lname= data['last_name']
 			visitor_email=data['email']
 			hstatus=data['status']
+			hcateg=data['visitor_category']
 			address = data['funding']['address']
 			if address is not None:
 				hstreet=data['funding']['address']['line1']
 				hstreet2=data['funding']['address']['line2']
 				hcity=data['funding']['address']['city']
 				hzip=data['funding']['address']['zip']
+				hcountry=data['funding']['address']['country']
 			else:
 				hstreet=""
 				hstreet2=""
 				hcity=""
 				hzip=""
+				hcountry=""
 			self.env['muki.rest'].create({
 				'hvisit': hvisit,
 				'nombre': nombre,
@@ -109,10 +113,12 @@ class MukiREST(models.Model):
 				'lname': lname,
 				'visitor_email': visitor_email,
 				'hstatus': hstatus,
+				'hcateg':hcateg,
 				'hstreet':hstreet,
 				'hstreet2':hstreet2,
 				'hcity':hcity,
 				'hzip':hzip,
+				'hcountry':hcountry,
 				})
 
 		action = self.env.ref('template_module.muki_rest_action').read()[0]

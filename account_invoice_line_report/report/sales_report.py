@@ -32,7 +32,8 @@ class anexo72Report(models.AbstractModel):
 				{'name': _("Customer")},
 				{'name': _("Salesperson")},
 				{'name': _("Category")},
-				{'name': _("Item")},
+				{'name': _("Item Code")},
+				{'name': _("Item Description")},
 				{'name': _("Qty Sold"),'class': 'number'},
 				{'name': _("Sold Price"), 'class': 'number'},
 				{'name': _("Total Sales"), 'class': 'number'},
@@ -69,7 +70,7 @@ class anexo72Report(models.AbstractModel):
 				'name': '',
 				'unfoldable': False,
 				'level': 3,
-				'columns': [{'name' : v} for v in ['', '', '', '', '', '', '', '','','','',]],
+				'columns': [{'name' : v} for v in ['', '', '', '', '', '', '', '','','','','',]],
 			})
 		return lines
 
@@ -79,11 +80,12 @@ class anexo72Report(models.AbstractModel):
 		dt_from = options['date'].get('date_from')
 		dt_to = options['date'].get('date_to')
 		query = """
-		select CONCAT (cuenta.code,' ',cuenta.name),
+		select cuenta.name,
 		cliente.name,
 		sale.name,
 		categ.complete_name, 
-		CONCAT (item.default_code,' ',tem.name),
+		item.default_code,
+		tem.name,
 		case when (invoice.type = 'out_invoice') then detalle.quantity
 		else (detalle.quantity*-1) end AS quantity,
 		case when (invoice.type = 'out_invoice') then detalle.price_unit
@@ -91,11 +93,11 @@ class anexo72Report(models.AbstractModel):
 		case when (invoice.type = 'out_invoice') then detalle.price_subtotal
 		else (detalle.price_subtotal*-1) end AS total,
 		invoice.number,
-		invoice.date_invoice,
+		to_char(invoice.date_invoice,'MM/DD/YYYY'),
 		CONCAT (cuenta.stri_fund,',', cuenta.stri_budget,',',cuenta.stri_desig,',',cuenta.stri_dept,',',cuenta.stri_account,',',cuenta.stri_class,',',cuenta.stri_program,',',cuenta.stri_project,',',cuenta.stri_activity,',',cuenta.stri_type) as chartfield
 		from account_invoice_line As detalle , account_invoice as invoice, res_partner as cliente, account_account as cuenta, res_partner as sale, res_users as ur, product_product as item, product_template as tem, product_category as categ
 		where (invoice.date_invoice BETWEEN '{}' AND '{}') and detalle.invoice_id = invoice.id and invoice.partner_id = cliente.id and detalle.account_id = cuenta.id and invoice.user_id = ur.id and ur.partner_id = sale.id
-		and invoice.type IN('out_invoice','out_refund') and invoice.state <> 'draft' and detalle.product_id = item.id and item.product_tmpl_id = tem.id and tem.categ_id = categ.id;
+		and invoice.type IN('out_invoice','out_refund') and invoice.state NOT IN ('draft','cancel') and detalle.product_id = item.id and item.product_tmpl_id = tem.id and tem.categ_id = categ.id;
 		""".format(dt_from, dt_to)
 
 		self.env.cr.execute(query)

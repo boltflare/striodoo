@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data >
+        <!-- model.name inherit form view -->
+        <record id="pos_close_session_view" model="ir.ui.view">
+            <field name="name">pos.close.session.view</field>
+            <field name="model">pos.session</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='statement_ids']" position="replace">
+					<field name="statement_ids" attrs="{'invisible' : [('state', '=', 'opening_control')]}" groups="account.group_account_user"/>
+				</xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>
