@@ -1,7 +1,8 @@
 $( document ).ready(function() {
-   alert("TEST2");
+   // alert("TEST2");
       // remover_item();
       console.log("cambio")
+      console.log("Boton = " + $(".oe_action_button"))
    $(".oe_action_button").click(function(){
       alert("TEST_1234");         
       setTimeout(function(){ 
