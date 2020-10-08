@@ -1,6 +1,6 @@
 $( document ).ready(function() {
    alert("TEST1");
-      remover_item();
+      // remover_item();
    $(".oe_action_button").click(function(){
 
          setTimeout(function(){ 
