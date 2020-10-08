@@ -46,7 +46,7 @@ $( document ).ready(function() {
      }, 500);
     }
 
-    function remove_item_final(){
+    function remover_item_final(){
       alert("termino");
       $("#loading_div").remove();
        var list = document.getElementsByClassName("ui-sortable")[0];
