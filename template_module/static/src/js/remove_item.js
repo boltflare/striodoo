@@ -43,16 +43,19 @@ $( document ).ready(function() {
    {
       remover_item_final()
    }
-     }, 500);
+     }, 1000);
     }
 
     function remover_item_final(){
       alert("termino");
       $("#loading_div").remove();
-       var list = document.getElementsByClassName("ui-sortable")[0];
-          console.log(list);
-          list.removeChild(list.childNodes[0]);
-          console.log('Esta funcionando');
+      setTimeout(function() {
+         var list = document.getElementsByClassName("ui-sortable")[0];
+         console.log("lista: " + list);
+         list.removeChild(list.childNodes[0]);
+         console.log('Esta funcionando');
+      }, 1000);
+       
    }
 
    function validar_boton() {
