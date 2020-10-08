@@ -63,9 +63,16 @@ $( document ).ready(function() {
          validar_boton()
       }
       else {
-         $(".oe_action_button").attr("onclick","remover_item()");
-         // remover_item()
+         $(".oe_action_button").attr("onclick","llamar_boton()");
       }
       },500)
       
+   }
+
+   function llamar_boton() {
+      alert("TEST_1234");         
+      setTimeout(function(){ 
+         console.log($("button[name*='search_visitor']"));
+         $("button[name*='search_visitor']").attr("onclick","remover_item()");
+      }, 4000);
    }
