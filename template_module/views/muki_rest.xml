@@ -81,7 +81,7 @@
 						</group>
 						<footer>
 							<button name="search_visitor" type="object"
-									string="Search" class="oe_highlight" onclick="remover_item()"/>
+									string="Search" class="oe_highlight"/>
 							or
 							<button special="cancel" string="Cancel"/>
 						</footer>

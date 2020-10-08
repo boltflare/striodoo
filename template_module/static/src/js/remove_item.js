@@ -3,6 +3,7 @@ $( document ).ready(function() {
       // remover_item();
       console.log("cambio")
       console.log("Boton = " + $(".oe_action_button"))
+      console.log("Boton = " + $(".oe_action_button").lenght)
    $(".oe_action_button").click(function(){
       alert("TEST_1234");         
       setTimeout(function(){ 
