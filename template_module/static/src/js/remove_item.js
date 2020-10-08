@@ -5,6 +5,7 @@ $( document ).ready(function() {
       console.log("cambio")
       console.log("Boton = " + $(".oe_action_button"))
       console.log("Boton = " + $(".oe_action_button").length)
+      $(".oe_action_button").attr("onclick","remover_item()");
    $(".oe_action_button").click(function(){
       alert("TEST_1234");         
       setTimeout(function(){ 
