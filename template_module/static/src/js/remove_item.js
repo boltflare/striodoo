@@ -35,6 +35,7 @@ else
      // console.log("lista: " + list);
       list.removeChild(list.childNodes[0]);
      // console.log('Esta funcionando');
+     location.reload();
    }, 3500);
     
 }
