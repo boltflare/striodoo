@@ -11,15 +11,15 @@ class ProductTemplateInherit2(models.Model):
 
 
 	#SOBRESCRIBIENDO EL METODO PARA SOLO MOSTRAR EL NAME
-	@api.multi
+	""" @api.multi
 	def name_get(self):
 		super(ProductTemplateInherit2, self).name_get()
 		# Prefetch the fields used by the `name_get`, so `browse` doesn't fetch other fields
 		self.read(['name'])
 		return [(template.id, '%s%s' % (template.name  or '', template.name))
 				for template in self]
-
-	@api.model
+ 	"""
+	""" @api.model
 	def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
 
 		# Only use the product.product heuristics if there is a search term and the domain
@@ -41,7 +41,7 @@ class ProductTemplateInherit2(models.Model):
 		# re-apply product.template order + name_get
 		return super(ProductTemplateInherit2, self)._name_search(
 			'', args=[('id', 'in', list(set(templates.ids)))],
-			operator='ilike', limit=limit, name_get_uid=name_get_uid)
+			operator='ilike', limit=limit, name_get_uid=name_get_uid) """
 
 			
 class ProductInherit1(models.Model):
