@@ -4,49 +4,12 @@ from odoo import api, fields, models
 import logging
 _logger = logging.getLogger(__name__)
 
-class UpdateCustomer(models.Model):
+class resPartnerInherit2(models.Model):
 	_inherit = 'res.partner'
 
-	def action_update_customer(self):
-		# init API
-		api = library.RestAPI()
-		api.authenticate()
+	visitor_categ = fields.Char(string='Visitor Category')
+	
 
-		# test API
-		logging.info(str(api.execute('/api')))
-		logging.info(str(api.execute('/api/user')))
-
-
-		data = {
-			'model': "res.partner",
-			'domain': json.dumps([['visitor', '=', '17']]),
-			# 'limit': 1
-		}
-		response = api.execute('/api/search', data=data)
-		logging.info(str(response))
-		
-		
-		# Update customer
-		""" values = {
-			
-		 	'email': "aguila5@comcast.net",
-		}
-		data = {
-		  	'model': "res.partner",
-	 		'domain': json.dumps([['visitor', '=', '17']]),
-		 	'values': json.dumps(values),
-			'fields': json.dumps(['name','email','phone','street','visitor']),
-		} """
-		""" response = api.execute('/api/custom/update/customer', type="GET")
-		result = response['result']
-		for entry in result:
-			nombre = entry.get('name')
-			correo = entry.get('email')
-			visit = entry.get('visitor')
-			self.env["res.partner"].write({'name':nombre,'email':correo, 'visitor':visit})
-			# self.env["res.partner"].create({'name':number,'hstatus':estado,'email':total,'visitor':visit})
-			logging.info(str(response)) """
-		
 	""" # FUNCION PARA HACER UPDATE EN ODOO
 	@api.multi
 	def update_status_meal_card(self):
