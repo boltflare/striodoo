@@ -1,8 +1,5 @@
-from . import library
-import json
+
 from odoo import api, fields, models
-import logging
-_logger = logging.getLogger(__name__)
 
 class resPartnerInherit2(models.Model):
 	_inherit = 'res.partner'
