@@ -19,7 +19,6 @@ class ResPartnerInherit2(models.Model):
 	only_pos = fields.Boolean("Visible solo en PoS", required=True, default=False)
 	regular_companies_id = fields.Many2one("regular.companies", "Company")
 	visitor = fields.Char(string='Visitor ID')
-	visit_category = fields.Char(string='Visitor Category')
 	_sql_constraints = [
         ('visitor_uniq', 'unique(visitor)', "Visitor ID can only be assigned to one customer !"),
     ]
