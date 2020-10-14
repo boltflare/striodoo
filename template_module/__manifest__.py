@@ -26,7 +26,7 @@
 		'security/user_rules.xml',
 		'security/ir.model.access.csv',
 		'views/muki_rest.xml',
-		'views/res_partner.xml',
+		# 'views/res_partner.xml',
 		'views/vso_button.xml',
 		'views/product_view.xml',
 	],
