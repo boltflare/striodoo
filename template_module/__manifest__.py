@@ -28,7 +28,7 @@
 		'views/muki_rest.xml',
 		'views/res_partner.xml',
 		'views/vso_button.xml',
-		# 'views/create_customer_wizard.xml',
+		'views/product_view.xml',
 	],
 	'qweb': [
         "static/src/xml/muki_vso.xml",
