@@ -9,7 +9,7 @@
 			<field name="inherit_id" ref="base.view_partner_form"/>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='vat']" position="after">
-					<field name="visitor_categ" attrs="{'invisible':[('customer_type', '!=', 'regular')], 'readonly': [('customer_type', '=', 'regular')]}"/>
+					<field name="visitor_categ"/>
 				</xpath>
 				
 				<!-- <xpath expr="/form/*" position="before">
