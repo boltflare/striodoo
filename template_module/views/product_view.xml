@@ -10,9 +10,7 @@
 			<field name="arch" type="xml">
 
 				<xpath expr="//field[@name='list_price']" position="before">
-					<field name="visit_categ" 
-						widget="selection" 
-						context="{'default_visit_categ': ' '}"/>
+					<field name="visit_categ"/>
 				</xpath>
 			</field>
 		</record>
@@ -24,9 +22,7 @@
 			<field name="arch" type="xml">
 
 				<xpath expr="//field[@name='lst_price']" position="before">
-					<field name="visit_categ" 
-						widget="selection" 
-						context="{'default_visit_categ': ' '}"/>
+					<field name="visit_categ"/>
 				</xpath>        
 			</field>
 		</record>
