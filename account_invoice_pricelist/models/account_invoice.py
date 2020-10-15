@@ -54,10 +54,13 @@ class AccountInvoice(models.Model):
 	@api.onchange('invoice_line_ids')
 	def _onchange_from_pricelist(self):
 		try:
-			for invoice_line in self.invoice_line_ids:     #self.categ_id == '6' *EN STAGING
-				if self.partner_id and invoice_line.product_id and self.account_id == '101234 BCI FOOD SVCS' or self.account_analytic_id == 'Smithosnian Facilities / BCI': #
+			for invoice_line in self.invoice_line_ids:    
+				if self.partner_id and invoice_line.product_id and self.account_id == '101234 BCI FOOD SVCS': #or self.account_analytic_id == 'Smithosnian Facilities / BCI'
 					invoice_line.update_from_pricelist()
-					# invoice_line.invoice_line_ids.product_id.update_from_pricelist()       
+					# invoice_line.invoice_line_ids.product_id.update_from_pricelist() 
+				else:
+					if self.partner_id and invoice_line.product_id and self.account_id == '010 Aquatic fiel':
+						invoice_line.update_from_pricelist()   
 		except Exception:
 			raise exceptions.Warning("No se ha actualizado el precio")
 	
@@ -93,7 +96,7 @@ class AccountInvoice(models.Model):
 class AccountInvoiceLine(models.Model):
 	_inherit = 'account.invoice.line'
 
-	@api.onchange('product_id', 'quantity', 'uom_id', 'account_id', 'account_analytic_id')  #, 'account_analytic_id'
+	@api.onchange('product_id', 'quantity', 'uom_id', 'account_id')  #, 'account_analytic_id'
 	def _onchange_product_id_account_invoice_pricelist(self):
 		if not self.invoice_id.pricelist_id or not self.invoice_id.partner_id:
 			return
@@ -105,7 +108,7 @@ class AccountInvoiceLine(models.Model):
 			pricelist=self.invoice_id.pricelist_id.id,
 			uom=self.uom_id.id,
 			account_id=self.account_id,
-			account_analytic_id=self.account_analytic_id,
+			# account_analytic_id=self.account_analytic_id,
 			# hs_item=self.hs_item,
 			fiscal_position=(
 				self.invoice_id.partner_id.property_account_position_id.id)
