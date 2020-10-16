@@ -13,14 +13,14 @@
     'maintainer':'Hermec Consulting, S.A./Ceila Hernandez',
     'license': 'AGPL-3',
     'depends': [
-        'account', 'hs_chart_field',
+        'account', 'hs_chart_field', 'point_of_sale',
     ],
     'data': [
         #'security/ir.model.access.csv',
         'report/account_invoice_report_view.xml',
         #'wizard/sales_invoice_xls_view.xml',
         'report/sales_report_view.xml',
-        
+        'views/pos_session_close.xml',
     ],
     'installable': True,
 }

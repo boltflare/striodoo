@@ -12,6 +12,9 @@ class MukiREST(models.Model):
 	_name = "muki.rest"
 	_description = "Visitor Search"
 
+	user_id = fields.Many2one('res.users', string="Current User",
+		default=lambda self: self.env.user)
+
 	hstatus = fields.Selection([
 		('Check-OUT', 'Check-OUT'),
 		('Cancelled', 'Cancelled'),
@@ -31,7 +34,7 @@ class MukiREST(models.Model):
 	hcity = fields.Char("City")
 	hzip = fields.Char("Zip")
 	hcountry = fields.Char("Country")
-	hmobile = fields.Char("Mobile")
+	hcateg = fields.Char("Visitor Category")
 
 	def search_visitor(self):
 		ip_address = '34.66.235.140'
@@ -89,6 +92,7 @@ class MukiREST(models.Model):
 			lname= data['last_name']
 			visitor_email=data['email']
 			hstatus=data['status']
+			hcateg=data['visitor_category']
 			address = data['funding']['address']
 			if address is not None:
 				hstreet=data['funding']['address']['line1']
@@ -109,6 +113,7 @@ class MukiREST(models.Model):
 				'lname': lname,
 				'visitor_email': visitor_email,
 				'hstatus': hstatus,
+				'hcateg':hcateg,
 				'hstreet':hstreet,
 				'hstreet2':hstreet2,
 				'hcity':hcity,

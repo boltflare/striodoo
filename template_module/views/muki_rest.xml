@@ -13,6 +13,7 @@
 					<field name = "lname"/>
 					<field name = "visitor_email"/>
 					<field name = "hstatus"/>
+					<field name="hcateg"/>
 					<field name = "hstreet" invisible="1"/>
 					<field name = "hstreet2" invisible="1"/>
 					<field name = "hcity" invisible="1"/>
@@ -58,7 +59,6 @@
 			<field name="sequence" eval="2"/>
 		</record>
 
-
 		
 		<menuitem id="muki_rest_menu" name="VSO Search" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
 		
@@ -94,6 +94,7 @@
 		<record model="ir.ui.view" id="wizard_form_view">
 			<field name="name">wizard.form</field>
 			<field name="model">create.customer</field>
+			<!-- <field name="groups_id" eval="[(4,ref('account.group_account_user'))]"/> -->
 			<field name="arch" type="xml">
 				<form string="CREATE CUSTOMER">
 					<group>
@@ -117,7 +118,8 @@
 					res_model="create.customer"
 					view_mode="form"
 					target="new"
-					key2="client_action_multi"/>
+					key2="client_action_multi"
+					groups="account.group_account_user"/>
 	
 		<!--  AGREGANDO WIZARD PARA CREAR EL POP-UP MESSAGE-->
 		<record id="message_wizard_form" model="ir.ui.view">
