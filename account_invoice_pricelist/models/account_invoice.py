@@ -59,7 +59,7 @@ class AccountInvoice(models.Model):
 					invoice_line.update_from_pricelist()
 					# invoice_line.invoice_line_ids.product_id.update_from_pricelist() 
 				else:
-					if self.partner_id and invoice_line.product_id and self.account_id == '010 Aquatic fiel':
+					if self.partner_id and invoice_line.product_id and self.account_id == '101201 AQUATIC FUEL' or self.account_id == '	1012011 AQUATIC FUEL BOCAS':
 						invoice_line.update_from_pricelist()   
 		except Exception:
 			raise exceptions.Warning("No se ha actualizado el precio")
