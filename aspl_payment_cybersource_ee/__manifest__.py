@@ -11,7 +11,7 @@
 {
     'name': 'Odoo CyberSource Payment Gateway',
     'summary': 'Cybersource Payment Gateway',
-    'version': '4.0',
+    'version': '1.0',
     'description': """Cybersource Payment Gateway""",
     'author': 'Acespritech Solutions Pvt. Ltd.',
     'category': 'Website',
