@@ -8,5 +8,5 @@
 # You can`t redistribute it and/or modify it.
 #
 #################################################################################
-from . import models
 from . import controller
+from . import models
