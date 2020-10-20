@@ -18,7 +18,7 @@
     'website': "http://www.acespritech.com",
     'price': '',
     'currency': 'EUR',
-    'depends': ['website_sale', 'payment', 'sale', 'account', 'website', 'hs_storeroom_develop'],
+    'depends': ['website_sale', 'payment', 'sale', 'account', 'website'],
     'data': [
         'views/portal_invoice_template.xml',
     ],

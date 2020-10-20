@@ -10,7 +10,6 @@
 #################################################################################
 
 from odoo.http import request
-from odoo.tools.float_utils import float_compare
 from odoo import api,fields,models, _
 import logging
 from datetime import datetime
@@ -19,10 +18,8 @@ import hmac
 import hashlib
 import base64
 import uuid
-from dateutil import relativedelta
+import  httpagentparser
 _logger = logging.getLogger(__name__)
-
-from odoo import exceptions
 
 
 class PaymentAcquirer(models.Model):
@@ -31,9 +28,9 @@ class PaymentAcquirer(models.Model):
     provider = fields.Selection(selection_add=[('cybersource', 'CyberSouce')])
     cybersource_merchant_id = fields.Char(required_if_provider='cybersource', string="Merchant id")
     cybersource_key = fields.Char(required_if_provider='cybersource', string="Key")
-    secret_key = fields.Char(required_if_provider='cybersource', string='SecretKey')
-    profile_id = fields.Char(required_if_provider='cybersource', string='Profile ID')
-    access_key = fields.Char(required_if_provider='cybersource', string='Access Key')
+    secret_key = fields.Char(string='SecretKey', required_if_provider='cybersource')
+    profile_id = fields.Char(string='Profile ID', required_if_provider='cybersource')
+    access_key = fields.Char(string='Access Key', required_if_provider='cybersource')
 
     def get_signature(self,data):
         secret = bytes(self.secret_key, 'utf-8')
@@ -61,21 +58,51 @@ class PaymentAcquirer(models.Model):
         self.ensure_one()
         cybersouce_values = {}
         if self.payment_flow == 'form':
+            agent = request.httprequest.environ.get('HTTP_USER_AGENT')
+            agent_details = httpagentparser.detect(agent)
+            user_os = agent_details['os']['name']
+            browser_name = agent_details['browser']['name']
+            device = ''
+            partner_id = self.env.user.partner_id
+            if "Mobile"  in agent:
+                device = 'Mobile'
+            else:
+                device = 'Web'
+            sale_order_id = self.env['sale.order'].search([('name','=',(values.get('reference').split('-'))[0])])
+            categ_data = ''
+            vat = 'None'
+            billing_partner_company = ''
+            if sale_order_id:
+                for line in sale_order_id.order_line:
+                    categ_data += str(line.product_id.categ_id.name+',').replace(" ", "")
+            if values.get('vat'):
+                vat = values.get('vat')
+            elif partner_id.vat:
+                vat = partner_id.vat
+            if values.get('billing_partner_commercial_company_name'):
+                 billing_partner_company = values.get('billing_partner_commercial_company_name').replace(" ","")
             cybersouce_values.update({
                 'access_key': self.access_key,
                 'profile_id': self.profile_id,
                 'transaction_uuid': str(uuid.uuid1()),
-                'signed_field_names': "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency",
+                'signed_field_names': "access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,merchant_defined_data5,merchant_defined_data6,merchant_defined_data7,merchant_defined_data8,merchant_defined_data9,merchant_defined_data10",
                 'unsigned_field_names': '',
                 'signed_date_time': datetime.strftime(datetime.utcnow(), '%Y-%m-%dT%H:%M:%SZ'),
                 'locale': 'en',
                 'transaction_type': 'sale',
                 'reference_number': values.get('reference'),
                 'amount': values.get('amount'),
-                'currency': values.get('currency').name
+                'currency': values.get('currency').name,
+                'merchant_defined_data5': self.cybersource_merchant_id,
+                'merchant_defined_data6': device,
+                'merchant_defined_data7': vat,
+                'merchant_defined_data8': billing_partner_company,
+                'merchant_defined_data9': categ_data if categ_data else 'Invoicedata',
+                'merchant_defined_data10': values.get('partner_email') if values.get('partner_email') else partner_id.email,
             })
             signature = self.get_signature(cybersouce_values)
             cybersouce_values.update({'signature': signature})
+            print("---cybersouce_values---->>>>>>>",cybersouce_values)
         if self.payment_flow == 's2s':
             cybersouce_values = dict(values)
             cybersouce_values.update({
@@ -118,120 +145,26 @@ class PaymentAcquirer(models.Model):
         self.ensure_one()
         return self._get_cybersource_urls(self.environment)['cybersource_form_url']
 
-
-
 class TxCybersource(models.Model):
     _inherit = 'payment.transaction'
 
-    @api.multi
-    def _cron_post_process_after_done(self):
-        if not self:
-            ten_minutes_ago = datetime.now() - relativedelta.relativedelta(minutes=10)
-            # we don't want to forever try to process a transaction that doesn't go through
-            retry_limit_date = datetime.now() - relativedelta.relativedelta(days=2)
-            # we retrieve all the payment tx that need to be post processed
-            self = self.search([('state', '=', 'done'),
-                                ('is_processed', '=', False),
-                                ])
-        for tx in self:
-            try:
-                tx._post_process_after_done()
-                self.env.cr.commit()
-            except Exception as e:
-                _logger.exception("Transaction post processing failed")
-                self.env.cr.rollback()
-    
-    @api.model
-    def create(self, vals):
-        tx = super(TxCybersource, self).create(vals)
-        return tx
-
 
     @api.model
     def _cybersource_form_get_tx_from_data(self, data):
-        reference = data.get('req_reference_number')
-
-        if not reference:
-            error_msg = _('Cybersource: received data with missing reference (%s)') % (reference)
-            _logger.info(error_msg)
-            raise exceptions.ValidationError(error_msg)
-        
-
-        tx = self.search([('reference', '=', reference)])
-        if not tx or len(tx) > 1:
-            error_msg = _('Cybersource: received data for reference %s') % (reference)
-            if not tx:
-                error_msg += _('; no order found')
-            else:
-                error_msg += _('; multiple order found')
-            _logger.info(error_msg)
-            raise exceptions.ValidationError(error_msg)
-
-        return tx
-
-
-    @api.multi
-    def _cybersource_form_get_invalid_parameters(self, data):
-        invalid_parameters = []
-        if self.acquirer_reference and data.get('merchantReferenceCode') != self.acquirer_reference:
-            invalid_parameters.append(
-                ('Transaction Id', data.get('id'), self.acquirer_reference))
-        if float_compare(float(data.get('req_amount', '0.0')), self.amount, 2) != 0:
-            invalid_parameters.append(
-                ('Amount', data.get('req_amount'), '%.2f' % self.amount))
-        return invalid_parameters
-
-
-    @api.multi
-    def _cybersource_form_validate(self, data):
-        status_code = data.get('decision')
-        if status_code == 'ACCEPT':
-            #if 'auth_trans_ref_no' in data:
-            self.write({'acquirer_reference': str(data.get('transaction_id'))})
-            #self.write({'acquirer_reference': str(data.get('auth_trans_ref_no'))})
-            self.sudo()._set_transaction_done()
-            return True
-        elif status_code == 'REVIEW':
-            self.write({'acquirer_reference': str(data.get('transaction_id'))})
-            self.sudo()._set_transaction_pending()
-            return True
-        elif status_code == 'DECLINE' or status_code == 'CANCEL':
-            self.write({'acquirer_reference' : str(data.get('transaction_id'))})
-            self.sudo()._set_transaction_cancel()
-            return True
-        else:
-            # Si la factura fue cancelada
-            self.write({
-                'acquirer_reference' : str(data.get('transaction_id')),
-                'state_message': str(data.get('message'))
-            })
-            self.sudo()._set_transaction_error('Invalid response from Cybersource. Please contact your administrator.')
-            return False
-
-
-    """
-    @api.model
-    def _cybersource_form_get_tx_from_data(self, data):
-        transaction = self.browse(data.pop() if data else False)
-        return transaction
+        # transaction = self.browse(data if data else False)
+        return data
     
     @api.multi
     def _cybersource_form_get_invalid_parameters(self, data):
         invalid_parameters = []
-        if data and self.acquirer_reference and data.get('merchantReferenceCode') != self.acquirer_reference:
-            invalid_parameters.append(
-                ('Transaction Id', data.pop(), self.acquirer_reference))
-
         return invalid_parameters
-
 
     @api.multi
     def _cybersource_form_validate(self, data):
-        for tran in self:
+        # transaction_ids = self.browse(data if data else False)
+        for tran in data:
             tran._set_transaction_done()
         return True
-
-    """
 
     @api.multi
     def s2s_do_transaction(self, **kwargs):

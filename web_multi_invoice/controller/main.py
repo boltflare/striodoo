@@ -21,7 +21,6 @@ class Portal_invoice(http.Controller):
         invoice_list = []
         reference = ''
         amount = 0.0
-        print("-------paresh nehal->>>>>>>..",kw)
         for invoice in kw.get('multi_invoice_data').split(','):
             invoice_id = request.env['account.invoice'].browse(int(invoice))
             invoice_list.append(invoice_id.id)
@@ -29,10 +28,7 @@ class Portal_invoice(http.Controller):
             amount += sum(invoice_id.mapped('residual'))
         user_id = request.env.user
         acquirers = request.env['payment.acquirer'].search(
-            [('website_published', '=', True), 
-			('company_id', '=', user_id.company_id.id),
-			('payment_section', '=', 'invoice')
-		])
+            [('website_published', '=', True), ('company_id', '=', user_id.company_id.id)])
         return request.render("web_multi_invoice.multi_invoice_payment",{'acquirers':acquirers,'invoice':invoice_list, 'reference': reference, 'amount': amount})
 
     @http.route(['/invoice/success/<invoice_id>'], type='http', auth="public", website=True)
