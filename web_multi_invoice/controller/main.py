@@ -21,6 +21,7 @@ class Portal_invoice(http.Controller):
         invoice_list = []
         reference = ''
         amount = 0.0
+        print("-------paresh nehal->>>>>>>..",kw)
         for invoice in kw.get('multi_invoice_data').split(','):
             invoice_id = request.env['account.invoice'].browse(int(invoice))
             invoice_list.append(invoice_id.id)
