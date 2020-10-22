@@ -10,6 +10,7 @@ _logger = logging.getLogger(__name__)
 class TransactionInherit(models.Model):
 	_inherit = "payment.transaction"
 
+	@api.model
 	def write(self, vals):
 		if vals.get('partner_country_id'):
 			country = vals.get('partner_country_id')
