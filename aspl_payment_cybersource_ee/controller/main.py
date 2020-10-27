@@ -145,8 +145,8 @@ class CyberSourceController(http.Controller):
 
     @http.route(['/payment/cybersource/response/'], type='http', auth='public', csrf=False)
     def check_response(self, **post):
-   	    logging.info("-------------------------------------")
-   	    logging.info(post)
+        logging.info("-------------------------------------")
+        logging.info(post)
         request.session['response_message'] = post.get('message')
         if post.get('auth_response') == '100':
             return werkzeug.utils.redirect('/payment/cybersource/return/')
