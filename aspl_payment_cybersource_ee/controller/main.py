@@ -144,7 +144,7 @@ class CyberSourceController(http.Controller):
             return request.redirect('/shop')
 
 
-    @http.route('/payment/cybersource/feedback/', type='http', auth="public", csrf=False,  website=True)
+    @http.route('/payment/cybersource/feedback/', type='http', auth="public", csrf=False)
     def cybersource_form_feedback(self, **post):
 
         if post:
