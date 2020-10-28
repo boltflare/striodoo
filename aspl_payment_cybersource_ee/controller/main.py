@@ -170,7 +170,7 @@ class CyberSourceController(http.Controller):
 
 
     @http.route(['/payment/cybersource/response/'], type='http', auth='public', csrf=False)
-    def check_response(self, **post):
+    def cybersource_form_response(self, **post):
         logging.info("-------------------------------------")
         logging.info(post)
         request.session['response_message'] = post.get('message')
@@ -183,7 +183,7 @@ class CyberSourceController(http.Controller):
     @http.route([
         '/payment/cybersource/return/',
     ], type='http', auth='public', csrf=False)
-    def cybersource_form_feedback(self, **post):
+    def cybersource_form_return(self, **post):
             """
             data = request.session.get("__payment_tx_ids__", [])
             ten_minutes_ago = datetime.now() - relativedelta.relativedelta(minutes=10)
@@ -195,11 +195,11 @@ class CyberSourceController(http.Controller):
             return werkzeug.utils.redirect('/payment/process')
 
     @http.route(['/payment/cybersource/cancel/',], type='http', method=['GET','POST'], auth='public', csrf=False)
-    def cybersource_form_feedback_cancel(self, **post):
+    def cybersource_form_cancel(self, **post):
         return werkzeug.utils.redirect('/payment/failed')
 
     @http.route(['/payment/failed'], type="http", auth="public", website=True, sitemap=False)
-    def payment_failed(self, **kwargs):
+    def cybersource_form_failed(self, **kwargs):
         data = request.session.get("__payment_tx_ids__", [])
         transaction = request.env['payment.transaction'].search([('id', 'in', list(data)), ('is_processed', '=', False)])
         for tran in transaction:
