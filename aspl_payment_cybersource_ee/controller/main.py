@@ -143,6 +143,32 @@ class CyberSourceController(http.Controller):
         else:
             return request.redirect('/shop')
 
+
+    @http.route('/payment/cybersource/feedback/', type='http', auth="public", csrf=False,  website=True)
+    def cybersource_form_feedback(self, **post):
+
+        if post:
+            """
+            content = ""
+            for key, value in post.items():
+                content = content + "'{}' : {}, ".format(key, value)
+            """
+            logging.info("____Cybersource: El valor de post es")
+            logging.info(post)
+            request.session['response_message'] = post.get('message')
+            if post.get('auth_response') == '100':
+                data = request.session.get("__payment_tx_ids__", [])
+                ten_minutes_ago = datetime.now() - relativedelta.relativedelta(minutes=10)
+                retry_limit_date = datetime.now() - relativedelta.relativedelta(days=2)
+                transaction = request.env['payment.transaction'].search([('id','in',list(data)), ('is_processed','=',False)])
+                request.env['payment.transaction'].sudo().form_feedback(transaction, 'cybersource')
+                request.session['response_message'] = False
+
+            request.env['payment.transaction'].sudo().form_feedback(post, 'cybersource')
+            # return werkzeug.utils.redirect('/payment/process')
+        return ''
+
+
     @http.route(['/payment/cybersource/response/'], type='http', auth='public', csrf=False)
     def check_response(self, **post):
         logging.info("-------------------------------------")
@@ -153,16 +179,19 @@ class CyberSourceController(http.Controller):
         else:
             return werkzeug.utils.redirect('/payment/failed')
 
+
     @http.route([
         '/payment/cybersource/return/',
     ], type='http', auth='public', csrf=False)
     def cybersource_form_feedback(self, **post):
+            """
             data = request.session.get("__payment_tx_ids__", [])
             ten_minutes_ago = datetime.now() - relativedelta.relativedelta(minutes=10)
             retry_limit_date = datetime.now() - relativedelta.relativedelta(days=2)
             transaction = request.env['payment.transaction'].search([('id','in',list(data)), ('is_processed','=',False)])
             request.env['payment.transaction'].sudo().form_feedback(transaction, 'cybersource')
             request.session['response_message'] = False
+            """
             return werkzeug.utils.redirect('/payment/process')
 
     @http.route(['/payment/cybersource/cancel/',], type='http', method=['GET','POST'], auth='public', csrf=False)
