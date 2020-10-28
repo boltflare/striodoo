@@ -164,7 +164,7 @@ class CyberSourceController(http.Controller):
                 request.env['payment.transaction'].sudo().form_feedback(transaction, 'cybersource')
                 request.session['response_message'] = False
 
-            request.env['payment.transaction'].sudo().form_feedback(post, 'cybersource')
+            # request.env['payment.transaction'].sudo().form_feedback(post, 'cybersource')
             # return werkzeug.utils.redirect('/payment/process')
         return ''
 
