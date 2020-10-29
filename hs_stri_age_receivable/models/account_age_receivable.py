@@ -29,30 +29,23 @@ class AgeReceivableInherit(models.AbstractModel):
 		return columns
 
 
-	# def _group_by_partner_id(self, options, line_id):
-	# 	return super(AgeReceivableInherit, self)._group_by_partner_id(options, line_id)
-
-	"""
-	def _get_payment_name(self, line):
-		recordset = self.env["account.payment"].search([('move_line_ids', '=', line.id)])
-		for payment in recordset:
-			return payment.name
-		return line.name
-
-
-	def _get_payment_ref(self, line):
-		recordset = self.env["account.payment"].search([('move_line_ids', '=', line.id)])
-		for payment in recordset:
-			return payment.communication
-		return line.name
-	"""
+	def _get_document_name(self, item):
+		uid = item.get('id')
+		doc_type = item.get('caret_options')
+		entry = self.env['account.move.line'].browse(uid)
+		if entry.invoice_id:
+			document = entry.invoice_id.number
+		elif entry.statement_id:
+			document = entry.statement_id.name
+		else:
+			document = entry.payment_id.name
+		return document
 
 
 	@api.model
 	def _get_lines(self, options, line_id=None):
 		lines = super(AgeReceivableInherit, self)._get_lines(options, line_id=line_id)
 		for item in lines:
-			logging.info(item.get('columns'))
 			if item.get('level') == 2:
 				# removemos la columna JRNL y la columna account
 				columns = item.get('columns')
@@ -65,29 +58,12 @@ class AgeReceivableInherit(models.AbstractModel):
 				columns = item.get('columns')
 				columns.pop(0)
 				columns.pop(0)
-				item['columns'] = columns
-				"""
-				is_payment_line = False 
-				move_line = self.env['account.move.line'].browse(int(item['id']))
-				if move_line.invoice_id:
-					line_name = move_line.move_id.name
-				elif move_line.statement_id:
-					line_name = move_line.name
-				else:
-					line_name = self._get_payment_name(move_line)
-					is_payment_line = True
-	
-				# removemos la columna account, la columna journal y
-				# actualizamos la primera columna 
-				columns = item.get('columns')
-				columns[0] = {'name': line_name}
-				columns.pop(1)
-				columns.pop(2)
 
-				if is_payment_line:
-					payment_ref = self._get_payment_ref(move_line)
-					columns[1] = {'name': payment_ref}
 
+				# Obtenemos el ID y asi obtener la info a mostrar en
+				# la columna Document
+				columns[0] = {'name': self._get_document_name(item) }
+
+				# Actualizamos la columna de referencia
 				item['columns'] = columns
-				"""
 		return lines
