@@ -40,30 +40,3 @@ class accountPaymentInherit(models.Model):
 		for payment in self:
 			payment.diario = payment.invoice_ids.hs_journal
 	"""
-
-
-
-	@api.multi
-    # do not depend on 'sequence_id.date_range_ids', because
-    # sequence_id._get_current_sequence() may invalidate it!
-    @api.depends('sequence_id.use_date_range', 'sequence_id.number_next_actual')
-    def _compute_seq_number_next(self):
-        '''Compute 'sequence_number_next' according to the current sequence in use,
-        an ir.sequence or an ir.sequence.date_range.
-        '''
-        for journal in self:
-            if journal.sequence_id:
-                sequence = journal.sequence_id._get_current_sequence()
-                journal.sequence_number_next = sequence.number_next_actual
-            else:
-                journal.sequence_number_next = 1
-
-
-	@api.multi
-    def _inverse_seq_number_next(self):
-        '''Inverse 'sequence_number_next' to edit the current sequence next number.
-        '''
-        for journal in self:
-            if journal.sequence_id and journal.sequence_number_next:
-                sequence = journal.sequence_id._get_current_sequence()
-                sequence.sudo().number_next = journal.sequence_number_next
