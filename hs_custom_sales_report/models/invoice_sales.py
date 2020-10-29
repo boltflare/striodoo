@@ -17,14 +17,19 @@ class accountPaymentInherit(models.Model):
 
 	# diario  = fields.Char(string='Invoice Journal', related='partner_id.invoice_ids.journal_id.name')
 	# diario = fields.Char(compute='_compute_journal_name', string='Invoice Journal', store=True)
-	diario = fields.Char(string='Invoice Journal', compute='_compute_journal_name', search='_search_journal_name')
+	invoice_journal_id = fields.Many2one(
+		comodel_name='account.journal', 
+		string="Related Journal", 
+		compute='_compute_journal_name',
+	)
+	diario = fields.Char(string='Invoice Journal', related='invoice_journal_id.name', store=True)
 
 	@api.depends('invoice_ids') 
 	def _compute_journal_name(self):
 		for payment in self:
 			if payment.invoice_ids:
 				for invoice in payment.invoice_ids:
-					payment.diario = invoice.journal_id.name
+					payment.invoice_journal_id = invoice.journal_id
 					break
 			else:
 				payment.diario = False
