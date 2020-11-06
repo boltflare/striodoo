@@ -13,9 +13,19 @@
 				<xpath expr="//field[@name='cash_register_total_entry_encoding']" position="replace">
 					<field name="cash_register_total_entry_encoding" nolabel="1" attrs="{'invisible' : [('state', '=', 'opening_control')]}" class="oe_bold oe_pos_total" widget="monetary" options="{'currency_field': 'currency_id'}" groups="account.group_account_user"/>
 				</xpath>
+				<xpath expr="//field[@name='cash_register_balance_end']" position="replace">
+					<field name="cash_register_balance_end" nolabel="1" attrs="{'invisible' : [('state', '=', 'opening_control')]}" class="oe_bold oe_pos_total" widget="monetary" options="{'currency_field': 'currency_id'}" groups="account.group_account_user"/>
+				</xpath>
+				<xpath expr="//field[@name='cash_register_balance_end_real']" position="replace">
+					<field name="cash_register_balance_end_real" string="Real Closing Balance" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}" groups="account.group_account_user"/>
+				</xpath>
+				<xpath expr="//group/field[@name='cash_register_difference']" position="replace">
+					<field name="cash_register_difference" class="oe_subtotal_footer_separator oe_right oe_pos_total oe_pos_difference" widget="monetary" options="{'currency_field': 'currency_id'}" groups="account.group_account_user"/>
+				</xpath>
 				<xpath expr="//field[@name='statement_ids']" position="replace">
 					<field name="statement_ids" attrs="{'invisible' : [('state', '=', 'opening_control')]}" groups="account.group_account_user"/>
 				</xpath>
+				
 			</field>
 		</record>
 		
