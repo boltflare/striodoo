@@ -1,10 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
 	<data>
-		
-		<!-- model.name inherit form view -->
-		<record id="vso_button_inherit1_form" model="ir.ui.view">
-			<field name="name">vso.button.inherit1.form</field>
+		<!-- model.name inherit tree view -->
+		<record id="vso_button_inherit1_tree" model="ir.ui.view">
+			<field name="name">vso.button.inherit1.tree</field>
 			<field name="model">muki.rest</field>
 			<field name="inherit_id" ref="template_module.vso_tree_view"/>
 			<field name="arch" type="xml">
@@ -16,9 +15,24 @@
 				 </xpath>
 			</field>
 		</record>
+		
 	</data>
 </odoo>
 
+<!-- model.name inherit form view -->
+		<!-- <record id="vso_button_inherit1_form" model="ir.ui.view">
+			<field name="name">vso.button.inherit1.form</field>
+			<field name="model">muki.rest</field>
+			<field name="inherit_id" ref="template_module.vso_tree_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="." position="inside">
+				 <!--<field name="updateuser"/> -->
+					<script type="text/javascript" src="/template_module/static/src/js/action_call.js"></script>
+					<script type="text/javascript" src="/template_module/static/src/js/remove_item.js"></script> 
+				 <!-- <script type="type/javascript" src="/hs_custom_view_suscription/static/src/js/input_load.js"></script> -->
+				 </xpath>
+			</field>
+		</record> -->
 <!-- <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 	<template id="button_render_js" inherit_id="web.assets_backend">        
