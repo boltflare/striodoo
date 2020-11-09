@@ -3,8 +3,8 @@
 	<data>
 		
 		<!-- model.name inherit form view -->
-		<record id="add_js_muki_rest_inherit1_form" model="ir.ui.view">
-			<field name="name">add.js.muki.rest.inherit1.form</field>
+		<record id="vso_button_inherit1_form" model="ir.ui.view">
+			<field name="name">vso.button.inherit1.form</field>
 			<field name="model">muki.rest</field>
 			<field name="inherit_id" ref="template_module.vso_tree_view"/>
 			<field name="arch" type="xml">
