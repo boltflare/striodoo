@@ -26,10 +26,10 @@
 			<field name="inherit_id" ref="template_module.vso_tree_view"/>
 			<field name="arch" type="xml">
 				<xpath expr="." position="inside">
-				 <!--<field name="updateuser"/> -->
+				 <field name="updateuser"/>
 					<script type="text/javascript" src="/template_module/static/src/js/action_call.js"></script>
 					<script type="text/javascript" src="/template_module/static/src/js/remove_item.js"></script> 
-				 <!-- <script type="type/javascript" src="/hs_custom_view_suscription/static/src/js/input_load.js"></script> -->
+				 <script type="type/javascript" src="/hs_custom_view_suscription/static/src/js/input_load.js"></script>
 				 </xpath>
 			</field>
 		</record> -->
