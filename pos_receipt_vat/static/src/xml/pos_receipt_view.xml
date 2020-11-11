@@ -21,15 +21,24 @@
                 </div> -->
                 <br/>
               
-                <t t-if="widget.pos.company.name">
+                <!-- <t t-if="widget.pos.company.name">
                     <div style="width:100%;text-align:left;"><t t-esc="widget.pos.company.name"/></div>
                 </t>
                 <t t-if="widget.pos.company.email">
                     <div style="width:100%;text-align:left;"><t t-esc="widget.pos.company.email"/></div>
-                </t>
+                </t> -->
                 <!-- <t t-if="widget.pos.company.email">
                     <div style="width:100%;text-align:left;">TRN:<t t-esc="widget.pos.company.vat"/></div>
                 </t> -->
+                <div class="pos-center-align"><t t-esc="order.formatted_validation_date"/> <t t-esc="order.name"/></div>
+                <br />
+                <t t-esc="widget.pos.company.name"/><br />
+                <div class="receipt-phone">
+                    Phone: <t t-esc="widget.pos.company.phone || ''"/><br />
+                </div>
+                <div class="receipt-user">
+                    User: <t t-esc="widget.pos.get_cashier().name"/><br />
+                </div>
                 <br />
                 <t t-if="receipt.header">
                     <div style='text-align:center'>
@@ -39,8 +48,8 @@
                 </t>
                 <table class='receipt-orderlines'>
                     <colgroup>
-                        <col width='35%' />
-                        <col width='20%' />
+                        <col width='50%' />
+                        <col width='25%' />
                         <col width='25%' />
                         <!-- <col width='30%' /> -->
                     </colgroup>
