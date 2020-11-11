@@ -8,8 +8,8 @@
 	</template>
 	<data>
 		<!-- model.name inherit tree view -->
-		<record id="vso_button" model="ir.ui.view">
-			<field name="name">vso.button</field>
+		<record id="vso_button_inherit1" model="ir.ui.view">
+			<!-- <field name="name">vso.button</field> -->
 			<field name="model">muki.rest</field>
 			<field name="inherit_id" ref="template_module.vso_tree_view"/>
 			<field name="arch" type="xml">
