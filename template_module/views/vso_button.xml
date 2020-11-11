@@ -6,20 +6,11 @@
 			<!-- <script type="text/javascript" src="/template_module/static/src/js/remove_item.js"></script>  -->
 		</xpath>
 	</template>
-	<data>
-		<!-- model.name inherit tree view -->
-		<record id="vso_button_inherit1_view_tree" model="ir.ui.view">
-			<field name="name">vso.button.inherit1.view.tree</field>
-			<field name="model">muki.rest</field>
-			<field name="inherit_id" ref="template_module.vso_tree_view"/>
-			<field name="arch" type="xml">
-				<xpath expr="." position="inside">
-					<script type="text/javascript" src="/template_module/static/src/js/remove_item.js"></script> 
-				</xpath>
-			</field>
-		</record>
-		
-	</data>
+	<template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/template_module/static/src/js/remove_item.js"></script>
+        </xpath>
+    </template>
 </odoo>
 
 
