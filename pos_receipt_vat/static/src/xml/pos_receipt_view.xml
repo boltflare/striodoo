@@ -10,15 +10,15 @@
     <t t-extend="PosTicket">
         <t t-jquery='.pos-sale-ticket' t-operation='replace'>
             <div class="pos-sale-ticket">
-                <div>                   
+                <!-- <div>                   
                     <div style="width: 50%;height: 50%;">
                         <img src='/web/binary/company_logo' style="width:100%"/>
                     </div>
-                </div>
+                </div> -->
                 
-                <div style='text-align:center;border-bottom: 1px dashed black;'>
+                <!-- <div style='text-align:center;border-bottom: 1px dashed black;'>
                    <strong> TAX INVOICE </strong>
-                </div>
+                </div> -->
                 <br/>
               
                 <t t-if="widget.pos.company.name">
@@ -27,9 +27,9 @@
                 <t t-if="widget.pos.company.email">
                     <div style="width:100%;text-align:left;"><t t-esc="widget.pos.company.email"/></div>
                 </t>
-                <t t-if="widget.pos.company.email">
+                <!-- <t t-if="widget.pos.company.email">
                     <div style="width:100%;text-align:left;">TRN:<t t-esc="widget.pos.company.vat"/></div>
-                </t>
+                </t> -->
                 <br />
                 <t t-if="receipt.header">
                     <div style='text-align:center'>
@@ -39,16 +39,16 @@
                 </t>
                 <table class='receipt-orderlines'>
                     <colgroup>
-                        <col width='30%' />
-                        <col width='15%' />
+                        <col width='40%' />
                         <col width='20%' />
-                        <col width='30%' />
+                        <col width='35%' />
+                        <!-- <col width='30%' /> -->
                     </colgroup>
                     <tr style="border-bottom: 1px dashed black;">
                         <th style='text-align:left'>Name</th>
                         <th style='text-align:left'>Qty</th>
                         <th style='text-align:right'>Unit.Price</th>
-                        <th style='text-align:right'>Price(Inc VAT)</th>
+                        <!-- <th style='text-align:right'>Price</th> -->
                     </tr>
                     <tr t-foreach="orderlines" t-as="orderline">
                         <td>
@@ -87,7 +87,7 @@
                             <t t-esc="widget.format_currency(order.get_total_without_tax())"/>
                         </td>
                     </tr>
-                    <t t-foreach="order.get_tax_details()" t-as="taxdetail">
+                    <!-- <t t-foreach="order.get_tax_details()" t-as="taxdetail">
                         <tr>
                             <td></td>
                             <td>VAT:</td>
@@ -95,7 +95,7 @@
                                 <t t-esc="widget.format_currency(taxdetail.amount)"/>
                             </td>
                         </tr>
-                    </t>
+                    </t> -->
                     <tr>
                         <td></td>
                         <td>Discount:</td>
