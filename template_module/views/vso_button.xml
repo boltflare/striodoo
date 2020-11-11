@@ -1,5 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
+	<template id="button_render_js" inherit_id="web.assets_backend">        
+		<xpath expr="script[last()]" position="after">   
+			<script type="text/javascript" src="/template_module/static/src/js/action_call.js"></script>
+			<!-- <script type="text/javascript" src="/template_module/static/src/js/remove_item.js"></script>  -->
+		</xpath>
+	</template>
 	<data>
 		<!-- model.name inherit tree view -->
 		<record id="vso_button" model="ir.ui.view">
@@ -8,11 +14,8 @@
 			<field name="inherit_id" ref="template_module.vso_tree_view"/>
 			<field name="arch" type="xml">
 				<xpath expr="." position="inside">
-				 <!-- <field name="updateuser"/> -->
-					<script type="text/javascript" src="/template_module/static/src/js/action_call.js"></script>
 					<script type="text/javascript" src="/template_module/static/src/js/remove_item.js"></script> 
-				 <!-- <script type="type/javascript" src="/hs_custom_view_suscription/static/src/js/input_load.js"></script> -->
-				 </xpath>
+				</xpath>
 			</field>
 		</record>
 		
