@@ -2,7 +2,7 @@
 	<data>
 		<template id="assets" inherit_id="point_of_sale.assets">
 			<xpath expr="." position="inside">
-				<script type="text/javascript" src="/static/src/js/PaymentScreen.js"></script>
+				<script type="text/javascript" src="pos_receipt_discount/static/src/js/PaymentScreen.js"></script>
 				<!-- <script type="text/javascript" src="/hs_pos_fiscal/static/src/js/FiscalButton.js"></script> -->
 			</xpath>
 		</template>
