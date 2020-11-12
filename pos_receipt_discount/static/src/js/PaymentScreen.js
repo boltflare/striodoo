@@ -2,7 +2,7 @@ odoo.define('pos_receipt_discount.PaymentScreen', function(require) {
 	'use strict';
 	console.log("Ento en el archivo")
 	
-	const PaymentScreen = require('point_of_sale.PaymentScreen');
+	const PaymentScreen = require('point_of_sale.PaymentScreenWidget');
 	const Registries = require('point_of_sale.Registries');
 
 
