@@ -32,6 +32,7 @@ class PaymentTransaction(models.Model):
             values=values,
         )
 
+
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 

@@ -14,6 +14,10 @@ from odoo.addons.payment.controllers.portal import PaymentProcessing
 from werkzeug.urls import url_encode
 from odoo.addons.portal.controllers.portal import _build_url_w_params
 
+import logging
+_logger = logging.getLogger(__name__)
+
+
 class Portal_invoice(http.Controller):
 
     @http.route(['/invoice/multi/payment'], type='http', auth="public", website=True)
@@ -54,9 +58,12 @@ class Portal_invoice(http.Controller):
                :return html: form containing all values related to the acquirer to
                              redirect customers to the acquirer website """
         invoice_id = invoice_id.strip('][').split(',')
+        logging.info(invoice_id)
         transaction_list = []
-        invoice_list = []
+        # invoice_list = []
         amount = 0.0
+
+        """
         for invoice in invoice_id:
             invoice_sudo = request.env['account.invoice'].sudo().browse(int(invoice))
             invoice_list.append(invoice_sudo.id)
@@ -84,12 +91,43 @@ class Portal_invoice(http.Controller):
                 vals['type'] = 'form_save'
 
             transaction = invoice_sudo._create_payment_transaction(vals)
-            transaction_list.append(transaction.id)
-            transaction_ids = request.env['payment.transaction'].sudo().search([('id','in',transaction_list)])
-            PaymentProcessing.add_payment_transaction(transaction_ids)
-        
+            # transaction_list.append(transaction.id)
+            # transaction_ids = request.env['payment.transaction'].sudo().search([('id','in',transaction_list)])
+            # PaymentProcessing.add_payment_transaction(transaction_ids)
+        """
+
+        inv_ids = [int(item) for item in invoice_id]
+        invoice_ids = request.env['account.invoice'].sudo().browse(inv_ids)
+        if not invoice_ids:
+            return False
+            
+
+        if request.env.user._is_public():
+            save_token = False  # we avoid to create a token for the public user
+
+        success_url = kwargs.get(
+            'success_url',
+            "%s?%s" % (invoice_ids[0].access_url, url_encode({'access_token': access_token}) if access_token else '')
+        )
+
+        try:
+            acquirer_id = int(acquirer_id)
+        except:
+            return False
+
+        vals = {
+            'acquirer_id': acquirer_id,
+            'return_url': success_url,
+        }
+
+        if save_token:
+            vals['type'] = 'form_save'
+
+        transaction = invoice_ids._create_payment_transaction(vals)
+        PaymentProcessing.add_payment_transaction(transaction)
         return transaction.render_multi_invoice_button(
-            invoice_list,
+            # invoice_list,
+            inv_ids,
             submit_txt=_('Pay & Confirm'),
             render_values={
                 'type': 'form_save' if save_token else 'form',
