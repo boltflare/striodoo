@@ -1,7 +1,7 @@
-window.onload = function() {
-	document.getElementsByClassName("js_invoice").click();
-}
-
+// window.onload = function() {
+// 	document.getElementsByClassName("js_invoice").click();
+// }
+document.getElementsByClassName("pay").onclick = function(){alert('TEST')}
 
 /* odoo.define('pos_receipt_discount.PaymentScreen', function(require) {
 	'use strict';
