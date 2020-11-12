@@ -1,3 +1,4 @@
 PyJWT
+httpagentparser
 requests-oauthlib
 oauthlib
