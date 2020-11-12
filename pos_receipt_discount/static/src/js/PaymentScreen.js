@@ -1,4 +1,9 @@
-odoo.define('pos_receipt_discount.PaymentScreen', function(require) {
+window.onload = function() {
+	document.getElementsByClassName("js_invoice").click();
+}
+
+
+/* odoo.define('pos_receipt_discount.PaymentScreen', function(require) {
 	'use strict';
 	console.log("Ento en el archivo")
 	
@@ -16,4 +21,4 @@ odoo.define('pos_receipt_discount.PaymentScreen', function(require) {
 
 	Registries.Component.extend(PaymentScreen, InvoiceButtonPaymentScreen);
 	return InvoiceButtonPaymentScreen;
-});
+}); */
