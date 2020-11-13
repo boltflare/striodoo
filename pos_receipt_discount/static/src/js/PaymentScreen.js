@@ -2,7 +2,7 @@
 // 	document.getElementsByClassName("js_invoice").click();
 // }
 // odoo.define('pos_receipt_discount.PaymentScreen', function(require) {
-alert('test');
+/* alert('test');
 $('document').ready(function(){
 	$(".pay").click(function () {​​​​​
 		hacerCheck();
@@ -14,7 +14,7 @@ $('document').ready(function(){
 		// $("#test").prop("checked", true);
 		$(".js_invoice").trigger("click");
 		}​​​​​
-});
+}); */
 
 
 // });
