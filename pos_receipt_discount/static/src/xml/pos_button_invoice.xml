@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" xml:space="preserve">
+    <t t-name="pos_receipt_discount.ReceiptScreen" 
+	   t-inherit="point_of_sale.ReceiptScreen" 
+	   t-inherit-mode="extension" owl="1">
+	   <!--xpath expr="//t[@t-foreach='receipt.paymentlines']" position="inside"-->
+		<xpath expr="//div[@class='actions']/div[@class='buttons']" position="after">
+			<div class="buttons">
+				<div class="button print" t-on-click="printFiscal">
+					<i class="fa fa-print"></i> Print Fiscal
+				</div>
+			</div>
+		</xpath>
+	</t>
+
+    <t t-extend="PaymentScreenWidget">
+        <t t-jquery='.payment-buttons' t-operation='replace'>
+            <div class="payment-buttons">
+                <t t-if='widget.pos.config.module_account'>
+                    <t t-if='widget.pos.get_order()'>
+                        <div t-attf-class='button js_invoice #{ widget.pos.get_order().is_to_invoice() ? "highlight" : ""} '>
+                            <i class='fa fa-file-text-o' /> Invoice
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </t>
+    </t>
+
+</template>
