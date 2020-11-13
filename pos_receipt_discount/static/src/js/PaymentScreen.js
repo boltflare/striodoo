@@ -1,7 +1,7 @@
 // window.onload = function() {
 // 	document.getElementsByClassName("js_invoice").click();
 // }
-odoo.define('pos_receipt_discount.PaymentScreen', function(require) {
+// odoo.define('pos_receipt_discount.PaymentScreen', function(require) {
 alert('test');
  
 $(".pay").click(function () {​​​​​
@@ -15,7 +15,7 @@ function hacerCheck() {​​​​​
 $(".js_invoice").trigger("click");
 }​​​​​
 
-});
+// });
 /* odoo.define('pos_receipt_discount.PaymentScreen', function(require) {
 	'use strict';
 	console.log("Ento en el archivo")
