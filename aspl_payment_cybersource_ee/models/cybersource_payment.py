@@ -143,6 +143,9 @@ class TxCybersource(models.Model):
     
     @api.model
     def create(self, vals):
+        if not vals.get('partner_country_id'):
+            country_id = self.env.ref('base.pa')
+            vals['partner_country_id'] = country_id.id
         tx = super(TxCybersource, self).create(vals)
         return tx
 
