@@ -3,11 +3,18 @@
 // }
 odoo.define('pos_receipt_discount.PaymentScreen', function(require) {
 alert('test');
-const boton = document.getElementsByClassName("pay");
+ 
+$(".pay").click(function () {​​​​​
+hacerCheck();
+}​​​​​);
+$(".js_invoice").click(function () {​​​​​
+alert("The button was clicked.");
+}​​​​​);
+function hacerCheck() {​​​​​
+// $("#test").prop("checked", true);
+$(".js_invoice").trigger("click");
+}​​​​​
 
-boton.onclick = function(){
-	alert('click');
-}
 });
 /* odoo.define('pos_receipt_discount.PaymentScreen', function(require) {
 	'use strict';
