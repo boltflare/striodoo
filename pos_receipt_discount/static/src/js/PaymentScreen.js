@@ -4,16 +4,16 @@
 // odoo.define('pos_receipt_discount.PaymentScreen', function(require) {
 alert('test');
  
-$(".pay").click(function () {​​​​​
-hacerCheck();
-}​​​​​);
-$(".js_invoice").click(function () {​​​​​
-alert("The button was clicked.");
-}​​​​​);
-function hacerCheck() {​​​​​
-// $("#test").prop("checked", true);
-$(".js_invoice").trigger("click");
-}​​​​​
+// $(".pay").click(function () {​​​​​
+// hacerCheck();
+// }​​​​​);
+// $(".js_invoice").click(function () {​​​​​
+// alert("The button was clicked.");
+// }​​​​​);
+// function hacerCheck() {​​​​​
+// // $("#test").prop("checked", true);
+// $(".js_invoice").trigger("click");
+// }​​​​​
 
 // });
 /* odoo.define('pos_receipt_discount.PaymentScreen', function(require) {
