@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <template id="assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="agregar_js_pos/static/src/js/click_boton.js"></script>
+                <!-- <script type="text/javascript" src="/hs_pos_fiscal/static/src/js/FiscalButton.js"></script> -->
+        </xpath>
+    </template>
+    
+</odoo>
