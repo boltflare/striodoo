@@ -39,7 +39,7 @@ class ReportItemFund(models.AbstractModel):
 			if doc.filter == "none":
 				products = [stock.product_id for stock in stocks]
 			elif doc.filter == "category":
-				categ_id = doc.category_id.id
+				categ_id = doc.category_id
 				products = [stock.product_id for stock in stocks if stock.product_id.categ_id == categ_id]
 			elif doc.filter == "product":
 				products = [doc.product_id]
