@@ -77,10 +77,9 @@
                             <!-- <t t-set="c" t-value="b/a"></t>
                             <t t-esc="c"/> -->
                         </td>
-                        <!-- <td style='text-align:right'>
+                        <td style='text-align:right'>
                             <t t-esc="widget.format_currency(orderline.get_price_with_tax())"/>
-                            get_display_price()
-                        </td> -->
+                        </td>
                     </tr>
                 </table>
                 <br />
