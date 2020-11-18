@@ -77,9 +77,9 @@
                             <!-- <t t-set="c" t-value="b/a"></t>
                             <t t-esc="c"/> -->
                         </td>
-                        <td style='text-align:right'>
+                        <!-- <td style='text-align:right'>
                             <t t-esc="widget.format_currency(orderline.get_price_with_tax())"/>
-                        </td>
+                        </td> -->
                     </tr>
                 </table>
                 <br />
@@ -93,7 +93,7 @@
                         <td></td>
                         <td>Subtotal:</td>
                         <td style='text-align:right'>
-                            <t t-esc="widget.format_currency(order.get_total_without_tax())"/>
+                            <t t-esc="widget.format_currency(order.get_total_with_tax())"/>
                         </td>
                     </tr>
                    
