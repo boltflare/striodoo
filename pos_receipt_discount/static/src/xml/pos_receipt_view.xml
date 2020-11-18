@@ -94,17 +94,10 @@
                         <td></td>
                         <td>Subtotal:</td>
                         <td style='text-align:right'>
-                            <t t-esc="widget.format_currency(order.get_total_without_tax())"/>
+                            <t t-esc="widget.format_currency(order.get_display_price())"/>
                         </td>
                     </tr>
-                    <t t-foreach="order.get_tax_details()" t-as="taxdetail">
-                    <tr>
-                        <td><t t-esc="taxdetail.name" /></td>
-                        <td class="pos-right-align">
-                            <t t-esc="widget.format_currency(taxdetail.amount)" />
-                        </td>
-                    </tr>
-                    </t>
+                   
                     <!-- <t t-foreach="order.get_tax_details()" t-as="taxdetail">
                         <tr>
                             <td></td>
