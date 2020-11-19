@@ -17,7 +17,7 @@
     ],
     'data': [
         #'security/ir.model.access.csv',
-        'report/account_invoice_report_view.xml',
+        # 'report/account_invoice_report_view.xml',
         #'wizard/sales_invoice_xls_view.xml',
         'report/sales_report_view.xml',
         'views/pos_session_close.xml',
