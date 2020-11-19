@@ -27,7 +27,7 @@
     				<field name="pos_invoice"/>
  				</xpath>
 				<!--Aqui se esta modificando el boton validar para hacerlo invisible mientras este TRUE el boton Update Price-->
-            	<xpath expr="//button[@name='action_invoice_open']" position="replace">       
+            	<xpath expr="//button[@name='321']" position="replace">       
                 	<button type="action"
                         id="account_invoice_payment_btn"
 						name="321"
