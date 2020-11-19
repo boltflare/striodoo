@@ -7,7 +7,7 @@
     'author': 'Z-Soft Technology',
     'company': 'Z-Soft Technology',
     'category': 'Point of Sale',
-    'depends': ['base', 'point_of_sale', 'account', 'account_invoicing'],
+    'depends': ['base', 'point_of_sale', 'account'],
     'images': ['static/description/banner.jpg'],
     'license': 'LGPL-3',
     'installable': True,
