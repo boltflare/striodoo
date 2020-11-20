@@ -73,4 +73,5 @@ invoice.date_invoice,
 CONCAT (cuenta.stri_fund,',', cuenta.stri_budget,',',cuenta.stri_desig,',',cuenta.stri_dept,',',cuenta.stri_account,',',cuenta.stri_class,',',cuenta.stri_program,',',cuenta.stri_project,',',cuenta.stri_activity,',',cuenta.stri_type) as chartfield
 from account_invoice_line As detalle , account_invoice as invoice, res_partner as cliente, account_account as cuenta, res_partner as sale, res_users as ur, product_product as item, product_template as tem, product_category as categ
 where detalle.invoice_id = invoice.id and invoice.partner_id = cliente.id and detalle.account_id = cuenta.id and invoice.user_id = ur.id and ur.partner_id = sale.id
-and invoice.type IN('out_invoice','out_refund') and invoice.state NOT IN ('draft','cancel') and detalle.product_id = item.id and item.product_tmpl_id = tem.id and tem.categ_id = categ.id;
+and invoice.type IN('out_invoice','out_refund') and invoice.state NOT IN ('draft','cancel') and detalle.product_id = item.id and item.product_tmpl_id = tem.id and tem.categ_id = categ.id
+ORDER BY invoice.date_invoice DESC;
