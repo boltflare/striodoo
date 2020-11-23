@@ -90,7 +90,7 @@ class MukiREST(models.Model):
 				hcateg=data['visitor_category']
 				address = data['funding']['address']
 				logging.info("ADDRESS: " + str(address))
-				if address != 'None':
+				if address != 'None' or []:
 					hstreet=address['line1']
 					hstreet2=address['line2']
 					hcity=address['city']
