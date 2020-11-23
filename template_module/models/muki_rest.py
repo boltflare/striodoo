@@ -76,6 +76,7 @@ class MukiREST(models.Model):
 
 		datas = json.loads(datas.data.decode('utf-8'))
 		self.replace(datas, None, 'None')
+		self.replace(datas, [], 'None')
 
 		logging.info("CONTENIDO: " + str(datas.values()))
 
@@ -90,7 +91,7 @@ class MukiREST(models.Model):
 				hcateg=data['visitor_category']
 				address = data['funding']['address']
 				logging.info("ADDRESS: " + str(address))
-				if address != 'None' or []:
+				if address != 'None':
 					hstreet=address['line1']
 					hstreet2=address['line2']
 					hcity=address['city']
