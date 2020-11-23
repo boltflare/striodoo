@@ -66,43 +66,46 @@ class MukiREST(models.Model):
 		datas = http.request('POST', url, fields=values, headers=headers)
 
 		datas = json.loads(datas.data.decode('utf-8'))
-		logging.info("CONTENIDO: " + str(datas['visit']))
+		# logging.info("CONTENIDO: " + str(datas['visit']))
 
-		for data in datas['visit']:
-			hvisit= data['user_id']
-			nombre= data['visitor_name']
-			fname= data['first_name']
-			lname= data['last_name']
-			visitor_email=data['email']
-			hstatus=data['status']
-			hcateg=data['visitor_category']
-			address = data['funding']['address']
-			if address is None:
-				hstreet=data['funding']['address']['line1']
-				hstreet2=data['funding']['address']['line2']
-				hcity=data['funding']['address']['city']
-				hzip=data['funding']['address']['zip']
-				hcountry=data['funding']['address']['country']
-			else:
-				hstreet=""
-				hstreet2=""
-				hcity=""
-				hzip=""
-				hcountry=""
-			self.env['muki.rest'].create({
-				'hvisit': hvisit,
-				'nombre': nombre,
-				'fname': fname,
-				'lname': lname,
-				'visitor_email': visitor_email,
-				'hstatus': hstatus,
-				'hcateg':hcateg,
-				'hstreet':hstreet,
-				'hstreet2':hstreet2,
-				'hcity':hcity,
-				'hzip':hzip,
-				'hcountry':hcountry,
-				})
+		for value in datas.values:
+			for data in value:
+				hvisit= data['user_id']
+				nombre= data['visitor_name']
+				fname= data['first_name']
+				lname= data['last_name']
+				visitor_email=data['email']
+				hstatus=data['status']
+				hcateg=data['visitor_category']
+				# address = data['funding']['address']
+				""" if address is None:
+					hstreet=data['funding']['address']['line1']
+					hstreet2=data['funding']['address']['line2']
+					hcity=data['funding']['address']['city']
+					hzip=data['funding']['address']['zip']
+					hcountry=data['funding']['address']['country']
+				else:
+					hstreet=""
+					hstreet2=""
+					hcity=""
+					hzip=""
+					hcountry=""
+				"""
+		
+		self.env['muki.rest'].create({
+			'hvisit': hvisit,
+			'nombre': nombre,
+			'fname': fname,
+			'lname': lname,
+			'visitor_email': visitor_email,
+			'hstatus': hstatus,
+			'hcateg':hcateg,
+			# 'hstreet':hstreet,
+			# 'hstreet2':hstreet2,
+			# 'hcity':hcity,
+			# 'hzip':hzip,
+			# 'hcountry':hcountry,
+			})
 
 		action = self.env.ref('template_module.muki_rest_action').read()[0]
 		action['target'] = 'main'
