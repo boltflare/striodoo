@@ -66,25 +66,8 @@ class MukiREST(models.Model):
 		datas = http.request('POST', url, fields=values, headers=headers)
 
 		datas = json.loads(datas.data.decode('utf-8'))
-		logging.info("CONTENIDO: " + str(datas))
+		logging.info("CONTENIDO: " + str(datas['visit']))
 
-		"""for data in datas['visit']:
-			self.env['muki.rest'].create({
-				'hvisit': data['user_id'],
-				'nombre': data['visitor_name'],
-				'fname': data['first_name'],
-				'lname': data['last_name'],
-				'visitor_email': data['email'],
-				'hstatus': data['status'],
-				'hstreet':data['funding']['address']['line1'],
-				'hstreet2':data['funding']['address']['line2'],
-				'hcity':data['funding']['address']['city'],
-				'hzip':data['funding']['address']['zip']
-				# 'hstreet':data['line1'],
-				# 'hstreet2':data['line2'],
-				# 'hcity': data['city'],
-				# 'hzip': data['zip']
-			}) """
 		for data in datas['visit']:
 			hvisit= data['user_id']
 			nombre= data['visitor_name']
@@ -126,3 +109,20 @@ class MukiREST(models.Model):
 		return action	
 		# print(datas)
 
+		"""for data in datas['visit']:
+			self.env['muki.rest'].create({
+				'hvisit': data['user_id'],
+				'nombre': data['visitor_name'],
+				'fname': data['first_name'],
+				'lname': data['last_name'],
+				'visitor_email': data['email'],
+				'hstatus': data['status'],
+				'hstreet':data['funding']['address']['line1'],
+				'hstreet2':data['funding']['address']['line2'],
+				'hcity':data['funding']['address']['city'],
+				'hzip':data['funding']['address']['zip']
+				# 'hstreet':data['line1'],
+				# 'hstreet2':data['line2'],
+				# 'hcity': data['city'],
+				# 'hzip': data['zip']
+			}) """
