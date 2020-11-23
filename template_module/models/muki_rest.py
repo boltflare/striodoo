@@ -89,19 +89,21 @@ class MukiREST(models.Model):
 				hstatus=data['status']
 				hcateg=data['visitor_category']
 				address = data['funding']['address']
+				logging.info("ADDRESS: " + str(address))
 				if address != 'None':
 					hstreet=address['line1']
 					hstreet2=address['line2']
 					hcity=address['city']
 					hzip=address['zip']
 					hcountry=address['country']
+					logging.info("DENTRO DEL IF: " + str(address))
 				else:
 					hstreet=""
 					hstreet2=""
 					hcity=""
 					hzip=""
 					hcountry=""
-				
+					logging.info("DENTRO DEL ELSE: " + str(address))
 		
 		self.env['muki.rest'].create({
 			'hvisit': hvisit,
