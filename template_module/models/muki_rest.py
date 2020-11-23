@@ -36,6 +36,15 @@ class MukiREST(models.Model):
 	hcountry = fields.Char("Country")
 	hcateg = fields.Char("Visitor Category")
 
+	#FUNCION PARA HACER REPLACE DE VALORES NONE
+	def replace(self,data, search, replacement, parent=None, index=None):
+		if data == search:
+			parent[index] = replacement
+		elif isinstance(data, (list, dict)):
+			for index, item in enumerate(data) if isinstance(data, list) else data.items():
+				self.replace(item, search, replacement, parent=data, index=index)
+
+
 	def search_visitor(self):
 		ip_address = '34.66.235.140'
 		#CONVIRTIENDO A FORMATO ASCII EL IP
@@ -66,6 +75,8 @@ class MukiREST(models.Model):
 		datas = http.request('POST', url, fields=values, headers=headers)
 
 		datas = json.loads(datas.data.decode('utf-8'))
+		self.replace(datas, None, 'None')
+
 		logging.info("CONTENIDO: " + str(datas.values()))
 
 		for value in datas.values():
@@ -78,7 +89,7 @@ class MukiREST(models.Model):
 				hstatus=data['status']
 				hcateg=data['visitor_category']
 				address = data['funding']['address']
-				if address is not None:
+				if address != 'None':
 					hstreet=address['line1']
 					hstreet2=address['line2']
 					hcity=address['city']
