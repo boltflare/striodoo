@@ -94,7 +94,7 @@ class MukiREST(models.Model):
 			hstatus=data['status']
 			hcateg=data['visitor_category']
 			address = data['funding']['address']
-			if address is not None:
+			if address is None:
 				hstreet=data['funding']['address']['line1']
 				hstreet2=data['funding']['address']['line2']
 				hcity=data['funding']['address']['city']
