@@ -66,7 +66,7 @@ class MukiREST(models.Model):
 		datas = http.request('POST', url, fields=values, headers=headers)
 
 		datas = json.loads(datas.data.decode('utf-8'))
-		# logging.info("CONTENIDO: " + str(datas['visit']))
+		logging.info("CONTENIDO: " + str(datas.values()))
 
 		for value in datas.values():
 			for data in value:
