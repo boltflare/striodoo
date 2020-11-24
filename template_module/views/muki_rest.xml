@@ -44,22 +44,21 @@
 
 		<record id="muki_rest_action" model="ir.actions.act_window">
 			<field name="name">VSO Search</field>
-			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">muki.rest</field>
-			<field name="view_mode">tree,form</field>
-			<field name="search_view_id" ref="vso_search_view"/>
 			<field name="view_type">form</field>
+			<field name="view_mode">tree,pivot</field>
+			<field name="search_view_id" ref="vso_search_view"/>
+			<!-- <field name="type">ir.actions.act_window</field> -->
 		</record>
 
-	   <!-- Este es la acción heredada que permite mostrar los datos en vista arbol -->
-		<record id="vso_menu_tree" model="ir.actions.act_window.view">
+	   	<!-- Este es la acción heredada que permite mostrar los datos en vista arbol -->
+		<!-- <record id="vso_menu_tree" model="ir.actions.act_window.view">
 			<field name="act_window_id" ref="template_module.muki_rest_action" />
 			<field name="view_id" ref="template_module.vso_tree_view"/>
 			<field name="view_mode">tree</field>
 			<field name="sequence" eval="2"/>
-		</record>
+		</record> -->
 
-		
 		<menuitem id="muki_rest_menu" name="VSO Search" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
 		
 		<!-- DECLARACION DE WIZARD Y DE LA ACCION PARA LEVANTAR EL WIZARD AL HACR CLICK AL SEARCH -->
