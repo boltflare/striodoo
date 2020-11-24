@@ -97,7 +97,7 @@ class MukiREST(models.Model):
 				hstatus=data['status']
 				hcateg=data['visitor_category']
 				address = data['funding']['address']
-				logging.info("ADDRESS: " + str(address))
+				# logging.info("ADDRESS: " + str(address))
 				if address != 'None':
 					if self.verify_keys(address):
 						hstreet=address['line1']
@@ -105,14 +105,14 @@ class MukiREST(models.Model):
 						hcity=address['city']
 						hzip=address['zip']
 						hcountry=address['country']
-						logging.info("DENTRO DEL IF: " + str(address))
+						# logging.info("DENTRO DEL IF: " + str(address))
 				else:
 					hstreet=""
 					hstreet2=""
 					hcity=""
 					hzip=""
 					hcountry=""
-					logging.info("DENTRO DEL ELSE: " + str(address))
+					# logging.info("DENTRO DEL ELSE: " + str(address))
 		
 		self.env['muki.rest'].create({
 			'hvisit': hvisit,
@@ -129,7 +129,7 @@ class MukiREST(models.Model):
 			'hcountry':hcountry,
 			})
 
-		# action = self.env.ref('template_module.muki_rest_action').read()[0]
-		# action['target'] = 'main'
-		# return action	
+		action = self.env.ref('template_module.muki_rest_action').read()[0]
+		action['target'] = 'main'
+		return action	
 		# print(datas)
