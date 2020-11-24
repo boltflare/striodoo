@@ -80,7 +80,7 @@ class MukiREST(models.Model):
 				'X-VSO-caller': ipBase}
 
 		datas = http.request('POST', url, fields=values, headers=headers)
-
+		logging.info("CONTENIDO: " + str(datas))
 		datas = json.loads(datas.data.decode('utf-8'))
 		self.replace(datas, None, 'None')
 		self.replace(datas, [], 'None')
