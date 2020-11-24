@@ -81,7 +81,6 @@ class MukiREST(models.Model):
 				'X-VSO-caller': ipBase}
 
 		datas = http.request('POST', url, fields=values, headers=headers)
-		# logging.info("DICCIONARIO: " + str(datas))
 		#VARIABLE PARA MOSTRAR EXCEPCION EN CASO DE NO OBTENER RESULTADO
 		action = self.env.ref('template_module.muki_rest_action')
 		try:
@@ -89,8 +88,9 @@ class MukiREST(models.Model):
 		except Exception:
 			raise RedirectWarning("No se han encontrado resultados!", action.id, _('OK'))
 		
-		self.replace(datas, None, 'None')
-		self.replace(datas, [], 'None')
+		#REEMPLAZANDO VALORES VACIOS POR EL STRING 'NONE'
+		self.replace(datas, None, '')
+		self.replace(datas, [], '')
 		logging.info("CONTENIDO: " + str(datas.values()))
 
 		for value in datas.values():
@@ -104,7 +104,7 @@ class MukiREST(models.Model):
 				hcateg=data['visitor_category']
 				address = data['funding']['address']
 				# logging.info("ADDRESS: " + str(address))
-				if address != 'None':
+				if address != '':
 					if self.verify_keys(address):
 						hstreet=address['line1']
 						hstreet2=address['line2']
