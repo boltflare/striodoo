@@ -62,11 +62,11 @@
 						<group>
 							<group>
 								<field name = "hvisit"/>
-								<field name = "hstatus" />
-								<field name = "nombre" />
-								<field name = "fname"/>
-								<field name = "lname" />
-								<field name = "visitor_email" />
+								<field name = "whstatus" />
+								<field name = "wnombre" />
+								<field name = "wfname"/>
+								<field name = "wlname" />
+								<field name = "wvisitor_email" />
 							</group>
 						</group>
 						<footer>

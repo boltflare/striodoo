@@ -16,6 +16,23 @@ class MukiREST(models.Model):
 	user_id = fields.Many2one('res.users', string="Current User",
 		default=lambda self: self.env.user)
 
+	#CAMPOS WIZARD 
+	hvisit = fields.Char("Visitor ID")
+	whstatus = fields.Selection([
+		('Check-OUT', 'Check-OUT'),
+		('Cancelled', 'Cancelled'),
+		('Declined', 'Declined'),
+		('Draft', 'Draft'),
+		('Revision', 'Revision'),
+		('Check-IN', 'Check-IN'),
+		('Approved', 'Approved'),
+		('Submit', 'Submit')],string = 'Status')
+	wnombre = fields.Char("Name")
+	wfname = fields.Char("First Name")
+	wlname = fields.Char("Last Name")
+	wvisitor_email = fields.Char("Email")
+	
+	#CAMPOS VISTA
 	hstatus = fields.Selection([
 		('Check-OUT', 'Check-OUT'),
 		('Cancelled', 'Cancelled'),
@@ -30,7 +47,6 @@ class MukiREST(models.Model):
 	lname = fields.Char("Last Name")
 	visitor_email = fields.Char("Email")
 	hvisit2 = fields.Char("Visitor ID")
-	hvisit = fields.Char("Visitor ID")
 	hstreet = fields.Char("Street")
 	hstreet2 = fields.Char("Street2")
 	hcity = fields.Char("City")
