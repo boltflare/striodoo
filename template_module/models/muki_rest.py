@@ -6,7 +6,8 @@ import base64
 import socket
 import logging
 _logger = logging.getLogger(__name__)
-from odoo import models, fields, api, exceptions, _
+from odoo import models, fields, api, _
+from odoo.exceptions import RedirectWarning
 
 class MukiREST(models.Model):
 	_name = "muki.rest"
@@ -81,10 +82,12 @@ class MukiREST(models.Model):
 
 		datas = http.request('POST', url, fields=values, headers=headers)
 		# logging.info("DICCIONARIO: " + str(datas))
+		#VARIABLE PARA MOSTRAR EXCEPCION EN CASO DE NO OBTENER RESULTADO
+		action = self.env.ref('template_module.muki_rest_action')
 		try:
 			datas = json.loads(datas.data.decode('utf-8'))
 		except Exception:
-			raise exceptions.Warning("No se han encontrado resultados!")
+			raise RedirectWarning("No se han encontrado resultados!", action.id, _('OK'))
 		
 		self.replace(datas, None, 'None')
 		self.replace(datas, [], 'None')
