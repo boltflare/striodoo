@@ -53,6 +53,16 @@ class VSOWizard(models.TransientModel):
 	_name = 'vso.wizard'
 	_description = 'Search a visitor'
 
+	
+	hstatus = fields.Selection([
+		('Check-OUT', 'Check-OUT'),
+		('Cancelled', 'Cancelled'),
+		('Declined', 'Declined'),
+		('Draft', 'Draft'),
+		('Revision', 'Revision'),
+		('Check-IN', 'Check-IN'),
+		('Approved', 'Approved'),
+		('Submit', 'Submit')],string = 'Status')
 	nombre = fields.Char("Name")
 	fname = fields.Char("First Name")
 	lname = fields.Char("Last Name")
