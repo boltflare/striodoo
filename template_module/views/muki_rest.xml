@@ -7,7 +7,7 @@
 			<field name = "model">muki.rest</field>
 			<field name = "arch" type = "xml">
 				<tree string = "Search Visitor" create="false" edit="false" delete="true">
-					<field name = "hvisit"/>
+					<field name = "hvisit2"/>
 					<field name = "nombre" />
 					<field name = "fname" />
 					<field name = "lname"/>
