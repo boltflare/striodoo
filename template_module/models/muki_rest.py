@@ -44,6 +44,13 @@ class MukiREST(models.Model):
 			for index, item in enumerate(data) if isinstance(data, list) else data.items():
 				self.replace(item, search, replacement, parent=data, index=index)
 
+	#FUNCION PARA HACER VALIDACION DE LOS KEYS DENTRO DE ADDRESS
+	def verify_keys(self,address):
+		if {'line1', 'line2','country', 'city', 'zip'} <= address.keys():
+			return True
+		else:
+			return False	
+
 
 	def search_visitor(self):
 		ip_address = '34.66.235.140'
@@ -92,12 +99,13 @@ class MukiREST(models.Model):
 				address = data['funding']['address']
 				logging.info("ADDRESS: " + str(address))
 				if address != 'None':
-					hstreet=address['line1']
-					hstreet2=address['line2']
-					hcity=address['city']
-					hzip=address['zip']
-					hcountry=address['country']
-					logging.info("DENTRO DEL IF: " + str(address))
+					if self.verify_keys(address):
+						hstreet=address['line1']
+						hstreet2=address['line2']
+						hcity=address['city']
+						hzip=address['zip']
+						hcountry=address['country']
+						logging.info("DENTRO DEL IF: " + str(address))
 				else:
 					hstreet=""
 					hstreet2=""
