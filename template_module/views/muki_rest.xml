@@ -60,12 +60,14 @@
 				<form string="VSO Search">
 					<sheet> 
 						<group>
-							<field name = "hvisit"/>
-							<field name = "hstatus" />
-							<field name = "nombre" />
-							<field name = "fname"/>
-							<field name = "lname" />
-							<field name = "visitor_email" />
+							<group>
+								<field name = "hvisit"/>
+								<field name = "hstatus" />
+								<field name = "nombre" />
+								<field name = "fname"/>
+								<field name = "lname" />
+								<field name = "visitor_email" />
+							</group>
 						</group>
 						<footer>
 							<button name="search_visitor" type="object"

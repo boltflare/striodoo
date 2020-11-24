@@ -29,7 +29,7 @@ class MukiREST(models.Model):
 	fname = fields.Char("First Name")
 	lname = fields.Char("Last Name")
 	visitor_email = fields.Char("Email")
-	hvisit = fields.Char("Visitor ID")
+	hvisit2 = fields.Char("Visitor ID")
 	hstreet = fields.Char("Street")
 	hstreet2 = fields.Char("Street2")
 	hcity = fields.Char("City")
@@ -95,7 +95,7 @@ class MukiREST(models.Model):
 
 		for value in datas.values():
 			for data in value:
-				hvisit= data['user_id']
+				hvisit2= data['user_id']
 				nombre= data['visitor_name']
 				fname= data['first_name']
 				lname= data['last_name']
@@ -121,7 +121,7 @@ class MukiREST(models.Model):
 					# logging.info("DENTRO DEL ELSE: " + str(address))
 		
 		self.env['muki.rest'].create({
-			'hvisit': hvisit,
+			'hvisit': hvisit2,
 			'nombre': nombre,
 			'fname': fname,
 			'lname': lname,
