@@ -51,7 +51,7 @@ class MukiREST(models.Model):
 		else:
 			return False	
 
-
+	#FUNCION PARA HACER REQUEST Y OBTENER JSON CON LOS RESULTADOS DE LA BUSQUEDA
 	def search_visitor(self):
 		ip_address = '34.66.235.140'
 		#CONVIRTIENDO A FORMATO ASCII EL IP
@@ -129,7 +129,7 @@ class MukiREST(models.Model):
 			'hcountry':hcountry,
 			})
 
-		action = self.env.ref('template_module.muki_rest_action').read()[0]
-		action['target'] = 'main'
-		return action	
+		# action = self.env.ref('template_module.muki_rest_action').read()[0]
+		# action['target'] = 'main'
+		# return action	
 		# print(datas)
