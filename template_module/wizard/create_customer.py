@@ -47,3 +47,20 @@ class MessageWizard(models.TransientModel):
 	def action_ok(self):
 		""" close wizard"""	
 		return {'type': 'ir.actions.act_window_close'}
+
+
+class VSOWizard(models.TransientModel):
+	_name = 'vso.wizard'
+	_description = 'Search a visitor'
+
+	nombre = fields.Char("Name")
+	fname = fields.Char("First Name")
+	lname = fields.Char("Last Name")
+	visitor_email = fields.Char("Email")
+	hvisit = fields.Char("Visitor ID")
+	hstreet = fields.Char("Street")
+	hstreet2 = fields.Char("Street2")
+	hcity = fields.Char("City")
+	hzip = fields.Char("Zip")
+	hcountry = fields.Char("Country")
+	hcateg = fields.Char("Visitor Category")

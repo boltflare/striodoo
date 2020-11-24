@@ -18,7 +18,7 @@ odoo.define('template_module.action_call', function (require) {
             this.do_action({
                 type: "ir.actions.act_window",
                 name: "Search Visitor",
-                res_model: "muki.rest",
+                res_model: "vso.wizard",
                 views: [[false,'form']],
                 target: 'new',
                 // view_type : 'form',
