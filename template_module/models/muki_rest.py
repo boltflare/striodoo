@@ -82,11 +82,11 @@ class MukiREST(models.Model):
 		values = dict()
 		filtros_dic = {
 			"visitor_id":self.hvisit,
-			"status": self.hstatus,
-			"visitor_name":self.nombre,
-			"name":self.fname,
-			"last_name":self.lname,
-			"email":self.visitor_email}
+			"status": self.whstatus,
+			"visitor_name":self.wnombre,
+			"name":self.wfname,
+			"last_name":self.wlname,
+			"email":self.wvisitor_email}
 
 		for key, value in filtros_dic.items():
 			if (value != False):
@@ -112,44 +112,44 @@ class MukiREST(models.Model):
 
 		for value in datas.values():
 			for data in value:
-				hvisit2= data['user_id']
-				nombre= data['visitor_name']
-				fname= data['first_name']
-				lname= data['last_name']
-				visitor_email=data['email']
-				hstatus=data['status']
-				hcateg=data['visitor_category']
-				address = data['funding']['address']
+				self.hvisit2= data['user_id']
+				self.nombre= data['visitor_name']
+				self.fname= data['first_name']
+				self.lname= data['last_name']
+				self.visitor_email=data['email']
+				self.hstatus=data['status']
+				self.hcateg=data['visitor_category']
+				self.address = data['funding']['address']
 				# logging.info("ADDRESS: " + str(address))
-				if address != '':
-					if self.verify_keys(address):
-						hstreet=address['line1']
-						hstreet2=address['line2']
-						hcity=address['city']
-						hzip=address['zip']
-						hcountry=address['country']
+				if self.address != '':
+					if self.verify_keys(self.address):
+						self.hstreet=self.address['line1']
+						self.hstreet2=self.address['line2']
+						self.hcity=self.address['city']
+						self.hzip=self.address['zip']
+						self.hcountry=self.address['country']
 						# logging.info("DENTRO DEL IF: " + str(address))
 				else:
-					hstreet=""
-					hstreet2=""
-					hcity=""
-					hzip=""
-					hcountry=""
+					self.hstreet=""
+					self.hstreet2=""
+					self.hcity=""
+					self.hzip=""
+					self.hcountry=""
 					# logging.info("DENTRO DEL ELSE: " + str(address))
 		
 		self.env['muki.rest'].create({
-			'hvisit2': hvisit2,
-			'nombre': nombre,
-			'fname': fname,
-			'lname': lname,
-			'visitor_email': visitor_email,
-			'hstatus': hstatus,
-			'hcateg':hcateg,
-			'hstreet':hstreet,
-			'hstreet2':hstreet2,
-			'hcity':hcity,
-			'hzip':hzip,
-			'hcountry':hcountry,
+			'hvisit2': self.hvisit2,
+			'nombre': self.nombre,
+			'fname': self.fname,
+			'lname': self.lname,
+			'visitor_email': self.visitor_email,
+			'hstatus': self.hstatus,
+			'hcateg':self.hcateg,
+			'hstreet':self.hstreet,
+			'hstreet2':self.hstreet2,
+			'hcity':self.hcity,
+			'hzip':self.hzip,
+			'hcountry':self.hcountry,
 			})
 
 		action = self.env.ref('template_module.muki_rest_action').read()[0]
