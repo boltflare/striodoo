@@ -122,7 +122,7 @@ class MukiREST(models.Model):
 					# logging.info("DENTRO DEL ELSE: " + str(address))
 		
 		self.env['muki.rest'].create({
-			'hvisit': hvisit2,
+			'hvisit2': hvisit2,
 			'nombre': nombre,
 			'fname': fname,
 			'lname': lname,
