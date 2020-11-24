@@ -6,7 +6,7 @@ import base64
 import socket
 import logging
 _logger = logging.getLogger(__name__)
-from odoo import models, fields, api, _
+from odoo import models, fields, api, exceptions, _
 
 class MukiREST(models.Model):
 	_name = "muki.rest"
@@ -80,11 +80,14 @@ class MukiREST(models.Model):
 				'X-VSO-caller': ipBase}
 
 		datas = http.request('POST', url, fields=values, headers=headers)
-		logging.info("DICCIONARIO: " + str(datas))
-		datas = json.loads(datas.data.decode('utf-8'))
+		# logging.info("DICCIONARIO: " + str(datas))
+		try:
+			datas = json.loads(datas.data.decode('utf-8'))
+		except Exception:
+			raise exceptions.Warning("No se han encontrado resultados!")
+		
 		self.replace(datas, None, 'None')
 		self.replace(datas, [], 'None')
-
 		logging.info("CONTENIDO: " + str(datas.values()))
 
 		for value in datas.values():
