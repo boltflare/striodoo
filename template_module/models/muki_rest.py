@@ -30,6 +30,7 @@ class MukiREST(models.Model):
 	lname = fields.Char("Last Name")
 	visitor_email = fields.Char("Email")
 	hvisit2 = fields.Char("Visitor ID")
+	hvisit = fields.Char("Visitor ID")
 	hstreet = fields.Char("Street")
 	hstreet2 = fields.Char("Street2")
 	hcity = fields.Char("City")

@@ -55,7 +55,7 @@
 		<!-- DECLARACION DE WIZARD Y DE LA ACCION PARA LEVANTAR EL WIZARD AL HACR CLICK AL SEARCH -->
 		<record model="ir.ui.view" id="wizard_form_search">
 			<field name="name">wizard.form.search</field>
-			<field name="model">vso.wizard</field>
+			<field name="model">muki.rest</field>
 			<field name="arch" type="xml" >
 				<form string="VSO Search">
 					<sheet> 
