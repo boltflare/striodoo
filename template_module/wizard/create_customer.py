@@ -5,17 +5,17 @@ class CreateCustomer(models.TransientModel):
 	_name = 'create.customer'
 	_description = 'Create a new visitor on customers'
 	
-	nombre = fields.Char("Name")
-	fname = fields.Char("First Name")
-	lname = fields.Char("Last Name")
-	visitor_email = fields.Char("Email")
-	hvisit = fields.Char("Visitor ID")
-	hstreet = fields.Char("Street")
-	hstreet2 = fields.Char("Street2")
-	hcity = fields.Char("City")
-	hzip = fields.Char("Zip")
-	hcountry = fields.Char("Country")
-	hcateg = fields.Char("Visitor Category")
+	# nombre = fields.Char("Name")
+	# fname = fields.Char("First Name")
+	# lname = fields.Char("Last Name")
+	# visitor_email = fields.Char("Email")
+	# hvisit = fields.Char("Visitor ID")
+	# hstreet = fields.Char("Street")
+	# hstreet2 = fields.Char("Street2")
+	# hcity = fields.Char("City")
+	# hzip = fields.Char("Zip")
+	# hcountry = fields.Char("Country")
+	# hcateg = fields.Char("Visitor Category")
 
 	#EN ESTE METODO SE OBTIENE LOS REGISTROS CON EL CHECK ACTIVO, RECORRO LA VISTA Y CREO EN CLIENTES EL REGITRO SELECCIONADO
 	def create_customer(self):
