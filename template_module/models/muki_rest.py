@@ -148,7 +148,7 @@ class MukiREST(models.Model):
 
 		datas = http.request('POST', url, fields=values, headers=headers)
 		#MOSTRAR EXCEPCION EN CASO DE NO OBTENER RESULTADO
-		action = self.env.ref('ir.actions.act_window')
+		action = self.env.ref('template_module.muki_rest_action')
 		try:
 			datas = json.loads(datas.data.decode('utf-8'))
 			#REEMPLAZANDO VALORES VACIOS POR EL STRING 'NONE'
