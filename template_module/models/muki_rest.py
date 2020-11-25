@@ -150,7 +150,7 @@ class MukiREST(models.Model):
 			self.replace(datas, None, '')
 			self.replace(datas, [], '')
 			logging.info("CONTENIDO: " + str(datas.values()))
-			self.add_visitor(datas)
+			# self.add_visitor(datas)
 		except Exception:
 			raise RedirectWarning("No se han encontrado resultados!", action.id, _('OK'))
 		
