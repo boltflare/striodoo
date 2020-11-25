@@ -115,8 +115,8 @@ class MukiREST(models.Model):
 			'hcountry':self.hcountry,
 			})
 		
-		action = self.env.ref('template_module.muki_rest_action')
-		action['target'] = 'current'
+		action = self.env.ref('template_module.muki_rest_action').read()[0]
+		action['target'] = 'main'
 		return action	
 
 	#FUNCION PARA HACER REQUEST Y OBTENER JSON CON LOS RESULTADOS DE LA BUSQUEDA
