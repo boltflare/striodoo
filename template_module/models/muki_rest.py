@@ -69,47 +69,8 @@ class MukiREST(models.Model):
 		else:
 			return False	
 
-	#FUNCION PARA HACER REQUEST Y OBTENER JSON CON LOS RESULTADOS DE LA BUSQUEDA
-	def search_visitor(self):
-		ip_address = '34.66.235.140'
-		#CONVIRTIENDO A FORMATO ASCII EL IP
-		ip_address_bytes = ip_address.encode('ascii')
-		#CONVIRTIENDO A BASE64 EL IP
-		ipBase = base64.b64encode(ip_address_bytes)
-		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
-		url = 'https://visitors.stri.si.edu/services/getVisits'
-		
-		values = dict()
-		filtros_dic = {
-			"visitor_id":self.hvisit,
-			"status": self.whstatus,
-			"visitor_name":self.wnombre,
-			"name":self.wfname,
-			"last_name":self.wlname,
-			"email":self.wvisitor_email}
-
-		for key, value in filtros_dic.items():
-			if (value != False):
-				values[key] = value
-		# values = {"visitor_id":self.hvisit,"status": self.hstatus,"visitor_name":self.nombre}
-		logging.info("VALUES: " + str(values))
-	
-		headers={'Accept': 'application/json',
-				'X-VSO-caller': ipBase}
-
-		datas = http.request('POST', url, fields=values, headers=headers)
-		#VARIABLE PARA MOSTRAR EXCEPCION EN CASO DE NO OBTENER RESULTADO
-		action = self.env.ref('template_module.muki_rest_action')
-		try:
-			datas = json.loads(datas.data.decode('utf-8'))
-		except Exception:
-			raise RedirectWarning("No se han encontrado resultados!", action.id, _('OK'))
-		
-		#REEMPLAZANDO VALORES VACIOS POR EL STRING 'NONE'
-		self.replace(datas, None, '')
-		self.replace(datas, [], '')
-		logging.info("CONTENIDO: " + str(datas.values()))
-
+	#FUNCION PARA AGREGAR VALORES A LA VISTA DE RESULTADOS
+	def add_visitor(self, datas):
 		for value in datas.values():
 			for data in value:
 				self.hvisit2= data['user_id']
@@ -152,6 +113,48 @@ class MukiREST(models.Model):
 			'hcountry':self.hcountry,
 			})
 
+	#FUNCION PARA HACER REQUEST Y OBTENER JSON CON LOS RESULTADOS DE LA BUSQUEDA
+	def search_visitor(self):
+		ip_address = '34.66.235.140'
+		#CONVIRTIENDO A FORMATO ASCII EL IP
+		ip_address_bytes = ip_address.encode('ascii')
+		#CONVIRTIENDO A BASE64 EL IP
+		ipBase = base64.b64encode(ip_address_bytes)
+		http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
+		url = 'https://visitors.stri.si.edu/services/getVisits'
+		
+		values = dict()
+		filtros_dic = {
+			"visitor_id":self.hvisit,
+			"status": self.whstatus,
+			"visitor_name":self.wnombre,
+			"name":self.wfname,
+			"last_name":self.wlname,
+			"email":self.wvisitor_email}
+		
+		
+		for key, value in filtros_dic.items():
+			if (value != False):
+				values[key] = value
+		logging.info("VALUES: " + str(values))
+	
+		headers={'Accept': 'application/json',
+				'X-VSO-caller': ipBase}
+
+		datas = http.request('POST', url, fields=values, headers=headers)
+		#MOSTRAR EXCEPCION EN CASO DE NO OBTENER RESULTADO
+		action = self.env.ref('template_module.muki_rest_action')
+		try:
+			datas = json.loads(datas.data.decode('utf-8'))
+			#REEMPLAZANDO VALORES VACIOS POR EL STRING 'NONE'
+			self.replace(datas, None, '')
+			self.replace(datas, [], '')
+			logging.info("CONTENIDO: " + str(datas.values()))
+			self.add_visitor(datas)
+		except Exception:
+			raise RedirectWarning("No se han encontrado resultados!", action.id, _('OK'))
+		
+		
 		action = self.env.ref('template_module.muki_rest_action').read()[0]
 		action['target'] = 'main'
 		return action	
