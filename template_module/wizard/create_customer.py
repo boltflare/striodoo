@@ -21,7 +21,7 @@ class CreateCustomer(models.TransientModel):
 	def create_customer(self):
 		active_ids = self._context.get('active_ids', []) or []
 		for record in self.env['muki.rest'].browse(active_ids):
-			self.env["res.partner"].create({'name':record.nombre,'visitor':record.hvisit,'street':record.hstreet,'street2':record.hstreet2,'city':record.hcity,'zip':record.hzip,'visit_category':record.hcateg,'email':record.visitor_email})
+			self.env["res.partner"].create({'name':record.nombre,'visitor':record.hvisit2,'street':record.hstreet,'street2':record.hstreet2,'city':record.hcity,'zip':record.hzip,'visit_category':record.hcateg,'email':record.visitor_email})
 
 		# ESTA PROPIEDAD PERMITE ELIMINAR TODOS LOS REGISTROS LUEGO DE HACER EL CREATE
 		record_set = self.env['muki.rest'].search([])
