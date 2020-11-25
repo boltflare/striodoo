@@ -114,7 +114,7 @@ class MukiREST(models.Model):
 			'hcountry':self.hcountry,
 			}) """
 		
-		action = self.env.ref('template_module.muki_rest_action').read()[0]
+		action = self.env.ref('template_module.muki_rest_action')
 		action['target'] = 'current'
 		return action	
 
