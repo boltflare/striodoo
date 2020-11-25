@@ -99,7 +99,7 @@ class MukiREST(models.Model):
 					self.hcountry=""
 					# logging.info("DENTRO DEL ELSE: " + str(address))
 		
-		self.env['muki.rest'].create({
+		""" self.env['muki.rest'].create({
 			'hvisit2': self.hvisit2,
 			'nombre': self.nombre,
 			'fname': self.fname,
@@ -112,7 +112,7 @@ class MukiREST(models.Model):
 			'hcity':self.hcity,
 			'hzip':self.hzip,
 			'hcountry':self.hcountry,
-			})
+			}) """
 		
 		action = self.env.ref('template_module.muki_rest_action').read()[0]
 		action['target'] = 'current'
