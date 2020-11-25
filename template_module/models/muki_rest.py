@@ -112,6 +112,10 @@ class MukiREST(models.Model):
 			'hzip':self.hzip,
 			'hcountry':self.hcountry,
 			})
+		
+		action = self.env.ref('template_module.muki_rest_action').read()[0]
+		action['target'] = 'main'
+		return action	
 
 	#FUNCION PARA HACER REQUEST Y OBTENER JSON CON LOS RESULTADOS DE LA BUSQUEDA
 	def search_visitor(self):
@@ -155,7 +159,5 @@ class MukiREST(models.Model):
 			raise RedirectWarning("No se han encontrado resultados!", action.id, _('OK'))
 		
 		
-		action = self.env.ref('template_module.muki_rest_action').read()[0]
-		action['target'] = 'main'
-		return action	
+		
 		# print(datas)
