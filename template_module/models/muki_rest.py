@@ -158,7 +158,7 @@ class MukiREST(models.Model):
 			# raise RedirectWarning("No se han encontrado resultados!", action.id, _('OK'))
 		
 		action = self.env.ref('template_module.muki_rest_action').read()[0]
-		action['target'] = 'current'
+		action['target'] = 'main'
 		return action
 		
 		# print(datas)
