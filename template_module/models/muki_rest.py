@@ -71,6 +71,7 @@ class MukiREST(models.Model):
 
 	#FUNCION PARA AGREGAR VALORES A LA VISTA DE RESULTADOS
 	def add_visitor(self, datas):
+		logging.info("Se esta llamando la funcion:")
 		for value in datas.values():
 			for data in value:
 				self.hvisit2= data['user_id']
