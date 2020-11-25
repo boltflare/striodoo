@@ -115,7 +115,7 @@ class MukiREST(models.Model):
 			})
 		
 		action = self.env.ref('template_module.muki_rest_action').read()[0]
-		action['target'] = 'main'
+		action['target'] = 'current'
 		return action	
 
 	#FUNCION PARA HACER REQUEST Y OBTENER JSON CON LOS RESULTADOS DE LA BUSQUEDA
