@@ -7,7 +7,8 @@ import socket
 import logging
 _logger = logging.getLogger(__name__)
 from odoo import models, fields, api, _
-from odoo.exceptions import RedirectWarning
+from odoo.exceptions import UserError
+# from odoo.exceptions import RedirectWarning
 
 class MukiREST(models.Model):
 	_name = "muki.rest"
@@ -99,7 +100,7 @@ class MukiREST(models.Model):
 					self.hcountry=""
 					# logging.info("DENTRO DEL ELSE: " + str(address))
 		
-		""" self.env['muki.rest'].create({
+		self.env['muki.rest'].create({
 			'hvisit2': self.hvisit2,
 			'nombre': self.nombre,
 			'fname': self.fname,
@@ -112,7 +113,7 @@ class MukiREST(models.Model):
 			'hcity':self.hcity,
 			'hzip':self.hzip,
 			'hcountry':self.hcountry,
-			}) """
+			})
 		
 		action = self.env.ref('template_module.muki_rest_action')
 		action['target'] = 'current'
@@ -148,16 +149,17 @@ class MukiREST(models.Model):
 
 		datas = http.request('POST', url, fields=values, headers=headers)
 		#MOSTRAR EXCEPCION EN CASO DE NO OBTENER RESULTADO
-		action = self.env.ref('template_module.muki_rest_action')
+			# action = self.env.ref('template_module.muki_rest_action')
 		try:
 			datas = json.loads(datas.data.decode('utf-8'))
 			#REEMPLAZANDO VALORES VACIOS POR EL STRING 'NONE'
 			self.replace(datas, None, '')
 			self.replace(datas, [], '')
 			logging.info("CONTENIDO: " + str(datas.values()))
-			# self.add_visitor(datas)
+			self.add_visitor(datas)
 		except Exception:
-			raise RedirectWarning("No se han encontrado resultados!", action.id, _('OK'))
+			raise UserError(_('No se han encontrado resultados!'))
+			# raise RedirectWarning("No se han encontrado resultados!", action.id, _('OK'))
 		
 		
 		
