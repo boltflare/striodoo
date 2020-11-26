@@ -15,6 +15,9 @@ class accountInvoiceInherit2(models.Model):
 
 	class_code = fields.Many2one("class.code", "Class Code")
 	customer_is_fund = fields.Boolean(string="Is Customer Fund?", compute="_customer_is_fund", default=False)
+	fund_email = fields.Char(string="Fund Manager Email", related='partner_id.fund_manager.email')
+	pinv_email = fields.Char(string="Principal Investigator Email", related='partner_id.principal_investigator.email')
+
 	#btn_credit_note = fields.Boolean(compute="_compute_btn_credit_note", string="Activar button credit note")
 	#CAMPO PARA SOBRESCRIBIR EL CAMPO DE FECHA
 	date_invoice = fields.Date(string='Invoice Date',

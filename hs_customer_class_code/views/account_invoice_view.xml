@@ -17,6 +17,8 @@
 					<!-- Add your fields here -->
 					<field name="customer_is_fund" invisible="1"/>
 					<field name="class_code" attrs="{'invisible':[('customer_is_fund','=',False)], 'required': [('customer_is_fund', '=', True)]}"/>
+					<field name="fund_email" attrs="{'invisible':[('customer_is_fund','=',False)]}"/>
+					<field name="pinv_email" attrs="{'invisible':['|',('customer_is_fund','=',False), ('pinv_email', '=', False)]}"/>
 					<!-- <field name="name" attrs="{'invisible': [('condition1', '=', False)], 'required': [('condition2', '=', True)]}"/> -->
 				</xpath>
 					
