@@ -17,6 +17,7 @@ class accountInvoiceInherit2(models.Model):
     customer_is_fund = fields.Boolean(string="Is Customer Fund?", compute="_customer_is_fund", default=False)
     #btn_credit_note = fields.Boolean(compute="_compute_btn_credit_note", string="Activar button credit note")
     fund_email = fields.Char(string='Fund Manager Email', related='partner_id.fund_manager.email')
+    pinv_email = fields.Char(string='Principal Investigator Email', related='partner_id.principal_investigator.email')
     #CAMPO PARA SOBRESCRIBIR EL CAMPO DE FECHA
     date_invoice = fields.Date(string='Invoice Date',
         readonly=True, states={'draft': [('readonly', False)]}, default = fields.Date.context_today, index=True,
