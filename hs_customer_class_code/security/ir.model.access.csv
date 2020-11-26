@@ -1,5 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_class_code,access.class.code,model_class_code,base.group_user,1,1,1,0
+access_class_code_group_manager,access.class.code.group.manager,model_class_code,account.group_account_user,1,1,1,1
+access_class_code_group_user,access.class.code.group.user,model_class_code,account.group_account_invoice,1,1,0,0
 access_fund_manager,access.fund.manager,model_fund_manager,base.group_user,1,1,1,0
 access_principal_investigator,access.principal.investigator,model_principal_investigator,base.group_user,1,1,1,0
 access_regular_companies, access.regular.companies,model_regular_companies,base.group_user,1,1,1,0
+
+
