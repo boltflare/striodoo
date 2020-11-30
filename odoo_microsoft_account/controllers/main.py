@@ -70,7 +70,7 @@ class OAuthController(http.Controller):
     def microsoft_signin(self, **kw):
         pool = request.env
         root_url = request.env['ir.config_parameter'].sudo().get_param(
-            'web.base.url') + '/'
+            'web.base.url2') + '/'
         _logger.info("root_url " + str(root_url))
         _logger.info("kw " + str(kw))
         
