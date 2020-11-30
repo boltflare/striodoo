@@ -18,3 +18,11 @@ class ClassCode (models.Model):
             record_name = '[' + record.code + '] ' + record.name
             result.append((record.id, record_name))
         return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        args = args or []
+        recs = self.browse()
+        if not recs:
+            recs = self.search([('code', operator, name)] + args, limit=limit)
+        return recs.name_get()

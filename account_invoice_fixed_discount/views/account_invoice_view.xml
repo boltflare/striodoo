@@ -10,7 +10,7 @@
         <field name="inherit_id" ref="account.view_invoice_line_tree"/>
         <field name="arch" type="xml">
             <field name="discount" position="before">
-                <field name="discount_fixed" groups="base.group_no_one" string="Disc (Fixed)"/>
+                <field name="discount_fixed" string="Discount"/>
             </field>
         </field>
     </record>
@@ -21,7 +21,7 @@
         <field name="inherit_id" ref="account.view_invoice_line_form"/>
         <field name="arch" type="xml">
             <field name="discount" position="before">
-                <field name="discount_fixed" groups="base.group_no_one" string="Disc (Fixed)"/>
+                <field name="discount_fixed" string="Discount"/>
             </field>
         </field>
     </record>
@@ -33,7 +33,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']"
                    position="before">
-                <field name="discount_fixed" groups="base.group_no_one" string="Disc (Fixed)"/>
+                <field name="discount_fixed" string="Discount"/>
             </xpath>
         </field>
     </record>

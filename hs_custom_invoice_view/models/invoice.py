@@ -7,7 +7,7 @@ class InvoiceInherit2(models.Model):
 	# _inherit = ['todo.task', 'mail.thread']
 
 	# is_fund = fields.Boolean(string="Is Fund")
-
+	
 	note =  fields.Char(string='Description')
 
 	@api.multi
@@ -15,4 +15,4 @@ class InvoiceInherit2(models.Model):
 		lines = self.env['account.invoice.line'].search([('invoice_id', '=', self.id)])
 		if lines:
 			lines.write({'hs_state':self.state})
-	
+

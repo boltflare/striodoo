@@ -33,7 +33,7 @@ class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
     discount_fixed = fields.Float(
-        string="Discount (Fixed)",
+        string="Discount",
         digits=dp.get_precision('Product Price'),
         help="Fixed amount discount.")
 
