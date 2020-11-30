@@ -210,14 +210,13 @@ class CyberSourceController(http.Controller):
 
     @http.route('/payment/cybersource/feedback/', type='http', auth="public", csrf=False,  website=True)
     def cybersource_form_feedback(self, **post):
-
+        logging.info("____Cybersource: El valor de session en feedback es: " + str(request.session))
         try:
             if post:
                 content = ""
                 for key, value in post.items():
                     content = content + "'{}' : {}, ".format(key, value)
                 logging.info("____Cybersource: El valor de post es: " + content)
-        
             reference = post.get('req_reference_number')
             payment = request.env["payment.transaction"].sudo().search([('reference', '=', reference)], limit=1)
             data_ids = request.session.get("__payment_tx_ids__", [])
@@ -241,8 +240,7 @@ class CyberSourceController(http.Controller):
                     request.env['payment.transaction'].sudo().form_feedback(item, 'cybersource')
             else:
                 request.env['payment.transaction'].sudo().form_feedback(post, 'cybersource')
-            
-            #request.env['payment.transaction'].sudo().form_feedback(post, 'cybersource')
+            # request.env['payment.transaction'].sudo().form_feedback(post, 'cybersource')
             # return werkzeug.utils.redirect('/payment/process')
             return ''
         except Exception as __ERROR:
@@ -256,7 +254,7 @@ class CyberSourceController(http.Controller):
     ], type='http', auth='public', csrf=False)
     def cybersource_payment_return(self, **post):
         #data = request.session.get("__payment_tx_ids__", [])
-        logging.info("____Cybersource: El valor de session en cybersource_final_step es: " + str(request.session))
+        logging.info("____Cybersource: El valor de session en return/cancel es: " + str(request.session))
         #request.env['payment.transaction'].sudo().form_feedback(data, 'cybersource')
         return werkzeug.utils.redirect('/payment/process')
 
