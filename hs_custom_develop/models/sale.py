@@ -11,3 +11,12 @@ class SaleInherit(models.Model):
 
 
 	required_invoice = fields.Boolean("Invoice Required", default=True)
+
+
+	@api.onchange('order_line')
+	def _on_change_order_line(self):
+		for line in self.order_line:
+			if line.product_id:
+				product = line.product_id
+				if self.required_invoice == True and product.type == "product":
+					product.sudo().write({'invoice_policy': 'order'})
