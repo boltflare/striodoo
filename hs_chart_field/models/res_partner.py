@@ -9,7 +9,7 @@ class ResPartnerInherit(models.Model):
 	stri_budget = fields.Char("Budget Reference")
 	stri_desig = fields.Char("Designated Code")
 	stri_dept = fields.Char("Department ID")
-	stri_account = fields.Char("Account")
+	stri_account = fields.Char("Account", default="6999")
 	stri_class = fields.Char(string="Class Field", default="CLASSCODE")
 	stri_program = fields.Char("Program Code")
 
