@@ -264,7 +264,7 @@ WITH people_soft_data AS (
 		(SELECT (CASE WHEN credit > 0.00 THEN (credit * -1) WHEN debit > 0.00 THEN debit ELSE 0.00 END )) AS amount
 		FROM account_move_line AS line, account_invoice AS inv, res_partner AS partner, account_account AS account, account_journal as journal
 		WHERE (line.date BETWEEN '{}' AND '{}') AND line.invoice_id = inv.id AND line.partner_id = partner.id AND partner.customer_type = 'regular'
-		AND inv.journal_id = journal.id AND line.account_id = account.id AND inv.type in ('out_invoice', 'out_refund') AND inv.state = 'open'
+		AND inv.journal_id = journal.id AND line.account_id = account.id AND inv.type in ('out_invoice', 'out_refund')
 
 		
 		UNION
@@ -308,7 +308,7 @@ WITH people_soft_data AS (
 		END) AS chartfield,
 		line.partner_id,
 		0 as invoice,
-		pay.name as reference,
+		(SELECT AM3.name from account_move as AM3 WHERE line.move_id = AM3.id limit 1) as reference,
 		pay.people_soft_registered as registered,
 		/*Hacemos una consulta a la factura asociada al pago para obtener el journal 
 		y asi identificar si viene de BCI o STRI para luego guardarlo en la columna doc_type*/
@@ -369,7 +369,7 @@ ORDER BY external_order DESC, sub_order DESC
 		lines = []
 		docs = self.env.context['docs'] if 'docs' in self.env.context else None
 		invoices = self._do_query(options, docs)
-		count = 0
+		count = 1
 
 		for invoice in invoices:
 			invoice = list(invoice)
@@ -395,22 +395,27 @@ ORDER BY external_order DESC, sub_order DESC
 		return lines
 
 
-	def publish_report(self, options):
+	def action_publish(self, options):
 		invoices = self._do_query(options)
 
-		documents = []
+		# documents = []
 		for item in invoices:
 			number = item[9] 	#9 es la columna del numero de factura
-			if not number in documents:
-				resp = self.env["account.invoice"].search([('number', '=', number)], limit=1)
-				if resp:
-					resp.people_soft_registered = True
-					documents.append(number)
-				else:
-					pay = self.env["account.payment"].search([('name', '=', number)], limit=1)
-					if pay:
-						pay.people_soft_registered = True
-						documents.append(number)
+			# if not number in documents:
+			inv = self.env["account.invoice"].search([('number', '=', number)])
+			if inv:
+				inv.write({'people_soft_registered':True})
+				continue
+		
+			pay = self.env["account.payment"].search([('name', '=', number)])
+			if pay:
+				pay.write({'people_soft_registered':True})
+				continue
+			
+			pay = self.env['account.payment'].search([('move_name', '=', number)])
+			if pay:
+				pay.write({'people_soft_registered':True})
+				continue
 
 				
 		
@@ -434,9 +439,5 @@ ORDER BY external_order DESC, sub_order DESC
 
 	def _get_reports_buttons(self):
 		buttons = super(PeopleSoftReport, self)._get_reports_buttons()
-		buttons.append({
-			'name': _('publish'), 
-			'action': 'publish_report', 
-			'invisible': "[('published_entries', '=', True)]"
-		})
+		buttons.append({'name': _('Publish'), 'action': 'action_publish'})
 		return buttons
