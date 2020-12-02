@@ -84,11 +84,15 @@ class AccountInvoiceInherit3(models.Model):
 
 			if inv.partner_id.customer_type == 'regular':
 				continue
+			
+			if not inv.date_invoice:
+				raise exceptions.ValidationError('Invoice Error - '
+				'Date invoice field is required.') 
 
 			Payment = self.env['account.payment'].sudo().with_context(
 				default_invoice_ids=[(4, inv.id, False)],
 				default_amount = inv.amount_total,
-				default_payment_date = fields.Date.today()
+				default_payment_date = inv.date_invoice
 			)
 
 			filter_config = 'hs_custom_develop.default_journal_strifund'
