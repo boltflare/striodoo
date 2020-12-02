@@ -35,10 +35,45 @@
 			</field>
 		</record>
 
-		
-		<!-- 
 
-		-->
+		<!-- model.name inherit form view -->
+		<record id="res_partner_inherit2_form" model="ir.ui.view">
+			<field name="name">res.partner.inherit2.form</field>
+			<field name="model">res.partner</field>
+			<!--field name="inherit_id" ref="base.view_partner_form"/-->
+			<field name="inherit_id" ref="website_partner.view_partners_form_website"/>
+			<field name="arch" type="xml">
+				<!-- Add your xpath here -->
+				<xpath expr="//button[@name='toggle_active']" position="before">
+					<field name="extra_option" invisible="1"/>
+				</xpath>
+
+				<xpath expr="//button[@name='toggle_active']" position="attributes">
+					<attribute name="attrs">{'invisible': [('extra_option', '!=', True)]}</attribute>
+				</xpath>
+
+				<xpath expr="//button[@name='website_publish_button']" position="attributes">
+					<attribute name="attrs">{'invisible': [('extra_option', '!=', True)]}</attribute>
+				</xpath>
+			</field>
+		</record>
+
+
+		<!-- model.name inherit form view -->
+		<!--record id="res_partner_inherit3_form" model="ir.ui.view">
+			<field name="name">res.partner.inherit3.form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="website_partner.view_partners_form_website"/>
+			<field name="arch" type="xml">
+
+				<xpath expr="//button[@name='website_publish_button']" position="attributes">
+					<attribute name="attrs">{'invisible': [('extra_option', '!=', True)]}</attribute>
+				</xpath>
+				
+			</field>
+		</record-->
+
+
 		<record id="action_partner_customer_form" model="ir.actions.act_window">
 			<field name="name">Customers</field>
 			<field name="type">ir.actions.act_window</field>
