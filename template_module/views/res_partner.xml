@@ -3,16 +3,15 @@
 	<data>
 		
 		<!-- model.name inherit form view -->
-		<record id="res_partner_inherit1_form" model="ir.ui.view">
-			<field name="name">res.partner.inherit1.form</field>
+		<record id="res_partner_inherit2" model="ir.ui.view">
+			<field name="name">res.partner.inherit2</field>
 			<field name="model">res.partner</field>
 			<field name="inherit_id" ref="base.view_partner_form"/>
 			<field name="arch" type="xml">
-				
-				<xpath expr="/form/*" position="before">
-					<header>
-						<button name="action_update_customer" string="Update Customer" type="object" />
-					</header>
+				<xpath expr="//field[@name='vat']" position="after">
+					<!-- <field name="visit_category" readonly="1" attrs="{'invisible':[('visit_category','=',False)]}"/> -->
+					<field name="login" invisible="1"/>
+					<field name="visit_category" attrs="{'invisible':[('visit_category','=',False)], 'readonly': [('login', '=', False)]}"/>
 				</xpath>
 			</field>
 		</record>

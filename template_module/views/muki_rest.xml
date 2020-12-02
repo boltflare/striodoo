@@ -7,49 +7,22 @@
 			<field name = "model">muki.rest</field>
 			<field name = "arch" type = "xml">
 				<tree string = "Search Visitor" create="false" edit="false" delete="true">
-					<field name = "hvisit"/>
+					<field name = "hvisit2"/>
 					<field name = "nombre" />
 					<field name = "fname" />
 					<field name = "lname"/>
 					<field name = "visitor_email"/>
 					<field name = "hstatus"/>
+					<field name="hcateg"/>
 					<field name = "hstreet" invisible="1"/>
 					<field name = "hstreet2" invisible="1"/>
 					<field name = "hcity" invisible="1"/>
 					<field name = "hzip" invisible="1"/>
-					
+					<field name="hcountry"/>
 				</tree>
 			</field>
 		</record>
 
-		<!--FORM VIEW-->
-		<!-- <record id = "vso_form_view" model = "ir.ui.view">
-			<field name = "name">VSO View Form</field> 
-			<field name = "model">muki.rest</field> 
-			<field name = "arch" type = "xml"> 
-				<form string = "VSO View" create="false" edit="false"> 
-					<sheet> 
-						<group>
-							<group>
-								<field name = "hvisit"/>
-								<field name = "hstatus" />
-								<field name = "nombre" />
-								<field name = "fname"/>
-								<field name = "lname" />
-								<field name = "visitor_email" />
-							</group>
-						</group>
-						<footer>
-							<button name="search_visitor" type="object"
-									string="Search" class="oe_highlight"/>
-							or
-							<button special="cancel" string="Cancel"/>
-						</footer>
-					</sheet>
-				</form>
-			</field>
-		</record> -->
-		
 		<!--CREANDO VISTA DE BUSQUEDA PARA APLICAR FILTROS-->
 		
 		<record id="vso_search_view" model="ir.ui.view">
@@ -57,7 +30,7 @@
 			<field name="model">muki.rest</field>
 			<field name="arch" type="xml">
 				<search string="Search Visitor">
-						<field name="hvisit" string="Visitor ID" filter_domain="[('hvisit', '=', self)]"/>
+						<field name="hvisit2" string="Visitor ID" filter_domain="[('hvisit2', '=', self)]"/>
 						<field name="nombre" string="Name" filter_domain="[('nombre', '=', self)]"/>
 						<field name="visitor_email" string="Email" filter_domain="[('visitor_email', '=', self)]"/>
 						<field name="hstatus" string="Status" filter_domain="[('hstatus', '=', self)]"/>
@@ -70,32 +43,13 @@
 		</record>
 
 		<record id="muki_rest_action" model="ir.actions.act_window">
-			<field name="name">VSO SEARCH</field>
-			<field name="type">ir.actions.act_window</field>
+			<field name="name">VSO Search</field>
 			<field name="res_model">muki.rest</field>
-			<field name="view_mode">tree,form</field>
-			<field name="search_view_id" ref="vso_search_view"/>
 			<field name="view_type">form</field>
-		</record>
-
-	   <!-- Este es la acción heredada que permite mostrar los datos en vista arbol -->
-		<record id="vso_menu_tree" model="ir.actions.act_window.view">
-			<field name="act_window_id" ref="template_module.muki_rest_action" />
-			<field name="view_id" ref="template_module.vso_tree_view"/>
 			<field name="view_mode">tree</field>
-			<field name="sequence" eval="2"/>
+			<field name="search_view_id" ref="vso_search_view"/>
 		</record>
- 
-		<!-- Este es la accion heredada que permite mostrar los datos en vista formulario 
-		de facturas en invoice view -->
-		<!-- <record id="vso_menu_form" model="ir.actions.act_window.view">
-			<field name="act_window_id" ref="template_module.muki_rest_action"/>
-			<field name="view_id" ref="template_module.vso_form_view"/>
-			<field name="view_mode">form</field>
-			<field name="sequence" eval="2"/>
-		</record> -->
 
-		
 		<menuitem id="muki_rest_menu" name="VSO Search" parent="account.menu_finance_receivables" action="muki_rest_action" sequence=""/>
 		
 		<!-- DECLARACION DE WIZARD Y DE LA ACCION PARA LEVANTAR EL WIZARD AL HACR CLICK AL SEARCH -->
@@ -103,16 +57,16 @@
 			<field name="name">wizard.form.search</field>
 			<field name="model">muki.rest</field>
 			<field name="arch" type="xml" >
-				<form create="false" edit="false">
+				<form string="VSO Search">
 					<sheet> 
 						<group>
 							<group>
 								<field name = "hvisit"/>
-								<field name = "hstatus" />
-								<field name = "nombre" />
-								<field name = "fname"/>
-								<field name = "lname" />
-								<field name = "visitor_email" />
+								<field name = "whstatus" />
+								<field name = "wnombre" />
+								<field name = "wfname"/>
+								<field name = "wlname" />
+								<field name = "wvisitor_email" />
 							</group>
 						</group>
 						<footer>
@@ -130,6 +84,7 @@
 		<record model="ir.ui.view" id="wizard_form_view">
 			<field name="name">wizard.form</field>
 			<field name="model">create.customer</field>
+			<!-- <field name="groups_id" eval="[(4,ref('account.group_account_user'))]"/> -->
 			<field name="arch" type="xml">
 				<form string="CREATE CUSTOMER">
 					<group>
@@ -153,7 +108,8 @@
 					res_model="create.customer"
 					view_mode="form"
 					target="new"
-					key2="client_action_multi"/>
+					key2="client_action_multi"
+					groups="account.group_account_user"/>
 	
 		<!--  AGREGANDO WIZARD PARA CREAR EL POP-UP MESSAGE-->
 		<record id="message_wizard_form" model="ir.ui.view">
