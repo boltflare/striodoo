@@ -19,7 +19,7 @@ class AuthOauthProvider(models.Model):
         data = dict(
             grant_type=type_grant,
             redirect_uri=request.env['ir.config_parameter'].sudo().get_param(
-                'web.base.url') + '/auth_oauth/microsoft/signin',
+                'web.base.url2') + '/auth_oauth/microsoft/signin',
             client_id=oauth_provider_rec.client_id,
             response_mode='form_post',
             client_secret=oauth_provider_rec.secret_key,

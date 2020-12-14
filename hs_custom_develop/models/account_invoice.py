@@ -84,6 +84,9 @@ class AccountInvoiceInherit3(models.Model):
 
 			if inv.partner_id.customer_type == 'regular':
 				continue
+
+			if inv.amount_total == 0.00:
+				continue
 			
 			if not inv.date_invoice:
 				raise exceptions.ValidationError('Invoice Error - '

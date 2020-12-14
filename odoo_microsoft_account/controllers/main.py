@@ -30,7 +30,7 @@ class OAuthLogin(Home):
             'odoo_microsoft_account.provider_microsoft')
         _logger.info("provider_microsoft " + str(provider_microsoft))
         base_url = request.env['ir.config_parameter'].sudo().get_param(
-            'web.base.url')
+            'web.base.url2')
         _logger.info("base_url " + str(base_url))
         for provider in providers:
             if provider.get('id') == provider_microsoft.id:
@@ -70,7 +70,7 @@ class OAuthController(http.Controller):
     def microsoft_signin(self, **kw):
         pool = request.env
         root_url = request.env['ir.config_parameter'].sudo().get_param(
-            'web.base.url') + '/'
+            'web.base.url2') + '/'
         _logger.info("root_url " + str(root_url))
         _logger.info("kw " + str(kw))
         
